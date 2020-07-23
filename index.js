@@ -2,15 +2,14 @@
 
 const mongoose = require("mongoose");
 const app = require('./app');
+const config = require('./config');
 
-const port = 3001;
-
-mongoose.connect('mongodb://localhost:27017/lagunalink_db', (err, res) => {
+mongoose.connect(config.db, (err, res) => {
     if (err) throw err;
     console.log('Database connection established');
 
-    app.listen(port, () => {
-      console.log(`API corriendo en el puerto ${port}`);
+    app.listen(config.port, () => {
+      console.log(`API corriendo en el puerto ${config.port}`);
     });
 });
 
