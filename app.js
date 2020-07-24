@@ -9,7 +9,7 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use('/api', api);
+app.use('/api/v1 ', api);
 
 
 
