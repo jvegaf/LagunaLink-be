@@ -3,8 +3,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const LanguageSchema = new Schema({
+const ProvinceSchema = new Schema({
   name: String,
 });
 
-module.exports = mongoose.model("Language", LanguageSchema);
+module.exports = mongoose.model("Province", ProvinceSchema);
