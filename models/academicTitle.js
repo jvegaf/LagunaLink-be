@@ -8,6 +8,4 @@ const AcademicTitleSchema = new Schema({
   category: { type: Schema.ObjectId, ref: "EducationCategory" },
 });
 
-module.exports = mongoose.model('AcademicTitle', AcademicTitleSchema);
-
-
+module.exports = mongoose.model("AcademicTitle", AcademicTitleSchema);
