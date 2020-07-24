@@ -9,7 +9,7 @@ const UserSchema = new Schema({
   password: { type: String, select: false },
   role: { type: String, enum: ["ROLE_USER", "ROLE_COMPANY"] },
   lastLogin: Date,
-  isActive: Boolean,
+  isActive: { type: Boolean, select: false},
 });
 
 UserSchema.pre("save", (next) => {
