@@ -9,11 +9,15 @@ function signUp(req, res) {
     const user = new User({
         email: req.body.email,
         role: req.body.role,
+        password: req.body.password,
     });
-    user.save((err) => {
-        if (err) res.status(500).send({ message: err.message });
-        return res.status(200).send({ token: authService.createToken(user) });
-    })
+
+    user.save()
+        .then(() => {
+            return res.status(200).send({ token: authService.createToken(user) });
+        }).catch(err => {
+            if (err) return res.status(500).send({ message: `user save error: ${err.message}` });
+        });
 }
 
 function signIn(req, res) { }
