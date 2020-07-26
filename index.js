@@ -4,12 +4,16 @@ const mongoose = require("mongoose");
 const app = require('./app');
 const config = require('./config');
 
-mongoose.connect(config.db, (err, res) => {
-    if (err) throw err;
-    console.log('Database connection established');
+// Le indicamos a Mongoose que haremos la conexión con Promesas
+mongoose.Promise = global.Promise;
 
-    app.listen(config.port, () => {
-      console.log(`API corriendo en el puerto ${config.port}`);
-    });
-});
+mongoose.connect(config.db,  { useNewUrlParser: true })
+.then(() => {
+  
+  console.log('Database connection established');
+  
+  app.listen(config.port, () => {
+    console.log(`API corriendo en el puerto ${config.port}`);
+  });
+}).catch(err => console.log(err));
 

@@ -8,21 +8,21 @@ function getLanguage(req, res) {
   let languageId = req.params.languageId;
 
   Language.findById(languageId, (err, language) => {
-    if (err) return res.status(500).send({ message: err });
+    if (err) return res.status(500).send({ message: err.message });
     if (!language)
       return res.status(404).send({ message: "language not exist" });
 
-    res.send(200, { language });
+    res.status(200).send({ language });
   });
 }
 
 function getLanguages(req, res) {
   Language.find({}, (err, languages) => {
-    if (err) return res.status(500).send({ message: err });
-    if (!languages)
-      return res.status(404).send({ message: "don't exist languages" });
+    if (err) return res.status(500).send({ message: err.message });
+    // if (!languages)
+    //   return res.status(404).send({ message: "don't exist languages" });
 
-    res.send(200, { languages });
+    res.status(200).send({ languages });
   });
 }
 
@@ -34,7 +34,7 @@ function saveLanguage(req, res) {
     language.save((err, languageStored) => {
         if (err) return res.status(500).send({ message: err });
 
-        res.send(200, { language: languageStored });
+        res.status(200).send({ language: languageStored });
     }) 
 
 }
@@ -47,7 +47,7 @@ function deleteLanguage(req, res) {
 
         language.remove(err => {
             if (err) return res.status(500).send({ message: err });
-            res.send(200, { message: 'language deleted' });
+            res.status(200).send({ message: 'language deleted' });
         })
     })
 }
