@@ -5,7 +5,12 @@ const User = require('../models/user');
 const authService = require('../services/auth');
 
 function signUp(req, res) {
-    console.log(req.body);
+
+    User.exists({ email: req.body.email })
+    .then(result => {
+        if(result) return res.status(403).send({ message: `The email address ${ req.body.email } has prevously registered`}); 
+    })
+
     const user = new User({
         email: req.body.email,
         role: req.body.role,
