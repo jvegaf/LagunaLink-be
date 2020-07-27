@@ -56,7 +56,7 @@ describe('User tests:', () => {
 			.send({ email: "user@api.com", password: "123123" })
 			.end(function (err, res) {
 				if (err) console.log(err.message);
-				console.log(res.body)
+				console.log(`res.body : ${res.body}`)
 				expect(res).to.have.status(200);
 				done();
 			});
