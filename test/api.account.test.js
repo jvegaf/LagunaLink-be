@@ -28,24 +28,24 @@ describe('User:', () => {
 
 	after(dropDB);
 
-	it('should get a 403 when try a register without email', (done) => {
+	it('should get a error when try a register without email', (done) => {
 		chai.request(url)
 			.post('/api/v1/account/register')
 			.send({ password: "123123", role: "ROLE_STUDENT" })
 			.end(function (err, res) {
 				if (err) console.log(err.message);
-				expect(res).to.have.status(403);
+				expect(res).to.have.status(400);
 				done();
 			});
 	});
 
-	it('should get a 403 when try a register without password', (done) => {
+	it('should get a error when try a register without password', (done) => {
 		chai.request(url)
 			.post('/api/v1/account/register')
 			.send({ email: "user@api.com", role: "ROLE_STUDENT" })
 			.end(function (err, res) {
 				if (err) console.log(err.message);
-				expect(res).to.have.status(403);
+				expect(res).to.have.status(400);
 				done();
 			});
 	});
