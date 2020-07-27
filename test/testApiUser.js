@@ -52,7 +52,7 @@ describe('User tests:', () => {
 
 	it('should get access token with email', (done) => {
 		chai.request(url)
-			.post('/user/sign_in')
+			.post('/api/v1/user/sign_in')
 			.send({ email: "user@api.com", password: "123123" })
 			.end(function (err, res) {
 				if (err) console.log(err.message);
