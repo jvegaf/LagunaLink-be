@@ -3,8 +3,9 @@
 const jwt = require("jwt-simple");
 const moment = require('moment');
 const config = require('../../../config');
+const { compare } = require("bcrypt-nodejs");
 
-function createToken(user) {
+function createAccessToken(user) {
   const payload = {
     sub: user._id,
     role: user.role,
@@ -15,4 +16,15 @@ function createToken(user) {
   return jwt.encode(payload, config.secret);
 }
 
-module.exports = { createToken };
+function createEmailToken(user) {
+  const payload = {
+    sub: user._id,
+    action: 'account verification',
+    iat: moment().unix(), // when token was created
+    exp: moment().add(1, "days").unix() // expiration
+  };
+
+  return jwt.encode(payload, config.secret);
+}
+
+module.exports = { createAccessToken, createEmailToken };

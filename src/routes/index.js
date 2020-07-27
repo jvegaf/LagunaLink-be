@@ -7,8 +7,9 @@ const authCtrl = require('../controllers/auth');
 
 
 /** User */
-api.post('/user/sign_in', authCtrl.signIn);
-api.post('/register/user', authCtrl.signUp);
+api.post('/account/sign_in', authCtrl.signIn);
+api.post('/account/register', authCtrl.signUp);
+api.post('/account/verify', authCtrl.verifyEmail);
 /** Language */
 api.get('/language', languageCtrl.getLanguages);
 api.get('/language/:laguageId', languageCtrl.getLanguage);

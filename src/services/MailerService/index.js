@@ -6,7 +6,7 @@ class MailerService {
     this.transporter = this.nodemailer.createTransport({
       host: transporterOps.host,
       port: transporterOps.port,
-      secure: transporterOps.secure,
+      auth: transporterOps.auth
     });
   }
 
@@ -15,7 +15,7 @@ class MailerService {
       from: "noreply@lagunalink.edu",
       to: address,
       subject: "Account Confirmation",
-      text: verificationToken,
+      text: this.createConfirmationUrl(verificationToken),
     };
 
     this.transporter.sendMail(mailOps, function (err, info) {
@@ -24,6 +24,13 @@ class MailerService {
       return info.response;
     });
   }
+
+  // TODO: MOVER ESTO FUERA Y QUE NOS LLEGUE LA URL
+  createConfirmationUrl(token) {
+    const link = '<a href="http://localhost:3000/api/v1/account/verify?token=' + token + '">Confirm your account</a>';
+    return '<!DOCTYPE html><html><head></head><body>' + link + '</body></>';
+  }
+
 }
 
 module.exports = MailerService;
