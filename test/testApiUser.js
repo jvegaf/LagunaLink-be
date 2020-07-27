@@ -10,20 +10,23 @@ chai.use(chaiHttp);
 const url = 'http://localhost:3000';
 
 
+function dropDB(done) {
+	// TODO: cambiar la forma de borrado
+	mongoose.Promise = global.Promise;
+	mongoose.connect(config.db, { useNewUrlParser: true })
+		.then(() => {
+			mongoose.connection.dropDatabase();
+			done();
+		})
+		.catch(err => console.log(err));
+}
 
 
 describe('User:', () => {
 
-	before(function (done) {
-		// TODO: cambiar la forma de borrado
-		mongoose.Promise = global.Promise;
-		mongoose.connect(config.db, { useNewUrlParser: true })
-			.then(() => {
-				mongoose.connection.dropDatabase();
-				done();
-			})
-			.catch(err => console.log(err));
-	});
+	before(dropDB);
+
+	after(dropDB);
 
 	it('should register a user', (done) => {
 		chai.request(url)
@@ -46,7 +49,6 @@ describe('User:', () => {
 				done();
 			});
 	});
-
 
 	it('should get access token with email', (done) => {
 		chai.request(url)
