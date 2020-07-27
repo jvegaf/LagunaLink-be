@@ -2,13 +2,17 @@
   "name": "lagunalink-be",
   "version": "1.0.0",
   "description": "API Rest de LagunaLink ",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "nodemon --watch src src/index.js",
     "test": "nodemon --exec 'mocha -R list'"
   },
   "author": "Jose Vega",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jvegaf/lagunalink_be.git"
+  },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.19.0",
