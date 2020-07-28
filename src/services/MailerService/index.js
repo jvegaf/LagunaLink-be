@@ -1,36 +1,36 @@
 "use strict";
 
-class MailerService {
-  constructor(mailerModule, transporterOps) {
-    this.nodemailer = mailerModule;
-    this.transporter = this.nodemailer.createTransport({
-      host: transporterOps.host,
-      port: transporterOps.port,
-      auth: transporterOps.auth
-    });
+const nodemailer = require('nodemailer');
+
+
+const transport = nodemailer.createTransport({
+  host: "smtp.mailtrap.io",
+  port: 2525,
+  auth: {
+    user: "7cd6ff6222dcd8",
+    pass: "faf26f6137e52d"
   }
+});
 
-  async sendConfirmationEmail(address, verificationToken) {
-    let mailOps = {
-      from: "noreply@lagunalink.edu",
-      to: address,
-      subject: "Account Confirmation",
-      text: this.createConfirmationUrl(verificationToken),
-    };
+async function sendConfirmationEmail(address, verificationToken) {
+  
+  let mailOps = {
+    from: "noreply@lagunalink.edu",
+    to: address,
+    subject: "Account Confirmation",
+    html: createConfirmationUrl(verificationToken),
+  };
 
-    this.transporter.sendMail(mailOps, function (err, info) {
-      //TODO: cambiar por un throw
-      if (err) return err.message;
-      return info.response;
-    });
-  }
-
-  // TODO: MOVER ESTO FUERA Y QUE NOS LLEGUE LA URL
-  createConfirmationUrl(token) {
-    const link = '<a href="http://localhost:3000/api/v1/account/verify?token=' + token + '">Confirm your account</a>';
-    return '<!DOCTYPE html><html><head></head><body>' + link + '</body></>';
-  }
-
+  let result = await transport.sendMail(mailOps);
+  return result;
 }
 
-module.exports = MailerService;
+// TODO: MOVER ESTO FUERA Y QUE NOS LLEGUE LA URL
+function createConfirmationUrl(token) {
+  const link = '<a href="http://localhost:3000/api/v1/account/verify?token=' + token + '">Confirm your account</a>';
+  //return '<!DOCTYPE html><html><head></head><body>' + link + '</body></>';
+  return link;
+}
+
+
+module.exports = { sendConfirmationEmail };

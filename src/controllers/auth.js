@@ -4,29 +4,27 @@ const mongoose = require('mongoose');
 const User = require('../models/user');
 const authService = require('../services/auth');
 const encoder = require('../services/EncoderFactory');
-const MailerService = require('../services/MailerService');
-const nodemailer = require('nodemailer-mock');
-/** TODO: cambiar esto cuanto antes */
-// const transpOps = {
-//     host: "smtp.mailtrap.io",
-//     port: 2525,
-//     auth: {
-//       user: "7cd6ff6222dcd8",
-//       pass: "faf26f6137e52d"
-//     }
-// };
-const transpOps = {};
+const MailerService = getMailerService();
 
 
+function getMailerService() {
+    console.log('eligiendo mailer');
+    if (process.env.NODE_ENV === 'test') {
+        console.log('estamos en modo test');
+        return require('../services/MockMailer');
+    }
+    return require('../services/MailerService');
+}
 
-const mailer = new MailerService(nodemailer, transpOps);
 
 function signUp(req, res) {
 
     User.exists({ email: req.body.email })
     .then(result => {
         if(result) return res.status(403).send({ message: `The email address ${ req.body.email } has prevously registered`}); 
-    })
+    }).catch(errorue => {
+        console.log("user exist error: " + errorue.toString());
+    });
 
     const user = new User({
         email: req.body.email,
@@ -36,15 +34,13 @@ function signUp(req, res) {
 
     user.save()
         .then(() => {
-            return mailer.sendConfirmationEmail(user.email, authService.createEmailToken(user));
-        })
-        .then((response) => {
-            console.log('respuesta: ' + response);
+            const response = MailerService.sendConfirmationEmail(user.email, authService.createEmailToken(user));
+            console.log("respuesta: " + response);
             return res.status(200).send({ message: 'confirmation email sended' });
-
         })
         .catch(err => {
-            return res.status(500).send({ message: `user create error: ${err.message}` });
+            console.log("save error:" + err.toString());
+            //return res.status(500).send({ message: "user create error"});
         });
 }
 

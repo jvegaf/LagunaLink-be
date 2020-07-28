@@ -7,7 +7,10 @@ const encoder = require('../services/EncoderFactory')
 const UserSchema = Schema({
   email: { type: String, unique: true, lowercase: true },
   password: { type: String, select: false },
-  role: { type: String, enum: ["ROLE_STUDENT", "ROLE_COMPANY"] },
+  role: { type: String, enum: ['ROLE_STUDENT', 'ROLE_COMPANY'] },
+  is_active: Boolean,
+  role_completed: Boolean,
+  created_at: Date,
 });
 
 UserSchema.pre("save", function (next) {

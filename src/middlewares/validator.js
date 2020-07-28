@@ -23,8 +23,6 @@ function valAccountRegister(req, res, next) {
     var result = false;
 
     roles.forEach(role => {
-        console.log(role);
-        console.log(req.body.role);
         if (req.body.role === role) result=true;
     });
 

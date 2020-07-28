@@ -4,8 +4,8 @@
   "description": "API Rest de LagunaLink ",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon --watch src src/index.js",
-    "test": "nodemon --exec 'mocha -R list'"
+    "start": "NODE_ENV=test nodemon --watch src src/index.js",
+    "test": "NODE_ENV=test nodemon --exec 'mocha -R list'"
   },
   "author": "Jose Vega",
   "license": "MIT",
@@ -29,6 +29,7 @@
     "chai-http": "^4.3.0",
     "mocha": "^8.0.1",
     "nodemailer-mock": "^1.5.2",
+    "nodemailer-stub": "^1.2.1",
     "nodemon": "^2.0.4",
     "supertest": "^4.0.2"
   }
