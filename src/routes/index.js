@@ -9,9 +9,8 @@ const { body } = require('express-validator');
 
 
 /** User */
-//api.post('/account/sign_in', authCtrl.signIn);
+api.post('/account/sign_in', authCtrl.signIn);
 api.post('/account/register', [body('email').isEmail(), body('password').isLength({ min: 5 })], validator.valAccountRegister, authCtrl.signUp);
-api.post('/account/register', authCtrl.signUp);
 api.post('/account/verify', authCtrl.verifyEmail);
 /** Language */
 api.get('/language', languageCtrl.getLanguages);

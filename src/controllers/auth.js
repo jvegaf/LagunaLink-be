@@ -17,14 +17,11 @@ function getMailerService() {
 }
 
 
-function signUp(req, res) {
+async function signUp(req, res) {
 
-    User.exists({ email: req.body.email })
-    .then(result => {
-        if(result) return res.status(403).send({ message: `The email address ${ req.body.email } has prevously registered`}); 
-    }).catch(errorue => {
-        console.log("user exist error: " + errorue.toString());
-    });
+    let result = await User.exists({ email: req.body.email });
+    if(result) return res.status(403).send({ message: `The email address ${ req.body.email } has prevously registered`}); 
+    
 
     const user = new User({
         email: req.body.email,
