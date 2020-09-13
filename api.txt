@@ -1,0 +1,18 @@
+
+POST /api/v1/auth/signup  { email, password, role }
+POST /api/v1/auth/signin  { email, password } 
+POST /api/v1/auth/email/verify  { token } 
+
+GET /api/v1/students/{id}                           # get a student account 
+POST /api/v1/students                               # register a student account 
+PUT /api/v1/students/{id}                           # update a student account 
+
+GET /api/v1/companies                               # get all companies
+GET /api/v1/companies/{id}                          # get a company account
+POST /api/v1/companies                              # register a company account
+PUT /api/v1/companies/{id}                          # update a company account
+
+GET /api/v1/job_opening                             #get all job openings
+GET /api/v1/job_opening/{id}                        #get a job opening 
+POST /api/v1/job_opening                            #create a job opening
+PUT /api/v1/job_opening                             #update a job opening

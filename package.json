@@ -1,36 +1,87 @@
 {
-  "name": "lagunalink-be",
+  "name": "lagunalink_be",
   "version": "1.0.0",
-  "description": "API Rest de LagunaLink ",
-  "main": "src/index.js",
-  "scripts": {
-    "start": "NODE_ENV=test nodemon --watch src src/index.js",
-    "test": "NODE_ENV=test nodemon --exec 'mocha -R list'"
-  },
-  "author": "Jose Vega",
-  "license": "MIT",
+  "description": "",
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jvegaf/lagunalink_be.git"
+    "url": "https://github.com/jvegaf/lagunalink-be"
+  },
+  "license": "",
+  "engines": {
+    "node": ">=10.15.0",
+    "npm": ">=6.7.0"
+  },
+  "scripts": {
+    "dev": "NODE_ENV=dev ts-node-dev --ignore-watch node_modules --inspect=0.0.0.0:9267 ./src/app/lagunalink_be/server.ts",
+    "test": "npm run test:unit && npm run test:features",
+    "test:unit": "NODE_ENV=test jest",
+    "test:features": "NODE_ENV=test cucumber-js -p default",
+    "start": "NODE_ENV=production node dist/src/app/lagunalink_be/server",
+    "build": "npm run build:clean && npm run build:tsc && npm run build:di",
+    "build:tsc": "tsc -p tsconfig.prod.json",
+    "build:di": "copy 'src/**/*.{json,yaml}' dist/src",
+    "build:clean": "rm -r dist; exit 0"
   },
   "dependencies": {
-    "bcrypt-nodejs": "0.0.3",
+    "@types/bson": "^4.0.2",
+    "@types/compression": "^1.7.0",
+    "@types/convict": "^5.2.1",
+    "@types/errorhandler": "1.5.0",
+    "@types/express": "^4.17.6",
+    "@types/glob": "^7.1.1",
+    "@types/helmet": "0.0.47",
+    "@types/mongodb": "^3.5.18",
+    "@types/node": "^14.0.3",
+    "@types/uuid": "^8.0.0",
+    "@types/uuid-validate": "0.0.1",
     "body-parser": "^1.19.0",
-    "crypto": "^1.0.1",
+    "bson": "^4.0.4",
+    "compression": "^1.7.4",
+    "convict": "^6.0.0",
+    "copy": "^0.3.2",
+    "errorhandler": "^1.5.1",
     "express": "^4.17.1",
-    "express-validator": "^6.6.0",
-    "jwt-simple": "^0.5.6",
-    "moment": "^2.27.0",
-    "mongoose": "^5.9.25",
-    "nodemailer": "^6.4.10"
+    "express-promise-router": "^4.0.1",
+    "glob": "^7.1.6",
+    "helmet": "^3.22.0",
+    "http-status": "^1.4.2",
+    "mandrill-api": "^1.0.45",
+    "mongodb": "^3.5.7",
+    "node-dependency-injection": "^2.6.3",
+    "ts-node": "^8.10.1",
+    "typescript": "^3.9.2",
+    "uuid": "^8.0.0",
+    "uuid-validate": "0.0.3",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "chai-http": "^4.3.0",
-    "mocha": "^8.0.1",
-    "nodemailer-mock": "^1.5.2",
-    "nodemailer-stub": "^1.2.1",
-    "nodemon": "^2.0.4",
-    "supertest": "^4.0.2"
+    "@types/aws-lambda": "^8.10.51",
+    "@types/cucumber": "^6.0.1",
+    "@types/faker": "^4.1.12",
+    "@types/jest": "^25.2.3",
+    "@types/supertest": "^2.0.9",
+    "cucumber": "^6.0.5",
+    "faker": "^4.1.0",
+    "husky": "^4.2.5",
+    "jest": "^26.0.1",
+    "lint-staged": "10.2.4",
+    "prettier": "^2.0.5",
+    "supertest": "^4.0.2",
+    "ts-jest": "^26.0.0",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "tslint": "^6.1.2",
+    "tslint-config-prettier": "~1.18.0",
+    "tslint-eslint-rules": "^5.4.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "{src,tests}/**/*.ts": [
+      "prettier --write",
+      "tslint --fix",
+      "git add"
+    ]
   }
 }

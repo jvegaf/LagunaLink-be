@@ -1,0 +1,36 @@
+{
+  "name": "lagunalink-be",
+  "version": "1.0.0",
+  "description": "API Rest de LagunaLink ",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "NODE_ENV=test nodemon --watch src src/index.js",
+    "test": "NODE_ENV=test nodemon --exec 'mocha -R list'"
+  },
+  "author": "Jose Vega",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jvegaf/lagunalink_be.git"
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.19.0",
+    "crypto": "^1.0.1",
+    "express": "^4.17.1",
+    "express-validator": "^6.6.0",
+    "jwt-simple": "^0.5.6",
+    "moment": "^2.27.0",
+    "mongoose": "^5.9.25",
+    "nodemailer": "^6.4.10"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^8.0.1",
+    "nodemailer-mock": "^1.5.2",
+    "nodemailer-stub": "^1.2.1",
+    "nodemon": "^2.0.4",
+    "supertest": "^4.0.2"
+  }
+}
