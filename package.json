@@ -5,14 +5,14 @@
   "repository": {
     "url": "https://github.com/jvegaf/lagunalink-be"
   },
-  "license": "",
+  "license": "GPL",
   "engines": {
     "node": ">=10.15.0",
     "npm": ">=6.7.0"
   },
   "scripts": {
     "dev": "NODE_ENV=dev ts-node-dev --ignore-watch node_modules --inspect=0.0.0.0:9267 ./src/app/lagunalink_be/server.ts",
-    "test": "npm run test:unit && npm run test:features",
+    "test": "npm run test:unit",
     "test:unit": "NODE_ENV=test jest",
     "test:features": "NODE_ENV=test cucumber-js -p default",
     "start": "NODE_ENV=production node dist/src/app/lagunalink_be/server",

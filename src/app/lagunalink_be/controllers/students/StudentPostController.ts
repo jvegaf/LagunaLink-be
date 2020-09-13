@@ -1,25 +1,23 @@
 import { Request, Response } from 'express';
-import { CourseCreator as StudentCreator } from '../../../Contexts/LLBE/Courses/application/CourseCreator';
+import { StudentCreator } from '../../../Contexts/LLBE/Students/application/StudentCreator';
 import httpStatus from 'http-status';
 import { Controller } from '../Controller';
-import { CourseAlreadyExists } from '../../../Contexts/LLBE/Courses/domain/CourseAlreadyExists';
+import { CreateStudentRequest } from '../../../../Contexts/LLBE/Students/application/CreateStudentRequest';
 
 export class StudentPostController implements Controller {
-  constructor(private studentCreator: StudentCreator) {}
+  constructor(private studentCreator: StudentCreator) { }
 
   async run(req: Request, res: Response) {
-    const id: string = req.params.id;
-    const name: string = req.body.name;
-    const duration: string = req.body.duration;
+
+    const createStudentReq: CreateStudentRequest = {};
+    createStudentReq.name = req.body.name;
+    createStudentReq.surname = req.body.surname;
+    createStudentReq.lastname = req.body.lastname;
 
     try {
-      await this.studentCreator.run({ id, name, duration });
+      await this.studentCreator.run({ createStudentReq });
     } catch (error) {
-      if (error instanceof CourseAlreadyExists) {
-        res.status(httpStatus.BAD_REQUEST).send(error.message);
-      } else {
-        res.status(httpStatus.INTERNAL_SERVER_ERROR).json(error);
-      }
+      res.status(httpStatus.INTERNAL_SERVER_ERROR).json(error);
     }
 
     res.status(httpStatus.CREATED).send();

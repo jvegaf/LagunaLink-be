@@ -21,6 +21,5 @@ app.use(compress());
 const router = Router();
 app.use(router);
 registerRoutes(router);
-registerSubscribers();
 
 export default app;

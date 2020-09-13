@@ -4,10 +4,6 @@ services:
     class: ../../../controllers/status/StatusGetController
     arguments: []
 
-  App.controllers.CoursePutController:
-    class: ../../../controllers/CoursePutController
-    arguments: ["@Mooc.courses.CourseCreator"]
-
-  App.controllers.CoursesCounterGetController:
-    class: ../../../controllers/CoursesCounterGetController
-    arguments: ["@Mooc.coursesCounter.CoursesCounterFinder"]
+  App.controllers.students.StudentPostController:
+    class: ../../../controllers/StudentPostController
+    arguments: ["@LLBE.students.StudentCreator"]

@@ -14,14 +14,13 @@ export class StudentCreator {
   }
 
   async run(request: CreateStudentRequest): Promise<void> {
-    const course = Student.create(
-      new StudentId(request.id),
+    const student = Student.create(
+      new StudentId(StudentId.random().toString()),
       new StudentName(request.name),
       new StudentSurname(request.surname),
       new StudentLastname(request.lastname)
     );
 
-    await this.repository.save(course);
-    this.eventBus.publish(course.pullDomainEvents());
+    await this.repository.save(student);
   }
 }

@@ -1,22 +1,22 @@
 services:
-  Mooc.shared.ConnectionManager:
+  LLBE.shared.ConnectionManager:
     factory:
       class: ../../../../../Contexts/Shared/infrastructure/persistence/mongo/MongoClientFactory
       method: 'createClient'
-    arguments: ['mooc']
+    arguments: ['llbe']
 
-  Mooc.shared.Logger:
+  LLBE.shared.Logger:
     class: ../../../../../Contexts/Shared/infrastructure/WinstonLogger
     arguments: []
 
-  Mooc.shared.EventBus:
+  LLBE.shared.EventBus:
     class: ../../../../../Contexts/Shared/infrastructure/EventBus/InMemoryAsyncEventBus
     arguments: []
 
-  Mooc.shared.EventBus.DomainEventMapping:
+  LLBE.shared.EventBus.DomainEventMapping:
     class: ../../../../../Contexts/Shared/infrastructure/EventBus/DomainEventMapping
     arguments: ['!tagged domainEventSubscriber']
 
-  Mooc.shared.EventBus.DomainEventJsonDeserializer:
+  LLBE.shared.EventBus.DomainEventJsonDeserializer:
     class: ../../../../../Contexts/Shared/infrastructure/EventBus/DomainEventJsonDeserializer
-    arguments: ['@Mooc.shared.EventBus.DomainEventMapping']
+    arguments: ['@LLBE.shared.EventBus.DomainEventMapping']
