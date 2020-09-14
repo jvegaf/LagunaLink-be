@@ -1,5 +1,5 @@
 import { CreateStudentRequestMother } from '../application/CreateStudentRequestMother';
-import { StudentMother } from './StudentMother';\
+import { StudentMother } from './StudentMother';
 
 describe('Student', () => {
 

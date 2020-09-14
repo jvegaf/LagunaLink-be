@@ -1,22 +1,22 @@
 services:
-  LLBE.shared.ConnectionManager:
+  App.shared.ConnectionManager:
     factory:
       class: ../../../../../Contexts/Shared/infrastructure/persistence/mongo/MongoClientFactory
       method: 'createClient'
     arguments: ['llbe']
 
-  LLBE.shared.Logger:
+  App.shared.Logger:
     class: ../../../../../Contexts/Shared/infrastructure/WinstonLogger
     arguments: []
 
-  LLBE.shared.EventBus:
+  App.shared.EventBus:
     class: ../../../../../Contexts/Shared/infrastructure/EventBus/InMemoryAsyncEventBus
     arguments: []
 
-  LLBE.shared.EventBus.DomainEventMapping:
+  App.shared.EventBus.DomainEventMapping:
     class: ../../../../../Contexts/Shared/infrastructure/EventBus/DomainEventMapping
     arguments: ['!tagged domainEventSubscriber']
 
-  LLBE.shared.EventBus.DomainEventJsonDeserializer:
+  App.shared.EventBus.DomainEventJsonDeserializer:
     class: ../../../../../Contexts/Shared/infrastructure/EventBus/DomainEventJsonDeserializer
     arguments: ['@LLBE.shared.EventBus.DomainEventMapping']

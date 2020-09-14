@@ -3,8 +3,8 @@ import { StudentRepository } from '../../../../../../src/Contexts/LLBE/Students/
 import { EnvironmentArranger } from '../../../../Shared/infrastructure/arranger/EnvironmentArranger';
 import { StudentMother } from '../../domain/StudentMother';
 
-const repository: StudentRepository = container.get('Mooc.courses.CourseRepository');
-const environmentArranger: Promise<EnvironmentArranger> = container.get('Mooc.EnvironmentArranger');
+const repository: StudentRepository = container.get('App.students.StudentRepository');
+const environmentArranger: Promise<EnvironmentArranger> = container.get('App.EnvironmentArranger');
 
 beforeEach(async () => {
   await (await environmentArranger).arrange();
@@ -14,24 +14,24 @@ afterAll(async () => {
   await (await environmentArranger).close();
 });
 
-describe('Save Course', () => {
-  it('should save a course', async () => {
-    const course = CourseMother.random();
+describe('Save student', () => {
+  it('should save a student', async () => {
+    const student = StudentMother.random();
 
-    await repository.save(course);
+    await repository.save(student);
   });
 });
 
-describe('Search Course', () => {
-  it('should return an existing course', async () => {
-    const course = CourseMother.random();
+describe('Search Student', () => {
+  it('should return an existing student', async () => {
+    const student = StudentMother.random();
 
-    await repository.save(course);
+    await repository.save(student);
 
-    expect(course).toEqual(await repository.search(course.id));
+    expect(student).toEqual(await repository.search(student.id));
   });
 
-  it('should not return a non existing course', async () => {
-    expect(await repository.search(CourseMother.random().id)).toBeFalsy();
+  it('should not return a non existing student', async () => {
+    expect(await repository.search(StudentMother.random().id)).toBeFalsy();
   });
 });

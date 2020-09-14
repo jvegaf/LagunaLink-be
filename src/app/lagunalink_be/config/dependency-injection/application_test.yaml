@@ -2,10 +2,10 @@ imports:
   - { resource: ./application.yaml }
 
 services:
-  LLBE.EnvironmentArranger:
+  App.EnvironmentArranger:
     class: ../../../../../tests/Contexts/Shared/infrastructure/mongo/MongoEnvironmentArranger
-    arguments: ['@LLBE.shared.ConnectionManager']
+    arguments: ['@App.shared.ConnectionManager']
 
-  LLBE.shared.EventBus:
+  App.shared.EventBus:
     class: ../../../../Contexts/Shared/infrastructure/EventBus/InMemorySyncEventBus
     arguments: []

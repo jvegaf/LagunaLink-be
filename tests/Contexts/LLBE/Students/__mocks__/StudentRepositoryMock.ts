@@ -15,7 +15,9 @@ export class StudentRepositoryMock implements StudentRepository {
     const mock = this.mockSave.mock;
     const lastSavedStudent = mock.calls[mock.calls.length - 1][0] as Student;
     expect(lastSavedStudent).toBeInstanceOf(Student);
-    expect(lastSavedStudent.toPrimitives()).toEqual(expected.toPrimitives());
+    expect(lastSavedStudent.name).toEqual(expected.name);
+    expect(lastSavedStudent.surname).toEqual(expected.surname);
+    expect(lastSavedStudent.lastname).toEqual(expected.lastname);
   }
 
   async search(id: StudentId): Promise<Nullable<Student>> {

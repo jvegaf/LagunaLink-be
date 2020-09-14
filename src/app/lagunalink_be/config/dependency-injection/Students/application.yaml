@@ -1,9 +1,9 @@
 services:
 
-  LLBE.students.StudentRepository:
+  App.students.StudentRepository:
     class: ../../../../../Contexts/LLBE/Students/infrastructure/persistence/MongoStudentRepository
-    arguments: ['@LLBE.shared.ConnectionManager']
+    arguments: ['@App.shared.ConnectionManager']
 
-  LLBE.students.StudentCreator:
+  App.students.StudentCreator:
     class: ../../../../../Contexts/LLBE/Students/application/StudentCreator
-    arguments: ['@LLBE.students.StudentRepository']
+    arguments: ['@App.students.StudentRepository']

@@ -12,7 +12,7 @@ app.use(errorHandler());
  */
 const server = app.listen(app.get('port'), () => {
   // tslint:disable: no-console
-  const logger = container.get('LLBE.shared.Logger');
+  const logger = container.get('App.shared.Logger');
 
   logger.info(`  App is running at http://localhost:${app.get('port')} in ${app.get('env')} mode`);
   console.log('  Press CTRL-C to stop\n');
