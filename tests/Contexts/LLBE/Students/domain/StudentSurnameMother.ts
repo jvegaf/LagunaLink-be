@@ -1,4 +1,3 @@
-import { StudentName } from '../../../../../src/Contexts/LLBE/Students/domain/StudentName';
 import { StudentSurname } from '../../../../../src/Contexts/LLBE/Students/domain/StudentSurname';
 import { WordMother } from '../../../Shared/domain/WordMother';
 
