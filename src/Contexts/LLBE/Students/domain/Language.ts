@@ -1,11 +1,12 @@
 import {LanguageLevel} from "./LanguageLevel";
+import {LanguageName} from "./LanguageName";
 
 export class Language {
-    readonly name: string;
+    readonly name: LanguageName;
     readonly speak: LanguageLevel;
     readonly write: LanguageLevel;
 
-    constructor(name: string, speak: LanguageLevel, write: LanguageLevel) {
+    constructor(name: LanguageName, speak: LanguageLevel, write: LanguageLevel) {
         this.name = name;
         this.speak = speak;
         this.write = write;
@@ -13,7 +14,7 @@ export class Language {
 
     static fromPrimitives(plaindata: { name: string, speak: number, write: number }) {
         return new Language(
-            plaindata.name,
+            new LanguageName(plaindata.name),
             new LanguageLevel(plaindata.speak),
             new LanguageLevel(plaindata.write)
         );
@@ -21,7 +22,7 @@ export class Language {
 
     toPrimitives() {
         return {
-            name: this.name,
+            name: this.name.value,
             speak: this.speak.value,
             write: this.write.value
         };
