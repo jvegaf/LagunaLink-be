@@ -7,6 +7,7 @@ export class LangLevelMother {
     }
 
     static random(): LanguageLevel {
-        return this.create(IntegerMother.random(1,5));
+        let value = IntegerMother.random(4) + 1;
+        return this.create(value);
     }
 }

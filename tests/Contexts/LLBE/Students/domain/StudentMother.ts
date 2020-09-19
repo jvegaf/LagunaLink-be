@@ -13,6 +13,7 @@ import {Language} from "../../../../../src/Contexts/LLBE/Students/domain/Languag
 import {JobExperience} from "../../../../../src/Contexts/LLBE/Students/domain/JobExperience";
 import {QualificationsMother} from "./QualificationsMother";
 import {StudentLangsMother} from "./StudentLangsMother";
+import {JobExperiencesMother} from "./JobExperiencesMother";
 
 export class StudentMother {
     static create(
@@ -42,8 +43,8 @@ export class StudentMother {
             StudentSurnameMother.random(),
             StudentLastnameMother.random(),
             QualificationsMother.random(),
-            StudentLangsMother.random()
-            //TODO: falta los jobexperiences
+            StudentLangsMother.random(),
+            JobExperiencesMother.random()
         );
     }
 }
