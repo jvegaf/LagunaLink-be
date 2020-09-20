@@ -17,13 +17,14 @@ export class JobExperience {
         position: string,
         responsibilities: string,
         startDate: string,
-        enddate: string}) {
+        endDate: string
+    }) {
         return new JobExperience(
             new JobCompany(plaindata.company),
             new JobPosition(plaindata.position),
             new JobRespons(plaindata.responsibilities),
             new StartDate(plaindata.startDate),
-            new EndDate(plaindata.enddate)
+            new EndDate(plaindata.endDate)
         );
     }
 
@@ -37,11 +38,11 @@ export class JobExperience {
 
     toPrimitives() {
         return {
-            company: this.company.value,
-            position: this.position.value,
-            responsibilities: this.responsibilities.value,
+            company: this.company.toString(),
+            position: this.position.toString(),
+            responsibilities: this.responsibilities.toString(),
             startDate: this.startDate.toString(),
-            enddate: this.endDate.toString()
+            endDate: this.endDate.toString()
         };
     }
 }

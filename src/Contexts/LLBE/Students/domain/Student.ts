@@ -13,8 +13,8 @@ export class Student extends AggregateRoot {
     readonly surname: StudentSurname;
     readonly lastname: StudentLastname;
     private qualifications: Qualification[] | undefined;
-    readonly languages: Language[] | undefined;
-    readonly jobexperiences: JobExperience[] | undefined;
+    private languages: Language[] | undefined;
+    private jobexperiences: JobExperience[] | undefined;
 
     constructor(
         id: StudentId,
@@ -45,12 +45,24 @@ export class Student extends AggregateRoot {
         return new Student(id, name, surname, lastname, qualifications, languages, jobexperiences);
     }
 
-    static fromPrimitives(plainData: { id: string; name: string; surname: string; lastname: string }): Student {
+    static fromPrimitives(
+        plainData: {
+            id: string;
+            name: string;
+            surname: string;
+            lastname: string;
+            qualifications: [];
+            languages: [];
+            jobexperiences: [];
+        }): Student {
         return new Student(
             new StudentId(plainData.id),
             new StudentName(plainData.name),
             new StudentSurname(plainData.surname),
-            new StudentLastname(plainData.lastname)
+            new StudentLastname(plainData.lastname),
+            this.qualificationsFromPrimitives(plainData.qualifications),
+            this.languagesFromPrimitives(plainData.languages),
+            this.jobexperiencesFromPrimitives(plainData.jobexperiences)
         );
     }
 
@@ -78,5 +90,18 @@ export class Student extends AggregateRoot {
 
     private jobexperiencesToPrimitives() {
         return this.jobexperiences?.map(job => job.toPrimitives())
+    }
+
+    private static qualificationsFromPrimitives(qualifications: []) {
+        return qualifications.map(qualification => Qualification.fromPrimitives(qualification));
+    }
+
+    private static languagesFromPrimitives(languages: []) {
+        return languages.map(language => Language.fromPrimitives(language));
+    }
+
+    private static jobexperiencesFromPrimitives(jobexperiences: []) {
+        if (jobexperiences === undefined) return;
+        return jobexperiences.map(jobex => JobExperience.fromPrimitives(jobex));
     }
 }
