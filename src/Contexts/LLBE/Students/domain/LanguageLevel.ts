@@ -11,6 +11,10 @@ export class LanguageLevel extends NumberValueObject{
         this.ensureValueIsBetweenMINandMAX(value);
     }
 
+    static create(value: number) {
+        return new LanguageLevel(value);
+    }
+
     private ensureValueIsBetweenMINandMAX(value: number): void {
         if (value < this.MIN_VAL || value > this.MAX_VAL) {
             throw new InvalidArgumentError(`the level should be between ${this.MIN_VAL} and ${this.MAX_VAL}`);

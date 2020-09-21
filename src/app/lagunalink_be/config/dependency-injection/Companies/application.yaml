@@ -1,0 +1,9 @@
+services:
+
+  App.companies.CompanyRepository:
+    class: ../../../../../Contexts/LLBE/Companies/infrastructure/persistence/MongoCompanyRepository
+    arguments: ['@App.shared.ConnectionManager']
+
+  App.companies.CompanyCreator:
+    class: ../../../../../Contexts/LLBE/Companies/application/CompanyCreator
+    arguments: ['@App.companies.CompanyRepository']
