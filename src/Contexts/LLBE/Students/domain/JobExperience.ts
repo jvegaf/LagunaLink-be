@@ -11,6 +11,13 @@ export class JobExperience {
     readonly startDate: StartDate;
     readonly endDate: EndDate;
 
+    constructor(company: JobCompany, position: JobPosition, responsibilities: JobRespons, startDate: StartDate, endDate: EndDate) {
+        this.company = company;
+        this.position = position;
+        this.responsibilities = responsibilities;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 
     static fromPrimitives(plaindata: {
         company: string,
@@ -26,14 +33,6 @@ export class JobExperience {
             new StartDate(plaindata.startDate),
             new EndDate(plaindata.endDate)
         );
-    }
-
-    constructor(company: JobCompany, position: JobPosition, responsibilities: JobRespons, startDate: StartDate, endDate: EndDate) {
-        this.company = company;
-        this.position = position;
-        this.responsibilities = responsibilities;
-        this.startDate = startDate;
-        this.endDate = endDate;
     }
 
     toPrimitives() {

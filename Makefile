@@ -2,7 +2,7 @@ SHELL := $(shell which bash)
 IMAGE_NAME := lagunalink/lagunalink_be
 SERVICE_NAME := app
 
-.PHONY: default 
+.PHONY: default
 default: build
 
 .PHONY: deps
@@ -31,4 +31,8 @@ start_database:
 
 .PHONY: destroy
 destroy:
-	@rm -rf dist && rm -rf node_modules
+	@sudo rm -rf dist && rm -rf node_modules
+
+.PHONY: clear
+clear:
+	@sudo rm -rf dist && sudo rm -rf data
