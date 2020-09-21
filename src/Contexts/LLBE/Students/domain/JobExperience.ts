@@ -1,17 +1,17 @@
 import {StartDate} from "../../Shared/domain/StartDate";
 import {EndDate} from "../../Shared/domain/EndDate";
-import {JobCompany} from "./JobCompany";
+import {JobOpenCompany} from "./JobOpenCompany";
 import {JobPosition} from "./JobPosition";
 import {JobRespons} from "./JobRespons";
 
 export class JobExperience {
-    readonly company: JobCompany;
+    readonly company: JobOpenCompany;
     readonly position: JobPosition;
     readonly responsibilities: JobRespons;
     readonly startDate: StartDate;
     readonly endDate: EndDate;
 
-    constructor(company: JobCompany, position: JobPosition, responsibilities: JobRespons, startDate: StartDate, endDate: EndDate) {
+    constructor(company: JobOpenCompany, position: JobPosition, responsibilities: JobRespons, startDate: StartDate, endDate: EndDate) {
         this.company = company;
         this.position = position;
         this.responsibilities = responsibilities;
@@ -27,7 +27,7 @@ export class JobExperience {
         endDate: string
     }) {
         return new JobExperience(
-            new JobCompany(plaindata.company),
+            new JobOpenCompany(plaindata.company),
             new JobPosition(plaindata.position),
             new JobRespons(plaindata.responsibilities),
             new StartDate(plaindata.startDate),

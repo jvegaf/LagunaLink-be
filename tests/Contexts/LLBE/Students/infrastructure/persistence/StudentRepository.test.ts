@@ -7,7 +7,7 @@ const repository: StudentRepository = container.get('App.students.StudentReposit
 const environmentArranger: Promise<EnvironmentArranger> = container.get('App.EnvironmentArranger');
 
 beforeEach(async () => {
-  await (await environmentArranger).arrange();
+  // await (await environmentArranger).arrange();
 });
 
 afterAll(async () => {
@@ -15,7 +15,7 @@ afterAll(async () => {
 });
 
 describe('Save student', () => {
-  it('should save a student', async () => {
+  it.concurrent('should save a student', async () => {
     const student = StudentMother.random();
 
     await repository.save(student);

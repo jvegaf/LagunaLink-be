@@ -1,13 +1,13 @@
 import { StudentName } from '../../../../../src/Contexts/LLBE/Students/domain/StudentName';
 import { WordMother } from '../../../Shared/domain/WordMother';
-import {JobCompany} from "../../../../../src/Contexts/LLBE/Students/domain/JobCompany";
+import {JobOpenCompany} from "../../../../../src/Contexts/LLBE/Students/domain/JobOpenCompany";
 
 export class JobCompanyMother {
-  static create(value: string): JobCompany {
-    return new JobCompany(value);
+  static create(value: string): JobOpenCompany {
+    return new JobOpenCompany(value);
   }
 
-  static random(): JobCompany {
+  static random(): JobOpenCompany {
     return this.create(WordMother.random());
   }
 }

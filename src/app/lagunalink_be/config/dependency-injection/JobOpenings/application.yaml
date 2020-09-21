@@ -1,0 +1,9 @@
+services:
+
+  App.jobOpenings.JobOpeningRepository:
+    class: ../../../../../Contexts/LLBE/JobOpenings/infrastructure/persistence/MongoJobOpeningRepository
+    arguments: ['@App.shared.ConnectionManager']
+
+  App.jobOpenings.JobOpeningCreator:
+    class: ../../../../../Contexts/LLBE/JobOpenings/application/JobOpeningCreator
+    arguments: ['@App.jobOpenings.JobOpeningRepository']

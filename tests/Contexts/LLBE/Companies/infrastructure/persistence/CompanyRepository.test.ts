@@ -7,7 +7,7 @@ const repository: CompanyRepository = container.get('App.companies.CompanyReposi
 const environmentArranger: Promise<EnvironmentArranger> = container.get('App.EnvironmentArranger');
 
 beforeEach(async () => {
-  await (await environmentArranger).arrange();
+  // await (await environmentArranger).arrange();
 });
 
 afterAll(async () => {
