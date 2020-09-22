@@ -1,0 +1,9 @@
+services:
+
+  App.users.UserRepository:
+    class: ../../../../../Contexts/LLBE/Users/infrastructure/persistence/MongoUserRepository
+    arguments: ['@App.shared.ConnectionManager']
+
+  App.users.UserCreator:
+    class: ../../../../../Contexts/LLBE/Users/application/UserCreator
+    arguments: ['@App.users.UserRepository']

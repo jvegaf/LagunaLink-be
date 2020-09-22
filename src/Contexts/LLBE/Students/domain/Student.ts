@@ -82,7 +82,6 @@ export class Student extends AggregateRoot {
         return this.qualifications?.map(qualification => qualification.toPrimitives())
     }
 
-
     private languagesToPrimitives() {
         return this.languages?.map(language => language.toPrimitives());
     }

@@ -15,7 +15,7 @@ export class StudentCreator {
 
   async run(request: CreateStudentRequest): Promise<void> {
     const student = Student.create(
-      new StudentId(StudentId.random().toString()),
+      new StudentId(request.id),
       new StudentName(request.name),
       new StudentSurname(request.surname),
       new StudentLastname(request.lastname)

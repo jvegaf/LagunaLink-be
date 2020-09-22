@@ -30,9 +30,9 @@ start_database:
 	docker-compose up -d mongo
 
 .PHONY: destroy
-destroy:
+destroy: clear
 	@sudo rm -rf dist && rm -rf node_modules
 
 .PHONY: clear
 clear:
-	@sudo rm -rf dist && sudo rm -rf data
+	@sudo rm -rf data

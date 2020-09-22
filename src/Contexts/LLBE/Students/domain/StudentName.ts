@@ -9,7 +9,7 @@ export class StudentName extends StringValueObject {
 
   private ensureLengthIsLessThan30Characters(value: string): void {
     if (value.length > 30) {
-      throw new InvalidArgumentError(`The Course Name <${value}> has more than 30 characters`);
+      throw new InvalidArgumentError(`The Student Name <${value}> has more than 30 characters`);
     }
   }
 }

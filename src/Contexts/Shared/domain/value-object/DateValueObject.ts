@@ -9,4 +9,7 @@ export abstract class DateValueObject {
         return this.date.toISOString().substr(0,10);
     }
 
+    toISOString(): string {
+        return this.date.toISOString()
+    }
 }

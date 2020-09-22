@@ -5,13 +5,29 @@ import { StudentLastname } from '../../../../../src/Contexts/LLBE/Students/domai
 import { StudentNameMother } from '../domain/StudentNameMother';
 import { StudentSurnameMother } from '../domain/StudentSurnameMother';
 import { StudentLastnameMother } from '../domain/StudentLastnameMother';
+import { StudentId } from "../../../../../src/Contexts/LLBE/Shared/domain/Students/StudentId";
+import { StudentIdMother } from "../../Shared/domain/Students/StudentIdMother";
 
 export class CreateStudentRequestMother {
-  static create(name: StudentName, surname: StudentSurname, lastname: StudentLastname): CreateStudentRequest {
-    return { name: name.value, surname: surname.value, lastname: lastname.value };
+  static create(
+    id: StudentId,
+    name: StudentName,
+    surname: StudentSurname,
+    lastname: StudentLastname): CreateStudentRequest {
+    return {
+      id: id.value,
+      name: name.value,
+      surname: surname.value,
+      lastname: lastname.value
+    };
   }
 
   static random(): CreateStudentRequest {
-    return this.create(StudentNameMother.random(), StudentSurnameMother.random(), StudentLastnameMother.random());
+    return this.create(
+      StudentIdMother.random(),
+      StudentNameMother.random(),
+      StudentSurnameMother.random(),
+      StudentLastnameMother.random()
+    );
   }
 }
