@@ -59,4 +59,16 @@ export class UserMother {
       UserUpdatedAtMother.random()
     );
   }
+
+  static randomExceptsEmail(email: UserEmail): User {
+    return this.create(
+      UserIdMother.random(),
+      email,
+      UserPasswordMother.random(),
+      UserIsActiveMother.random(),
+      UserRoleMother.random(),
+      UserCreatedAtMother.random(),
+      UserUpdatedAtMother.random()
+    );
+  }
 }

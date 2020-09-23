@@ -14,11 +14,7 @@ export class StudentPostController implements Controller {
     const surname: string = req.body.surname;
     const lastname: string = req.body.lastname;
 
-    try {
-      await this.studentCreator.run({id, name, surname, lastname});
-    } catch (error) {
-      res.status(httpStatus.INTERNAL_SERVER_ERROR).json(error);
-    }
+    await this.studentCreator.run({id, name, surname, lastname});
 
     res.status(httpStatus.CREATED).send();
   }

@@ -29,9 +29,13 @@ describe('Search User', () => {
     await repository.save(user);
 
     expect(user).toEqual(await repository.search(user.id));
+    expect(user).toEqual(await repository.searchByEmail(user.email));
   });
 
   it('should not return a non existing user', async () => {
+
     expect(await repository.search(UserMother.random().id)).toBeFalsy();
+
+    expect(await repository.searchByEmail(UserMother.random().email)).toBeFalsy();
   });
 });
