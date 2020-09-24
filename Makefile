@@ -36,3 +36,15 @@ destroy: clear
 .PHONY: clear
 clear:
 	@sudo rm -rf data
+
+.PHONY: generate-ssh-keys
+generate-ssh-keys: build
+	@docker-compose run openssl bash -c 'openssl genrsa -passout pass:lagunalink-api -out /ssl/private.pem -aes256 4096'
+	@docker-compose run openssl bash -c 'openssl rsa -pubout -passin pass:lagunalink-api -in /ssl/private.pem -out /ssl/public.pem'
+
+.PHONY: locally/generate-ssh-keys
+locally/generate-ssh-keys:
+	@openssl genrsa -passout pass:lagunalink-api -out etc/keys/private.pem -aes256 4096
+	@openssl rsa -pubout -passin pass:lagunalink-api -in etc/keys/private.pem -out etc/keys/public.pem
+
+
