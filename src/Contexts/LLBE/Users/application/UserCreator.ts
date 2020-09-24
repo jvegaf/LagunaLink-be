@@ -12,8 +12,9 @@ import { UserEmailExists } from "./UserEmailExists";
 
 export class UserCreator {
     private repository: UserRepository;
+    private mailer:
 
-    constructor(repository: UserRepository) {
+    constructor(repository: UserRepository, ) {
         this.repository = repository;
     }
 
