@@ -17,6 +17,10 @@ build:
 test: build
 	docker-compose run --rm $(SERVICE_NAME) bash -c 'npm run build && npm run test'
 
+.PHONY: test_local
+test_local: deps start_database
+	@npm run build && npm run test
+
 .PHONY: start
 start: build
 	docker-compose up $(SERVICE_NAME) && docker-compose down
@@ -29,9 +33,13 @@ clean:
 start_database:
 	docker-compose up -d mongo
 
+.PHONY: start_local
+start_local: deps start_database
+	@npm run build && npm run start
+
 .PHONY: destroy
 destroy: clear
-	@sudo rm -rf dist && rm -rf node_modules
+	@sudo rm -rf dist && sudo rm -rf node_modules
 
 .PHONY: clear
 clear:
