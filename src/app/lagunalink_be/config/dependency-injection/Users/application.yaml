@@ -11,3 +11,11 @@ services:
   App.users.ConfirmationEmail:
     class: ../../../../../Contexts/LLBE/Users/application/UserConfirmationEmail
     arguments: ['@App.shared.Mailer', '@App.shared.Encoder']
+
+  App.users.UserUpdater:
+    class: ../../../../../Contexts/LLBE/Users/application/UserUpdater
+    arguments: ['@App.users.UserRepository']
+
+  App.users.UserEmailTokenChecker:
+    class: ../../../../../Contexts/LLBE/Users/application/UserEmailTokenChecker
+    arguments: ['@App.shared.Encoder', '@App.users.UserRepository', '@App.users.UserUpdater']

@@ -8,6 +8,10 @@ services:
     class: ../../../controllers/auth/SignUpPostController
     arguments: ["@App.users.UserCreator"]
 
+  App.controllers.auth.EmailVerificationGetController:
+    class: ../../../controllers/auth/EmailVerificationGetController
+    arguments: ["@App.users.UserEmailTokenChecker"]
+
   App.controllers.students.StudentPostController:
     class: ../../../controllers/students/StudentPostController
     arguments: ["@App.students.StudentCreator"]

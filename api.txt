@@ -1,7 +1,7 @@
 
 POST /api/auth/signup  { email, password, role }
 POST /api/auth/signin  { email, password }
-POST /api/auth/email/verify  { token }
+POST /api/auth/email_verification  token_parameter
 
 GET /api/students/{id}                           # get a student account
 POST /api/students                               # register a student account

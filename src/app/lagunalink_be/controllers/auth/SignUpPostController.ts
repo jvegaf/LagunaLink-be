@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import { Controller } from '../Controller';
-import { UserCreator } from "../../../../Contexts/LLBE/Users/application/UserCreator";
-import { CreateUserRequest } from "../../../../Contexts/LLBE/Users/application/CreateUserRequest";
-import { UserId } from "../../../../Contexts/LLBE/Shared/domain/Users/UserId";
-import { Timestamp } from "../../../../Contexts/LLBE/Shared/domain/Timestamp";
+import { UserCreator } from '../../../../Contexts/LLBE/Users/application/UserCreator';
+import { CreateUserRequest } from '../../../../Contexts/LLBE/Users/application/CreateUserRequest';
+import { UserId } from '../../../../Contexts/LLBE/Shared/domain/Users/UserId';
+import { Timestamp } from '../../../../Contexts/LLBE/Shared/domain/Timestamp';
 
 export class SignUpPostController implements Controller {
 
@@ -15,8 +15,7 @@ export class SignUpPostController implements Controller {
 
     const newId = UserId.create();
 
-    const request: CreateUserRequest =
-      {
+    const request: CreateUserRequest = {
         id: newId.toString(),
         email: req.body.email,
         password: req.body.password,
@@ -24,7 +23,7 @@ export class SignUpPostController implements Controller {
         role: req.body.role,
         createdAt: Timestamp.now(),
         updatedAt: Timestamp.now()
-      }
+      };
 
     try {
       await this.userCreator.run(request);

@@ -10,6 +10,7 @@ import { UserCreatedAt } from '../domain/UserCreatedAt';
 import { UserRole } from '../domain/UserRole';
 import { UserEmailExists } from './UserEmailExists';
 import { ConfirmationEmail } from '../domain/ConfirmationEmail';
+import { Timestamp } from '../../Shared/domain/Timestamp';
 
 export class UserCreator {
   private repository: UserRepository;
@@ -29,8 +30,8 @@ export class UserCreator {
       new UserPassword(request.password),
       new UserIsActive(request.isActive),
       new UserRole(request.role),
-      new UserCreatedAt(request.createdAt),
-      new UserUpdatedAt(request.updatedAt)
+      new UserCreatedAt(Timestamp.now()),
+      new UserUpdatedAt(Timestamp.now())
     );
 
     await this.repository.save(user);
