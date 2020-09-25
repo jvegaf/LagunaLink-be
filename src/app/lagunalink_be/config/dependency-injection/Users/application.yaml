@@ -6,4 +6,8 @@ services:
 
   App.users.UserCreator:
     class: ../../../../../Contexts/LLBE/Users/application/UserCreator
-    arguments: ['@App.users.UserRepository']
+    arguments: ['@App.users.UserRepository', '@App.users.ConfirmationEmail']
+
+  App.users.ConfirmationEmail:
+    class: ../../../../../Contexts/LLBE/Users/application/UserConfirmationEmail
+    arguments: ['@App.shared.Mailer', '@App.shared.Encoder']

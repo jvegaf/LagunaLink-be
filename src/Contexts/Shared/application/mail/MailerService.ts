@@ -1,5 +1,5 @@
-import { Message } from "./Message";
+import { Message } from './Message';
 
 export interface MailerService {
-  send(message: Message): Promise<void>;
+  sendAccountConfirmationMessage(message: Message): Promise<void>;
 }

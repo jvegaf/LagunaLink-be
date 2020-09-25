@@ -1,10 +1,10 @@
 import { User } from '../../../../../src/Contexts/LLBE/Users/domain/User';
 import { UserId } from '../../../../../src/Contexts/LLBE/Shared/domain/Users/UserId';
 import { Nullable } from '../../../../../src/Contexts/Shared/domain/Nullable';
-import { UserRepository } from "../../../../../src/Contexts/LLBE/Users/domain/UserRepository";
-import { UserEmail } from "../../../../../src/Contexts/LLBE/Users/domain/UserEmail";
-import { CreateUserRequestMother } from "../application/CreateUserRequestMother";
-import { UserMother } from "../domain/UserMother";
+import { UserRepository } from '../../../../../src/Contexts/LLBE/Users/domain/UserRepository';
+import { UserEmail } from '../../../../../src/Contexts/LLBE/Users/domain/UserEmail';
+import { CreateUserRequestMother } from '../application/CreateUserRequestMother';
+import { UserMother } from '../domain/UserMother';
 
 export class UserRepositoryMock implements UserRepository {
   private mockSave = jest.fn();
@@ -31,7 +31,7 @@ export class UserRepositoryMock implements UserRepository {
   async searchByEmail(email: UserEmail): Promise<Nullable<User>> {
     const userEmail = email.value;
 
-    if (this.emails.indexOf(userEmail)!== -1){
+    if (this.emails.indexOf(userEmail) !== -1) {
       return this.createUserWithEmail(userEmail);
     }
 

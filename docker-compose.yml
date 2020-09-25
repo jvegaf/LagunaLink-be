@@ -21,12 +21,12 @@ services:
     ports:
       - 27017:27017
 
-  openssl:
-    volumes:
-      - ./ssl:/ssl
-    build:
-      context: .
-      dockerfile: Dockerfile-openssl
+#  openssl:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile-openssl
+#    volumes:
+#        - ./ssl:/ssl
 
 volumes:
   node_modules:

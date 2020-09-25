@@ -9,6 +9,14 @@ services:
     class: ../../../../../Contexts/Shared/infrastructure/WinstonLogger
     arguments: []
 
+  App.shared.Encoder:
+    class: ../../../../../Contexts/Shared/infrastructure/Encoder/JWTEncoder
+    arguments: []
+
+  App.shared.Mailer:
+    class: ../../../../../Contexts/Shared/infrastructure/mail/NodeMailer
+    arguments: []
+
   App.shared.EventBus:
     class: ../../../../../Contexts/Shared/infrastructure/EventBus/InMemoryAsyncEventBus
     arguments: []

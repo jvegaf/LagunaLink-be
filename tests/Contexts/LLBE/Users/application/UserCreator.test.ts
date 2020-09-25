@@ -1,16 +1,18 @@
 import { UserMother } from '../domain/UserMother';
 import { UserRepositoryMock } from '../__mocks__/UserRepositoryMock';
 import { CreateUserRequestMother } from './CreateUserRequestMother';
-import { UserCreator } from "../../../../../src/Contexts/LLBE/Users/application/UserCreator";
-import { UserEmailExists } from "../../../../../src/Contexts/LLBE/Users/application/UserEmailExists";
+import { UserCreator } from '../../../../../src/Contexts/LLBE/Users/application/UserCreator';
+import { UserEmailExists } from '../../../../../src/Contexts/LLBE/Users/application/UserEmailExists';
+import { UserConfirmationEmailMock } from '../__mocks__/UserConfirmationEmailMock';
 
 let repository: UserRepositoryMock;
+let confirmEmail: UserConfirmationEmailMock;
 let creator: UserCreator;
-
 
 beforeEach(() => {
   repository = new UserRepositoryMock();
-  creator = new UserCreator(repository);
+  confirmEmail = new UserConfirmationEmailMock();
+  creator = new UserCreator(repository, confirmEmail);
 });
 
 it('should create a valid user', async () => {
@@ -32,5 +34,3 @@ it('should throw error when create a user previously registered', async () => {
 
   await expect(creator.run(otherRequest)).rejects.toThrow(UserEmailExists);
 });
-
-
