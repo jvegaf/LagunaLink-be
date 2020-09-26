@@ -1,27 +1,20 @@
 import { Encoder } from '../../../Shared/application/encoder/Encoder';
-import { Token } from '../../../Shared/application/encoder/Token';
-import { UpdateUserRequest } from './UpdateUserRequest';
 import { UserRepository } from '../domain/UserRepository';
-import { UserId } from '../../Shared/domain/Users/UserId';
-import { UserUpdater } from './UserUpdater';
-import { User } from '../domain/User';
+import { Updater } from './UserUpdater';
 import { AuthUserRequest } from './AuthUserRequest';
 import { UserEmail } from '../domain/UserEmail';
 import { UserAuthFail } from './UserAuthFail';
 import { Payload } from '../../../Shared/application/encoder/Payload';
 import { AuthResponse } from './AuthResponse';
+import { AccountNotConfirmed } from './AccountNotConfirmed';
 
 export class UserAuth {
   private readonly encoder: Encoder;
   private readonly repository: UserRepository;
-  private userUpdater: UserUpdater;
+  private updater: Updater;
 
-  constructor(
-    encoder: Encoder,
-    repository: UserRepository,
-    userUpdater: UserUpdater
-  ) {
-    this.userUpdater = userUpdater;
+  constructor(encoder: Encoder, repository: UserRepository, updater: Updater) {
+    this.updater = updater;
     this.repository = repository;
     this.encoder = encoder;
   }
@@ -35,6 +28,11 @@ export class UserAuth {
     }
     if (user.password.value !== request.password) {
       throw new UserAuthFail('Incorrect Email or Password');
+    }
+    if (!user.isActive.value) {
+      throw new AccountNotConfirmed(
+        'You need activate your account before continuing'
+      );
     }
     let subject = '';
     let message = 'Register not complete';

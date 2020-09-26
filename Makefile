@@ -43,7 +43,7 @@ destroy: clear
 
 .PHONY: clear
 clear:
-	@sudo rm -rf data && sudo rm -rf .tmp.
+	@sudo rm -rf data && sudo rm -rf .tmp
 
 PHONY: stop
 stop:

@@ -11,7 +11,11 @@ import { Timestamp } from '../../Shared/domain/Timestamp';
 import { UserUpdatedAt } from '../domain/UserUpdatedAt';
 import { UserRegistered } from '../domain/UserRegistered';
 
-export class UserUpdater {
+export interface Updater {
+  run(request: UpdateUserRequest): Promise<void>;
+}
+
+export class UserUpdater implements Updater {
   private repository: UserRepository;
 
   constructor(repository: UserRepository) {

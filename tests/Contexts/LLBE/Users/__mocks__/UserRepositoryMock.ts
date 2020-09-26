@@ -29,6 +29,29 @@ export class UserRepositoryMock implements UserRepository {
   }
 
   async searchByEmail(email: UserEmail): Promise<Nullable<User>> {
+    if (email.value === 'pepe@yo.com') {
+      const request = CreateUserRequestMother.random();
+      request.email = email.value;
+      request.password = 'otherValue';
+      return UserMother.fromRequest(request);
+    }
+
+    if (email.value === 'pepito@yo.com') {
+      const request = CreateUserRequestMother.random();
+      request.email = email.value;
+      request.password = '123123';
+      request.isActive = false;
+      return UserMother.fromRequest(request);
+    }
+
+    if (email.value === 'juan@yo.com') {
+      const request = CreateUserRequestMother.random();
+      request.email = email.value;
+      request.password = '123123';
+      request.isActive = true;
+      return UserMother.fromRequest(request);
+    }
+
     const userEmail = email.value;
 
     if (this.emails.indexOf(userEmail) !== -1) {
