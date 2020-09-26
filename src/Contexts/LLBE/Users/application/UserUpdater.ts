@@ -9,6 +9,7 @@ import { UserRole } from '../domain/UserRole';
 import { UserCreatedAt } from '../domain/UserCreatedAt';
 import { Timestamp } from '../../Shared/domain/Timestamp';
 import { UserUpdatedAt } from '../domain/UserUpdatedAt';
+import { UserRegistered } from '../domain/UserRegistered';
 
 export class UserUpdater {
   private repository: UserRepository;
@@ -24,11 +25,11 @@ export class UserUpdater {
       new UserPassword(request.password),
       new UserIsActive(request.isActive),
       new UserRole(request.role),
+      new UserRegistered(request.registered),
       new UserCreatedAt(request.createdAt),
       new UserUpdatedAt(Timestamp.now())
     );
 
     await this.repository.save(user);
   }
-
 }

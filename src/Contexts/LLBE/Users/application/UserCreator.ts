@@ -11,6 +11,7 @@ import { UserRole } from '../domain/UserRole';
 import { UserEmailExists } from './UserEmailExists';
 import { ConfirmationEmail } from '../domain/ConfirmationEmail';
 import { Timestamp } from '../../Shared/domain/Timestamp';
+import { UserRegistered } from '../domain/UserRegistered';
 
 export class UserCreator {
   private repository: UserRepository;
@@ -30,6 +31,7 @@ export class UserCreator {
       new UserPassword(request.password),
       new UserIsActive(request.isActive),
       new UserRole(request.role),
+      new UserRegistered(request.registered),
       new UserCreatedAt(Timestamp.now()),
       new UserUpdatedAt(Timestamp.now())
     );
