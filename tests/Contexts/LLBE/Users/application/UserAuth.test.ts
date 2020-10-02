@@ -1,10 +1,6 @@
-import { UserMother } from '../domain/UserMother';
 import { UserRepositoryMock } from '../__mocks__/UserRepositoryMock';
-import { CreateUserRequestMother } from './CreateUserRequestMother';
-import { UserEmailExists } from '../../../../../src/Contexts/LLBE/Users/application/UserEmailExists';
-import { EncoderMock } from '../__mocks__/EncoderMock';
+import { TokenGeneratorMock } from '../__mocks__/TokenGeneratorMock';
 import { UserAuth } from '../../../../../src/Contexts/LLBE/Users/application/UserAuth';
-import { UserUpdaterMock } from '../__mocks__/UserUpdaterMock';
 import { AuthUserRequestMother } from './AuthUserRequestMother';
 import { UserAuthFail } from '../../../../../src/Contexts/LLBE/Users/application/UserAuthFail';
 import { AuthUserRequest } from '../../../../../src/Contexts/LLBE/Users/application/AuthUserRequest';
@@ -12,17 +8,14 @@ import { AccountNotConfirmed } from '../../../../../src/Contexts/LLBE/Users/appl
 import { AuthResponse } from '../../../../../src/Contexts/LLBE/Users/application/AuthResponse';
 
 let repository: UserRepositoryMock;
-let encoder: EncoderMock;
-
-let updater: UserUpdaterMock;
+let tokenGenerator: TokenGeneratorMock;
 
 let auth: UserAuth;
 
 beforeEach(() => {
   repository = new UserRepositoryMock();
-  encoder = new EncoderMock();
-  updater = new UserUpdaterMock(repository);
-  auth = new UserAuth(encoder, repository, updater);
+  tokenGenerator = new TokenGeneratorMock();
+  auth = new UserAuth(tokenGenerator, repository);
 });
 
 it('should throw a UserAuthFail with non exist user', async () => {

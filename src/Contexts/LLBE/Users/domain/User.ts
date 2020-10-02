@@ -7,6 +7,7 @@ import { UserCreatedAt } from './UserCreatedAt';
 import { UserId } from '../../Shared/domain/Users/UserId';
 import { UserRole } from './UserRole';
 import { UserRegistered } from './UserRegistered';
+import { Timestamp } from '../../Shared/domain/Timestamp';
 
 export class User extends AggregateRoot {
   readonly id: UserId;
@@ -94,5 +95,18 @@ export class User extends AggregateRoot {
       createdAt: this.createdAt.toISOString(),
       updatedAt: this.updatedAt.toISOString(),
     };
+  }
+
+  activate(): User {
+    return new User(
+      this.id,
+      this.email,
+      this.password,
+      new UserIsActive(true),
+      this.role,
+      this.registered,
+      this.createdAt,
+      new UserUpdatedAt(Timestamp.now())
+    );
   }
 }

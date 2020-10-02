@@ -1,27 +1,26 @@
 import { MailerService } from '../../../Shared/application/mail/MailerService';
-import { Encoder } from '../../../Shared/application/encoder/Encoder';
+import { TokenGenerator } from '../../../Shared/application/encoder/TokenGenerator';
 import { User } from '../domain/User';
 import { Payload } from '../../../Shared/application/encoder/Payload';
 import { Token } from '../../../Shared/application/encoder/Token';
 import { Message } from '../../../Shared/application/mail/Message';
 import { ConfirmationEmail } from '../domain/ConfirmationEmail';
 
-export class UserConfirmationEmail implements ConfirmationEmail {
+export class UserConfirmationEmailDealer implements ConfirmationEmail {
   private readonly mailer: MailerService;
-  private readonly encoder: Encoder;
+  private readonly tokenGenerator: TokenGenerator;
 
-  constructor(mailer: MailerService, encoder: Encoder) {
+  constructor(mailer: MailerService, generator: TokenGenerator) {
     this.mailer = mailer;
-    this.encoder = encoder;
+    this.tokenGenerator = generator;
   }
 
   async sendTo(user: User): Promise<void> {
-    const payload = new Payload(
-      'confirmation account',
-      user.id.value,
-      user.role.value
-    );
-    const token = this.encoder.encode(payload);
+    const payload: Payload = {
+      userId: user.id.value,
+      role: user.role.value,
+    };
+    const token = this.tokenGenerator.run(payload);
     const htmlCode = this.getHtmlCode(token);
     const message = new Message(
       'noreply@lagunalink.edu',

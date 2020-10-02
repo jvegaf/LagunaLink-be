@@ -1,10 +1,14 @@
 import container from '../../../../../../src/app/lagunalink_be/config/dependency-injection';
 import { EnvironmentArranger } from '../../../../Shared/infrastructure/arranger/EnvironmentArranger';
 import { JobOpeningMother } from '../../domain/JobOpeningMother';
-import {JobOpeningRepository} from "../../../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpeningRepository";
+import { JobOpeningRepository } from '../../../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpeningRepository';
 
-const repository: JobOpeningRepository = container.get('App.jobOpenings.JobOpeningRepository');
-const environmentArranger: Promise<EnvironmentArranger> = container.get('App.EnvironmentArranger');
+const repository: JobOpeningRepository = container.get(
+  'App.jobOpenings.JobOpeningRepository'
+);
+const environmentArranger: Promise<EnvironmentArranger> = container.get(
+  'App.EnvironmentArranger'
+);
 
 beforeEach(async () => {
   // await (await environmentArranger).arrange();

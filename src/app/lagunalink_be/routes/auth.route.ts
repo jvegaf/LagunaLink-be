@@ -3,6 +3,7 @@ import container from '../config/dependency-injection';
 import { SignUpPostController } from '../controllers/auth/SignUpPostController';
 import { EmailVerificationGetController } from '../controllers/auth/EmailVerificationGetController';
 import { SignInPostController } from '../controllers/auth/SignInPostController';
+import { checkToken } from '../middlewares/checkToken';
 
 export const register = (router: Router) => {
   const signUpController: SignUpPostController = container.get(
@@ -22,7 +23,9 @@ export const register = (router: Router) => {
   const emailVerifController: EmailVerificationGetController = container.get(
     'App.controllers.auth.EmailVerificationGetController'
   );
-  router.get('/auth/email_verification', (req: Request, res: Response) =>
-    emailVerifController.run(req, res)
+  router.get(
+    '/auth/email_verification',
+    [checkToken],
+    (req: Request, res: Response) => emailVerifController.run(req, res)
   );
 };

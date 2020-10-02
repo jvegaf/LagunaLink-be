@@ -2,20 +2,20 @@ services:
 
   App.users.UserRepository:
     class: ../../../../../Contexts/LLBE/Users/infrastructure/persistence/MongoUserRepository
-    arguments: ['@App.shared.ConnectionManager']
+    arguments: [ '@App.shared.ConnectionManager' ]
 
   App.users.UserCreator:
     class: ../../../../../Contexts/LLBE/Users/application/UserCreator
-    arguments: ['@App.users.UserRepository', '@App.users.ConfirmationEmail']
+    arguments: [ '@App.users.UserRepository', '@App.users.ConfirmationEmail' ]
 
   App.users.ConfirmationEmail:
-    class: ../../../../../Contexts/LLBE/Users/application/UserConfirmationEmail
-    arguments: ['@App.shared.Mailer', '@App.shared.Encoder']
+    class: ../../../../../Contexts/LLBE/Users/application/UserConfirmationEmailDealer
+    arguments: [ '@App.shared.Mailer', '@App.shared.TokenGenerator' ]
 
-  App.users.UserUpdater:
-    class: ../../../../../Contexts/LLBE/Users/application/UserUpdater
-    arguments: ['@App.users.UserRepository']
+  App.users.UserEmailConfirmator:
+    class: ../../../../../Contexts/LLBE/Users/application/UserEmailConfirmator
+    arguments: [ '@App.users.UserRepository' ]
 
-  App.users.UserEmailTokenChecker:
-    class: ../../../../../Contexts/LLBE/Users/application/UserEmailTokenChecker
-    arguments: ['@App.shared.Encoder', '@App.users.UserRepository', '@App.users.UserUpdater']
+  App.users.UserAuth:
+    class: ../../../../../Contexts/LLBE/Users/application/UserAuth
+    arguments: [ '@App.shared.TokenGenerator','@App.users.UserRepository' ]

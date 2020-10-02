@@ -1,7 +1,7 @@
 let common = [
-  'tests/**/features/**/*.feature', // Specify our feature files
+  'tests/app/features/**/*.feature', // Specify our feature files
   '--require-module ts-node/register', // Load TypeScript module
-  '--require tests/**/features/step_definitions/*.steps.ts' // Load step definitions
+  '--require tests/app/features/step_definitions/*.steps.ts' // Load step definitions
 ].join(' ');
 
 module.exports = {

@@ -5,7 +5,3 @@ services:
   App.EnvironmentArranger:
     class: ../../../../../tests/Contexts/Shared/infrastructure/mongo/MongoEnvironmentArranger
     arguments: ['@App.shared.ConnectionManager']
-
-  App.shared.EventBus:
-    class: ../../../../Contexts/Shared/infrastructure/EventBus/InMemorySyncEventBus
-    arguments: []

@@ -1,26 +1,21 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import { Controller } from '../Controller';
-import { Token } from '../../../../Contexts/Shared/application/encoder/Token';
-import { UserEmailTokenChecker } from '../../../../Contexts/LLBE/Users/application/UserEmailTokenChecker';
+import { UserEmailConfirmator } from '../../../../Contexts/LLBE/Users/application/UserEmailConfirmator';
+import { UserId } from '../../../../Contexts/LLBE/Shared/domain/Users/UserId';
 
 export class EmailVerificationGetController implements Controller {
-
-  constructor(private userEmailVerf: UserEmailTokenChecker) {
-  }
+  constructor(private confirmator: UserEmailConfirmator) {}
 
   async run(req: Request, res: Response) {
-
-    const parameter = req.query?.token as string;
-    if (parameter === null) { res.status(httpStatus.BAD_REQUEST).send({error: 'Bad Token'}); }
-    const token = new Token(parameter);
+    const userId = new UserId(req.body.userId);
 
     try {
-      await this.userEmailVerf.check(token);
+      await this.confirmator.run(userId);
     } catch (e) {
-      res.status(httpStatus.BAD_REQUEST).send({error: e.message});
+      res.status(httpStatus.BAD_REQUEST).send({ error: e.message });
     }
 
-    res.status(httpStatus.OK).send({message: 'Account confirmed'});
+    res.status(httpStatus.OK).send({ message: 'Account confirmed' });
   }
 }

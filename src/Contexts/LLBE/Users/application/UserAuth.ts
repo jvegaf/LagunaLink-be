@@ -1,6 +1,5 @@
-import { Encoder } from '../../../Shared/application/encoder/Encoder';
+import { TokenGenerator } from '../../../Shared/application/encoder/TokenGenerator';
 import { UserRepository } from '../domain/UserRepository';
-import { Updater } from './UserUpdater';
 import { AuthUserRequest } from './AuthUserRequest';
 import { UserEmail } from '../domain/UserEmail';
 import { UserAuthFail } from './UserAuthFail';
@@ -9,14 +8,12 @@ import { AuthResponse } from './AuthResponse';
 import { AccountNotConfirmed } from './AccountNotConfirmed';
 
 export class UserAuth {
-  private readonly encoder: Encoder;
+  private readonly tokenGenerator: TokenGenerator;
   private readonly repository: UserRepository;
-  private updater: Updater;
 
-  constructor(encoder: Encoder, repository: UserRepository, updater: Updater) {
-    this.updater = updater;
+  constructor(generator: TokenGenerator, repository: UserRepository) {
+    this.tokenGenerator = generator;
     this.repository = repository;
-    this.encoder = encoder;
   }
 
   async run(request: AuthUserRequest): Promise<AuthResponse> {
@@ -34,15 +31,13 @@ export class UserAuth {
         'You need activate your account before continuing'
       );
     }
-    let subject = '';
     let message = 'Register not complete';
     if (user.registered.value) {
-      subject = 'Registered';
       message = 'Registered';
     }
-    const payload = new Payload(subject, user.id.value, user.role.value);
+    const payload: Payload = { userId: user.id.value, role: user.role.value };
 
-    const token = this.encoder.encode(payload);
+    const token = this.tokenGenerator.run(payload);
     return new AuthResponse(message, token.value);
   }
 }
