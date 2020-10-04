@@ -1,4 +1,4 @@
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import container from '../config/dependency-injection';
 import { StudentPostController } from '../controllers/students/StudentPostController';
 import { checkToken } from '../middlewares/checkToken';
@@ -10,7 +10,10 @@ export const register = (router: Router) => {
   );
   router.post(
     '/students',
-    [checkToken, checkRole(['ROLE_STUDENT'])],
-    (req: Request, res: Response) => studentPostController.run(req, res)
+    async (req: Request, res: Response, next: NextFunction) => {
+      checkToken(req, res, next);
+      checkRole(['ROLE_STUDENT']);
+      await studentPostController.run(req, res);
+    }
   );
 };
