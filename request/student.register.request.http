@@ -1,0 +1,39 @@
+GET http://localhost:3000/status
+Accept: application/json
+
+###
+
+#POST http://localhost:3000/auth/signup
+#Content-Type: application/json
+#
+#{
+#  "email": "pepe@api.com",
+#  "password": "123123",
+#  "role": "ROLE_STUDENT"
+#}
+
+###
+
+POST http://localhost:3000/auth/signin
+Content-Type: application/json
+
+{
+  "email": "pepe@api.com",
+  "password": "123123"
+}
+
+> {% client.global.set("auth_token", response.body.access_token); %}
+
+###
+
+POST http://localhost:3000/students
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "name": "pepito",
+  "surname": "perez",
+  "lastname": "lopez"
+}
+
+###

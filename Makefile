@@ -37,6 +37,10 @@ start_database:
 local/start: deps start_database
 	@npm run build && npm run start
 
+.PHONY: local/dev
+local/dev: deps start_database
+	@npm run build && npm run dev
+
 .PHONY: destroy
 destroy: clear
 	@sudo rm -rf dist && sudo rm -rf node_modules

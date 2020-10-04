@@ -1,9 +1,12 @@
-import app from '../../../../src/app/lagunalink_be/app';
-import { CreateUserRequestMother } from '../../../Contexts/LLBE/Users/application/CreateUserRequestMother';
-import { UserMother } from '../../../Contexts/LLBE/Users/domain/UserMother';
-import { UserRepository } from '../../../../src/Contexts/LLBE/Users/domain/UserRepository';
-import container from '../../../../src/app/lagunalink_be/config/dependency-injection';
 import request from 'supertest';
+import container from '../../../src/app/lagunalink_be/config/dependency-injection';
+import { CreateUserRequestMother } from '../../Contexts/LLBE/Users/application/CreateUserRequestMother';
+import app from '../../../src/app/lagunalink_be/app';
+import { UserRepository } from '../../../src/Contexts/LLBE/Users/domain/UserRepository';
+import { UserMother } from '../../Contexts/LLBE/Users/domain/UserMother';
+import { StudentNameMother } from '../../Contexts/LLBE/Students/domain/StudentNameMother';
+import { StudentSurnameMother } from '../../Contexts/LLBE/Students/domain/StudentSurnameMother';
+import { StudentLastnameMother } from '../../Contexts/LLBE/Students/domain/StudentLastnameMother';
 
 const userRepository: UserRepository = container.get(
   'App.users.UserRepository'
@@ -13,6 +16,7 @@ it('should can register a student', async () => {
   const userRequest = CreateUserRequestMother.random();
   userRequest.role = 'ROLE_STUDENT';
   userRequest.isActive = true;
+  userRequest.registered = false;
   const user = UserMother.fromRequest(userRequest);
   await userRepository.save(user);
 
@@ -23,11 +27,12 @@ it('should can register a student', async () => {
   const response = await request(app).post('/auth/signin').send(signInReqBody);
   const accessToken = response.body.access_token;
 
+  console.log('signin token: ' + accessToken);
+
   const studentReqBody = {
-    id: user.id.value,
-    name: 'Pepito',
-    surname: 'Perez',
-    lastname: 'Lopez',
+    name: StudentNameMother.random().value,
+    surname: StudentSurnameMother.random().value,
+    lastname: StudentLastnameMother.random().value,
   };
 
   await request(app)

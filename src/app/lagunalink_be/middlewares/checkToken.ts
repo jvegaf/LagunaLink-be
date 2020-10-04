@@ -1,22 +1,29 @@
 import { Request, Response, NextFunction } from 'express';
-import * as jwt from 'jsonwebtoken';
-import { Payload } from '../../../Contexts/Shared/application/encoder/Payload';
+import jwt from 'jwt-simple';
 import { JWTTokenGenerator } from '../../../Contexts/Shared/infrastructure/encoder/JWTTokenGenerator';
 
-export const checkToken = (req: Request, res: Response, next: NextFunction) => {
+export const checkToken = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   //Get the jwt token from the head
-  const token = req.headers['Authorization'] as string;
-  let jwtPayload: Payload;
-
-  const secretKey: string = process.env.SECRET_KEY!;
+  const token = req.headers.authorization as string;
+  let jwtPayload: object;
+  const tokenSanitized = token.split(' ')[1];
 
   //Try to validate the token and get data
+  console.log('request name: ' + req.body.name);
+
+  const secretKey: string = process.env.SECRET_KEY!;
+  // @ts-ignore
   try {
-    jwtPayload = jwt.verify(token, secretKey) as any;
+    jwtPayload = jwt.decode(tokenSanitized, secretKey);
     req.body.jwtPayload = jwtPayload;
   } catch (error) {
     //If token is not valid, respond with 401 (unauthorized)
-    res.status(401).send({ message: error.message });
+    console.log('bad token: ' + error.message);
+    res.status(402).send({ message: error.message });
     return;
   }
 
@@ -26,7 +33,6 @@ export const checkToken = (req: Request, res: Response, next: NextFunction) => {
 
   const newToken = tokenGenerator.run(jwtPayload);
   req.body.access_token = newToken.value;
-
   //Call the next middleware or controller
   next();
 };

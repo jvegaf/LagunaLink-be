@@ -3,7 +3,6 @@ import { UserRepository } from '../domain/UserRepository';
 import { AuthUserRequest } from './AuthUserRequest';
 import { UserEmail } from '../domain/UserEmail';
 import { UserAuthFail } from './UserAuthFail';
-import { Payload } from '../../../Shared/application/encoder/Payload';
 import { AuthResponse } from './AuthResponse';
 import { AccountNotConfirmed } from './AccountNotConfirmed';
 
@@ -35,7 +34,7 @@ export class UserAuth {
     if (user.registered.value) {
       message = 'Registered';
     }
-    const payload: Payload = { userId: user.id.value, role: user.role.value };
+    const payload = { userId: user.id.value, role: user.role.value };
 
     const token = this.tokenGenerator.run(payload);
     return new AuthResponse(message, token.value);
