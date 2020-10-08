@@ -5,29 +5,24 @@ import { EmailVerificationGetController } from '../controllers/auth/EmailVerific
 import { SignInPostController } from '../controllers/auth/SignInPostController';
 import { checkToken } from '../middlewares/checkToken';
 
-export const register = (router: Router) => {
-  const signUpController: SignUpPostController = container.get(
-    'App.controllers.auth.SignUpPostController'
-  );
-  router.post('/auth/signup', (req: Request, res: Response) =>
-    signUpController.run(req, res)
-  );
+const router = Router();
 
-  const signInController: SignInPostController = container.get(
-    'App.controllers.auth.SignInPostController'
-  );
-  router.post('/auth/signin', (req: Request, res: Response) => {
-    signInController.run(req, res);
-  });
+const signUpController: SignUpPostController = container.get(
+  'App.controllers.auth.SignUpPostController'
+);
 
-  const emailVerifController: EmailVerificationGetController = container.get(
-    'App.controllers.auth.EmailVerificationGetController'
-  );
-  router.get(
-    '/auth/email_verification',
-    (req: Request, res: Response, next: NextFunction) => {
-      checkToken(req, res, next);
-      emailVerifController.run(req, res);
-    }
-  );
-};
+const signInController: SignInPostController = container.get(
+  'App.controllers.auth.SignInPostController'
+);
+
+const emailVerifController: EmailVerificationGetController = container.get(
+  'App.controllers.auth.EmailVerificationGetController'
+);
+
+router.post('/signup', signUpController.run);
+
+router.post('/signin', signInController.run);
+
+router.get('/email_verification', [checkToken], emailVerifController.run);
+
+export default router;

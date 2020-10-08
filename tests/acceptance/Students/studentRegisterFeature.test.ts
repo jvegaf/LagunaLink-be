@@ -36,7 +36,7 @@ it('should can register a student', async () => {
   };
 
   await request(app)
-    .post('/students')
+    .post('/api/students')
     .auth(accessToken, { type: 'bearer' })
     .send(studentReqBody)
     .expect(201);
