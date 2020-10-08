@@ -9,6 +9,6 @@ const studentPostController: StudentPostController = container.get(
   'App.controllers.students.StudentPostController'
 );
 
-router.post('/students', [checkToken], studentPostController.run);
+router.post('/', [checkToken], studentPostController.run);
 
 export default router;
