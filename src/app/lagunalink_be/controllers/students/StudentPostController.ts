@@ -7,7 +7,6 @@ export class StudentPostController implements Controller {
   constructor(private studentCreator: StudentCreator) {}
 
   async run(req: Request, res: Response) {
-    console.log('dentro del controller id: ' + req.body.jwtPayload.userId);
     const studentRequest: CreateStudentRequest = {
       id: req.body.jwtPayload.userId,
       name: req.body.name,
