@@ -2,18 +2,13 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jwt-simple';
 import { JWTTokenGenerator } from '../../../Contexts/LLBE/Users/infrastructure/token/JWTTokenGenerator';
 
-export const checkToken = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const checkToken = (req: Request, res: Response, next: NextFunction) => {
   //Get the jwt token from the head
-  const token = req.headers.authorization as string;
-  let jwtPayload: object;
+  const token: string = req.headers.authorization!;
+  let jwtPayload;
   const tokenSanitized = token.split(' ')[1];
 
   //Try to validate the token and get data
-  console.log('request name: ' + req.body.name);
 
   const secretKey: string = process.env.SECRET_KEY!;
   // @ts-ignore

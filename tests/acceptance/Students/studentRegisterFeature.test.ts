@@ -24,7 +24,9 @@ it('should can register a student', async () => {
     email: user.email.value,
     password: user.password.value,
   };
-  const response = await request(app).post('/auth/signin').send(signInReqBody);
+  const response = await request(app)
+    .post('/api/auth/signin')
+    .send(signInReqBody);
   const accessToken = response.body.access_token;
 
   console.log('signin token: ' + accessToken);
@@ -36,7 +38,7 @@ it('should can register a student', async () => {
   };
 
   await request(app)
-    .post('/students')
+    .post('/api/students')
     .auth(accessToken, { type: 'bearer' })
     .send(studentReqBody)
     .expect(201);
