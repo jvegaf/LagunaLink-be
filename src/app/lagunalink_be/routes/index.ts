@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import status from './status.route';
-import auth from './auth.route';
-import students from './students.route';
+import glob from 'glob';
 
-const routes = Router();
+export function registerRoutes(router: Router) {
+  const routes = glob.sync(__dirname + '/**/*.route.*');
+  routes.map((route) => register(route, router));
+}
 
-routes.use('/status', status);
-routes.use('/auth', auth);
-routes.use('/students', students);
-
-export default routes;
+function register(routePath: string, router: Router) {
+  const route = require(routePath);
+  route.register(router);
+}

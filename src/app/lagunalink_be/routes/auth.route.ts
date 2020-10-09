@@ -15,9 +15,9 @@ export const register = (router: Router) => {
   const signInController: SignInPostController = container.get(
     'App.controllers.auth.SignInPostController'
   );
-  router.post('/auth/signin', (req: Request, res: Response) => {
-    signInController.run(req, res);
-  });
+  router.post('/auth/signin', (req: Request, res: Response) =>
+    signInController.run(req, res)
+  );
 
   const emailVerifController: EmailVerificationGetController = container.get(
     'App.controllers.auth.EmailVerificationGetController'
