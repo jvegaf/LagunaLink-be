@@ -1,8 +1,8 @@
 import { MailerService } from '../../../Shared/application/mail/MailerService';
-import { TokenGenerator } from '../../../Shared/application/encoder/TokenGenerator';
+import { TokenGenerator } from '../domain/TokenGenerator';
 import { User } from '../domain/User';
-import { Payload } from '../../../Shared/application/encoder/Payload';
-import { Token } from '../../../Shared/application/encoder/Token';
+import { Payload } from '../domain/Payload';
+import { Token } from '../domain/Token';
 import { Message } from '../../../Shared/application/mail/Message';
 import { ConfirmationEmail } from '../domain/ConfirmationEmail';
 

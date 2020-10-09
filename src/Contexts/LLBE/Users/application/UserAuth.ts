@@ -1,4 +1,4 @@
-import { TokenGenerator } from '../../../Shared/application/encoder/TokenGenerator';
+import { TokenGenerator } from '../domain/TokenGenerator';
 import { UserRepository } from '../domain/UserRepository';
 import { AuthUserRequest } from './AuthUserRequest';
 import { UserEmail } from '../domain/UserEmail';

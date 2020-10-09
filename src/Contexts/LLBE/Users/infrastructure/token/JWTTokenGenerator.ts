@@ -1,9 +1,10 @@
-import { TokenGenerator } from '../../application/encoder/TokenGenerator';
+import { TokenGenerator } from '../../domain/TokenGenerator';
 import jwt from 'jwt-simple';
-import { Token } from '../../application/encoder/Token';
+import { Token } from '../../domain/Token';
+import { Payload } from '../../domain/Payload';
 
 export class JWTTokenGenerator implements TokenGenerator {
-  run(payload: object): Token {
+  run(payload: Payload): Token {
     const secretKey: string = process.env.SECRET_KEY!;
 
     return new Token(jwt.encode(payload, secretKey));

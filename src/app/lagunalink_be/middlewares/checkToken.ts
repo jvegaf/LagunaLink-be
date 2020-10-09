@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jwt-simple';
-import { JWTTokenGenerator } from '../../../Contexts/Shared/infrastructure/encoder/JWTTokenGenerator';
+import { JWTTokenGenerator } from '../../../Contexts/LLBE/Users/infrastructure/token/JWTTokenGenerator';
 
 export const checkToken = async (
   req: Request,
