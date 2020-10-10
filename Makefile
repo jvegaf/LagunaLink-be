@@ -17,10 +17,6 @@ build:
 test: build
 	docker-compose run --rm $(SERVICE_NAME) bash -c 'npm run build && npm run test'
 
-.PHONY: local/test
-local/test: deps start_database
-	@npm run build && npm run test
-
 .PHONY: start
 start: build
 	docker-compose up $(SERVICE_NAME) && docker-compose down
@@ -40,6 +36,14 @@ local/start: deps start_database
 .PHONY: local/dev
 local/dev: deps start_database
 	@npm run build && npm run dev
+
+.PHONY: local/test
+local/test: deps start_database
+	@npm run build && npm run test
+
+.PHONY: local/test-features
+local/test-features: deps start_database
+	@npm run build && npm run test:features
 
 .PHONY: destroy
 destroy: clear

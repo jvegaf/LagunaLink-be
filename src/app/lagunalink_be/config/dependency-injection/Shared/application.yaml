@@ -9,10 +9,6 @@ services:
     class: ../../../../../Contexts/Shared/infrastructure/WinstonLogger
     arguments: []
 
-  App.shared.TokenGenerator:
-    class: ../../../../../Contexts/Shared/infrastructure/encoder/JWTTokenGenerator
-    arguments: []
-
   App.shared.Mailer:
     class: ../../../../../Contexts/Shared/infrastructure/mail/NodeMailer
     arguments: []

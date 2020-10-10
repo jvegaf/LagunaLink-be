@@ -10,7 +10,7 @@ services:
 
   App.users.ConfirmationEmail:
     class: ../../../../../Contexts/LLBE/Users/application/UserConfirmationEmailDealer
-    arguments: [ '@App.shared.Mailer', '@App.shared.TokenGenerator' ]
+    arguments: [ '@App.shared.Mailer', '@App.users.TokenGenerator' ]
 
   App.users.UserEmailConfirmator:
     class: ../../../../../Contexts/LLBE/Users/application/UserEmailConfirmator
@@ -18,4 +18,8 @@ services:
 
   App.users.UserAuth:
     class: ../../../../../Contexts/LLBE/Users/application/UserAuth
-    arguments: [ '@App.shared.TokenGenerator','@App.users.UserRepository' ]
+    arguments: [ '@App.users.TokenGenerator','@App.users.UserRepository' ]
+
+  App.users.TokenGenerator:
+    class: ../../../../../Contexts/LLBE/Users/infrastructure/token/JWTTokenGenerator
+    arguments: []

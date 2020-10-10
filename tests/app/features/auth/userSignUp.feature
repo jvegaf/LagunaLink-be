@@ -3,7 +3,7 @@ Feature: Register a new account
   As a new user I want to create a new account
 
   Scenario: A valid unexisting user
-    Given I send a POST request to "/api/auth/signup" with body:
+    Given I send a POST request to "/auth/signup" with body:
     """
     {
       "email": "julian-fernandez@gmail.com",
