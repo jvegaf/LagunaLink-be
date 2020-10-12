@@ -6,6 +6,8 @@ import { AuthJWTChecker } from '../../../../Contexts/LLBE/Users/infrastructure/t
 import { Token } from '../../../../Contexts/LLBE/Users/domain/Token';
 import httpStatus from 'http-status';
 import { Payload } from '../../../../Contexts/LLBE/Users/domain/Payload';
+import { UserRole } from '../../../../Contexts/LLBE/Users/domain/UserRole';
+import { AuthRoleChecker } from '../../../../Contexts/LLBE/Users/application/AuthRoleChecker';
 
 export class StudentPostController implements Controller {
   constructor(private studentCreator: StudentCreator) {}
@@ -23,6 +25,15 @@ export class StudentPostController implements Controller {
     } catch (e) {
       res.status(402).send({ message: e.message });
       return;
+    }
+
+    const roles = [new UserRole('ROLE_STUDENT')];
+    const requestRole = new UserRole(payload.role);
+    const roleChecker = new AuthRoleChecker(roles);
+    try {
+      roleChecker.run(requestRole);
+    } catch (e) {
+      res.status(402).send({ message: e.message });
     }
 
     const studentRequest: CreateStudentRequest = {
