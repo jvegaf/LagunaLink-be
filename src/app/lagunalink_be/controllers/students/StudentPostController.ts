@@ -35,7 +35,7 @@ export class StudentPostController implements Controller {
     try {
       this.authRoleCheker.check(payload.role);
     } catch (e) {
-      res.status(402).send({ message: e.message });
+      res.status(400).send({ message: e.message });
     }
 
     const studentRequest: CreateStudentRequest = {
