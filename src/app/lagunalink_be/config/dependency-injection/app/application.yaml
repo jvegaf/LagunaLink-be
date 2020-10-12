@@ -18,4 +18,4 @@ services:
 
   App.controllers.students.StudentPostController:
     class: ../../../controllers/students/StudentPostController
-    arguments: ["@App.students.StudentCreator"]
+    arguments: ["@App.students.StudentCreator", "@App.users.StudentRoleChecker"]

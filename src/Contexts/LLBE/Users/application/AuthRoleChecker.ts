@@ -1,22 +1,11 @@
-import { UserRole } from '../domain/UserRole';
 import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError';
+import { AuthRole } from '../domain/AuthRole';
 
-export class AuthRoleChecker {
-  private roles: Array<UserRole>;
+export abstract class AuthRoleChecker implements AuthRole {
+  abstract readonly ROLE: string;
 
-  constructor(roles: Array<UserRole>) {
-    this.roles = roles;
-  }
-  run(userRole: UserRole): void {
-    let result = false;
-
-    this.roles.forEach((role) => {
-      if (role.value === userRole.value) {
-        result = true;
-      }
-    });
-
-    if (!result) {
+  check(role: string): void {
+    if (role !== this.ROLE) {
       throw new InvalidArgumentError('Bad Role');
     }
   }

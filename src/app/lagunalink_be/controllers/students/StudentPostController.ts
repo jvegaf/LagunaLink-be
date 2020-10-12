@@ -6,11 +6,16 @@ import { AuthJWTChecker } from '../../../../Contexts/LLBE/Users/infrastructure/t
 import { Token } from '../../../../Contexts/LLBE/Users/domain/Token';
 import httpStatus from 'http-status';
 import { Payload } from '../../../../Contexts/LLBE/Users/domain/Payload';
-import { UserRole } from '../../../../Contexts/LLBE/Users/domain/UserRole';
-import { AuthRoleChecker } from '../../../../Contexts/LLBE/Users/application/AuthRoleChecker';
+import { AuthRole } from '../../../../Contexts/LLBE/Users/domain/AuthRole';
 
 export class StudentPostController implements Controller {
-  constructor(private studentCreator: StudentCreator) {}
+  private studentCreator: StudentCreator;
+  private authRoleCheker: AuthRole;
+
+  constructor(studentCreator: StudentCreator, authRole: AuthRole) {
+    this.studentCreator = studentCreator;
+    this.authRoleCheker = authRole;
+  }
 
   async run(req: Request, res: Response) {
     if (req.headers.authorization === null) {
@@ -27,11 +32,8 @@ export class StudentPostController implements Controller {
       return;
     }
 
-    const roles = [new UserRole('ROLE_STUDENT')];
-    const requestRole = new UserRole(payload.role);
-    const roleChecker = new AuthRoleChecker(roles);
     try {
-      roleChecker.run(requestRole);
+      this.authRoleCheker.check(payload.role);
     } catch (e) {
       res.status(402).send({ message: e.message });
     }
