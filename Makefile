@@ -45,6 +45,10 @@ local/test: deps start_database
 local/test-features: deps start_database
 	@npm run build && npm run test:features
 
+.PHONY: local/test-unit
+local/test-unit: deps start_database
+	@npm run build && npm run test:unit
+
 .PHONY: destroy
 destroy: clear
 	@sudo rm -rf dist && sudo rm -rf node_modules
