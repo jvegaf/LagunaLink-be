@@ -1,7 +1,6 @@
 #  🎯 LagunaLink Backend
 
-![Node CI](https://github.com/jvegaf/LagunaLink-be/workflows/Node%20CI/badge.svg)
-![Node CI status](https://github.com/jvegaf/LagunaLink-be/workflows/Node%20CI/badge.svg?event=status)
+![Node CI status](https://github.com/jvegaf/LagunaLink-be/workflows/Node%20CI/badge.svg?branch=master)
 
 ## Preparacion del entorno
 1. Clonar el repositorio: `git clone https://github.com/jvegaf/LagunaLink-be.git`
