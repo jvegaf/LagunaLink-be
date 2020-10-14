@@ -45,7 +45,11 @@ export class StudentPostController implements Controller {
       lastname: req.body.lastname,
     };
 
-    await this.studentCreator.run(studentRequest);
+    try {
+      await this.studentCreator.run(studentRequest);
+    } catch (err) {
+      res.status(400).send({ error: 'the student account exists' });
+    }
 
     res.status(201).send();
   }

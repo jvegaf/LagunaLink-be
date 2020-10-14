@@ -5,6 +5,7 @@ import { StudentId } from '../../Shared/domain/Students/StudentId';
 import { StudentName } from '../domain/StudentName';
 import { StudentSurname } from '../domain/StudentSurname';
 import { StudentLastname } from '../domain/StudentLastname';
+import { StudentExists } from '../domain/StudentExists';
 
 export class StudentCreator {
   private repository: StudentRepository;
@@ -14,6 +15,8 @@ export class StudentCreator {
   }
 
   async run(request: CreateStudentRequest): Promise<void> {
+    await this.ensureStudentNotExists(new StudentId(request.id));
+
     const student = Student.create(
       new StudentId(request.id),
       new StudentName(request.name),
@@ -22,5 +25,11 @@ export class StudentCreator {
     );
 
     await this.repository.save(student);
+  }
+
+  private async ensureStudentNotExists(studentId: StudentId) {
+    if ((await this.repository.search(studentId)) !== null) {
+      throw new StudentExists('the student account exists');
+    }
   }
 }
