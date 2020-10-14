@@ -31,11 +31,11 @@ Then('the response status code should be {int}', async (status: number) => {
 });
 
 Then('the response should be empty', () => {
-  assert.deepEqual(_response.body, {});
+  assert.deepStrictEqual(_response.body, {});
 });
 
 Then('the response content should be:', (response) => {
-  assert.deepEqual(_response.body, JSON.parse(response));
+  assert.strictEqual(_response.body, JSON.parse(response));
 });
 
 Before(async () => {
