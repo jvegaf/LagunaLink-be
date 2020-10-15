@@ -10,6 +10,13 @@ export class QualificationsMother {
         return quals;
     }
 
+    static randomToPrimitives() {
+        let quals = [];
+        let qualification = this.createRandomQualification();
+        quals.push(qualification.toPrimitives());
+        return quals;
+    }
+
     static random(): Qualification[] {
         let rndQualification = this.createRandomQualification();
         return this.create(rndQualification);

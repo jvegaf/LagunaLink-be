@@ -7,7 +7,7 @@ describe('Student', () => {
   it('should return a new student instance', () => {
     const request = CreateStudentRequestMother.random();
 
-    const student = StudentMother.fromRequest(request);
+    const student = StudentMother.fromCreateRequest(request);
 
     expect(student.name.value).toBe(request.name);
     expect(student.surname.value).toBe(request.surname);

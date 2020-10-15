@@ -29,4 +29,11 @@ export class JobExperiencesMother {
             EndDateMother.random()
         )
     }
+
+    static randomToPrimitives() {
+        let jobs = [];
+        let job = this.createJobExperience();
+        jobs.push(job.toPrimitives());
+        return jobs;
+    }
 }

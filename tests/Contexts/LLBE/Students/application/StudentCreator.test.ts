@@ -15,7 +15,7 @@ beforeEach(() => {
 it('should create a valid student', async () => {
   const request = CreateStudentRequestMother.random();
 
-  const student = StudentMother.fromRequest(request);
+  const student = StudentMother.fromCreateRequest(request);
 
   repository.whenSearchThenReturn(null);
   await creator.run(request);
@@ -26,7 +26,7 @@ it('should create a valid student', async () => {
 it('should throw an error when try create a previously created student', async () => {
   const request = CreateStudentRequestMother.random();
 
-  const student = StudentMother.fromRequest(request);
+  const student = StudentMother.fromCreateRequest(request);
 
   repository.whenSearchThenReturn(null);
   await creator.run(request);

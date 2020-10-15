@@ -27,7 +27,7 @@ export class StudentMother {
         return new Student(id, name, surname, lastname, qualifications, languages, jobexperiences);
     }
 
-    static fromRequest(request: CreateStudentRequest): Student {
+    static fromCreateRequest(request: CreateStudentRequest): Student {
         return this.create(
             StudentIdMother.random(),
             StudentNameMother.create(request.name),

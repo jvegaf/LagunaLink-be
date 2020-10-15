@@ -21,4 +21,11 @@ export class StudentLangsMother {
             LangLevelMother.random()
         );
     }
+
+  static randomToPrimitives() {
+        let langs = [];
+        let lang = this.createRandomLang();
+        langs.push(lang.toPrimitives());
+        return langs;
+  }
 }
