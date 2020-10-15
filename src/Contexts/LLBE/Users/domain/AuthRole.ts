@@ -1,5 +1,7 @@
+import { Payload } from './Payload';
+
 export interface AuthRole {
   ROLE: string;
 
-  check(role: string): void;
+  check(payload: Payload): void;
 }

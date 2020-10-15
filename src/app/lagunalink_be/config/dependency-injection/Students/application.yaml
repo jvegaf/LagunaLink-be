@@ -11,3 +11,4 @@ services:
   App.students.StudentUpgrader:
     class: ../../../../../Contexts/LLBE/Students/application/StudentUpgrader
     arguments: ['@App.students.StudentRepository']
+
