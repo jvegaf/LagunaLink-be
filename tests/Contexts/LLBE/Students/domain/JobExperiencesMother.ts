@@ -1,9 +1,9 @@
-import {JobExperience} from "../../../../../src/Contexts/LLBE/Students/domain/JobExperience";
-import {JobCompanyMother} from "./JobCompanyMother";
-import {JobPositionMother} from "./JobPositionMother";
-import {JobResponsMother} from "./JobResponsMother";
-import {StartDateMother} from "../../Shared/domain/StartDateMother";
-import {EndDateMother} from "../../Shared/domain/EndDateMother";
+import { JobExperience } from '../../../../../src/Contexts/LLBE/Students/domain/JobExperience';
+import { JobCompanyMother } from './JobCompanyMother';
+import { JobPositionMother } from './JobPositionMother';
+import { JobResponsMother } from './JobResponsMother';
+import { StartDateMother } from '../../Shared/domain/StartDateMother';
+import { EndDateMother } from '../../Shared/domain/EndDateMother';
 
 export class JobExperiencesMother {
     // static create(value: JobExperience): JobExperience[] {
@@ -12,7 +12,7 @@ export class JobExperiencesMother {
 
     static random(): JobExperience[] {
         let jobs = [];
-        for (let i=0;i<2;i++) {
+        for (let i = 0; i < 2; i++) {
             let job = this.createJobExperience()
             jobs.push(job);
         }
@@ -22,11 +22,18 @@ export class JobExperiencesMother {
 
     private static createJobExperience() {
         return new JobExperience(
-            JobCompanyMother.random(),
-            JobPositionMother.random(),
-            JobResponsMother.random(),
-            StartDateMother.random(),
-            EndDateMother.random()
+          JobCompanyMother.random(),
+          JobPositionMother.random(),
+          JobResponsMother.random(),
+          StartDateMother.random(),
+          EndDateMother.random()
         )
+    }
+
+    static randomToPrimitives() {
+        let jobs = [];
+        let job = this.createJobExperience();
+        jobs.push(job.toPrimitives());
+        return jobs;
     }
 }

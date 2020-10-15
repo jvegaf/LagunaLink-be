@@ -1,12 +1,19 @@
-import {Qualification} from "../../../../../src/Contexts/LLBE/Students/domain/Qualification";
-import {TitleNameMother} from "./TitleNameMother";
-import {StartDateMother} from "../../Shared/domain/StartDateMother";
-import {EndDateMother} from "../../Shared/domain/EndDateMother";
+import { Qualification } from '../../../../../src/Contexts/LLBE/Students/domain/Qualification';
+import { TitleNameMother } from './TitleNameMother';
+import { StartDateMother } from '../../Shared/domain/StartDateMother';
+import { EndDateMother } from '../../Shared/domain/EndDateMother';
 
 export class QualificationsMother {
     static create(value: Qualification): Qualification[] {
         let quals = [];
         quals.push(value);
+        return quals;
+    }
+
+    static randomToPrimitives() {
+        let quals = [];
+        let qualification = this.createRandomQualification();
+        quals.push(qualification.toPrimitives());
         return quals;
     }
 
@@ -17,8 +24,8 @@ export class QualificationsMother {
 
     private static createRandomQualification() {
         return new Qualification(
-            TitleNameMother.random(),
-            StartDateMother.random(),
+          TitleNameMother.random(),
+          StartDateMother.random(),
             EndDateMother.random()
         );
     }

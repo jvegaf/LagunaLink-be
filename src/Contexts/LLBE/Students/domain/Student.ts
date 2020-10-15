@@ -1,11 +1,11 @@
-import {AggregateRoot} from '../../../Shared/domain/AggregateRoot';
-import {StudentId} from '../../Shared/domain/Students/StudentId';
-import {StudentName} from './StudentName';
-import {StudentSurname} from './StudentSurname';
-import {StudentLastname} from './StudentLastname';
-import {Qualification} from "./Qualification";
-import {Language} from "./Language";
-import {JobExperience} from "./JobExperience";
+import { AggregateRoot } from '../../../Shared/domain/AggregateRoot';
+import { StudentId } from '../../Shared/domain/Students/StudentId';
+import { StudentName } from './StudentName';
+import { StudentSurname } from './StudentSurname';
+import { StudentLastname } from './StudentLastname';
+import { Qualification } from './Qualification';
+import { Language } from './Language';
+import { JobExperience } from './JobExperience';
 
 export class Student extends AggregateRoot {
     readonly id: StudentId;
@@ -51,9 +51,9 @@ export class Student extends AggregateRoot {
             name: string;
             surname: string;
             lastname: string;
-            qualifications: [];
-            languages: [];
-            job_experiences: [];
+            qualifications: { end_date: string; title: string; start_date: string }[];
+            languages: { name: string; speak: number; write: number }[];
+            job_experiences: { responsibilities: string; endDate: string; company: string; position: string; startDate: string }[];
         }): Student {
         return new Student(
             new StudentId(plainData.id),
@@ -91,17 +91,17 @@ export class Student extends AggregateRoot {
         return this.jobexperiences?.map(job => job.toPrimitives());
     }
 
-    private static qualificationsFromPrimitives(qualifications: []) {
+    private static qualificationsFromPrimitives(qualifications: { end_date: string; title: string; start_date: string }[]) {
         if (qualifications === undefined) return;
         return qualifications.map(qualification => Qualification.fromPrimitives(qualification));
     }
 
-    private static languagesFromPrimitives(languages: []) {
+    private static languagesFromPrimitives(languages: { name: string; speak: number; write: number }[]) {
         if (languages === undefined) return;
         return languages.map(language => Language.fromPrimitives(language));
     }
 
-    private static jobexperiencesFromPrimitives(jobexperiences: []) {
+    private static jobexperiencesFromPrimitives(jobexperiences: { responsibilities: string; endDate: string; company: string; position: string; startDate: string }[]) {
         if (jobexperiences === undefined) return;
         return jobexperiences.map(jobex => JobExperience.fromPrimitives(jobex));
     }
