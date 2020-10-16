@@ -5,6 +5,7 @@ import { UserRepository } from '../../../../../src/Contexts/LLBE/Users/domain/Us
 import { UserEmail } from '../../../../../src/Contexts/LLBE/Users/domain/UserEmail';
 import { CreateUserRequestMother } from '../application/CreateUserRequestMother';
 import { UserMother } from '../domain/UserMother';
+import { compareSync, hashSync } from 'bcryptjs';
 
 export class UserRepositoryMock implements UserRepository {
   private mockSave = jest.fn();
@@ -20,7 +21,9 @@ export class UserRepositoryMock implements UserRepository {
     const lastSavedUser = mock.calls[mock.calls.length - 1][0] as User;
     expect(lastSavedUser).toBeInstanceOf(User);
     expect(lastSavedUser.email).toEqual(expected.email);
-    expect(lastSavedUser.password).toEqual(expected.password);
+    expect(
+      compareSync(expected.password.value, lastSavedUser.password.value)
+    ).toBeTruthy();
     expect(lastSavedUser.isActive).toEqual(expected.isActive);
   }
 
@@ -32,14 +35,14 @@ export class UserRepositoryMock implements UserRepository {
     if (email.value === 'pepe@yo.com') {
       const request = CreateUserRequestMother.random();
       request.email = email.value;
-      request.password = 'otherValue';
+      request.password = hashSync('otherValue', 10);
       return UserMother.fromRequest(request);
     }
 
     if (email.value === 'pepito@yo.com') {
       const request = CreateUserRequestMother.random();
       request.email = email.value;
-      request.password = '123123';
+      request.password = hashSync('123123', 10);
       request.isActive = false;
       return UserMother.fromRequest(request);
     }
@@ -47,7 +50,7 @@ export class UserRepositoryMock implements UserRepository {
     if (email.value === 'juan@yo.com') {
       const request = CreateUserRequestMother.random();
       request.email = email.value;
-      request.password = '123123';
+      request.password = hashSync('123123', 10);
       request.isActive = true;
       return UserMother.fromRequest(request);
     }
@@ -74,6 +77,7 @@ export class UserRepositoryMock implements UserRepository {
   private createUserWithEmail(userEmail: string) {
     const request = CreateUserRequestMother.random();
     request.email = userEmail;
+    request.password = hashSync(request.password, 10);
 
     return UserMother.fromRequest(request);
   }

@@ -14,6 +14,7 @@ import { StudentId } from '../../../../src/Contexts/LLBE/Shared/domain/Students/
 import { StudentNameMother } from '../../../Contexts/LLBE/Students/domain/StudentNameMother';
 import { StudentSurnameMother } from '../../../Contexts/LLBE/Students/domain/StudentSurnameMother';
 import { StudentLastnameMother } from '../../../Contexts/LLBE/Students/domain/StudentLastnameMother';
+import { hashSync } from 'bcryptjs';
 
 let _request: request.Test;
 let _response: request.Response;
@@ -29,12 +30,18 @@ const studentRepository: StudentRepository = container.get(
 
 async function createUserWithRole(role: string) {
   const userRequest = CreateUserRequestMother.random();
+  const passwordPlane = userRequest.password;
+  userRequest.password = hashSync(userRequest.password, 10);
   userRequest.isActive = true;
   userRequest.registered = false;
   userRequest.role = role;
   const user = UserMother.fromRequest(userRequest);
   await userRepository.save(user);
-  return user;
+  return {
+    id: userRequest.id,
+    email: user.email.value,
+    password: passwordPlane,
+  };
 }
 
 function createStudent(user: User) {
@@ -46,23 +53,19 @@ function createStudent(user: User) {
   );
 }
 
-async function loginUserAccount(user: User) {
-  const signInReqBody = {
-    email: user.email.value,
-    password: user.password.value,
-  };
-  const response = await request(app).post('/auth/signin').send(signInReqBody);
+async function loginUserAccount(authReq: object) {
+  const response = await request(app).post('/auth/signin').send(authReq);
   return response.body.access_token;
 }
 
 Given('I am logged in with previous created Student Role account', async () => {
-  const user = await createUserWithRole('ROLE_STUDENT');
-  accessToken = await loginUserAccount(user);
+  const authReq = await createUserWithRole('ROLE_STUDENT');
+  accessToken = await loginUserAccount(authReq);
 });
 
 Given('I am logged in with previous created Company Role account', async () => {
-  const user = await createUserWithRole('ROLE_COMPANY');
-  accessToken = await loginUserAccount(user);
+  const authReq = await createUserWithRole('ROLE_COMPANY');
+  accessToken = await loginUserAccount(authReq);
 });
 
 Given('I send a GET request to {string}', (route: string) => {
@@ -86,10 +89,16 @@ Given(
 Given(
   'I am logged in with a Student Role account previously registered',
   async () => {
-    const user = await createUserWithRole('ROLE_STUDENT');
+    const authReq = await createUserWithRole('ROLE_STUDENT');
+    const userReq = CreateUserRequestMother.random();
+    userReq.id = authReq.id;
+    userReq.role = 'ROLE_STUDENT';
+    userReq.isActive = true;
+    userReq.registered = false;
+    const user = UserMother.fromRequest(userReq);
     const student = createStudent(user);
     await studentRepository.save(student);
-    accessToken = await loginUserAccount(user);
+    accessToken = await loginUserAccount(authReq);
   }
 );
 

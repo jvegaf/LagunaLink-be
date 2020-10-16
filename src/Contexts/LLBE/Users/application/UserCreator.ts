@@ -12,6 +12,7 @@ import { UserEmailExists } from './UserEmailExists';
 import { ConfirmationEmail } from '../domain/ConfirmationEmail';
 import { Timestamp } from '../../Shared/domain/Timestamp';
 import { UserRegistered } from '../domain/UserRegistered';
+import { hashSync } from 'bcryptjs';
 
 export class UserCreator {
   private repository: UserRepository;
@@ -25,10 +26,12 @@ export class UserCreator {
   async run(request: CreateUserRequest): Promise<void> {
     await this.ensureUserNotExist(request.email);
 
+    const passwordHashed = hashSync(request.password, 10);
+
     const user = User.create(
       new UserId(request.id),
       new UserEmail(request.email),
-      new UserPassword(request.password),
+      new UserPassword(passwordHashed),
       new UserIsActive(request.isActive),
       new UserRole(request.role),
       new UserRegistered(request.registered),
