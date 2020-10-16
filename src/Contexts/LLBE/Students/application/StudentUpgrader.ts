@@ -12,7 +12,6 @@ export class StudentUpgrader {
   async run(request: UpgradeStudentRequest): Promise<void> {
 
     const student = Student.fromPrimitives(request);
-
     await this.repository.save(student);
   }
 }

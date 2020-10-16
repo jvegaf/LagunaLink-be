@@ -37,11 +37,11 @@ export class StudentPutController implements Controller {
       this.authRoleChecker.check(payload);
     } catch (e) {
       res.status(400).send({ error: e.message });
+      return;
     }
 
     //TODO: validacion del request Body ????
-    const studentRequest: UpgradeStudentRequest = req.body;
-
+    const studentRequest: UpgradeStudentRequest = {...req.body, id: payload.userId};
     await this.upgrader.run(studentRequest);
 
     res.status(200).send();
