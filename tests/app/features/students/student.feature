@@ -37,3 +37,45 @@ Feature: Student Registry
     }
     """
     Then the response status code should be 400
+
+  Scenario: Upgrade a student with new data
+    Given I am logged in with previous created Student Role account
+    When I send a PUT request with Auth header to "/students" with body:
+    """
+    {
+      "name" : "quibusdam",
+      "surname" : "nihil",
+      "lastname" : "ipsum",
+      "qualifications" : [
+          {
+              "title" : "omnis",
+              "start_date" : "2020-08-18",
+              "end_date" : "2020-08-27"
+          }
+      ],
+      "languages" : [
+          {
+              "name" : "English",
+              "speak" : 3,
+              "write" : 4
+          }
+      ],
+      "job_experiences" : [
+          {
+              "company" : "repudiandae",
+              "position" : "eos",
+              "responsibilities" : "minus",
+              "start_date" : "2020-06-02",
+              "end_date" : "2020-04-23"
+          },
+          {
+              "company" : "intel",
+              "position" : "ut",
+              "responsibilities" : "aliquam",
+              "start_date" : "2020-09-11",
+              "end_date" : "2019-12-25"
+          }
+      ]
+    }
+    """
+    Then the response status code should be 200

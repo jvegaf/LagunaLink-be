@@ -1,20 +1,21 @@
 import { Request, Response } from 'express';
-import { StudentCreator } from '../../../../Contexts/LLBE/Students/application/StudentCreator';
 import { Controller } from '../Controller';
-import { CreateStudentRequest } from '../../../../Contexts/LLBE/Students/application/CreateStudentRequest';
 import { AuthJWTChecker } from '../../../../Contexts/LLBE/Users/infrastructure/token/AuthJWTChecker';
 import { Token } from '../../../../Contexts/LLBE/Users/domain/Token';
 import httpStatus from 'http-status';
 import { Payload } from '../../../../Contexts/LLBE/Users/domain/Payload';
 import { AuthRole } from '../../../../Contexts/LLBE/Users/domain/AuthRole';
+import { StudentUpgrader } from '../../../../Contexts/LLBE/Students/application/StudentUpgrader';
+import { UpgradeStudentRequest } from '../../../../Contexts/LLBE/Students/application/UpgradeStudentRequest';
 
-export class StudentPostController implements Controller {
-  private studentCreator: StudentCreator;
-  private authRoleCheker: AuthRole;
+// noinspection SpellCheckingInspection
+export class StudentPutController implements Controller {
+  private upgrader: StudentUpgrader;
+  private authRoleChecker: AuthRole;
 
-  constructor(studentCreator: StudentCreator, authRole: AuthRole) {
-    this.studentCreator = studentCreator;
-    this.authRoleCheker = authRole;
+  constructor(studentUpgrader: StudentUpgrader, authRole: AuthRole) {
+    this.upgrader = studentUpgrader;
+    this.authRoleChecker = authRole;
   }
 
   async run(req: Request, res: Response) {
@@ -33,24 +34,16 @@ export class StudentPostController implements Controller {
     }
 
     try {
-      this.authRoleCheker.check(payload);
+      this.authRoleChecker.check(payload);
     } catch (e) {
       res.status(400).send({ error: e.message });
+      return;
     }
 
-    const studentRequest: CreateStudentRequest = {
-      id: payload.userId,
-      name: req.body.name,
-      surname: req.body.surname,
-      lastname: req.body.lastname,
-    };
+    //TODO: validacion del request Body ????
+    const studentRequest: UpgradeStudentRequest = {...req.body, id: payload.userId};
+    await this.upgrader.run(studentRequest);
 
-    try {
-      await this.studentCreator.run(studentRequest);
-    } catch (err) {
-      res.status(400).send({ error: 'the student account exists' });
-    }
-
-    res.status(201).send();
+    res.status(200).send();
   }
 }

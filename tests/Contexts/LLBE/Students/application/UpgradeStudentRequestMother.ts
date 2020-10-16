@@ -1,7 +1,7 @@
 import { StudentNameMother } from '../domain/StudentNameMother';
 import { StudentSurnameMother } from '../domain/StudentSurnameMother';
 import { StudentLastnameMother } from '../domain/StudentLastnameMother';
-import { StudentIdMother } from "../../Shared/domain/Students/StudentIdMother";
+import { StudentIdMother } from '../../Shared/domain/Students/StudentIdMother';
 import { UpgradeStudentRequest } from '../../../../../src/Contexts/LLBE/Students/application/UpgradeStudentRequest';
 import { QualificationsMother } from '../domain/QualificationsMother';
 import { StudentLangsMother } from '../domain/StudentLangsMother';
@@ -15,7 +15,7 @@ export class UpgradeStudentRequestMother {
     lastname: string,
     qualifications: { end_date: string; title: string; start_date: string }[],
     languages: { name: string; speak: number; write: number }[],
-    job_experiences: { responsibilities: string; endDate: string; company: string; position: string; startDate: string }[]
+    job_experiences: { company: string; position: string; responsibilities: string; start_date: string; end_date: string }[]
   ): UpgradeStudentRequest {
     return {
       id: id,
