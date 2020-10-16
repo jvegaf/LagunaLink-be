@@ -5,6 +5,7 @@ import { UserEmail } from '../domain/UserEmail';
 import { UserAuthFail } from './UserAuthFail';
 import { AuthResponse } from './AuthResponse';
 import { AccountNotConfirmed } from './AccountNotConfirmed';
+import { compareSync } from 'bcryptjs';
 
 export class UserAuth {
   private readonly tokenGenerator: TokenGenerator;
@@ -22,7 +23,7 @@ export class UserAuth {
     if (user === null) {
       throw new UserAuthFail('Incorrect Email or Password');
     }
-    if (user.password.value !== request.password) {
+    if (!compareSync(request.password, user.password.value)) {
       throw new UserAuthFail('Incorrect Email or Password');
     }
     if (!user.isActive.value) {
