@@ -1,8 +1,8 @@
-import {StartDate} from "../../Shared/domain/StartDate";
-import {EndDate} from "../../Shared/domain/EndDate";
-import {JobOpenCompany} from "./JobOpenCompany";
-import {JobPosition} from "./JobPosition";
-import {JobRespons} from "./JobRespons";
+import { StartDate } from '../../Shared/domain/StartDate';
+import { EndDate } from '../../Shared/domain/EndDate';
+import { JobOpenCompany } from './JobOpenCompany';
+import { JobPosition } from './JobPosition';
+import { JobRespons } from './JobRespons';
 
 export class JobExperience {
     readonly company: JobOpenCompany;
@@ -23,15 +23,15 @@ export class JobExperience {
         company: string,
         position: string,
         responsibilities: string,
-        startDate: string,
-        endDate: string
+        start_date: string,
+        end_date: string
     }) {
         return new JobExperience(
-            new JobOpenCompany(plaindata.company),
-            new JobPosition(plaindata.position),
-            new JobRespons(plaindata.responsibilities),
-            new StartDate(plaindata.startDate),
-            new EndDate(plaindata.endDate)
+          new JobOpenCompany(plaindata.company),
+          new JobPosition(plaindata.position),
+          new JobRespons(plaindata.responsibilities),
+          new StartDate(plaindata.start_date),
+          new EndDate(plaindata.end_date)
         );
     }
 
@@ -40,8 +40,8 @@ export class JobExperience {
             company: this.company.toString(),
             position: this.position.toString(),
             responsibilities: this.responsibilities.toString(),
-            startDate: this.startDate.toString(),
-            endDate: this.endDate.toString()
+            start_date: this.startDate.toString(),
+            end_date: this.endDate.toString()
         };
     }
 }
