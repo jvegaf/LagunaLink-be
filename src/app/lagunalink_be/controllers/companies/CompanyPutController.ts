@@ -5,16 +5,16 @@ import { Token } from '../../../../Contexts/LLBE/Users/domain/Token';
 import httpStatus from 'http-status';
 import { Payload } from '../../../../Contexts/LLBE/Users/domain/Payload';
 import { AuthRole } from '../../../../Contexts/LLBE/Users/domain/AuthRole';
-import { StudentUpgrader } from '../../../../Contexts/LLBE/Students/application/StudentUpgrader';
-import { UpgradeStudentRequest } from '../../../../Contexts/LLBE/Students/application/UpgradeStudentRequest';
+import { CompanyUpgrader } from '../../../../Contexts/LLBE/Companies/application/CompanyUpgrader';
+import { CompanyRequest } from '../../../../Contexts/LLBE/Companies/application/CompanyRequest';
 
 // noinspection SpellCheckingInspection
-export class StudentPutController implements Controller {
-  private upgrader: StudentUpgrader;
+export class CompanyPutController implements Controller {
+  private upgrader: CompanyUpgrader;
   private authRoleChecker: AuthRole;
 
-  constructor(studentUpgrader: StudentUpgrader, authRole: AuthRole) {
-    this.upgrader = studentUpgrader;
+  constructor(companyUpgrader: CompanyUpgrader, authRole: AuthRole) {
+    this.upgrader = companyUpgrader;
     this.authRoleChecker = authRole;
   }
 
@@ -40,11 +40,8 @@ export class StudentPutController implements Controller {
       return;
     }
 
-    const studentRequest: UpgradeStudentRequest = {
-      ...req.body,
-      id: payload.userId,
-    };
-    await this.upgrader.run(studentRequest);
+    const companyRequest: CompanyRequest = { ...req.body, id: payload.userId };
+    await this.upgrader.run(companyRequest);
 
     res.status(200).send();
   }

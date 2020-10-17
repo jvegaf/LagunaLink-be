@@ -5,16 +5,15 @@ import { Token } from '../../../../Contexts/LLBE/Users/domain/Token';
 import httpStatus from 'http-status';
 import { Payload } from '../../../../Contexts/LLBE/Users/domain/Payload';
 import { AuthRole } from '../../../../Contexts/LLBE/Users/domain/AuthRole';
-import { StudentUpgrader } from '../../../../Contexts/LLBE/Students/application/StudentUpgrader';
-import { UpgradeStudentRequest } from '../../../../Contexts/LLBE/Students/application/UpgradeStudentRequest';
+import { CompanyCreator } from '../../../../Contexts/LLBE/Companies/application/CompanyCreator';
+import { CompanyRequest } from '../../../../Contexts/LLBE/Companies/application/CompanyRequest';
 
-// noinspection SpellCheckingInspection
-export class StudentPutController implements Controller {
-  private upgrader: StudentUpgrader;
+export class CompanyPostController implements Controller {
+  private creator: CompanyCreator;
   private authRoleChecker: AuthRole;
 
-  constructor(studentUpgrader: StudentUpgrader, authRole: AuthRole) {
-    this.upgrader = studentUpgrader;
+  constructor(companyCreator: CompanyCreator, authRole: AuthRole) {
+    this.creator = companyCreator;
     this.authRoleChecker = authRole;
   }
 
@@ -37,15 +36,24 @@ export class StudentPutController implements Controller {
       this.authRoleChecker.check(payload);
     } catch (e) {
       res.status(400).send({ error: e.message });
-      return;
     }
 
-    const studentRequest: UpgradeStudentRequest = {
-      ...req.body,
+    const companyRequest: CompanyRequest = {
       id: payload.userId,
+      name: req.body.name,
+      description: req.body.description,
+      address: req.body.address,
+      postalCode: req.body.postalCode,
+      region: req.body.region,
+      city: req.body.city,
     };
-    await this.upgrader.run(studentRequest);
 
-    res.status(200).send();
+    try {
+      await this.creator.run(companyRequest);
+    } catch (err) {
+      res.status(400).send({ error: 'the company account exists' });
+    }
+
+    res.status(201).send();
   }
 }
