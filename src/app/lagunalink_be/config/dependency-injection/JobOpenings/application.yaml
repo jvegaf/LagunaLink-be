@@ -7,3 +7,7 @@ services:
   App.jobOpenings.JobOpeningCreator:
     class: ../../../../../Contexts/LLBE/JobOpenings/application/JobOpeningCreator
     arguments: ['@App.jobOpenings.JobOpeningRepository']
+
+  App.jobOpenings.JobOpeningUpgrader:
+    class: ../../../../../Contexts/LLBE/JobOpenings/application/JobOpeningUpgrader
+    arguments: ['@App.jobOpenings.JobOpeningRepository']

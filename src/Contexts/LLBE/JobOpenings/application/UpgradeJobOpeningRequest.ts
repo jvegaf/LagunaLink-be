@@ -1,6 +1,5 @@
-import { MongoDocument } from '../../../../../Shared/infrastructure/persistence/mongo/MongoDocument';
-
-export type JobOpeningDocument = MongoDocument & {
+export type UpgradeJobOpeningRequest = {
+  id: string;
   company: string;
   title: string;
   position: string;

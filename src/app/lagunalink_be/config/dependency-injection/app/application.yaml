@@ -31,3 +31,11 @@ services:
   App.controllers.companies.CompanyPutController:
     class: ../../../controllers/companies/CompanyPutController
     arguments: [ "@App.companies.CompanyUpgrader", "@App.users.CompanyRoleChecker" ]
+
+  App.controllers.jobOpenings.JobOpeningPostController:
+    class: ../../../controllers/jobOpenings/JobOpeningPostController
+    arguments: [ "@App.jobOpenings.JobOpeningCreator", "@App.users.CompanyRoleChecker" ]
+
+  App.controllers.jobOpenings.JobOpeningPutController:
+    class: ../../../controllers/jobOpenings/JobOpeningPutController
+    arguments: [ "@App.jobOpenings.JobOpeningUpgrader", "@App.users.CompanyRoleChecker" ]

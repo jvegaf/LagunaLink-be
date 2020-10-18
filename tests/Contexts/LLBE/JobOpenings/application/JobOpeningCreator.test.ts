@@ -1,11 +1,10 @@
 import { JobOpeningMother } from '../domain/JobOpeningMother';
 import { JobOpeningRepositoryMock } from '../__mocks__/JobOpeningRepositoryMock';
 import { CreateJobOpeningRequestMother } from './CreateJobOpeningRequestMother';
-import {JobOpeningCreator} from "../../../../../src/Contexts/LLBE/JobOpenings/application/JobOpeningCreator";
+import { JobOpeningCreator } from '../../../../../src/Contexts/LLBE/JobOpenings/application/JobOpeningCreator';
 
 let repository: JobOpeningRepositoryMock;
 let creator: JobOpeningCreator;
-
 
 beforeEach(() => {
   repository = new JobOpeningRepositoryMock();
@@ -15,7 +14,7 @@ beforeEach(() => {
 it('should create a valid jobOpening', async () => {
   const request = CreateJobOpeningRequestMother.random();
 
-  const jobOpening = JobOpeningMother.fromRequest(request);
+  const jobOpening = JobOpeningMother.fromCreateRequest(request);
 
   await creator.run(request);
 
