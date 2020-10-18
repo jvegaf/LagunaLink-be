@@ -30,4 +30,4 @@ services:
 
   App.controllers.companies.CompanyPutController:
     class: ../../../controllers/companies/CompanyPutController
-    arguments: [ "@App.companies.CompanyUpgrader", "@App.company.CompanyRoleChecker" ]
+    arguments: [ "@App.companies.CompanyUpgrader", "@App.users.CompanyRoleChecker" ]

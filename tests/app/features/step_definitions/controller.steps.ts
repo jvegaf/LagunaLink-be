@@ -11,10 +11,19 @@ import { UserMother } from '../../../Contexts/LLBE/Users/domain/UserMother';
 import { User } from '../../../../src/Contexts/LLBE/Users/domain/User';
 import { Student } from '../../../../src/Contexts/LLBE/Students/domain/Student';
 import { StudentId } from '../../../../src/Contexts/LLBE/Shared/domain/Students/StudentId';
-import { StudentNameMother } from '../../../Contexts/LLBE/Students/domain/StudentNameMother';
 import { StudentSurnameMother } from '../../../Contexts/LLBE/Students/domain/StudentSurnameMother';
 import { StudentLastnameMother } from '../../../Contexts/LLBE/Students/domain/StudentLastnameMother';
 import { hashSync } from 'bcryptjs';
+import { StudentNameMother } from '../../../Contexts/LLBE/Students/domain/StudentNameMother';
+import { Company } from '../../../../src/Contexts/LLBE/Companies/domain/Company';
+import { CompanyNameMother } from '../../../Contexts/LLBE/Companies/domain/CompanyNameMother';
+import { CompanyDescriptionMother } from '../../../Contexts/LLBE/Companies/domain/CompanyDescriptionMother';
+import { CompanyAddressMother } from '../../../Contexts/LLBE/Companies/domain/CompanyAddressMother';
+import { CompanyPostalCodeMother } from '../../../Contexts/LLBE/Companies/domain/CompanyPostalCodeMother';
+import { CompanyRegionMother } from '../../../Contexts/LLBE/Companies/domain/CompanyRegionMother';
+import { CompanyCityMother } from '../../../Contexts/LLBE/Companies/domain/CompanyCityMother';
+import { CompanyId } from '../../../../src/Contexts/LLBE/Shared/domain/Companies/CompanyId';
+import { CompanyRepository } from '../../../../src/Contexts/LLBE/Companies/domain/CompanyRepository';
 
 let _request: request.Test;
 let _response: request.Response;
@@ -26,6 +35,10 @@ const userRepository: UserRepository = container.get(
 
 const studentRepository: StudentRepository = container.get(
   'App.students.StudentRepository'
+);
+
+const companyRepository: CompanyRepository = container.get(
+  'App.companies.CompanyRepository'
 );
 
 async function createUserWithRole(role: string) {
@@ -50,6 +63,18 @@ function createStudent(user: User) {
     StudentNameMother.random(),
     StudentSurnameMother.random(),
     StudentLastnameMother.random()
+  );
+}
+
+function createCompany(user: User) {
+  return Company.create(
+    new CompanyId(user.id.value),
+    CompanyNameMother.random(),
+    CompanyDescriptionMother.random(),
+    CompanyAddressMother.random(),
+    CompanyPostalCodeMother.random(),
+    CompanyRegionMother.random(),
+    CompanyCityMother.random()
   );
 }
 
@@ -98,6 +123,22 @@ Given(
     const user = UserMother.fromRequest(userReq);
     const student = createStudent(user);
     await studentRepository.save(student);
+    accessToken = await loginUserAccount(authReq);
+  }
+);
+
+Given(
+  'I am logged in with a Company Role account previously registered',
+  async () => {
+    const authReq = await createUserWithRole('ROLE_COMPANY');
+    const userReq = CreateUserRequestMother.random();
+    userReq.id = authReq.id;
+    userReq.role = 'ROLE_COMPANY';
+    userReq.isActive = true;
+    userReq.registered = false;
+    const user = UserMother.fromRequest(userReq);
+    const company = createCompany(user);
+    await companyRepository.save(company);
     accessToken = await loginUserAccount(authReq);
   }
 );

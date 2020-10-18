@@ -7,9 +7,12 @@ Feature: Company Registry
     When I send a POST request with Auth header to "/companies" with body:
     """
     {
-      "name": "Juan",
-      "surname": "Lopez",
-      "lastname": "Fernandez"
+      "name": "La sureña",
+      "description": "Somos uno de los bares mas concurridos del mundo",
+      "address": "Sal si puedes 8",
+      "postalCode": 45001,
+      "region": "Madrid",
+      "city": "Madrid"
     }
     """
     Then the response status code should be 201
