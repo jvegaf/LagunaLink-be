@@ -13,9 +13,13 @@ import { JobOpenConditionsMother } from '../domain/JobOpenConditionsMother';
 import { JobOpenResponsibilitiesMother } from '../domain/JobOpenResponsibilitiesMother';
 import { JobOpenQualificationMother } from '../domain/JobOpenQualificationMother';
 import { JobOpenPrevExperienceMother } from '../domain/JobOpenPrevExperienceMother';
+import { UpgradeJobOpeningRequest } from '../../../../../src/Contexts/LLBE/JobOpenings/application/UpgradeJobOpeningRequest';
+import { JobOpeningId } from '../../../../../src/Contexts/LLBE/Shared/domain/JobOpenings/JobOpeningId';
+import { JobOpeningIdMother } from '../../Shared/domain/JobOpenings/JobOpeningIdMother';
 
-export class CreateJobOpeningRequestMother {
+export class UpgradeJobOpeningRequestMother {
   static create(
+    id: JobOpeningId,
     company: CompanyId,
     title: JobOpenTitle,
     position: JobOpenPosition,
@@ -23,8 +27,9 @@ export class CreateJobOpeningRequestMother {
     responsibilities: JobOpenResponsibilities,
     qualification: JobOpenQualification,
     prevExperience: JobOpenPrevExperience
-  ): CreateJobOpeningRequest {
+  ): UpgradeJobOpeningRequest {
     return {
+      id: id.value,
       company: company.value,
       title: title.value,
       position: position.value,
@@ -35,8 +40,9 @@ export class CreateJobOpeningRequestMother {
     };
   }
 
-  static random(): CreateJobOpeningRequest {
+  static random(jobOpenId: string): UpgradeJobOpeningRequest {
     return this.create(
+      JobOpeningIdMother.create(jobOpenId),
       CompanyIdMother.random(),
       JobOpenTitleMother.random(),
       JobOpenPositionMother.random(),

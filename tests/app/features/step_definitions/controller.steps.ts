@@ -24,6 +24,10 @@ import { CompanyRegionMother } from '../../../Contexts/LLBE/Companies/domain/Com
 import { CompanyCityMother } from '../../../Contexts/LLBE/Companies/domain/CompanyCityMother';
 import { CompanyId } from '../../../../src/Contexts/LLBE/Shared/domain/Companies/CompanyId';
 import { CompanyRepository } from '../../../../src/Contexts/LLBE/Companies/domain/CompanyRepository';
+import { JobOpeningRepository } from '../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpeningRepository';
+import { CreateJobOpeningRequestMother } from '../../../Contexts/LLBE/JobOpenings/application/CreateJobOpeningRequestMother';
+import { UpgradeJobOpeningRequestMother } from '../../../Contexts/LLBE/JobOpenings/application/UpgradeJobOpeningRequestMother';
+import { JobOpeningMother } from '../../../Contexts/LLBE/JobOpenings/domain/JobOpeningMother';
 
 let _request: request.Test;
 let _response: request.Response;
@@ -39,6 +43,10 @@ const studentRepository: StudentRepository = container.get(
 
 const companyRepository: CompanyRepository = container.get(
   'App.companies.CompanyRepository'
+);
+
+const jobOpenRepository: JobOpeningRepository = container.get(
+  'App.jobOpenings.JobOpeningRepository'
 );
 
 async function createUserWithRole(role: string) {
@@ -83,6 +91,13 @@ async function loginUserAccount(authReq: object) {
   return response.body.access_token;
 }
 
+async function saveJobOpening(id: string) {
+  const jobOpeningRequest = UpgradeJobOpeningRequestMother.random(id);
+  await jobOpenRepository.save(
+    JobOpeningMother.fromUpgradeRequest(jobOpeningRequest)
+  );
+}
+
 Given('I am logged in with previous created Student Role account', async () => {
   const authReq = await createUserWithRole('ROLE_STUDENT');
   accessToken = await loginUserAccount(authReq);
@@ -93,6 +108,10 @@ Given('I am logged in with previous created Company Role account', async () => {
   accessToken = await loginUserAccount(authReq);
 });
 
+Given('I published a Job Opening with id {string}', async (id: string) => {
+  await saveJobOpening(id);
+});
+
 Given('I send a GET request to {string}', (route: string) => {
   _request = request(app).get(route);
 });
@@ -101,13 +120,6 @@ Given(
   'I send a POST request to {string} with body:',
   (route: string, body: string) => {
     _request = request(app).post(route).send(JSON.parse(body));
-  }
-);
-
-Given(
-  'I send a PUT request to {string} with body:',
-  (route: string, body: string) => {
-    _request = request(app).put(route).send(JSON.parse(body));
   }
 );
 
@@ -148,6 +160,16 @@ When(
   (route: string, body: string) => {
     _request = request(app)
       .post(route)
+      .auth(accessToken, { type: 'bearer' })
+      .send(JSON.parse(body));
+  }
+);
+
+When(
+  'I send a PUT request to {string} with body:',
+  (route: string, body: string) => {
+    _request = request(app)
+      .put(route)
       .auth(accessToken, { type: 'bearer' })
       .send(JSON.parse(body));
   }
