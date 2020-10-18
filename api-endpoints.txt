@@ -1,18 +1,18 @@
 
-POST /api/auth/signup  { email, password, role }
-POST /api/auth/signin  { email, password }
-POST /api/auth/email_verification  token_parameter
+POST /auth/signup  { email, password, role }
+POST /auth/signin  { email, password }
+POST /auth/email_verification  token_parameter
 
-GET /api/students/{id}                           # get a student account
-POST /api/students                               # register a student account
-PUT /api/students/{id}                           # update a student account
+GET /students/{id}                           # get a student account
+POST /students                               # register a student account
+PUT /students/{id}                           # update a student account
 
-GET /api/companies                               # get all companies
-GET /api/companies/{id}                          # get a company account
-POST /api/companies                              # register a company account
-PUT /api/companies/{id}                          # update a company account
+GET /companies                               # get all companies
+GET /companies/{id}                          # get a company account
+POST /companies                              # register a company account
+PUT /companies/{id}                          # update a company account
 
-GET /api/job_opening                             #get all job openings
-GET /api/job_opening/{id}                        #get a job opening
-POST /api/job_opening                            #create a job opening
-PUT /api/job_opening                             #update a job opening
+GET /job_opening                             #get all job openings
+GET /job_opening/{id}                        #get a job opening
+POST /job_opening                            #create a job opening
+PUT /job_opening                             #update a job opening
