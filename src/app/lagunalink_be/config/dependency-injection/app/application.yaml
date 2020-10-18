@@ -14,12 +14,20 @@ services:
 
   App.controllers.auth.EmailVerificationGetController:
     class: ../../../controllers/auth/EmailVerificationGetController
-    arguments: ["@App.users.UserEmailConfirmator"]
+    arguments: [ "@App.users.UserEmailConfirmator" ]
 
   App.controllers.students.StudentPostController:
     class: ../../../controllers/students/StudentPostController
-    arguments: ["@App.students.StudentCreator", "@App.users.StudentRoleChecker"]
+    arguments: [ "@App.students.StudentCreator", "@App.users.StudentRoleChecker" ]
 
   App.controllers.students.StudentPutController:
     class: ../../../controllers/students/StudentPutController
-    arguments: ["@App.students.StudentUpgrader", "@App.users.StudentRoleChecker"]
+    arguments: [ "@App.students.StudentUpgrader", "@App.users.StudentRoleChecker" ]
+
+  App.controllers.companies.CompanyPostController:
+    class: ../../../controllers/companies/CompanyPostController
+    arguments: [ "@App.companies.CompanyCreator", "@App.users.CompanyRoleChecker" ]
+
+  App.controllers.companies.CompanyPutController:
+    class: ../../../controllers/companies/CompanyPutController
+    arguments: [ "@App.companies.CompanyUpgrader", "@App.users.CompanyRoleChecker" ]
