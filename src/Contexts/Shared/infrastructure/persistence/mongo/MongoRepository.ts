@@ -17,8 +17,22 @@ export abstract class MongoRepository<T extends AggregateRoot> {
   protected async persist(id: string, aggregateRoot: T): Promise<void> {
     const collection = await this.collection();
 
-    const document = { ...aggregateRoot.toPrimitives(), _id: id, id: undefined };
+    const document = {
+      ...aggregateRoot.toPrimitives(),
+      _id: id,
+      id: undefined,
+    };
 
-    await collection.updateOne({ _id: id }, { $set: document }, { upsert: true });
+    await collection.updateOne(
+      { _id: id },
+      { $set: document },
+      { upsert: true }
+    );
+  }
+
+  protected async delete(id: string): Promise<void> {
+    const collection = await this.collection();
+
+    await collection.deleteOne({ _id: id });
   }
 }

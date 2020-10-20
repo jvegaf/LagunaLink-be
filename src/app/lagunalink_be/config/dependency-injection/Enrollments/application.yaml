@@ -1,0 +1,13 @@
+services:
+
+  App.enrollments.EnrollmentRepository:
+    class: ../../../../../Contexts/LLBE/Enrollments/infrastructure/persistence/MongoEnrollmentRepository
+    arguments: ['@App.shared.ConnectionManager']
+
+  App.enrollments.EnrollmentCreator:
+    class: ../../../../../Contexts/LLBE/Enrollments/application/EnrollmentCreator
+    arguments: ['@App.enrollments.EnrollmentRepository']
+
+  App.enrollments.EnrollmentRemover:
+    class: ../../../../../Contexts/LLBE/Enrollments/application/EnrollmentRemover
+    arguments: ['@App.enrollments.EnrollmentRepository']
