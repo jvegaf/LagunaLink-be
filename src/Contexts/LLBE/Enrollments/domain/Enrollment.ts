@@ -1,11 +1,5 @@
 import { AggregateRoot } from '../../../Shared/domain/AggregateRoot';
-import { CompanyId } from '../../Shared/domain/Companies/CompanyId';
-import { JobOpenResponsibilities } from './JobOpenResponsibilities';
-import { JobOpenTitle } from './JobOpenTitle';
 import { EnrollmentDate } from './EnrollmentDate';
-import { JobOpenPosition } from './JobOpenPosition';
-import { JobOpenPrevExperience } from './JobOpenPrevExperience';
-import { JobOpenQualification } from './JobOpenQualification';
 import { JobOpeningId } from '../../Shared/domain/JobOpenings/JobOpeningId';
 import { EnrollmentId } from '../../Shared/domain/Enrollments/EnrollmentId';
 import { StudentId } from '../../Shared/domain/Students/StudentId';

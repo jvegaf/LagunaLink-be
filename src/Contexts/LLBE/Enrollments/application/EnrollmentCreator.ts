@@ -1,5 +1,5 @@
 import { EnrollmentRepository } from '../domain/EnrollmentRepository';
-import { EnrollmentRequest } from './EnrollmentRequest';
+import { CreateEnrollmentRequest } from './CreateEnrollmentRequest';
 import { Enrollment } from '../domain/Enrollment';
 import { EnrollmentDate } from '../domain/EnrollmentDate';
 import { JobOpeningId } from '../../Shared/domain/JobOpenings/JobOpeningId';
@@ -13,7 +13,7 @@ export class EnrollmentCreator {
     this.repository = repository;
   }
 
-  async run(request: EnrollmentRequest): Promise<void> {
+  async run(request: CreateEnrollmentRequest): Promise<void> {
     const enrollmentId = EnrollmentId.random();
 
     const enrollment = Enrollment.create(
