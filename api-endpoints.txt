@@ -16,3 +16,8 @@ GET /job_openings                             #get all job openings
 GET /job_openings/{id}                        #get a job opening
 POST /job_openings                            #create a job opening
 PUT /job_openings/{id}                        #update a job opening
+
+GET /job_openings/{id}/enrollments            #get all enrollments of one job opening
+POST /job_openings/{id}/enrollments           #create a enrollment
+DELETE /job_openings/enrollments/{id}         #remove a enrollment
+
