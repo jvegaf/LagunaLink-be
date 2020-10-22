@@ -155,6 +155,8 @@ Given(
   }
 );
 
+Given('exists a Job Opening with id {string}', async () => {});
+
 When(
   'I send a POST request with Auth header to {string} with body:',
   (route: string, body: string) => {
