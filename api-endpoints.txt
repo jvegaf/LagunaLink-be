@@ -1,7 +1,7 @@
 
 POST /auth/signup  { email, password, role }
 POST /auth/signin  { email, password }
-POST /auth/email_verification  token_parameter
+GET /auth/email_verification  token_parameter
 
 GET /students/{id}                           # get a student account
 POST /students                               # register a student account
