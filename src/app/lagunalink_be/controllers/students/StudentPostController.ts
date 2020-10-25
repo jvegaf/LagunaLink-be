@@ -7,12 +7,16 @@ import { Token } from '../../../../Contexts/LLBE/Users/domain/Token';
 import httpStatus from 'http-status';
 import { Payload } from '../../../../Contexts/LLBE/Users/domain/Payload';
 import { AuthRole } from '../../../../Contexts/LLBE/Users/domain/AuthRole';
+import {CompanyUpgrader} from '../../../../Contexts/LLBE/Companies/application/CompanyUpgrader';
+import {AuthChecker} from '../../../../Contexts/LLBE/Users/domain/AuthChecker';
 
 export class StudentPostController implements Controller {
   private studentCreator: StudentCreator;
+  private authChecker: AuthChecker;
   private authRoleCheker: AuthRole;
 
-  constructor(studentCreator: StudentCreator, authRole: AuthRole) {
+  constructor(studentCreator: StudentCreator, authChecker: AuthChecker, authRole: AuthRole) {
+    this.authChecker = authChecker;
     this.studentCreator = studentCreator;
     this.authRoleCheker = authRole;
   }
@@ -23,10 +27,9 @@ export class StudentPostController implements Controller {
       return;
     }
     const token = new Token(req.headers.authorization as string);
-    const authChecker = new AuthJWTChecker();
     let payload: Payload;
     try {
-      payload = authChecker.check(token);
+      payload = this.authChecker.check(token);
     } catch (e) {
       res.status(402).send({ message: e.message });
       return;

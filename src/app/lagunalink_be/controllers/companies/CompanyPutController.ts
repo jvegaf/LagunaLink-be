@@ -7,13 +7,16 @@ import { Payload } from '../../../../Contexts/LLBE/Users/domain/Payload';
 import { AuthRole } from '../../../../Contexts/LLBE/Users/domain/AuthRole';
 import { CompanyUpgrader } from '../../../../Contexts/LLBE/Companies/application/CompanyUpgrader';
 import { CompanyRequest } from '../../../../Contexts/LLBE/Companies/application/CompanyRequest';
+import {AuthChecker} from '../../../../Contexts/LLBE/Users/domain/AuthChecker';
 
 // noinspection SpellCheckingInspection
 export class CompanyPutController implements Controller {
   private upgrader: CompanyUpgrader;
+  private authChecker: AuthChecker;
   private authRoleChecker: AuthRole;
 
-  constructor(companyUpgrader: CompanyUpgrader, authRole: AuthRole) {
+  constructor(companyUpgrader: CompanyUpgrader, authChecker: AuthChecker, authRole: AuthRole) {
+    this.authChecker = authChecker;
     this.upgrader = companyUpgrader;
     this.authRoleChecker = authRole;
   }
@@ -24,10 +27,9 @@ export class CompanyPutController implements Controller {
       return;
     }
     const token = new Token(req.headers.authorization as string);
-    const authChecker = new AuthJWTChecker();
     let payload: Payload;
     try {
-      payload = authChecker.check(token);
+      payload = this.authChecker.check(token);
     } catch (e) {
       res.status(402).send({ message: e.message });
       return;
