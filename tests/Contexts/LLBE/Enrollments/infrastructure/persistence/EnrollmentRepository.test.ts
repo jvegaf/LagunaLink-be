@@ -50,7 +50,7 @@ describe('Search Enrollment', () => {
     });
 
     expect(await repository.searchByJobOpening(jobOpening)).toEqual(
-      enrollments
+      expect.arrayContaining(enrollments)
     );
   });
 
