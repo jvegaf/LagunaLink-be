@@ -49,7 +49,9 @@ describe('Search Enrollment', () => {
       await repository.save(enrollment);
     });
 
-    expect(await repository.searchByJobOpening(jobOpening)).toBeTruthy();
+    expect(await repository.searchByJobOpening(jobOpening)).toEqual(
+      enrollments
+    );
   });
 
   it('should return a empty enrollments collection of a determinate Job Opening', async () => {
