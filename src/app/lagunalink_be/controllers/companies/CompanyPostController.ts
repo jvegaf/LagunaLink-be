@@ -7,7 +7,7 @@ import { Payload } from '../../../../Contexts/LLBE/Users/domain/Payload';
 import { AuthRole } from '../../../../Contexts/LLBE/Users/domain/AuthRole';
 import { CompanyCreator } from '../../../../Contexts/LLBE/Companies/application/CompanyCreator';
 import { CompanyRequest } from '../../../../Contexts/LLBE/Companies/application/CompanyRequest';
-import {AuthChecker} from '../../../../Contexts/LLBE/Users/domain/AuthChecker';
+import { AuthChecker } from '../../../../Contexts/LLBE/Users/domain/AuthChecker';
 
 export class CompanyPostController implements Controller {
   private creator: CompanyCreator;
