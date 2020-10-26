@@ -38,10 +38,10 @@ export class EnrollmentMother {
   }
 
   static randomOfJobOpening(): Array<Enrollment> {
-    const collection = [];
+    const cluster = [];
     const jobOpening = JobOpeningIdMother.random();
-    for (let i = 0; i < 15; i++) {
-      collection.push(
+    for (let i = 0; i < 2; i++) {
+      cluster.push(
         this.create(
           EnrollmentIdMother.random(),
           StudentIdMother.random(),
@@ -51,6 +51,6 @@ export class EnrollmentMother {
       );
     }
 
-    return collection;
+    return cluster;
   }
 }

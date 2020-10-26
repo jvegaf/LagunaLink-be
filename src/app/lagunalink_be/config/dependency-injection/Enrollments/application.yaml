@@ -11,3 +11,7 @@ services:
   App.enrollments.EnrollmentRemover:
     class: ../../../../../Contexts/LLBE/Enrollments/application/EnrollmentRemover
     arguments: ['@App.enrollments.EnrollmentRepository']
+
+  App.enrollments.EnrollmentsSearcher:
+    class: ../../../../../Contexts/LLBE/Enrollments/application/EnrollmentsSearcher
+    arguments: ['@App.enrollments.EnrollmentRepository']

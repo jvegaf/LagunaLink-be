@@ -41,17 +41,6 @@ describe('Search Enrollment', () => {
     expect(await repository.search(enrollment.id)).toEqual(enrollment);
   });
 
-  it('should return an enrollments collection of a determinate Job Opening', async () => {
-    const enrollments = EnrollmentMother.randomOfJobOpening();
-
-    const jobOpening = enrollments[0].jobOpening;
-    enrollments.map(async (enrollment) => {
-      await repository.save(enrollment);
-    });
-
-    expect(await repository.searchByJobOpening(jobOpening)).toBeTruthy();
-  });
-
   it('should return a empty enrollments collection of a determinate Job Opening', async () => {
     const jobOpening = JobOpeningIdMother.random();
 

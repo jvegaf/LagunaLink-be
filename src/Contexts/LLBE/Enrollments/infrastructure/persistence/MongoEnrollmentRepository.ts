@@ -31,16 +31,16 @@ export class MongoEnrollmentRepository
   }
 
   public async searchByJobOpening(
-    id: JobOpeningId
+    openingId: JobOpeningId
   ): Promise<Array<Enrollment>> {
     const collection = await this.collection();
 
     const resultDocs = await collection
-      .find({ job_opening: id.value })
+      .find({ job_opening: openingId.value })
       .toArray();
 
     return resultDocs.map((document) =>
-      Enrollment.fromPrimitives({ ...document, id: id.value })
+      Enrollment.fromPrimitives({ ...document, id: document._id })
     );
   }
 }

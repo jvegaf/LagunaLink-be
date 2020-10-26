@@ -25,7 +25,6 @@ import { CompanyCityMother } from '../../../Contexts/LLBE/Companies/domain/Compa
 import { CompanyId } from '../../../../src/Contexts/LLBE/Shared/domain/Companies/CompanyId';
 import { CompanyRepository } from '../../../../src/Contexts/LLBE/Companies/domain/CompanyRepository';
 import { JobOpeningRepository } from '../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpeningRepository';
-import { CreateJobOpeningRequestMother } from '../../../Contexts/LLBE/JobOpenings/application/CreateJobOpeningRequestMother';
 import { UpgradeJobOpeningRequestMother } from '../../../Contexts/LLBE/JobOpenings/application/UpgradeJobOpeningRequestMother';
 import { JobOpeningMother } from '../../../Contexts/LLBE/JobOpenings/domain/JobOpeningMother';
 
@@ -154,6 +153,19 @@ Given(
     accessToken = await loginUserAccount(authReq);
   }
 );
+
+Given('exists a Job Opening with id {string}', async (id: string) => {
+  const jobOpeningRequest = UpgradeJobOpeningRequestMother.random(id);
+  const jobOpening = JobOpeningMother.fromUpgradeRequest(jobOpeningRequest);
+  await jobOpenRepository.save(jobOpening);
+});
+
+When('I send a POST request with Auth header to {string}', (route: string) => {
+  _request = request(app)
+    .post(route)
+    .auth(accessToken, { type: 'bearer' })
+    .send();
+});
 
 When(
   'I send a POST request with Auth header to {string} with body:',
