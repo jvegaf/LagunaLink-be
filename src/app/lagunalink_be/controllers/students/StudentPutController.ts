@@ -7,8 +7,8 @@ import { Payload } from '../../../../Contexts/LLBE/Users/domain/Payload';
 import { AuthRole } from '../../../../Contexts/LLBE/Users/domain/AuthRole';
 import { StudentUpgrader } from '../../../../Contexts/LLBE/Students/application/StudentUpgrader';
 import { UpgradeStudentRequest } from '../../../../Contexts/LLBE/Students/application/UpgradeStudentRequest';
-import {CompanyUpgrader} from '../../../../Contexts/LLBE/Companies/application/CompanyUpgrader';
-import {AuthChecker} from '../../../../Contexts/LLBE/Users/domain/AuthChecker';
+import { CompanyUpgrader } from '../../../../Contexts/LLBE/Companies/application/CompanyUpgrader';
+import { AuthChecker } from '../../../../Contexts/LLBE/Users/domain/AuthChecker';
 
 // noinspection SpellCheckingInspection
 export class StudentPutController implements Controller {
