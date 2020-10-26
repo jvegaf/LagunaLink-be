@@ -7,7 +7,7 @@ import { Payload } from '../../../../Contexts/LLBE/Users/domain/Payload';
 import { AuthRole } from '../../../../Contexts/LLBE/Users/domain/AuthRole';
 import { CompanyUpgrader } from '../../../../Contexts/LLBE/Companies/application/CompanyUpgrader';
 import { CompanyRequest } from '../../../../Contexts/LLBE/Companies/application/CompanyRequest';
-import {AuthChecker} from '../../../../Contexts/LLBE/Users/domain/AuthChecker';
+import { AuthChecker } from '../../../../Contexts/LLBE/Users/domain/AuthChecker';
 
 // noinspection SpellCheckingInspection
 export class CompanyPutController implements Controller {
