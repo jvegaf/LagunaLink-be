@@ -7,7 +7,7 @@ import { Payload } from '../../../../Contexts/LLBE/Users/domain/Payload';
 import { AuthRole } from '../../../../Contexts/LLBE/Users/domain/AuthRole';
 import { JobOpeningUpgrader } from '../../../../Contexts/LLBE/JobOpenings/application/JobOpeningUpgrader';
 import { UpgradeJobOpeningRequest } from '../../../../Contexts/LLBE/JobOpenings/application/UpgradeJobOpeningRequest';
-import {AuthChecker} from '../../../../Contexts/LLBE/Users/domain/AuthChecker';
+import { AuthChecker } from '../../../../Contexts/LLBE/Users/domain/AuthChecker';
 
 // noinspection SpellCheckingInspection
 export class JobOpeningPutController implements Controller {
