@@ -7,8 +7,8 @@ import { Payload } from '../../../../Contexts/LLBE/Users/domain/Payload';
 import { AuthRole } from '../../../../Contexts/LLBE/Users/domain/AuthRole';
 import { JobOpeningCreator } from '../../../../Contexts/LLBE/JobOpenings/application/JobOpeningCreator';
 import { CreateJobOpeningRequest } from '../../../../Contexts/LLBE/JobOpenings/application/CreateJobOpeningRequest';
-import {CompanyUpgrader} from '../../../../Contexts/LLBE/Companies/application/CompanyUpgrader';
-import {AuthChecker} from '../../../../Contexts/LLBE/Users/domain/AuthChecker';
+import { CompanyUpgrader } from '../../../../Contexts/LLBE/Companies/application/CompanyUpgrader';
+import { AuthChecker } from '../../../../Contexts/LLBE/Users/domain/AuthChecker';
 
 export class JobOpeningPostController implements Controller {
   private creator: JobOpeningCreator;
