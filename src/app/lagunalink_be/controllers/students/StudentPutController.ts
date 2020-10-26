@@ -7,13 +7,17 @@ import { Payload } from '../../../../Contexts/LLBE/Users/domain/Payload';
 import { AuthRole } from '../../../../Contexts/LLBE/Users/domain/AuthRole';
 import { StudentUpgrader } from '../../../../Contexts/LLBE/Students/application/StudentUpgrader';
 import { UpgradeStudentRequest } from '../../../../Contexts/LLBE/Students/application/UpgradeStudentRequest';
+import { CompanyUpgrader } from '../../../../Contexts/LLBE/Companies/application/CompanyUpgrader';
+import { AuthChecker } from '../../../../Contexts/LLBE/Users/domain/AuthChecker';
 
 // noinspection SpellCheckingInspection
 export class StudentPutController implements Controller {
   private upgrader: StudentUpgrader;
+  private authChecker: AuthChecker;
   private authRoleChecker: AuthRole;
 
-  constructor(studentUpgrader: StudentUpgrader, authRole: AuthRole) {
+  constructor(studentUpgrader: StudentUpgrader, authChecker: AuthChecker, authRole: AuthRole) {
+    this.authChecker = authChecker;
     this.upgrader = studentUpgrader;
     this.authRoleChecker = authRole;
   }
@@ -24,10 +28,9 @@ export class StudentPutController implements Controller {
       return;
     }
     const token = new Token(req.headers.authorization as string);
-    const authChecker = new AuthJWTChecker();
     let payload: Payload;
     try {
-      payload = authChecker.check(token);
+      payload = this.authChecker.check(token);
     } catch (e) {
       res.status(402).send({ message: e.message });
       return;

@@ -18,27 +18,27 @@ services:
 
   App.controllers.students.StudentPostController:
     class: ../../../controllers/students/StudentPostController
-    arguments: [ "@App.students.StudentCreator", "@App.users.StudentRoleChecker" ]
+    arguments: [ "@App.students.StudentCreator", "@App.users.AuthChecker", "@App.users.StudentRoleChecker" ]
 
   App.controllers.students.StudentPutController:
     class: ../../../controllers/students/StudentPutController
-    arguments: [ "@App.students.StudentUpgrader", "@App.users.StudentRoleChecker" ]
+    arguments: [ "@App.students.StudentUpgrader", "@App.users.AuthChecker", "@App.users.StudentRoleChecker" ]
 
   App.controllers.companies.CompanyPostController:
     class: ../../../controllers/companies/CompanyPostController
-    arguments: [ "@App.companies.CompanyCreator", "@App.users.CompanyRoleChecker" ]
+    arguments: [ "@App.companies.CompanyCreator", "@App.users.AuthChecker", "@App.users.CompanyRoleChecker" ]
 
   App.controllers.companies.CompanyPutController:
     class: ../../../controllers/companies/CompanyPutController
-    arguments: [ "@App.companies.CompanyUpgrader", "@App.users.CompanyRoleChecker" ]
+    arguments: [ "@App.companies.CompanyUpgrader", "@App.users.AuthChecker", "@App.users.CompanyRoleChecker" ]
 
   App.controllers.jobOpenings.JobOpeningPostController:
     class: ../../../controllers/jobOpenings/JobOpeningPostController
-    arguments: [ "@App.jobOpenings.JobOpeningCreator", "@App.users.CompanyRoleChecker" ]
+    arguments: [ "@App.jobOpenings.JobOpeningCreator", "@App.users.AuthChecker", "@App.users.CompanyRoleChecker" ]
 
   App.controllers.jobOpenings.JobOpeningPutController:
     class: ../../../controllers/jobOpenings/JobOpeningPutController
-    arguments: [ "@App.jobOpenings.JobOpeningUpgrader", "@App.users.CompanyRoleChecker" ]
+    arguments: [ "@App.jobOpenings.JobOpeningUpgrader", "@App.users.AuthChecker", "@App.users.CompanyRoleChecker" ]
 
   App.controllers.enrollments.EnrollmentPostController:
     class: ../../../controllers/enrollments/EnrollmentPostController

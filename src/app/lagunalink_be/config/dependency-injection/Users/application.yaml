@@ -24,6 +24,10 @@ services:
     class: ../../../../../Contexts/LLBE/Users/application/UserAuth
     arguments: [ '@App.users.TokenGenerator','@App.users.UserRepository' ]
 
+  App.users.AuthChecker:
+    class: ../../../../../Contexts/LLBE/Users/infrastructure/token/AuthJWTChecker
+    arguments: []
+
   App.users.StudentRoleChecker:
     class: ../../../../../Contexts/LLBE/Users/application/StudentRoleChecker
     arguments: []

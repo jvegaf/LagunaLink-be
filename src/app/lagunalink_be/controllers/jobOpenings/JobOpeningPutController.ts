@@ -7,13 +7,16 @@ import { Payload } from '../../../../Contexts/LLBE/Users/domain/Payload';
 import { AuthRole } from '../../../../Contexts/LLBE/Users/domain/AuthRole';
 import { JobOpeningUpgrader } from '../../../../Contexts/LLBE/JobOpenings/application/JobOpeningUpgrader';
 import { UpgradeJobOpeningRequest } from '../../../../Contexts/LLBE/JobOpenings/application/UpgradeJobOpeningRequest';
+import { AuthChecker } from '../../../../Contexts/LLBE/Users/domain/AuthChecker';
 
 // noinspection SpellCheckingInspection
 export class JobOpeningPutController implements Controller {
   private upgrader: JobOpeningUpgrader;
+  private authChecker: AuthChecker;
   private authRoleChecker: AuthRole;
 
-  constructor(jobOpeningUpgrader: JobOpeningUpgrader, authRole: AuthRole) {
+  constructor(jobOpeningUpgrader: JobOpeningUpgrader, authChecker: AuthChecker, authRole: AuthRole) {
+    this.authChecker = authChecker;
     this.upgrader = jobOpeningUpgrader;
     this.authRoleChecker = authRole;
   }
@@ -24,10 +27,9 @@ export class JobOpeningPutController implements Controller {
       return;
     }
     const token = new Token(req.headers.authorization as string);
-    const authChecker = new AuthJWTChecker();
     let payload: Payload;
     try {
-      payload = authChecker.check(token);
+      payload = this.authChecker.check(token);
     } catch (e) {
       res.status(402).send({ message: e.message });
       return;

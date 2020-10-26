@@ -7,12 +7,16 @@ import { Payload } from '../../../../Contexts/LLBE/Users/domain/Payload';
 import { AuthRole } from '../../../../Contexts/LLBE/Users/domain/AuthRole';
 import { JobOpeningCreator } from '../../../../Contexts/LLBE/JobOpenings/application/JobOpeningCreator';
 import { CreateJobOpeningRequest } from '../../../../Contexts/LLBE/JobOpenings/application/CreateJobOpeningRequest';
+import { CompanyUpgrader } from '../../../../Contexts/LLBE/Companies/application/CompanyUpgrader';
+import { AuthChecker } from '../../../../Contexts/LLBE/Users/domain/AuthChecker';
 
 export class JobOpeningPostController implements Controller {
   private creator: JobOpeningCreator;
+  private authChecker: AuthChecker;
   private authRoleChecker: AuthRole;
 
-  constructor(jobOpenCreator: JobOpeningCreator, authRole: AuthRole) {
+  constructor(jobOpenCreator: JobOpeningCreator, authChecker: AuthChecker, authRole: AuthRole) {
+    this.authChecker = authChecker;
     this.creator = jobOpenCreator;
     this.authRoleChecker = authRole;
   }
@@ -23,10 +27,9 @@ export class JobOpeningPostController implements Controller {
       return;
     }
     const token = new Token(req.headers.authorization as string);
-    const authChecker = new AuthJWTChecker();
     let payload: Payload;
     try {
-      payload = authChecker.check(token);
+      payload = this.authChecker.check(token);
     } catch (e) {
       res.status(402).send({ message: e.message });
       return;
