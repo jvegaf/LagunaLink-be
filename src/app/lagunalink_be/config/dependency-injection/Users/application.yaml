@@ -16,6 +16,10 @@ services:
     class: ../../../../../Contexts/LLBE/Users/application/UserEmailConfirmator
     arguments: [ '@App.users.UserRepository' ]
 
+  App.users.UserEmailFinder:
+    class: ../../../../../Contexts/LLBE/Users/application/UserEmailFinder
+    arguments: [ '@App.users.UserRepository' ]
+
   App.users.UserAuth:
     class: ../../../../../Contexts/LLBE/Users/application/UserAuth
     arguments: [ '@App.users.TokenGenerator','@App.users.UserRepository' ]

@@ -12,3 +12,7 @@ services:
     class: ../../../../../Contexts/LLBE/Students/application/StudentUpgrader
     arguments: ['@App.students.StudentRepository']
 
+  App.students.StudentFinder:
+    class: ../../../../../Contexts/LLBE/Students/application/StudentFinder
+    arguments: ['@App.students.StudentRepository']
+
