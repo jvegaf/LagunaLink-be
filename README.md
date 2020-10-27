@@ -2,6 +2,8 @@
 
 ![Node CI status](https://github.com/jvegaf/LagunaLink-be/workflows/Node%20CI/badge.svg?branch=master)
 
+[Estado de implementacion del API](https://github.com/jvegaf/LagunaLink-be/blob/master/api-endpoints.md)
+
 ## Preparacion del entorno
 1. Clonar el repositorio: `git clone https://github.com/jvegaf/LagunaLink-be.git`
 3. Moverse dentro del directorio clonado: `cd LagunaLink-be`
