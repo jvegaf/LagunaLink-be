@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Pull Request size labeler
-      - uses: CodelyTV/pr-size-labeler@v1
+        uses: CodelyTV/pr-size-labeler@v1
       - uses: actions/checkout@v1
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
