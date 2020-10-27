@@ -3,9 +3,9 @@
 - [X] POST /auth/signup  { email, password, role }
 - [X] POST /auth/signin  { email, password }
 - [X] GET /auth/email_verification  token_parameter
-- [ ] POST /auth/password   { email }                         # request send password reset email
-- [ ] GET /auth/password/token=access_token                  # request for validation a redirection
-- [ ] POST /auth/password/reset { password }                 # change to new password
+- [ ] POST /auth/recover   { email }                         # Recover Password - Generates token and Sends password reset email
+- [ ] GET /auth/reset/token=access_token                     # Reset Password - Validate password reset token and shows the password reset view
+- [ ] POST /auth/reset { password }                          # change to new password
 
 - [ ] GET /students/{id}                                     # get a student account
 - [X] POST /students                                         # register a student account
