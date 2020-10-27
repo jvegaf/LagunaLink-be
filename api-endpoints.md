@@ -3,7 +3,7 @@
 - [X] POST /auth/signup  { email, password, role }
 - [X] POST /auth/signin  { email, password }
 - [X] GET /auth/email_verification  token_parameter
-- [ ] GET /auth/password   { email }                         # request send password reset email
+- [ ] POST /auth/password   { email }                         # request send password reset email
 - [ ] GET /auth/password/token=access_token                  # request for validation a redirection
 - [ ] POST /auth/password/reset { password }                 # change to new password
 
