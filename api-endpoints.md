@@ -1,3 +1,4 @@
+## API Implementation Status
 
 - [X] POST /auth/signup  { email, password, role }
 - [X] POST /auth/signin  { email, password }
