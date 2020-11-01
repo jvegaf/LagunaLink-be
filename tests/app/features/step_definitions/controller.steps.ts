@@ -31,6 +31,7 @@ import { JobOpeningMother } from '../../../Contexts/LLBE/JobOpenings/domain/JobO
 let _request: request.Test;
 let _response: request.Response;
 let accessToken: string;
+let companyId: string;
 
 const userRepository: UserRepository = container.get(
   'App.users.UserRepository'
@@ -92,6 +93,7 @@ async function loginUserAccount(authReq: object) {
 
 async function saveJobOpening(id: string) {
   const jobOpeningRequest = UpgradeJobOpeningRequestMother.random(id);
+  jobOpeningRequest.company = companyId;
   await jobOpenRepository.save(
     JobOpeningMother.fromUpgradeRequest(jobOpeningRequest)
   );
@@ -104,6 +106,7 @@ Given('I am logged in with previous created Student Role account', async () => {
 
 Given('I am logged in with previous created Company Role account', async () => {
   const authReq = await createUserWithRole('ROLE_COMPANY');
+  companyId = authReq.id;
   accessToken = await loginUserAccount(authReq);
 });
 

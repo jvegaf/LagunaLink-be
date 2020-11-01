@@ -31,4 +31,8 @@ export class JobOpeningRepositoryMock implements JobOpeningRepository {
   assertLastSearchedJobOpeningIs(expected: JobOpeningId): void {
     expect(this.mockSearch).toHaveBeenCalledWith(expected);
   }
+
+  remove(id: JobOpeningId): Promise<void> {
+    return Promise.resolve(undefined);
+  }
 }
