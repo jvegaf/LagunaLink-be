@@ -197,6 +197,16 @@ When(
   }
 );
 
+When(
+  'I send a DELETE request to {string}',
+  (route: string) => {
+    _request = request(app)
+      .delete(route)
+      .auth(accessToken, { type: 'bearer' })
+      .send();
+  }
+);
+
 Then('the response status code should be {int}', async (status: number) => {
   _response = await _request.expect(status);
 });
