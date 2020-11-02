@@ -4,19 +4,19 @@ import { Token } from '../../../../Contexts/LLBE/Users/domain/Token';
 import httpStatus from 'http-status';
 import { Payload } from '../../../../Contexts/LLBE/Users/domain/Payload';
 import { AuthRole } from '../../../../Contexts/LLBE/Users/domain/AuthRole';
-import { JobOpeningUpgrader } from '../../../../Contexts/LLBE/JobOpenings/application/JobOpeningUpgrader';
-import { UpgradeJobOpeningRequest } from '../../../../Contexts/LLBE/JobOpenings/application/UpgradeJobOpeningRequest';
 import { AuthChecker } from '../../../../Contexts/LLBE/Users/domain/AuthChecker';
+import {JobOpeningRemover} from '../../../../Contexts/LLBE/JobOpenings/application/JobOpeningRemover';
+import {RemoveJobOpeningRequest} from '../../../../Contexts/LLBE/JobOpenings/application/RemoveJobOpeningRequest';
 
 // noinspection SpellCheckingInspection
-export class JobOpeningPutController implements Controller {
-  private upgrader: JobOpeningUpgrader;
+export class JobOpeningDeleteController implements Controller {
+  private remover: JobOpeningRemover;
   private authChecker: AuthChecker;
   private authRoleChecker: AuthRole;
 
-  constructor(jobOpeningUpgrader: JobOpeningUpgrader, authChecker: AuthChecker, authRole: AuthRole) {
+  constructor(jobOpenRemover: JobOpeningRemover, authChecker: AuthChecker, authRole: AuthRole) {
     this.authChecker = authChecker;
-    this.upgrader = jobOpeningUpgrader;
+    this.remover = jobOpenRemover;
     this.authRoleChecker = authRole;
   }
 
@@ -41,19 +41,13 @@ export class JobOpeningPutController implements Controller {
       return;
     }
 
-    const jobOpenUprgRequest: UpgradeJobOpeningRequest = {
+    const jobOpenRemRequest: RemoveJobOpeningRequest = {
       id: req.params.id,
-      company: payload.userId,
-      title: req.body.title,
-      position: req.body.position,
-      conditions: req.body.conditions,
-      responsibilities: req.body.responsibilities,
-      qualification: req.body.qualification,
-      prevExperience: req.body.prevExperience,
+      company: payload.userId
     };
 
     try {
-      await this.upgrader.run(jobOpenUprgRequest);
+      await this.remover.run(jobOpenRemRequest);
     } catch (e) {
       res.status(404).send({ error: e.message });
       return;

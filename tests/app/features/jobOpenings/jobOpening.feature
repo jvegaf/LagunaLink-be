@@ -61,3 +61,11 @@ Feature: Job Opening
     }
     """
     Then the response status code should be 404
+
+  Scenario: Remove a Job Opening
+    Given I am logged in with previous created Company Role account
+    And I published a Job Opening with id "ef8ac118-8d7f-49cc-abec-78e0d05af80a"
+
+    When I send a DELETE request to "/job_openings/ef8ac118-8d7f-49cc-abec-78e0d05af80a"
+
+    Then the response status code should be 200

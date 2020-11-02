@@ -40,6 +40,10 @@ services:
     class: ../../../controllers/jobOpenings/JobOpeningPutController
     arguments: [ "@App.jobOpenings.JobOpeningUpgrader", "@App.users.AuthChecker", "@App.users.CompanyRoleChecker" ]
 
+  App.controllers.jobOpenings.JobOpeningDeleteController:
+    class: ../../../controllers/jobOpenings/JobOpeningDeleteController
+    arguments: [ "@App.jobOpenings.JobOpeningRemover", "@App.users.AuthChecker", "@App.users.CompanyRoleChecker" ]
+
   App.controllers.enrollments.EnrollmentPostController:
     class: ../../../controllers/enrollments/EnrollmentPostController
     arguments: [ "@App.enrollments.EnrollmentCreator", "@App.users.StudentRoleChecker" ]

@@ -81,17 +81,5 @@
     "tslint": "^6.1.2",
     "tslint-config-prettier": "~1.18.0",
     "tslint-eslint-rules": "^5.4.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "{src,tests}/**/*.ts": [
-      "prettier --write",
-      "tslint --fix",
-      "git add"
-    ]
   }
 }
