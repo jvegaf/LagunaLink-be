@@ -6,6 +6,7 @@ import Router from 'express-promise-router';
 import { registerRoutes } from './routes';
 import dotenv from 'dotenv';
 import path from 'path';
+import cors from 'cors';
 
 dotenv.config();
 const defaultEnv = 'local';
@@ -14,8 +15,9 @@ dotenv.config({ path: envPath });
 
 const app: express.Express = express();
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3300);
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet.xssFilter());

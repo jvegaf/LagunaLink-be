@@ -5,7 +5,7 @@ services:
     build: .
     command: bash -c "npm run build && npm run start"
     ports:
-      - 3000:3000
+      - 3300:3300
     environment:
       - MONGO_URL=mongodb://mongo:27017/dev
     depends_on:
