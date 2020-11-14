@@ -6,7 +6,7 @@
 # https://github.com/actions/labeler
 
 name: TODO checker
-on: [push]
+on: [push,workflow_dispatch]
 
 jobs:
   build:
