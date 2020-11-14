@@ -8,7 +8,7 @@ export class AuthJWTChecker implements AuthChecker {
   check(token: Token): Payload {
     let payload: Payload;
     let tokenSanitized = token.value;
-    if (token.value.indexOf('bearer') > -1) {
+    if (token.value.split(' ').length > 1) {
       tokenSanitized = token.value.split(' ')[1];
     }
 
