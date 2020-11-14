@@ -13,10 +13,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
-      - name: todo-actions
-        uses: dtinth/todo-actions@v0.2.0
-      - name: Pull Request size labeler
-        uses: CodelyTV/pr-size-labeler@v1
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -30,5 +26,9 @@ jobs:
           npm ci
           npm run build --if-present
           npm test
+      - name: todo-actions
+        uses: dtinth/todo-actions@v0.2.0
+      - name: Pull Request size labeler
+        uses: CodelyTV/pr-size-labeler@v1
         env:
           CI: true
