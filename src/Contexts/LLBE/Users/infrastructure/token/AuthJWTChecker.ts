@@ -7,7 +7,10 @@ import { BadToken } from '../../domain/BadToken';
 export class AuthJWTChecker implements AuthChecker {
   check(token: Token): Payload {
     let payload: Payload;
-    const tokenSanitized = token.value.split(' ')[1];
+    let tokenSanitized = token.value;
+    if (token.value.indexOf('bearer') > -1) {
+      tokenSanitized = token.value.split(' ')[1];
+    }
 
     const key: string = process.env.SECRET_KEY!;
     // @ts-ignore

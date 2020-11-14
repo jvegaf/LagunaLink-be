@@ -14,7 +14,7 @@ services:
 
   App.controllers.auth.EmailVerificationGetController:
     class: ../../../controllers/auth/EmailVerificationGetController
-    arguments: [ "@App.users.UserEmailConfirmator" ]
+    arguments: [ "@App.users.AuthChecker", "@App.users.UserEmailConfirmator" ]
 
   App.controllers.students.StudentPostController:
     class: ../../../controllers/students/StudentPostController

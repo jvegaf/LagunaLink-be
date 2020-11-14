@@ -31,7 +31,8 @@ export class UserConfirmationEmailDealer implements ConfirmationEmail {
     await this.mailer.sendAccountConfirmationMessage(message);
   }
 
+  //TODO: cambiar la forma de creacion del HTML
   private getHtmlCode(token: Token) {
-    return `<h1>LagunaLink Email Confirmation</h1>To Confirm the account, please click in this link:</br></br><a href="http://localhost:3000/auth/email_verification?token=${token.value}">Confirm Email</a>`;
+    return `<h1>LagunaLink Email Confirmation</h1>To Confirm the account, please click in this link:</br></br><a href="http://localhost:3300/auth/email_verification?token=${token.value}">Confirm Email</a>`;
   }
 }
