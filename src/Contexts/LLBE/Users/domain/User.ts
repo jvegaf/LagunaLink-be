@@ -109,4 +109,17 @@ export class User extends AggregateRoot {
       new UserUpdatedAt(Timestamp.now())
     );
   }
+
+  register(): User {
+    return new User(
+      this.id,
+      this.email,
+      this.password,
+      this.isActive,
+      this.role,
+      new UserRegistered(true),
+      this.createdAt,
+      new UserUpdatedAt(Timestamp.now())
+    );
+  }
 }

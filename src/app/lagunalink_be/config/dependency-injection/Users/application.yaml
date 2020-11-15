@@ -8,6 +8,10 @@ services:
     class: ../../../../../Contexts/LLBE/Users/application/UserCreator
     arguments: [ '@App.users.UserRepository', '@App.users.ConfirmationEmail' ]
 
+  App.users.UserUpdateRegistered:
+    class: ../../../../../Contexts/LLBE/Users/application/UserUpdateRegistered
+    arguments: [ '@App.users.UserRepository' ]
+
   App.users.ConfirmationEmail:
     class: ../../../../../Contexts/LLBE/Users/application/UserConfirmationEmailDealer
     arguments: [ '@App.shared.Mailer', '@App.users.TokenGenerator' ]

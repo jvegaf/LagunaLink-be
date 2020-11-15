@@ -3,13 +3,19 @@ import { StudentMother } from '../domain/StudentMother';
 import { StudentRepositoryMock } from '../__mocks__/StudentRepositoryMock';
 import { CreateStudentRequestMother } from './CreateStudentRequestMother';
 import { StudentExists } from '../../../../../src/Contexts/LLBE/Students/domain/StudentExists';
+import { UserUpdateRegisteredMock } from '../../Shared/__mocks__/UserUpdateRegisteredMock';
+import { UserUpdateRegistered } from '../../../../../src/Contexts/LLBE/Users/application/UserUpdateRegistered';
+import { UserRepositoryMock } from '../../Users/__mocks__/UserRepositoryMock';
 
 let repository: StudentRepositoryMock;
+
+let userUpdRegMock: UserUpdateRegistered;
 let creator: StudentCreator;
 
 beforeEach(() => {
+  userUpdRegMock = new UserUpdateRegisteredMock(new UserRepositoryMock());
   repository = new StudentRepositoryMock();
-  creator = new StudentCreator(repository);
+  creator = new StudentCreator(repository, userUpdRegMock);
 });
 
 it('should create a valid student', async () => {

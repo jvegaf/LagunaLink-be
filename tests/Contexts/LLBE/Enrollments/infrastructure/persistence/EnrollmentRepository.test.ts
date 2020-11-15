@@ -3,7 +3,6 @@ import { EnvironmentArranger } from '../../../../Shared/infrastructure/arranger/
 import { EnrollmentRepository } from '../../../../../../src/Contexts/LLBE/Enrollments/domain/EnrollmentRepository';
 import { EnrollmentMother } from '../../domain/EnrollmentMother';
 import { JobOpeningIdMother } from '../../../Shared/domain/JobOpenings/JobOpeningIdMother';
-import { Enrollment } from '../../../../../../src/Contexts/LLBE/Enrollments/domain/Enrollment';
 
 const repository: EnrollmentRepository = container.get(
   'App.enrollments.EnrollmentRepository'
