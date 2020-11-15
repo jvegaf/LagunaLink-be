@@ -9,11 +9,15 @@ import { CompanyPostalCode } from '../domain/CompanyPostalCode';
 import { CompanyAddress } from '../domain/CompanyAddress';
 import { CompanyDescription } from '../domain/CompanyDescription';
 import { CompanyExists } from '../domain/CompanyExists';
+import { UserUpdateRegistered } from '../../Users/application/UserUpdateRegistered';
+import { UserId } from '../../Shared/domain/Users/UserId';
 
 export class CompanyCreator {
   private repository: CompanyRepository;
+  private userUpdateReg: UserUpdateRegistered;
 
-  constructor(repository: CompanyRepository) {
+  constructor(repository: CompanyRepository, userUpdateReg: UserUpdateRegistered) {
+    this.userUpdateReg = userUpdateReg;
     this.repository = repository;
   }
 
@@ -31,6 +35,7 @@ export class CompanyCreator {
     );
 
     await this.repository.save(company);
+    await this.userUpdateReg.run(new UserId(company.id.value));
   }
 
   private async ensureCompanyNotExists(id: CompanyId) {

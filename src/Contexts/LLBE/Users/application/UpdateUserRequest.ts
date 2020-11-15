@@ -5,5 +5,4 @@ export type UpdateUserRequest = {
   isActive: boolean;
   role: string;
   registered: boolean;
-  createdAt: string;
 };

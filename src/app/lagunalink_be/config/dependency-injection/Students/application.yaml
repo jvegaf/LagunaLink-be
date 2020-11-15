@@ -6,7 +6,7 @@ services:
 
   App.students.StudentCreator:
     class: ../../../../../Contexts/LLBE/Students/application/StudentCreator
-    arguments: ['@App.students.StudentRepository']
+    arguments: ['@App.students.StudentRepository', '@App.users.UserUpdateRegistered']
 
   App.students.StudentUpgrader:
     class: ../../../../../Contexts/LLBE/Students/application/StudentUpgrader
