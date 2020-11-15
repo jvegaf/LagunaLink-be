@@ -31,13 +31,17 @@ export class UserAuth {
         'You need activate your account before continuing'
       );
     }
+
+    let code = user.role.value === 'ROLE_STUDENT' ? 230 : 231;
+
     let message = 'Register not complete';
     if (user.registered.value) {
       message = 'Registered';
+      code = 200;
     }
     const payload = { userId: user.id.value, role: user.role.value };
 
     const token = this.tokenGenerator.run(payload);
-    return new AuthResponse(message, token.value);
+    return new AuthResponse(code, message, token.value);
   }
 }

@@ -16,7 +16,7 @@ export class SignInPostController implements Controller {
     try {
       const response = await this.userAuth.run(request);
       res
-        .status(httpStatus.OK)
+        .status(response.code)
         .send({ message: response.message, access_token: response.token });
     } catch (e) {
       res.status(httpStatus.BAD_REQUEST).send({ error: e.message });
