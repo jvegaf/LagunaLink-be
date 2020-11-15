@@ -49,6 +49,7 @@ export class StudentPostController implements Controller {
     try {
       await this.studentCreator.run(studentRequest);
     } catch (err) {
+      console.log(err.message);
       res.status(400).send({ error: 'the student account exists' });
     }
 

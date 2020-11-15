@@ -1,7 +1,7 @@
-export class AccountNotConfirmed extends Error {
+export class UserAuthFail extends Error {
 
   constructor(message: string) {
     super(message);
-    this.name = 'AccountNotConfirmed';
+    this.name = 'UserAuthFail';
   }
 }
