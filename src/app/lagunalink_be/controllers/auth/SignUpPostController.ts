@@ -26,9 +26,9 @@ export class SignUpPostController implements Controller {
     try {
       await this.userCreator.run(request);
     } catch (e) {
-      res.status(e.code).send({ error: e.message });
+      res.status(402).send({ error: e.message });
     }
 
-    res.status(httpStatus.CREATED).send();
+    res.status(201).send();
   }
 }

@@ -21,18 +21,20 @@ export class UserConfirmationEmailDealer implements ConfirmationEmail {
       role: user.role.value,
     };
     const token = this.tokenGenerator.run(payload);
-    const htmlCode = this.getHtmlCode(token);
+    const uri = this.getUri(token);
     const message = new Message(
       'noreply@lagunalink.edu',
       user.email.value,
       'LagunaLink Account Confirmation',
-      htmlCode
+      'confirm',
+      uri
     );
-    await this.mailer.sendAccountConfirmationMessage(message);
+    await this.mailer.sendMessage(message);
   }
 
-  //TODO: cambiar la forma de creacion del HTML
-  private getHtmlCode(token: Token) {
-    return `<h1>LagunaLink Email Confirmation</h1>To Confirm the account, please click in this link:</br></br><a href="http://localhost:3300/auth/email_verification?token=${token.value}">Confirm Email</a>`;
+  private getUri(token: Token) {
+    const baseUrl: string = process.env.BASE_URL!;
+    const tokenValue = token.value;
+    return `http://${baseUrl}/auth/email_verification?token=${tokenValue}`;
   }
 }

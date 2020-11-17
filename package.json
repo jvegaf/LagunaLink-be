@@ -59,6 +59,7 @@
     "mongodb": "^3.5.7",
     "node-dependency-injection": "^2.6.3",
     "nodemailer": "^6.4.11",
+    "nodemailer-express-handlebars": "^4.0.0",
     "ts-node": "^8.10.1",
     "typescript": "^3.9.2",
     "uuid": "^8.0.0",
