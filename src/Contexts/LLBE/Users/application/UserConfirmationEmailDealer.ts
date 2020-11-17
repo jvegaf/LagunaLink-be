@@ -34,7 +34,7 @@ export class UserConfirmationEmailDealer implements ConfirmationEmail {
 
   private getUri(token: Token) {
     const baseUrl: string = process.env.BASE_URL!;
-    const tokenValue = token.value;
-    return `http://${baseUrl}/auth/email_verification?token=${tokenValue}`;
+    const parameter = 'token=' + token.value;
+    return `http://${baseUrl}/auth/email_verification?${parameter}`;
   }
 }
