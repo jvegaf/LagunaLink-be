@@ -23,7 +23,7 @@ export class EmailVerificationGetController implements Controller {
     try {
       payload = this.authChecker.check(token);
     } catch (e) {
-      res.status(402).send({ message: e.message });
+      res.status(402).send({message: e.message});
       return;
     }
 
@@ -32,10 +32,11 @@ export class EmailVerificationGetController implements Controller {
     try {
       await this.confirmator.run(userId);
     } catch (e) {
-      res.status(httpStatus.BAD_REQUEST).send({ error: e.message });
+      res.status(httpStatus.BAD_REQUEST).send({error: e.message});
     }
 
-    //TODO: hay que devolver un HTML en lugar de un JSON
-    res.status(httpStatus.OK).send({ message: 'Account confirmed' });
+    const frontUri: string = process.env.FRONTEND_URL!;
+    const confirmedUri = `http://${frontUri}/auth/confirmed`;
+    res.redirect(301, confirmedUri);
   }
 }

@@ -29,6 +29,6 @@ export class SignUpPostController implements Controller {
       res.status(e.code).send({ error: e.message });
     }
 
-    res.status(httpStatus.CREATED).send();
+    res.status(201).send();
   }
 }
