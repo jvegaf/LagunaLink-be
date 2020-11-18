@@ -5,11 +5,13 @@ import { EnrollmentDate } from '../domain/EnrollmentDate';
 import { JobOpeningId } from '../../Shared/domain/JobOpenings/JobOpeningId';
 import { EnrollmentId } from '../../Shared/domain/Enrollments/EnrollmentId';
 import { StudentId } from '../../Shared/domain/Students/StudentId';
+import { ApplicationService } from '../../../Shared/domain/ApplicationService';
 
-export class EnrollmentCreator {
+export class EnrollmentCreator extends ApplicationService{
   private repository: EnrollmentRepository;
 
   constructor(repository: EnrollmentRepository) {
+    super();
     this.repository = repository;
   }
 

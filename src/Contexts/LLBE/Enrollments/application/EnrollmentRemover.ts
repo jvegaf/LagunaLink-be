@@ -3,11 +3,13 @@ import { EnrollmentId } from '../../Shared/domain/Enrollments/EnrollmentId';
 import { EnrollmentNotFound } from '../domain/EnrollmentNotFound';
 import { RemoveEnrollmentRequest } from './RemoveEnrollmentRequest';
 import { EnrollmentOwner } from '../domain/EnrollmentOwner';
+import { ApplicationService } from '../../../Shared/domain/ApplicationService';
 
-export class EnrollmentRemover {
+export class EnrollmentRemover extends ApplicationService {
   private repository: EnrollmentRepository;
 
   constructor(repository: EnrollmentRepository) {
+    super();
     this.repository = repository;
   }
 

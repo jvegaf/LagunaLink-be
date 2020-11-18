@@ -8,11 +8,13 @@ import { CompanyAddress } from '../domain/CompanyAddress';
 import { CompanyPostalCode } from '../domain/CompanyPostalCode';
 import { CompanyRegion } from '../domain/CompanyRegion';
 import { CompanyCity } from '../domain/CompanyCity';
+import { ApplicationService } from '../../../Shared/domain/ApplicationService';
 
-export class CompanyUpgrader {
+export class CompanyUpgrader extends ApplicationService {
   private repository: CompanyRepository;
 
   constructor(repository: CompanyRepository) {
+    super();
     this.repository = repository;
   }
 

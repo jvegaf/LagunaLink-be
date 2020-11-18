@@ -10,11 +10,13 @@ import { JobOpenQualification } from '../domain/JobOpenQualification';
 import { JobOpenPrevExperience } from '../domain/JobOpenPrevExperience';
 import { JobOpeningId } from '../../Shared/domain/JobOpenings/JobOpeningId';
 import { JobOpeningNotFound } from '../domain/JobOpeningNotFound';
+import { ApplicationService } from '../../../Shared/domain/ApplicationService';
 
-export class JobOpeningUpgrader {
+export class JobOpeningUpgrader extends ApplicationService{
   private repository: JobOpeningRepository;
 
   constructor(repository: JobOpeningRepository) {
+    super();
     this.repository = repository;
   }
 

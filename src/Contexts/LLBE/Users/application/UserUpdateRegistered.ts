@@ -1,11 +1,13 @@
 import { UserRepository } from '../domain/UserRepository';
 import { User } from '../domain/User';
 import { UserId } from '../../Shared/domain/Users/UserId';
+import { ApplicationService } from '../../../Shared/domain/ApplicationService';
 
-export class UserUpdateRegistered {
+export class UserUpdateRegistered extends ApplicationService{
   private repository: UserRepository;
 
   constructor(repository: UserRepository) {
+    super();
     this.repository = repository;
   }
 

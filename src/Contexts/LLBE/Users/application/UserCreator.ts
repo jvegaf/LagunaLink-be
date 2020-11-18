@@ -13,12 +13,14 @@ import { ConfirmationEmail } from '../domain/ConfirmationEmail';
 import { Timestamp } from '../../Shared/domain/Timestamp';
 import { UserRegistered } from '../domain/UserRegistered';
 import { hashSync } from 'bcryptjs';
+import { ApplicationService } from '../../../Shared/domain/ApplicationService';
 
-export class UserCreator {
+export class UserCreator extends ApplicationService {
   private repository: UserRepository;
   private confirmService: ConfirmationEmail;
 
   constructor(repository: UserRepository, confEmailService: ConfirmationEmail) {
+    super();
     this.repository = repository;
     this.confirmService = confEmailService;
   }
@@ -40,14 +42,17 @@ export class UserCreator {
     );
 
     await this.repository.save(user);
+    this.logInfo(`user ${user.email.value} created`);
     await this.confirmService.sendTo(user);
   }
 
   private async ensureUserNotExist(email: string) {
     const userEmail = new UserEmail(email);
     const result = await this.repository.searchByEmail(userEmail);
+    const message = `The email ${email} has previously registered`;
     if (result !== null) {
-      throw new UserEmailExists(`The email ${email} has previously registered`);
+      this.logError(message);
+      throw new UserEmailExists(message);
     }
   }
 }

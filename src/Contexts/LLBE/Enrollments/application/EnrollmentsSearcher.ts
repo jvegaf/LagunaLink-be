@@ -1,11 +1,13 @@
 import { EnrollmentRepository } from '../domain/EnrollmentRepository';
 import { Enrollment } from '../domain/Enrollment';
 import { JobOpeningId } from '../../Shared/domain/JobOpenings/JobOpeningId';
+import { ApplicationService } from '../../../Shared/domain/ApplicationService';
 
-export class EnrollmentsSearcher {
+export class EnrollmentsSearcher extends ApplicationService {
   private repository: EnrollmentRepository;
 
   constructor(repository: EnrollmentRepository) {
+    super();
     this.repository = repository;
   }
 

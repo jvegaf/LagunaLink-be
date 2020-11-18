@@ -8,12 +8,14 @@ import { StudentLastname } from '../domain/StudentLastname';
 import { StudentExists } from '../domain/StudentExists';
 import { UserUpdateRegistered } from '../../Users/application/UserUpdateRegistered';
 import { UserId } from '../../Shared/domain/Users/UserId';
+import { ApplicationService } from '../../../Shared/domain/ApplicationService';
 
-export class StudentCreator {
+export class StudentCreator extends ApplicationService{
   private repository: StudentRepository;
   private userUpdateReg: UserUpdateRegistered;
 
   constructor(repository: StudentRepository, userUpdateReg: UserUpdateRegistered) {
+    super();
     this.repository = repository;
     this.userUpdateReg = userUpdateReg;
   }

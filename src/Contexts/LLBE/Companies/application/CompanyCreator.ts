@@ -11,12 +11,14 @@ import { CompanyDescription } from '../domain/CompanyDescription';
 import { CompanyExists } from '../domain/CompanyExists';
 import { UserUpdateRegistered } from '../../Users/application/UserUpdateRegistered';
 import { UserId } from '../../Shared/domain/Users/UserId';
+import { ApplicationService } from '../../../Shared/domain/ApplicationService';
 
-export class CompanyCreator {
+export class CompanyCreator extends ApplicationService{
   private repository: CompanyRepository;
   private userUpdateReg: UserUpdateRegistered;
 
   constructor(repository: CompanyRepository, userUpdateReg: UserUpdateRegistered) {
+    super();
     this.userUpdateReg = userUpdateReg;
     this.repository = repository;
   }
