@@ -13,6 +13,8 @@
 | 205  | RESET_CONTENT                   | Reset Content                   |
 | 206  | PARTIAL_CONTENT                 | Partial Content                 |
 | 207  | MULTI_STATUS                    | Multi-Status                    |
+| 230  | STUDENT_TO_CONTINUE_REGISTRY    | Other                    |
+| 231  | COMPANY_TO_CONTINUE_REGISTRY    | Other                    |
 | 300  | MULTIPLE_CHOICES                | Multiple Choices                |
 | 301  | MOVED_PERMANENTLY               | Moved Permanently               |
 | 302  | MOVED_TEMPORARILY               | Moved Temporarily               |
@@ -47,6 +49,7 @@
 | 424  | FAILED_DEPENDENCY               | Failed Dependency               |
 | 428  | PRECONDITION_REQUIRED           | Precondition Required           |
 | 429  | TOO_MANY_REQUESTS               | Too Many Requests               |
+| 430  | EMAIL_PREVIOUSLY_REGISTERED     | Bad Request               |
 | 431  | REQUEST_HEADER_FIELDS_TOO_LARGE | Request Header Fields Too Large |
 | 451  | UNAVAILABLE_FOR_LEGAL_REASONS   | Unavailable For Legal Reasons   |
 | 500  | INTERNAL_SERVER_ERROR           | Internal Server Error           |
