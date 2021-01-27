@@ -14,11 +14,11 @@ build:
 	@docker build -t $(IMAGE_NAME):dev .
 
 .PHONY: test
-test: build
+test: build database_start
 	@docker-compose run --rm $(SERVICE_NAME) bash -c 'npm run build && npm run test'
 
 .PHONY: start
-start: build
+start: build database_start
 	@docker-compose up $(SERVICE_NAME) && docker-compose down
 
 .PHONY: clean
@@ -60,5 +60,3 @@ clear:
 PHONY: stop
 stop:
 	@docker-compose stop
-
-
