@@ -49,6 +49,15 @@ const jobOpenRepository: JobOpeningRepository = container.get(
   'App.jobOpenings.JobOpeningRepository'
 );
 
+async function createAccountNotVerified() {
+  const userRequest = CreateUserRequestMother.random();
+  userRequest.email = 'ramoncin@gmail.com';
+  userRequest.password = '123123';
+  userRequest.isActive = false;
+  const user = UserMother.fromRequest(userRequest);
+  await userRepository.save(user);
+}
+
 async function createUserWithRole(role: string) {
   const userRequest = CreateUserRequestMother.random();
   const passwordPlane = userRequest.password;
@@ -119,13 +128,6 @@ Given('I send a GET request to {string}', (route: string) => {
 });
 
 Given(
-  'I send a POST request to {string} with body:',
-  (route: string, body: string) => {
-    _request = request(app).post(route).send(JSON.parse(body));
-  }
-);
-
-Given(
   'I am logged in with a Student Role account previously registered',
   async () => {
     const authReq = await createUserWithRole('ROLE_STUDENT');
@@ -162,6 +164,19 @@ Given('exists a Job Opening with id {string}', async (id: string) => {
   const jobOpening = JobOpeningMother.fromUpgradeRequest(jobOpeningRequest);
   await jobOpenRepository.save(jobOpening);
 });
+
+Given('I am a user with account not yet verified', async () => {
+  await createAccountNotVerified();
+});
+
+When(
+  'I send a POST request to {string} with body:',
+  (route: string, body: string) => {
+    _request = request(app)
+      .post(route)
+      .send(JSON.parse(body));
+  }
+);
 
 When('I send a POST request with Auth header to {string}', (route: string) => {
   _request = request(app)
