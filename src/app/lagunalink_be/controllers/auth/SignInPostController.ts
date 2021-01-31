@@ -25,6 +25,7 @@ export class SignInPostController implements Controller {
     } catch (e) {
       if (e.name === 'AccountNotConfirmed') {
         res.status(NOT_ACTIVE_STATUS_CODE).send();
+        return;
       }
       res.status(httpStatus.BAD_REQUEST).send({error: e.message});
     }
