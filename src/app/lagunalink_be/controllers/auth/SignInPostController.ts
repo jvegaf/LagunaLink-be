@@ -5,8 +5,11 @@ import { UserAuth } from '../../../../Contexts/LLBE/Users/application/UserAuth';
 import { AuthUserRequest } from '../../../../Contexts/LLBE/Users/application/AuthUserRequest';
 import { AccountNotConfirmed } from '../../../../Contexts/LLBE/Users/application/AccountNotConfirmed';
 
+const NOT_ACTIVE_STATUS_CODE = 450;
+
 export class SignInPostController implements Controller {
-  constructor(private userAuth: UserAuth) {}
+  constructor(private userAuth: UserAuth) {
+  }
 
   async run(req: Request, res: Response) {
     const request: AuthUserRequest = {
@@ -20,9 +23,10 @@ export class SignInPostController implements Controller {
         .status(response.code)
         .send({ message: response.message, access_token: response.token });
     } catch (e) {
-      // si el error es del tipo AccountNotConfirmed sacar un codigo de status de dominio
-      if(e.instanceof(AccountNotConfirmed)) { }
-      res.status(httpStatus.BAD_REQUEST).send({ error: e.message });
+      if (e.name === 'AccountNotConfirmed') {
+        res.status(NOT_ACTIVE_STATUS_CODE).send();
+      }
+      res.status(httpStatus.BAD_REQUEST).send({error: e.message});
     }
   }
 }

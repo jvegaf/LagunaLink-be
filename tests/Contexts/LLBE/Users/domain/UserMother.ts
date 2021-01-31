@@ -28,6 +28,7 @@ export class UserMother {
     createdAt: UserCreatedAt,
     updatedAt: UserUpdatedAt
   ): User {
+
     return new User(
       id,
       email,

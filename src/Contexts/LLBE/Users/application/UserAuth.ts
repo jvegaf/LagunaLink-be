@@ -24,11 +24,11 @@ export class UserAuth extends ApplicationService {
     );
     const incorrectEmailOrPassword = 'Incorrect Email or Password';
     if (user === null) {
-      this.logError(incorrectEmailOrPassword);
+      this.logError('Incorrect Email');
       throw new UserAuthFail(incorrectEmailOrPassword);
     }
     if (!compareSync(request.password, user.password.value)) {
-      this.logError(incorrectEmailOrPassword);
+      this.logError('Incorrect Password');
       throw new UserAuthFail(incorrectEmailOrPassword);
     }
     if (!user.isActive.value) {
