@@ -49,6 +49,6 @@ export class UserAuth extends ApplicationService {
 
     const token = this.tokenGenerator.run(payload);
     this.logInfo(`user ${user.email.value} authenticated`);
-    return new AuthResponse(code, message, token.value);
+    return new AuthResponse(code, message, user.id.value, token.value);
   }
 }
