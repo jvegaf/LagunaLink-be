@@ -1,5 +1,5 @@
 Feature: SignIn
-  Coverage the different login options 
+  Coverage the different login options
 
   Scenario: A valid user without account verified
     Given I am a user with account not yet verified
@@ -11,4 +11,3 @@ Feature: SignIn
     }
     """
     Then the response status code should be 450
-    And the response should be empty

@@ -52,8 +52,9 @@ const jobOpenRepository: JobOpeningRepository = container.get(
 async function createAccountNotVerified() {
   const userRequest = CreateUserRequestMother.random();
   userRequest.email = 'ramoncin@gmail.com';
-  userRequest.password = '123123';
+  userRequest.password = hashSync('123123', 10);
   userRequest.isActive = false;
+  userRequest.registered = false;
   const user = UserMother.fromRequest(userRequest);
   await userRepository.save(user);
 }
