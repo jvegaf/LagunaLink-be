@@ -40,15 +40,13 @@ export class UserAuth extends ApplicationService {
 
     let code = user.role.value === 'ROLE_STUDENT' ? 230 : 231;
 
-    let message = 'Register not complete';
     if (user.registered.value) {
-      message = 'Registered';
       code = 200;
     }
     const payload = { userId: user.id.value, role: user.role.value };
 
     const token = this.tokenGenerator.run(payload);
     this.logInfo(`user ${user.email.value} authenticated`);
-    return new AuthResponse(code, message, user.id.value, token.value);
+    return new AuthResponse(code, user.role.value, user.id.value, token.value);
   }
 }

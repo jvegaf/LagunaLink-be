@@ -4,6 +4,7 @@ import { Controller } from '../Controller';
 import { UserAuth } from '../../../../Contexts/LLBE/Users/application/UserAuth';
 import { AuthUserRequest } from '../../../../Contexts/LLBE/Users/application/AuthUserRequest';
 import { AccountNotConfirmed } from '../../../../Contexts/LLBE/Users/application/AccountNotConfirmed';
+import { UserAuthFail } from "../../../../Contexts/LLBE/Users/application/UserAuthFail";
 
 const NOT_ACTIVE_STATUS_CODE = 450;
 
@@ -21,13 +22,14 @@ export class SignInPostController implements Controller {
       const response = await this.userAuth.run(request);
       res
         .status(response.code)
-        .send({ message: response.message, access_token: response.token });
+        .send({ role: response.role, userId: response.userId, access_token: response.token });
     } catch (e) {
-      if (e.name === 'AccountNotConfirmed') {
+      if (e instanceof AccountNotConfirmed) {
         res.status(NOT_ACTIVE_STATUS_CODE).send();
-        return;
       }
-      res.status(httpStatus.BAD_REQUEST).send({error: e.message});
+      if (e instanceof UserAuthFail) {
+        res.status(httpStatus.BAD_REQUEST).send({error: e.message});
+      }
     }
   }
 }
