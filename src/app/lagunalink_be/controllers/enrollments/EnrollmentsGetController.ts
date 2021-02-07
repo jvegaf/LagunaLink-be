@@ -6,7 +6,7 @@ import httpStatus from 'http-status';
 import { Payload } from '../../../../Contexts/LLBE/Users/domain/Payload';
 import { AuthRole } from '../../../../Contexts/LLBE/Users/domain/AuthRole';
 import { EnrollmentsSearcher } from '../../../../Contexts/LLBE/Enrollments/application/EnrollmentsSearcher';
-import { StudentFinder } from '../../../../Contexts/LLBE/Students/application/StudentFinder';
+import { StudentFinder } from '../../../../Contexts/LLBE/Students/application/Find/StudentFinder';
 import { StudentId } from '../../../../Contexts/LLBE/Shared/domain/Students/StudentId';
 import { UserEmailFinder } from '../../../../Contexts/LLBE/Users/application/UserEmailFinder';
 import { UserId } from '../../../../Contexts/LLBE/Shared/domain/Users/UserId';

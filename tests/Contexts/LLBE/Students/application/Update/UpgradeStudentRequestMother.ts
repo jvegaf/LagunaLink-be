@@ -1,11 +1,11 @@
-import { StudentNameMother } from '../domain/StudentNameMother';
-import { StudentSurnameMother } from '../domain/StudentSurnameMother';
-import { StudentLastnameMother } from '../domain/StudentLastnameMother';
-import { StudentIdMother } from '../../Shared/domain/Students/StudentIdMother';
-import { UpgradeStudentRequest } from '../../../../../src/Contexts/LLBE/Students/application/UpgradeStudentRequest';
-import { QualificationsMother } from '../domain/QualificationsMother';
-import { StudentLangsMother } from '../domain/StudentLangsMother';
-import { JobExperiencesMother } from '../domain/JobExperiencesMother';
+import { StudentNameMother } from '../../domain/StudentNameMother';
+import { StudentSurnameMother } from '../../domain/StudentSurnameMother';
+import { StudentLastnameMother } from '../../domain/StudentLastnameMother';
+import { StudentIdMother } from '../../../Shared/domain/Students/StudentIdMother';
+import { UpgradeStudentRequest } from '../../../../../../src/Contexts/LLBE/Students/application/Update/UpgradeStudentRequest';
+import { QualificationsMother } from '../../domain/QualificationsMother';
+import { StudentLangsMother } from '../../domain/StudentLangsMother';
+import { JobExperiencesMother } from '../../domain/JobExperiencesMother';
 
 export class UpgradeStudentRequestMother {
   static create(

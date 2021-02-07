@@ -1,7 +1,7 @@
-import { StudentRepository } from '../domain/StudentRepository';
-import { Student } from '../domain/Student';
-import { StudentId } from '../../Shared/domain/Students/StudentId';
-import { ApplicationService } from '../../../Shared/domain/ApplicationService';
+import { StudentRepository } from '../../domain/StudentRepository';
+import { Student } from '../../domain/Student';
+import { StudentId } from '../../../Shared/domain/Students/StudentId';
+import { ApplicationService } from '../../../../Shared/domain/ApplicationService';
 
 export class StudentFinder extends ApplicationService{
   private repository: StudentRepository;

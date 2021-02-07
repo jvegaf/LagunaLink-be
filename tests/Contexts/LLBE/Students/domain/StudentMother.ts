@@ -2,7 +2,7 @@ import { StudentId } from '../../../../../src/Contexts/LLBE/Shared/domain/Studen
 import { StudentName } from '../../../../../src/Contexts/LLBE/Students/domain/StudentName';
 import { StudentSurname } from '../../../../../src/Contexts/LLBE/Students/domain/StudentSurname';
 import { Student } from '../../../../../src/Contexts/LLBE/Students/domain/Student';
-import { CreateStudentRequest } from '../../../../../src/Contexts/LLBE/Students/application/CreateStudentRequest';
+import { CreateStudentRequest } from '../../../../../src/Contexts/LLBE/Students/application/Create/CreateStudentRequest';
 import { StudentIdMother } from '../../Shared/domain/Students/StudentIdMother';
 import { StudentNameMother } from './StudentNameMother';
 import { StudentLastname } from '../../../../../src/Contexts/LLBE/Students/domain/StudentLastname';

@@ -1,7 +1,7 @@
-import { StudentRepositoryMock } from '../__mocks__/StudentRepositoryMock';
-import { StudentUpgrader } from '../../../../../src/Contexts/LLBE/Students/application/StudentUpgrader';
+import { StudentRepositoryMock } from '../../__mocks__/StudentRepositoryMock';
+import { StudentUpgrader } from '../../../../../../src/Contexts/LLBE/Students/application/Update/StudentUpgrader';
 import { UpgradeStudentRequestMother } from './UpgradeStudentRequestMother';
-import { Student } from '../../../../../src/Contexts/LLBE/Students/domain/Student';
+import { Student } from '../../../../../../src/Contexts/LLBE/Students/domain/Student';
 
 let repository: StudentRepositoryMock;
 let upgrader: StudentUpgrader;

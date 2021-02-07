@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { StudentCreator } from '../../../../Contexts/LLBE/Students/application/StudentCreator';
+import { StudentCreator } from '../../../../Contexts/LLBE/Students/application/Create/StudentCreator';
 import { Controller } from '../Controller';
-import { CreateStudentRequest } from '../../../../Contexts/LLBE/Students/application/CreateStudentRequest';
+import { CreateStudentRequest } from '../../../../Contexts/LLBE/Students/application/Create/CreateStudentRequest';
 import { Token } from '../../../../Contexts/LLBE/Users/domain/Token';
 import httpStatus from 'http-status';
 import { Payload } from '../../../../Contexts/LLBE/Users/domain/Payload';

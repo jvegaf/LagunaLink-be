@@ -3,6 +3,7 @@ Feature: Company Registry
   the registry of a company account.
 
   Scenario: Register a Company account
+    Given I have a Company Role Account
     Given I am logged in with previous created Company Role account
     When I send a POST request with Auth header to "/companies" with body:
     """
@@ -18,6 +19,7 @@ Feature: Company Registry
     Then the response status code should be 201
 
   Scenario: Get an bad request error when try register a Company with Student account
+    Given I have a Student Role Account
     Given I am logged in with previous created Student Role account
     When I send a POST request with Auth header to "/companies" with body:
     """
@@ -48,6 +50,7 @@ Feature: Company Registry
     Then the response status code should be 400
 
   Scenario: Upgrade a company with new data
+    Given I have a Company Role Account
     Given I am logged in with previous created Company Role account
     When I send a PUT request with Auth header to "/companies" with body:
     """

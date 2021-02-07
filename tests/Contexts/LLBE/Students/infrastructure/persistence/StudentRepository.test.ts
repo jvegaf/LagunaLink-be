@@ -2,7 +2,7 @@ import container from '../../../../../../src/app/lagunalink_be/config/dependency
 import { StudentRepository } from '../../../../../../src/Contexts/LLBE/Students/domain/StudentRepository';
 import { EnvironmentArranger } from '../../../../Shared/infrastructure/arranger/EnvironmentArranger';
 import { StudentMother } from '../../domain/StudentMother';
-import { UpgradeStudentRequestMother } from '../../application/UpgradeStudentRequestMother';
+import { UpgradeStudentRequestMother } from '../../application/Update/UpgradeStudentRequestMother';
 import { Student } from '../../../../../../src/Contexts/LLBE/Students/domain/Student';
 
 const repository: StudentRepository = container.get('App.students.StudentRepository');

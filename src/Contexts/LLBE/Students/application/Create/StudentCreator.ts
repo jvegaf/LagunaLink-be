@@ -1,14 +1,14 @@
-import { StudentRepository } from '../domain/StudentRepository';
-import { Student } from '../domain/Student';
+import { StudentRepository } from '../../domain/StudentRepository';
+import { Student } from '../../domain/Student';
 import { CreateStudentRequest } from './CreateStudentRequest';
-import { StudentId } from '../../Shared/domain/Students/StudentId';
-import { StudentName } from '../domain/StudentName';
-import { StudentSurname } from '../domain/StudentSurname';
-import { StudentLastname } from '../domain/StudentLastname';
-import { StudentExists } from '../domain/StudentExists';
-import { UserUpdateRegistered } from '../../Users/application/UserUpdateRegistered';
-import { UserId } from '../../Shared/domain/Users/UserId';
-import { ApplicationService } from '../../../Shared/domain/ApplicationService';
+import { StudentId } from '../../../Shared/domain/Students/StudentId';
+import { StudentName } from '../../domain/StudentName';
+import { StudentSurname } from '../../domain/StudentSurname';
+import { StudentLastname } from '../../domain/StudentLastname';
+import { StudentExists } from '../../domain/StudentExists';
+import { UserUpdateRegistered } from '../../../Users/application/UserUpdateRegistered';
+import { UserId } from '../../../Shared/domain/Users/UserId';
+import { ApplicationService } from '../../../../Shared/domain/ApplicationService';
 
 export class StudentCreator extends ApplicationService{
   private repository: StudentRepository;

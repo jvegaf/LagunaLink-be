@@ -1,4 +1,4 @@
-import { CreateStudentRequestMother } from '../application/CreateStudentRequestMother';
+import { CreateStudentRequestMother } from '../application/Create/CreateStudentRequestMother';
 import { StudentMother } from './StudentMother';
 
 describe('Student', () => {

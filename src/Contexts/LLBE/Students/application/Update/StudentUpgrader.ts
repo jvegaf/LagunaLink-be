@@ -1,7 +1,7 @@
-import { StudentRepository } from '../domain/StudentRepository';
-import { Student } from '../domain/Student';
+import { StudentRepository } from '../../domain/StudentRepository';
+import { Student } from '../../domain/Student';
 import { UpgradeStudentRequest } from './UpgradeStudentRequest';
-import { ApplicationService } from '../../../Shared/domain/ApplicationService';
+import { ApplicationService } from '../../../../Shared/domain/ApplicationService';
 
 export class StudentUpgrader extends ApplicationService{
   private repository: StudentRepository;

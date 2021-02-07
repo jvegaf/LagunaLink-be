@@ -32,6 +32,7 @@ let _request: request.Test;
 let _response: request.Response;
 let accessToken: string;
 let companyId: string;
+let authRequest: object;
 
 const userRepository: UserRepository = container.get(
   'App.users.UserRepository'
@@ -59,9 +60,10 @@ async function createAccountNotVerified() {
   await userRepository.save(user);
 }
 
-async function createUserWithRole(role: string) {
+async function createUserWithRole(role: string, id?: string) {
   const userRequest = CreateUserRequestMother.random();
   const passwordPlane = userRequest.password;
+  if (id !== undefined) { userRequest.id = id; }
   userRequest.password = hashSync(userRequest.password, 10);
   userRequest.isActive = true;
   userRequest.registered = false;
@@ -109,15 +111,24 @@ async function saveJobOpening(id: string) {
   );
 }
 
+Given('I have a Student Role Account', async () => {
+  authRequest = await createUserWithRole('ROLE_STUDENT');
+});
+
+Given('I have a Student Role Account with id {string}', async (id: string) => {
+  authRequest = await createUserWithRole('ROLE_STUDENT', id);
+});
+
 Given('I am logged in with previous created Student Role account', async () => {
-  const authReq = await createUserWithRole('ROLE_STUDENT');
-  accessToken = await loginUserAccount(authReq);
+  accessToken = await loginUserAccount(authRequest);
+});
+
+Given('I have a Company Role Account', async () => {
+  authRequest = await createUserWithRole('ROLE_COMPANY');
 });
 
 Given('I am logged in with previous created Company Role account', async () => {
-  const authReq = await createUserWithRole('ROLE_COMPANY');
-  companyId = authReq.id;
-  accessToken = await loginUserAccount(authReq);
+  accessToken = await loginUserAccount(authRequest);
 });
 
 Given('I published a Job Opening with id {string}', async (id: string) => {

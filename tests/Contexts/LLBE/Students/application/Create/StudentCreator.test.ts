@@ -1,11 +1,11 @@
-import { StudentCreator } from '../../../../../src/Contexts/LLBE/Students/application/StudentCreator';
-import { StudentMother } from '../domain/StudentMother';
-import { StudentRepositoryMock } from '../__mocks__/StudentRepositoryMock';
+import { StudentCreator } from '../../../../../../src/Contexts/LLBE/Students/application/Create/StudentCreator';
+import { StudentMother } from '../../domain/StudentMother';
+import { StudentRepositoryMock } from '../../__mocks__/StudentRepositoryMock';
 import { CreateStudentRequestMother } from './CreateStudentRequestMother';
-import { StudentExists } from '../../../../../src/Contexts/LLBE/Students/domain/StudentExists';
-import { UserUpdateRegisteredMock } from '../../Shared/__mocks__/UserUpdateRegisteredMock';
-import { UserUpdateRegistered } from '../../../../../src/Contexts/LLBE/Users/application/UserUpdateRegistered';
-import { UserRepositoryMock } from '../../Users/__mocks__/UserRepositoryMock';
+import { StudentExists } from '../../../../../../src/Contexts/LLBE/Students/domain/StudentExists';
+import { UserUpdateRegisteredMock } from '../../../Shared/__mocks__/UserUpdateRegisteredMock';
+import { UserUpdateRegistered } from '../../../../../../src/Contexts/LLBE/Users/application/UserUpdateRegistered';
+import { UserRepositoryMock } from '../../../Users/__mocks__/UserRepositoryMock';
 
 let repository: StudentRepositoryMock;
 
