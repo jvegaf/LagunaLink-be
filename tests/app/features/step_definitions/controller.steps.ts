@@ -190,6 +190,13 @@ When(
   }
 );
 
+When('I send a GET request with Auth header to {string}', (route: string) => {
+  _request = request(app)
+    .post(route)
+    .auth(accessToken, { type: 'bearer' })
+    .send();
+});
+
 When('I send a POST request with Auth header to {string}', (route: string) => {
   _request = request(app)
     .post(route)
@@ -251,6 +258,7 @@ Then('the response content should be:', (response) => {
 
 Before(async () => {
   accessToken = '';
+  authRequest = {};
   const environmentArranger: Promise<EnvironmentArranger> = container.get(
     'App.EnvironmentArranger'
   );
