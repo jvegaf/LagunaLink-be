@@ -3,8 +3,8 @@ Feature: Company Registry
   the registry of a company account.
 
   Scenario: Register a Company account
-    Given I have a Company Role Account
-    Given I am logged in with previous created Company Role account
+    Given I have a Company Role Account with
+    And I am logged in without Company Role account
     When I send a POST request with Auth header to "/companies" with body:
     """
     {
@@ -35,7 +35,8 @@ Feature: Company Registry
     Then the response status code should be 400
 
   Scenario: Get an bad request error when try register a Company previously registered
-    Given I am logged in with a Company Role account previously registered
+    Given I have a Company Role Account
+    And I am logged in with previous created Company Role account
     When I send a POST request with Auth header to "/companies" with body:
     """
     {

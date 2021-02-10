@@ -3,7 +3,7 @@ import { Student } from '../../domain/Student';
 import { StudentId } from '../../../Shared/domain/Students/StudentId';
 import { ApplicationService } from '../../../../Shared/domain/ApplicationService';
 
-export class StudentFinder extends ApplicationService{
+export class StudentFinder extends ApplicationService {
   private repository: StudentRepository;
 
   constructor(repository: StudentRepository) {

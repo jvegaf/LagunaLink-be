@@ -3,7 +3,7 @@ import { Student } from '../../domain/Student';
 import { UpgradeStudentRequest } from './UpgradeStudentRequest';
 import { ApplicationService } from '../../../../Shared/domain/ApplicationService';
 
-export class StudentUpgrader extends ApplicationService{
+export class StudentUpgrader extends ApplicationService {
   private repository: StudentRepository;
 
   constructor(repository: StudentRepository) {

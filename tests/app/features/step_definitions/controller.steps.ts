@@ -1,273 +1,248 @@
 import assert from 'assert';
-import { AfterAll, Before, Given, Then, When } from 'cucumber';
+import {AfterAll, Before, Given, Then, When} from 'cucumber';
 import request from 'supertest';
 import app from '../../../../src/app/lagunalink_be/app';
 import container from '../../../../src/app/lagunalink_be/config/dependency-injection';
-import { EnvironmentArranger } from '../../../Contexts/Shared/infrastructure/arranger/EnvironmentArranger';
-import { UserRepository } from '../../../../src/Contexts/LLBE/Users/domain/UserRepository';
-import { StudentRepository } from '../../../../src/Contexts/LLBE/Students/domain/StudentRepository';
-import { CreateUserRequestMother } from '../../../Contexts/LLBE/Users/application/CreateUserRequestMother';
-import { UserMother } from '../../../Contexts/LLBE/Users/domain/UserMother';
-import { User } from '../../../../src/Contexts/LLBE/Users/domain/User';
-import { Student } from '../../../../src/Contexts/LLBE/Students/domain/Student';
-import { StudentId } from '../../../../src/Contexts/LLBE/Shared/domain/Students/StudentId';
-import { StudentSurnameMother } from '../../../Contexts/LLBE/Students/domain/StudentSurnameMother';
-import { StudentLastnameMother } from '../../../Contexts/LLBE/Students/domain/StudentLastnameMother';
-import { hashSync } from 'bcryptjs';
-import { StudentNameMother } from '../../../Contexts/LLBE/Students/domain/StudentNameMother';
-import { Company } from '../../../../src/Contexts/LLBE/Companies/domain/Company';
-import { CompanyNameMother } from '../../../Contexts/LLBE/Companies/domain/CompanyNameMother';
-import { CompanyDescriptionMother } from '../../../Contexts/LLBE/Companies/domain/CompanyDescriptionMother';
-import { CompanyAddressMother } from '../../../Contexts/LLBE/Companies/domain/CompanyAddressMother';
-import { CompanyPostalCodeMother } from '../../../Contexts/LLBE/Companies/domain/CompanyPostalCodeMother';
-import { CompanyRegionMother } from '../../../Contexts/LLBE/Companies/domain/CompanyRegionMother';
-import { CompanyCityMother } from '../../../Contexts/LLBE/Companies/domain/CompanyCityMother';
-import { CompanyId } from '../../../../src/Contexts/LLBE/Shared/domain/Companies/CompanyId';
-import { CompanyRepository } from '../../../../src/Contexts/LLBE/Companies/domain/CompanyRepository';
-import { JobOpeningRepository } from '../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpeningRepository';
-import { UpgradeJobOpeningRequestMother } from '../../../Contexts/LLBE/JobOpenings/application/UpgradeJobOpeningRequestMother';
-import { JobOpeningMother } from '../../../Contexts/LLBE/JobOpenings/domain/JobOpeningMother';
+import {EnvironmentArranger} from '../../../Contexts/Shared/infrastructure/arranger/EnvironmentArranger';
+import {UserRepository} from '../../../../src/Contexts/LLBE/Users/domain/UserRepository';
+import {StudentRepository} from '../../../../src/Contexts/LLBE/Students/domain/StudentRepository';
+import {CreateUserRequestMother} from '../../../Contexts/LLBE/Users/application/CreateUserRequestMother';
+import {UserMother} from '../../../Contexts/LLBE/Users/domain/UserMother';
+import {Student} from '../../../../src/Contexts/LLBE/Students/domain/Student';
+import {StudentSurnameMother} from '../../../Contexts/LLBE/Students/domain/StudentSurnameMother';
+import {StudentLastnameMother} from '../../../Contexts/LLBE/Students/domain/StudentLastnameMother';
+import {hashSync} from 'bcryptjs';
+import {StudentNameMother} from '../../../Contexts/LLBE/Students/domain/StudentNameMother';
+import {Company} from '../../../../src/Contexts/LLBE/Companies/domain/Company';
+import {CompanyNameMother} from '../../../Contexts/LLBE/Companies/domain/CompanyNameMother';
+import {CompanyDescriptionMother} from '../../../Contexts/LLBE/Companies/domain/CompanyDescriptionMother';
+import {CompanyAddressMother} from '../../../Contexts/LLBE/Companies/domain/CompanyAddressMother';
+import {CompanyPostalCodeMother} from '../../../Contexts/LLBE/Companies/domain/CompanyPostalCodeMother';
+import {CompanyRegionMother} from '../../../Contexts/LLBE/Companies/domain/CompanyRegionMother';
+import {CompanyCityMother} from '../../../Contexts/LLBE/Companies/domain/CompanyCityMother';
+import {CompanyRepository} from '../../../../src/Contexts/LLBE/Companies/domain/CompanyRepository';
+import {JobOpeningRepository} from '../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpeningRepository';
+import {UpgradeJobOpeningRequestMother} from '../../../Contexts/LLBE/JobOpenings/application/UpgradeJobOpeningRequestMother';
+import {JobOpeningMother} from '../../../Contexts/LLBE/JobOpenings/domain/JobOpeningMother';
+import {StudentIdMother} from '../../../Contexts/LLBE/Shared/domain/Students/StudentIdMother';
+import {CompanyIdMother} from '../../../Contexts/LLBE/Shared/domain/Companies/CompanyIdMother';
 
 let _request: request.Test;
 let _response: request.Response;
 let accessToken: string;
-let companyId: string;
-let authRequest: object;
+let authRequest: { id: string, email: string, password: string };
 
 const userRepository: UserRepository = container.get(
-  'App.users.UserRepository'
+    'App.users.UserRepository'
 );
 
 const studentRepository: StudentRepository = container.get(
-  'App.students.StudentRepository'
+    'App.students.StudentRepository'
 );
 
 const companyRepository: CompanyRepository = container.get(
-  'App.companies.CompanyRepository'
+    'App.companies.CompanyRepository'
 );
 
 const jobOpenRepository: JobOpeningRepository = container.get(
-  'App.jobOpenings.JobOpeningRepository'
+    'App.jobOpenings.JobOpeningRepository'
 );
 
 async function createAccountNotVerified() {
-  const userRequest = CreateUserRequestMother.random();
-  userRequest.email = 'ramoncin@gmail.com';
-  userRequest.password = hashSync('123123', 10);
-  userRequest.isActive = false;
-  userRequest.registered = false;
-  const user = UserMother.fromRequest(userRequest);
-  await userRepository.save(user);
+    const userRequest = CreateUserRequestMother.random();
+    userRequest.email = 'ramoncin@gmail.com';
+    userRequest.password = hashSync('123123', 10);
+    userRequest.isActive = false;
+    userRequest.registered = false;
+    const user = UserMother.fromRequest(userRequest);
+    await userRepository.save(user);
 }
 
 async function createUserWithRole(role: string, id?: string) {
-  const userRequest = CreateUserRequestMother.random();
-  const passwordPlane = userRequest.password;
-  if (id !== undefined) { userRequest.id = id; }
-  userRequest.password = hashSync(userRequest.password, 10);
-  userRequest.isActive = true;
-  userRequest.registered = false;
-  userRequest.role = role;
-  const user = UserMother.fromRequest(userRequest);
-  await userRepository.save(user);
-  return {
-    id: userRequest.id,
-    email: user.email.value,
-    password: passwordPlane,
-  };
+    const userRequest = CreateUserRequestMother.random();
+    const passwordPlane = userRequest.password;
+    if (id !== undefined) {
+        userRequest.id = id;
+    }
+    userRequest.password = hashSync(userRequest.password, 10);
+    userRequest.isActive = true;
+    userRequest.registered = true;
+    userRequest.role = role;
+    const user = UserMother.fromRequest(userRequest);
+    await userRepository.save(user);
+    return {
+        id: userRequest.id,
+        email: user.email.value,
+        password: passwordPlane,
+    };
 }
 
-function createStudent(user: User) {
-  return Student.create(
-    new StudentId(user.id.value),
-    StudentNameMother.random(),
-    StudentSurnameMother.random(),
-    StudentLastnameMother.random()
-  );
+async function registerStudent(id: string) {
+    const student = Student.create(
+        StudentIdMother.create(id),
+        StudentNameMother.random(),
+        StudentSurnameMother.random(),
+        StudentLastnameMother.random()
+    );
+    await studentRepository.save(student);
 }
 
-function createCompany(user: User) {
-  return Company.create(
-    new CompanyId(user.id.value),
-    CompanyNameMother.random(),
-    CompanyDescriptionMother.random(),
-    CompanyAddressMother.random(),
-    CompanyPostalCodeMother.random(),
-    CompanyRegionMother.random(),
-    CompanyCityMother.random()
-  );
+async function registerCompany(id: string) {
+    const company = Company.create(
+        CompanyIdMother.create(id),
+        CompanyNameMother.random(),
+        CompanyDescriptionMother.random(),
+        CompanyAddressMother.random(),
+        CompanyPostalCodeMother.random(),
+        CompanyRegionMother.random(),
+        CompanyCityMother.random()
+    );
+    await companyRepository.save(company);
 }
 
 async function loginUserAccount(authReq: object) {
-  const response = await request(app).post('/auth/signin').send(authReq);
-  return response.body.access_token;
+    const response = await request(app).post('/auth/signin').send(authReq);
+    return response.body.access_token;
 }
 
-async function saveJobOpening(id: string) {
-  const jobOpeningRequest = UpgradeJobOpeningRequestMother.random(id);
-  jobOpeningRequest.company = companyId;
-  await jobOpenRepository.save(
-    JobOpeningMother.fromUpgradeRequest(jobOpeningRequest)
-  );
+async function registerRandomJobOpening(id: string) {
+    const jobOpeningRequest = UpgradeJobOpeningRequestMother.random(id);
+    jobOpeningRequest.company = authRequest.id;
+    await jobOpenRepository.save(
+        JobOpeningMother.fromUpgradeRequest(jobOpeningRequest)
+    );
 }
 
 Given('I have a Student Role Account', async () => {
-  authRequest = await createUserWithRole('ROLE_STUDENT');
+    authRequest = await createUserWithRole('ROLE_STUDENT');
 });
 
 Given('I have a Student Role Account with id {string}', async (id: string) => {
-  authRequest = await createUserWithRole('ROLE_STUDENT', id);
+    authRequest = await createUserWithRole('ROLE_STUDENT', id);
 });
 
-Given('I am logged in with previous created Student Role account', async () => {
-  accessToken = await loginUserAccount(authRequest);
+Given('I am logged in with previously registered Student Role account', async () => {
+    await registerStudent(authRequest.id);
+    accessToken = await loginUserAccount(authRequest);
 });
 
 Given('I have a Company Role Account', async () => {
-  authRequest = await createUserWithRole('ROLE_COMPANY');
-});
-
-Given('I am logged in with previous created Company Role account', async () => {
-  accessToken = await loginUserAccount(authRequest);
+    authRequest = await createUserWithRole('ROLE_COMPANY');
 });
 
 Given('I published a Job Opening with id {string}', async (id: string) => {
-  await saveJobOpening(id);
+    await registerRandomJobOpening(id);
 });
 
 Given('I send a GET request to {string}', (route: string) => {
-  _request = request(app).get(route);
+    _request = request(app).get(route);
 });
 
 Given(
-  'I am logged in with a Student Role account previously registered',
-  async () => {
-    const authReq = await createUserWithRole('ROLE_STUDENT');
-    const userReq = CreateUserRequestMother.random();
-    userReq.id = authReq.id;
-    userReq.role = 'ROLE_STUDENT';
-    userReq.isActive = true;
-    userReq.registered = false;
-    const user = UserMother.fromRequest(userReq);
-    const student = createStudent(user);
-    await studentRepository.save(student);
-    accessToken = await loginUserAccount(authReq);
-  }
-);
-
-Given(
-  'I am logged in with a Company Role account previously registered',
-  async () => {
-    const authReq = await createUserWithRole('ROLE_COMPANY');
-    const userReq = CreateUserRequestMother.random();
-    userReq.id = authReq.id;
-    userReq.role = 'ROLE_COMPANY';
-    userReq.isActive = true;
-    userReq.registered = false;
-    const user = UserMother.fromRequest(userReq);
-    const company = createCompany(user);
-    await companyRepository.save(company);
-    accessToken = await loginUserAccount(authReq);
-  }
+    'I am logged in with a Company Role account previously registered',
+    async () => {
+        await registerCompany(authRequest.id);
+        accessToken = await loginUserAccount(authRequest);
+    }
 );
 
 Given('exists a Job Opening with id {string}', async (id: string) => {
-  const jobOpeningRequest = UpgradeJobOpeningRequestMother.random(id);
-  const jobOpening = JobOpeningMother.fromUpgradeRequest(jobOpeningRequest);
-  await jobOpenRepository.save(jobOpening);
+    const jobOpeningRequest = UpgradeJobOpeningRequestMother.random(id);
+    const jobOpening = JobOpeningMother.fromUpgradeRequest(jobOpeningRequest);
+    await jobOpenRepository.save(jobOpening);
 });
 
 Given('I am a user with account not yet verified', async () => {
-  await createAccountNotVerified();
+    await createAccountNotVerified();
 });
 
 When(
-  'I send a POST request to {string} with body:',
-  (route: string, body: string) => {
-    _request = request(app)
-      .post(route)
-      .send(JSON.parse(body));
-  }
+    'I send a POST request to {string} with body:',
+    (route: string, body: string) => {
+        _request = request(app)
+            .post(route)
+            .send(JSON.parse(body));
+    }
 );
 
 When('I send a GET request with Auth header to {string}', (route: string) => {
-  _request = request(app)
-    .post(route)
-    .auth(accessToken, { type: 'bearer' })
-    .send();
+    _request = request(app)
+        .get(route)
+        .auth(accessToken, {type: 'bearer'})
+        .send();
 });
 
 When('I send a POST request with Auth header to {string}', (route: string) => {
-  _request = request(app)
-    .post(route)
-    .auth(accessToken, { type: 'bearer' })
-    .send();
+    _request = request(app)
+        .post(route)
+        .auth(accessToken, {type: 'bearer'})
+        .send();
 });
 
 When(
-  'I send a POST request with Auth header to {string} with body:',
-  (route: string, body: string) => {
-    _request = request(app)
-      .post(route)
-      .auth(accessToken, { type: 'bearer' })
-      .send(JSON.parse(body));
-  }
+    'I send a POST request with Auth header to {string} with body:',
+    (route: string, body: string) => {
+        _request = request(app)
+            .post(route)
+            .auth(accessToken, {type: 'bearer'})
+            .send(JSON.parse(body));
+    }
 );
 
 When(
-  'I send a PUT request to {string} with body:',
-  (route: string, body: string) => {
-    _request = request(app)
-      .put(route)
-      .auth(accessToken, { type: 'bearer' })
-      .send(JSON.parse(body));
-  }
+    'I send a PUT request to {string} with body:',
+    (route: string, body: string) => {
+        _request = request(app)
+            .put(route)
+            .auth(accessToken, {type: 'bearer'})
+            .send(JSON.parse(body));
+    }
 );
 
 When(
-  'I send a PUT request with Auth header to {string} with body:',
-  (route: string, body: string) => {
-    _request = request(app)
-      .put(route)
-      .auth(accessToken, { type: 'bearer' })
-      .send(JSON.parse(body));
-  }
+    'I send a PUT request with Auth header to {string} with body:',
+    (route: string, body: string) => {
+        _request = request(app)
+            .put(route)
+            .auth(accessToken, {type: 'bearer'})
+            .send(JSON.parse(body));
+    }
 );
 
 When(
-  'I send a DELETE request to {string}',
-  (route: string) => {
-    _request = request(app)
-      .delete(route)
-      .auth(accessToken, { type: 'bearer' })
-      .send();
-  }
+    'I send a DELETE request to {string}',
+    (route: string) => {
+        _request = request(app)
+            .delete(route)
+            .auth(accessToken, {type: 'bearer'})
+            .send();
+    }
 );
 
 Then('the response status code should be {int}', async (status: number) => {
-  _response = await _request.expect(status);
+    _response = await _request.expect(status);
 });
 
 Then('the response should be empty', () => {
-  assert.deepStrictEqual(_response.body, {});
+    assert.deepStrictEqual(_response.body, {});
 });
 
 Then('the response content should be:', (response) => {
-  assert.strictEqual(_response.body, JSON.parse(response));
+    assert.strictEqual(_response.body, JSON.parse(response));
 });
 
 Before(async () => {
-  accessToken = '';
-  authRequest = {};
-  const environmentArranger: Promise<EnvironmentArranger> = container.get(
-    'App.EnvironmentArranger'
-  );
-  await (await environmentArranger).arrange();
+    accessToken = '';
+    authRequest = {id: '', email: '', password: ''};
+    const environmentArranger: Promise<EnvironmentArranger> = container.get(
+        'App.EnvironmentArranger'
+    );
+    await (await environmentArranger).arrange();
 });
 
 AfterAll(async () => {
-  const environmentArranger: Promise<EnvironmentArranger> = container.get(
-    'App.EnvironmentArranger'
-  );
-  await (await environmentArranger).close();
+    const environmentArranger: Promise<EnvironmentArranger> = container.get(
+        'App.EnvironmentArranger'
+    );
+    await (await environmentArranger).close();
 });

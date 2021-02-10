@@ -16,6 +16,10 @@ services:
     class: ../../../controllers/auth/EmailVerificationGetController
     arguments: [ "@App.users.AuthChecker", "@App.users.UserEmailConfirmator" ]
 
+  App.controllers.students.StudentGetController:
+    class: ../../../controllers/students/StudentGetController
+    arguments: [ "@App.students.StudentFinder", "@App.users.AuthChecker", "@App.users.StudentRoleChecker" ]
+
   App.controllers.students.StudentPostController:
     class: ../../../controllers/students/StudentPostController
     arguments: [ "@App.students.StudentCreator", "@App.users.AuthChecker", "@App.users.StudentRoleChecker" ]
