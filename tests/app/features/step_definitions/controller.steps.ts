@@ -1,31 +1,31 @@
 import assert from 'assert';
-import {AfterAll, Before, Given, Then, When} from 'cucumber';
+import { AfterAll, Before, Given, Then, When } from 'cucumber';
 import request from 'supertest';
 import app from '../../../../src/app/lagunalink_be/app';
 import container from '../../../../src/app/lagunalink_be/config/dependency-injection';
-import {EnvironmentArranger} from '../../../Contexts/Shared/infrastructure/arranger/EnvironmentArranger';
-import {UserRepository} from '../../../../src/Contexts/LLBE/Users/domain/UserRepository';
-import {StudentRepository} from '../../../../src/Contexts/LLBE/Students/domain/StudentRepository';
-import {CreateUserRequestMother} from '../../../Contexts/LLBE/Users/application/CreateUserRequestMother';
-import {UserMother} from '../../../Contexts/LLBE/Users/domain/UserMother';
-import {Student} from '../../../../src/Contexts/LLBE/Students/domain/Student';
-import {StudentSurnameMother} from '../../../Contexts/LLBE/Students/domain/StudentSurnameMother';
-import {StudentLastnameMother} from '../../../Contexts/LLBE/Students/domain/StudentLastnameMother';
-import {hashSync} from 'bcryptjs';
-import {StudentNameMother} from '../../../Contexts/LLBE/Students/domain/StudentNameMother';
-import {Company} from '../../../../src/Contexts/LLBE/Companies/domain/Company';
-import {CompanyNameMother} from '../../../Contexts/LLBE/Companies/domain/CompanyNameMother';
-import {CompanyDescriptionMother} from '../../../Contexts/LLBE/Companies/domain/CompanyDescriptionMother';
-import {CompanyAddressMother} from '../../../Contexts/LLBE/Companies/domain/CompanyAddressMother';
-import {CompanyPostalCodeMother} from '../../../Contexts/LLBE/Companies/domain/CompanyPostalCodeMother';
-import {CompanyRegionMother} from '../../../Contexts/LLBE/Companies/domain/CompanyRegionMother';
-import {CompanyCityMother} from '../../../Contexts/LLBE/Companies/domain/CompanyCityMother';
-import {CompanyRepository} from '../../../../src/Contexts/LLBE/Companies/domain/CompanyRepository';
-import {JobOpeningRepository} from '../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpeningRepository';
-import {UpgradeJobOpeningRequestMother} from '../../../Contexts/LLBE/JobOpenings/application/UpgradeJobOpeningRequestMother';
-import {JobOpeningMother} from '../../../Contexts/LLBE/JobOpenings/domain/JobOpeningMother';
-import {StudentIdMother} from '../../../Contexts/LLBE/Shared/domain/Students/StudentIdMother';
-import {CompanyIdMother} from '../../../Contexts/LLBE/Shared/domain/Companies/CompanyIdMother';
+import { EnvironmentArranger } from '../../../Contexts/Shared/infrastructure/arranger/EnvironmentArranger';
+import { UserRepository } from '../../../../src/Contexts/LLBE/Users/domain/UserRepository';
+import { StudentRepository } from '../../../../src/Contexts/LLBE/Students/domain/StudentRepository';
+import { CreateUserRequestMother } from '../../../Contexts/LLBE/Users/application/CreateUserRequestMother';
+import { UserMother } from '../../../Contexts/LLBE/Users/domain/UserMother';
+import { Student } from '../../../../src/Contexts/LLBE/Students/domain/Student';
+import { StudentSurnameMother } from '../../../Contexts/LLBE/Students/domain/StudentSurnameMother';
+import { StudentLastnameMother } from '../../../Contexts/LLBE/Students/domain/StudentLastnameMother';
+import { hashSync } from 'bcryptjs';
+import { StudentNameMother } from '../../../Contexts/LLBE/Students/domain/StudentNameMother';
+import { Company } from '../../../../src/Contexts/LLBE/Companies/domain/Company';
+import { CompanyNameMother } from '../../../Contexts/LLBE/Companies/domain/CompanyNameMother';
+import { CompanyDescriptionMother } from '../../../Contexts/LLBE/Companies/domain/CompanyDescriptionMother';
+import { CompanyAddressMother } from '../../../Contexts/LLBE/Companies/domain/CompanyAddressMother';
+import { CompanyPostalCodeMother } from '../../../Contexts/LLBE/Companies/domain/CompanyPostalCodeMother';
+import { CompanyRegionMother } from '../../../Contexts/LLBE/Companies/domain/CompanyRegionMother';
+import { CompanyCityMother } from '../../../Contexts/LLBE/Companies/domain/CompanyCityMother';
+import { CompanyRepository } from '../../../../src/Contexts/LLBE/Companies/domain/CompanyRepository';
+import { JobOpeningRepository } from '../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpeningRepository';
+import { UpgradeJobOpeningRequestMother } from '../../../Contexts/LLBE/JobOpenings/application/UpgradeJobOpeningRequestMother';
+import { JobOpeningMother } from '../../../Contexts/LLBE/JobOpenings/domain/JobOpeningMother';
+import { StudentIdMother } from '../../../Contexts/LLBE/Shared/domain/Students/StudentIdMother';
+import { CompanyIdMother } from '../../../Contexts/LLBE/Shared/domain/Companies/CompanyIdMother';
 
 let _request: request.Test;
 let _response: request.Response;
@@ -33,7 +33,7 @@ let accessToken: string;
 let authRequest: { id: string, email: string, password: string };
 
 const userRepository: UserRepository = container.get(
-    'App.users.UserRepository'
+  'App.users.UserRepository'
 );
 
 const studentRepository: StudentRepository = container.get(
@@ -58,15 +58,15 @@ async function createAccountNotVerified() {
     await userRepository.save(user);
 }
 
-async function createUserWithRole(role: string, id?: string) {
+async function createUser(role: string, id = '', registered = true) {
     const userRequest = CreateUserRequestMother.random();
     const passwordPlane = userRequest.password;
-    if (id !== undefined) {
+    if (id !== '') {
         userRequest.id = id;
     }
     userRequest.password = hashSync(userRequest.password, 10);
     userRequest.isActive = true;
-    userRequest.registered = true;
+    userRequest.registered = registered;
     userRequest.role = role;
     const user = UserMother.fromRequest(userRequest);
     await userRepository.save(user);
@@ -109,42 +109,33 @@ async function registerRandomJobOpening(id: string) {
     const jobOpeningRequest = UpgradeJobOpeningRequestMother.random(id);
     jobOpeningRequest.company = authRequest.id;
     await jobOpenRepository.save(
-        JobOpeningMother.fromUpgradeRequest(jobOpeningRequest)
+      JobOpeningMother.fromUpgradeRequest(jobOpeningRequest)
     );
 }
 
 Given('I have a Student Role Account', async () => {
-    authRequest = await createUserWithRole('ROLE_STUDENT');
-});
-
-Given('I have a Student Role Account with id {string}', async (id: string) => {
-    authRequest = await createUserWithRole('ROLE_STUDENT', id);
-});
-
-Given('I am logged in with previously registered Student Role account', async () => {
-    await registerStudent(authRequest.id);
-    accessToken = await loginUserAccount(authRequest);
+    authRequest = await createUser('ROLE_STUDENT');
 });
 
 Given('I have a Company Role Account', async () => {
-    authRequest = await createUserWithRole('ROLE_COMPANY');
+    authRequest = await createUser('ROLE_COMPANY');
+});
+
+Given('I have a Student Role Account with id {string}', async (id: string) => {
+    authRequest = await createUser('ROLE_STUDENT', id);
+});
+
+Given('I have a Company Role Account without complete register', async () => {
+    authRequest = await createUser('ROLE_COMPANY', '', false);
+});
+
+Given('I am logged in the application', async () => {
+    accessToken = await loginUserAccount(authRequest);
 });
 
 Given('I published a Job Opening with id {string}', async (id: string) => {
     await registerRandomJobOpening(id);
 });
-
-Given('I send a GET request to {string}', (route: string) => {
-    _request = request(app).get(route);
-});
-
-Given(
-    'I am logged in with a Company Role account previously registered',
-    async () => {
-        await registerCompany(authRequest.id);
-        accessToken = await loginUserAccount(authRequest);
-    }
-);
 
 Given('exists a Job Opening with id {string}', async (id: string) => {
     const jobOpeningRequest = UpgradeJobOpeningRequestMother.random(id);
@@ -156,21 +147,25 @@ Given('I am a user with account not yet verified', async () => {
     await createAccountNotVerified();
 });
 
-When(
-    'I send a POST request to {string} with body:',
-    (route: string, body: string) => {
-        _request = request(app)
-            .post(route)
-            .send(JSON.parse(body));
-    }
-);
+When('I send a GET request to {string}', (route: string) => {
+    _request = request(app).get(route);
+});
 
 When('I send a GET request with Auth header to {string}', (route: string) => {
     _request = request(app)
-        .get(route)
-        .auth(accessToken, {type: 'bearer'})
-        .send();
+      .get(route)
+      .auth(accessToken, {type: 'bearer'})
+      .send();
 });
+
+When(
+  'I send a POST request to {string} with body:',
+  (route: string, body: string) => {
+      _request = request(app)
+        .post(route)
+        .send(JSON.parse(body));
+  }
+);
 
 When('I send a POST request with Auth header to {string}', (route: string) => {
     _request = request(app)

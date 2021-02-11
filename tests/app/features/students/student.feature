@@ -4,7 +4,8 @@ Feature: Student Registry
 
   Scenario: Register a Student account
     Given I have a Student Role Account
-    And I am logged in with previous created Student Role account
+    And I am logged in the application
+
     When I send a POST request with Auth header to "/students" with body:
     """
     {
@@ -17,7 +18,8 @@ Feature: Student Registry
 
   Scenario: Get an bad request error when try register a Student with Company account
     Given I have a Company Role Account
-    And I am logged in with previous created Company Role account
+    And I am logged in the application
+
     When I send a POST request with Auth header to "/students" with body:
     """
     {
@@ -29,7 +31,9 @@ Feature: Student Registry
     Then the response status code should be 400
 
   Scenario: Get an bad request error when try register a Student previously registered
-    Given I am logged in with a Student Role account previously registered
+    Given I have a Student Role Account
+    And I am logged in the application
+
     When I send a POST request with Auth header to "/students" with body:
     """
     {
@@ -42,13 +46,16 @@ Feature: Student Registry
 
   Scenario: Obtain a self student data
     Given I have a Student Role Account with id "a6829f16-d3b4-4351-a521-a21c03d73086"
-    And I am logged in with previously registered Student Role account
+    And I am logged in the application
+
     When I send a GET request with Auth header to "/students/a6829f16-d3b4-4351-a521-a21c03d73086"
+
     Then the response status code should be 200
 
   Scenario: Upgrade a student with new data
     Given I have a Student Role Account
-    Given I am logged in with previous created Student Role account
+    And I am logged in the application
+
     When I send a PUT request with Auth header to "/students" with body:
     """
     {
