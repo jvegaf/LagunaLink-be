@@ -9,7 +9,7 @@
 - [ ] POST /auth/reset { password }                          # change to new password
 
 ### Students
-- [ ] GET /students/{id}                                     # get a student account
+- [X] GET /students/{id}                                     # get a student account
 - [X] POST /students                                         # register a student account
 - [X] PUT /students/{id}                                     # update a student account
 
@@ -30,4 +30,3 @@
 - [X] GET /job_openings/{id}/enrollments                     # get all enrollments of one job opening
 - [X] POST /job_openings/{id}/enrollments                    # create a enrollment
 - [X] DELETE /job_openings/enrollments/{id}                  # remove a enrollment
-
