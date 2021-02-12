@@ -70,6 +70,9 @@ async function createUser(role: string, id = '', registered = true) {
     userRequest.role = role;
     const user = UserMother.fromRequest(userRequest);
     await userRepository.save(user);
+    if (registered) {
+        await register(userRequest.id, userRequest.role);
+    }
     return {
         id: userRequest.id,
         email: user.email.value,
@@ -77,27 +80,30 @@ async function createUser(role: string, id = '', registered = true) {
     };
 }
 
-async function registerStudent(id: string) {
-    const student = Student.create(
-        StudentIdMother.create(id),
-        StudentNameMother.random(),
-        StudentSurnameMother.random(),
-        StudentLastnameMother.random()
-    );
-    await studentRepository.save(student);
-}
+async function register(id: string, role: string) {
+    if (role === 'ROLE_STUDENT') {
+        const student = Student.create(
+          StudentIdMother.create(id),
+          StudentNameMother.random(),
+          StudentSurnameMother.random(),
+          StudentLastnameMother.random()
+        );
 
-async function registerCompany(id: string) {
-    const company = Company.create(
-        CompanyIdMother.create(id),
-        CompanyNameMother.random(),
-        CompanyDescriptionMother.random(),
-        CompanyAddressMother.random(),
-        CompanyPostalCodeMother.random(),
-        CompanyRegionMother.random(),
-        CompanyCityMother.random()
-    );
-    await companyRepository.save(company);
+        await studentRepository.save(student);
+    }
+
+    if (role === 'ROLE_COMPANY') {
+        const company = Company.create(
+          CompanyIdMother.create(id),
+          CompanyNameMother.random(),
+          CompanyDescriptionMother.random(),
+          CompanyAddressMother.random(),
+          CompanyPostalCodeMother.random(),
+          CompanyRegionMother.random(),
+          CompanyCityMother.random()
+        );
+        await companyRepository.save(company);
+    }
 }
 
 async function loginUserAccount(authReq: object) {
@@ -123,6 +129,10 @@ Given('I have a Company Role Account', async () => {
 
 Given('I have a Student Role Account with id {string}', async (id: string) => {
     authRequest = await createUser('ROLE_STUDENT', id);
+});
+
+Given('I have a Student Role Account without complete register', async () => {
+    authRequest = await createUser('ROLE_STUDENT', '', false);
 });
 
 Given('I have a Company Role Account without complete register', async () => {

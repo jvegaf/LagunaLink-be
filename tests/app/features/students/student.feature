@@ -3,7 +3,7 @@ Feature: Student Registry
   the registry of a student account.
 
   Scenario: Register a Student account
-    Given I have a Student Role Account
+    Given I have a Student Role Account without complete register
     And I am logged in the application
 
     When I send a POST request with Auth header to "/students" with body:
