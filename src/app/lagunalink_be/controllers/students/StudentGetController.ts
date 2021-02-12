@@ -45,8 +45,12 @@ export class StudentGetController implements Controller {
             res.status(403).send();
         }
 
-        const student = await this.finder.run(new StudentId(req.params.id));
+        try {
+            const student = await this.finder.run(new StudentId(req.params.id));
 
-        res.status(200).send({student: student.toPrimitives()});
+            res.status(200).send({student: student.toPrimitives()});
+        } catch (e) {
+            res.status(404).send({message: e.message});
+        }
     }
 }
