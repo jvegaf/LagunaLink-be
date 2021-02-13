@@ -127,6 +127,10 @@ Given('I have a Company Role Account', async () => {
     authRequest = await createUser('ROLE_COMPANY');
 });
 
+Given('Previously was registered a company with id {string}', async (id: string) => {
+    await createUser('ROLE_COMPANY', id);
+});
+
 Given('I have a Student Role Account with id {string}', async (id: string) => {
     authRequest = await createUser('ROLE_STUDENT', id);
 });
