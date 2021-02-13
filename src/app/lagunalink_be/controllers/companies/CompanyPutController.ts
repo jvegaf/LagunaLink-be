@@ -5,7 +5,7 @@ import { Token } from '../../../../Contexts/LLBE/Users/domain/Token';
 import httpStatus from 'http-status';
 import { Payload } from '../../../../Contexts/LLBE/Users/domain/Payload';
 import { AuthRole } from '../../../../Contexts/LLBE/Users/domain/AuthRole';
-import { CompanyUpgrader } from '../../../../Contexts/LLBE/Companies/application/CompanyUpgrader';
+import { CompanyUpgrader } from '../../../../Contexts/LLBE/Companies/application/Update/CompanyUpgrader';
 import { CompanyRequest } from '../../../../Contexts/LLBE/Companies/application/CompanyRequest';
 import { AuthChecker } from '../../../../Contexts/LLBE/Users/domain/AuthChecker';
 

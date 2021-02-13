@@ -28,6 +28,10 @@ services:
     class: ../../../controllers/students/StudentPutController
     arguments: [ "@App.students.StudentUpgrader", "@App.users.AuthChecker", "@App.users.StudentRoleChecker" ]
 
+  App.controllers.companies.CompanyGetController:
+    class: ../../../controllers/companies/CompanyGetController
+    arguments: [ "@App.companies.CompanyFinder", "@App.users.AuthChecker" ]
+
   App.controllers.companies.CompanyPostController:
     class: ../../../controllers/companies/CompanyPostController
     arguments: [ "@App.companies.CompanyCreator", "@App.users.AuthChecker", "@App.users.CompanyRoleChecker" ]

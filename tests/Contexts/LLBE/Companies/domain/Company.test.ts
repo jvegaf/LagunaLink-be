@@ -1,5 +1,5 @@
 
-import { CreateCompanyRequestMother } from '../application/CreateCompanyRequestMother';
+import { CreateCompanyRequestMother } from '../application/Create/CreateCompanyRequestMother';
 import { CompanyMother } from './CompanyMother';
 
 describe('Company', () => {

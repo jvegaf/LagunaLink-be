@@ -68,3 +68,12 @@ Feature: Company Registry
     }
     """
     Then the response status code should be 200
+
+  Scenario: Obtain a Company data from Student account
+    Given Previously was registered a company with id "4062df16-b864-4d90-969c-5fbd1220a179"
+    And I have a Student Role Account
+    And I am logged in the application
+
+    When I send a GET request with Auth header to "/companies/4062df16-b864-4d90-969c-5fbd1220a179"
+
+    Then the response status code should be 200

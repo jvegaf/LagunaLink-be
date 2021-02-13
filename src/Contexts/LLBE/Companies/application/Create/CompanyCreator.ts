@@ -1,17 +1,17 @@
-import { CompanyRepository } from '../domain/CompanyRepository';
-import { CompanyRequest } from './CompanyRequest';
-import { Company } from '../domain/Company';
-import { CompanyId } from '../../Shared/domain/Companies/CompanyId';
-import { CompanyName } from '../domain/CompanyName';
-import { CompanyCity } from '../domain/CompanyCity';
-import { CompanyRegion } from '../domain/CompanyRegion';
-import { CompanyPostalCode } from '../domain/CompanyPostalCode';
-import { CompanyAddress } from '../domain/CompanyAddress';
-import { CompanyDescription } from '../domain/CompanyDescription';
-import { CompanyExists } from '../domain/CompanyExists';
-import { UserUpdateRegistered } from '../../Users/application/UserUpdateRegistered';
-import { UserId } from '../../Shared/domain/Users/UserId';
-import { ApplicationService } from '../../../Shared/domain/ApplicationService';
+import { CompanyRepository } from '../../domain/CompanyRepository';
+import { CompanyRequest } from '../CompanyRequest';
+import { Company } from '../../domain/Company';
+import { CompanyId } from '../../../Shared/domain/Companies/CompanyId';
+import { CompanyName } from '../../domain/CompanyName';
+import { CompanyCity } from '../../domain/CompanyCity';
+import { CompanyRegion } from '../../domain/CompanyRegion';
+import { CompanyPostalCode } from '../../domain/CompanyPostalCode';
+import { CompanyAddress } from '../../domain/CompanyAddress';
+import { CompanyDescription } from '../../domain/CompanyDescription';
+import { CompanyExists } from '../../domain/CompanyExists';
+import { UserUpdateRegistered } from '../../../Users/application/UserUpdateRegistered';
+import { UserId } from '../../../Shared/domain/Users/UserId';
+import { ApplicationService } from '../../../../Shared/domain/ApplicationService';
 
 export class CompanyCreator extends ApplicationService{
   private repository: CompanyRepository;

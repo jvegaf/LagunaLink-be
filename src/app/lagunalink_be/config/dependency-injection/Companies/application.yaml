@@ -5,9 +5,13 @@ services:
     arguments: [ '@App.shared.ConnectionManager' ]
 
   App.companies.CompanyCreator:
-    class: ../../../../../Contexts/LLBE/Companies/application/CompanyCreator
+    class: ../../../../../Contexts/LLBE/Companies/application/Create/CompanyCreator
     arguments: [ '@App.companies.CompanyRepository', '@App.users.UserUpdateRegistered' ]
 
   App.companies.CompanyUpgrader:
-    class: ../../../../../Contexts/LLBE/Companies/application/CompanyUpgrader
+    class: ../../../../../Contexts/LLBE/Companies/application/Update/CompanyUpgrader
+    arguments: [ '@App.companies.CompanyRepository' ]
+
+  App.companies.CompanyFinder:
+    class: ../../../../../Contexts/LLBE/Companies/application/Find/CompanyFinder
     arguments: [ '@App.companies.CompanyRepository' ]

@@ -59,4 +59,16 @@ export class CompanyMother {
       CompanyCityMother.random()
     );
   }
+
+  static fromCreateRequest(request: CompanyRequest): Company {
+    return this.create(
+      CompanyIdMother.create(request.id),
+      CompanyNameMother.create(request.name),
+      CompanyDescriptionMother.create(request.description),
+      CompanyAddressMother.create(request.address),
+      CompanyPostalCodeMother.create(request.postalCode),
+      CompanyRegionMother.create(request.region),
+      CompanyCityMother.create(request.city)
+    );
+  }
 }

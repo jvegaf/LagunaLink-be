@@ -15,7 +15,7 @@
 
 ### Companies
 - [ ] GET /companies                                         # get all companies
-- [ ] GET /companies/{id}                                    # get a company account
+- [X] GET /companies/{id}                                    # get a company account
 - [ ] GET /companies/{id}/job_openings                       # get all job openings from a company
 - [X] POST /companies                                        # register a company account
 - [X] PUT /companies/{id}                                    # update a company account
