@@ -78,3 +78,12 @@ Feature: Job Opening
     When I send a DELETE request to "/job_openings/ef8ac118-8d7f-49cc-abec-78e0d05af80a"
 
     Then the response status code should be 200
+
+  Scenario: Get a Job Opening by Id
+    Given Previously was created a Job Opening with id "311d5640-07f8-485e-bf39-6b78a057e4a6"
+    And I have a Student Role Account
+    And I am logged in the application
+
+    When I send a GET request to "/job_openings/311d5640-07f8-485e-bf39-6b78a057e4a6"
+
+    Then the response status code should be 200
