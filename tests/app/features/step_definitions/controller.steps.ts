@@ -26,6 +26,7 @@ import { UpgradeJobOpeningRequestMother } from '../../../Contexts/LLBE/JobOpenin
 import { JobOpeningMother } from '../../../Contexts/LLBE/JobOpenings/domain/JobOpeningMother';
 import { StudentIdMother } from '../../../Contexts/LLBE/Shared/domain/Students/StudentIdMother';
 import { CompanyIdMother } from '../../../Contexts/LLBE/Shared/domain/Companies/CompanyIdMother';
+import { CreateJobOpeningRequestMother } from '../../../Contexts/LLBE/JobOpenings/application/Create/CreateJobOpeningRequestMother';
 
 let _request: request.Test;
 let _response: request.Response;
@@ -111,7 +112,15 @@ async function loginUserAccount(authReq: object) {
     return response.body.access_token;
 }
 
-async function registerRandomJobOpening(id: string, companyId = '') {
+async function registerRandomJobOpening() {
+    const jobOpeningRequest = CreateJobOpeningRequestMother.random();
+
+    await jobOpenRepository.save(
+      JobOpeningMother.fromCreateRequest(jobOpeningRequest)
+    );
+}
+
+async function registerRandomJobOpeningWithId(id: string, companyId = '') {
     const jobOpeningRequest = UpgradeJobOpeningRequestMother.random(id);
     if (companyId !== '') {
         jobOpeningRequest.company = companyId;
@@ -119,6 +128,12 @@ async function registerRandomJobOpening(id: string, companyId = '') {
     await jobOpenRepository.save(
       JobOpeningMother.fromUpgradeRequest(jobOpeningRequest)
     );
+}
+
+async function registerSeveralJobOpenings() {
+    for (let i = 0; i < 10; i++) {
+        await registerRandomJobOpening();
+    }
 }
 
 Given('I have a Student Role Account', async () => {
@@ -150,7 +165,7 @@ Given('I am logged in the application', async () => {
 });
 
 Given('I published a Job Opening with id {string}', async (id: string) => {
-    await registerRandomJobOpening(id, authRequest.id);
+    await registerRandomJobOpeningWithId(id, authRequest.id);
 });
 
 Given('exists a Job Opening with id {string}', async (id: string) => {
@@ -162,9 +177,12 @@ Given('exists a Job Opening with id {string}', async (id: string) => {
 Given('I am a user with account not yet verified', async () => {
     await createAccountNotVerified();
 });
-
 Given('Previously was created a Job Opening with id {string}', async (id: string) => {
-    await registerRandomJobOpening(id);
+    await registerRandomJobOpeningWithId(id);
+});
+
+Given('Several Job Openings were previously created', async () => {
+    await registerSeveralJobOpenings();
 });
 
 When('I send a GET request to {string}', (route: string) => {
