@@ -1,11 +1,12 @@
 import { JobOpening } from '../../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpening';
 import { JobOpeningId } from '../../../../../src/Contexts/LLBE/Shared/domain/JobOpenings/JobOpeningId';
 import { Nullable } from '../../../../../src/Contexts/Shared/domain/Nullable';
-import {JobOpeningRepository} from "../../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpeningRepository";
+import { JobOpeningRepository } from '../../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpeningRepository';
 
 export class JobOpeningRepositoryMock implements JobOpeningRepository {
   private mockSave = jest.fn();
   private mockSearch = jest.fn();
+  private mockFetch = jest.fn();
 
   async save(jobOpening: JobOpening): Promise<void> {
     this.mockSave(jobOpening);
@@ -28,11 +29,19 @@ export class JobOpeningRepositoryMock implements JobOpeningRepository {
     this.mockSearch.mockReturnValue(value);
   }
 
+  whenFetchThenReturn(value: Array<JobOpening>): void {
+    this.mockFetch.mockReturnValue(value);
+  }
+
   assertLastSearchedJobOpeningIs(expected: JobOpeningId): void {
     expect(this.mockSearch).toHaveBeenCalledWith(expected);
   }
 
   remove(id: JobOpeningId): Promise<void> {
     return Promise.resolve(undefined);
+  }
+
+  fetch(): Promise<Array<JobOpening>> {
+    return this.mockFetch();
   }
 }
