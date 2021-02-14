@@ -3,8 +3,16 @@ import container from '../config/dependency-injection';
 import { JobOpeningPostController } from '../controllers/jobOpenings/JobOpeningPostController';
 import { JobOpeningPutController } from '../controllers/jobOpenings/JobOpeningPutController';
 import { JobOpeningDeleteController } from '../controllers/jobOpenings/JobOpeningDeleteController';
+import { JobOpeningGetController } from '../controllers/jobOpenings/JobOpeningGetController';
 
 export const register = (router: Router) => {
+  const jobOpeningGetController: JobOpeningGetController = container.get(
+    'App.controllers.jobOpenings.JobOpeningGetController'
+  );
+  router.get('/job_openings/:id', (req: Request, res: Response) =>
+    jobOpeningGetController.run(req, res)
+  );
+
   const jobOpeningPostController: JobOpeningPostController = container.get(
     'App.controllers.jobOpenings.JobOpeningPostController'
   );

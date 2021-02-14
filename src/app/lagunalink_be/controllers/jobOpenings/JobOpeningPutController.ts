@@ -4,8 +4,8 @@ import { Token } from '../../../../Contexts/LLBE/Users/domain/Token';
 import httpStatus from 'http-status';
 import { Payload } from '../../../../Contexts/LLBE/Users/domain/Payload';
 import { AuthRole } from '../../../../Contexts/LLBE/Users/domain/AuthRole';
-import { JobOpeningUpgrader } from '../../../../Contexts/LLBE/JobOpenings/application/JobOpeningUpgrader';
-import { UpgradeJobOpeningRequest } from '../../../../Contexts/LLBE/JobOpenings/application/UpgradeJobOpeningRequest';
+import { JobOpeningUpgrader } from '../../../../Contexts/LLBE/JobOpenings/application/Update/JobOpeningUpgrader';
+import { UpgradeJobOpeningRequest } from '../../../../Contexts/LLBE/JobOpenings/application/Update/UpgradeJobOpeningRequest';
 import { AuthChecker } from '../../../../Contexts/LLBE/Users/domain/AuthChecker';
 
 // noinspection SpellCheckingInspection

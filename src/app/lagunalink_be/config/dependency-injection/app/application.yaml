@@ -40,6 +40,10 @@ services:
     class: ../../../controllers/companies/CompanyPutController
     arguments: [ "@App.companies.CompanyUpgrader", "@App.users.AuthChecker", "@App.users.CompanyRoleChecker" ]
 
+  App.controllers.jobOpenings.JobOpeningGetController:
+    class: ../../../controllers/jobOpenings/JobOpeningGetController
+    arguments: [ "@App.jobOpenings.JobOpeningFinder", "@App.users.AuthChecker" ]
+
   App.controllers.jobOpenings.JobOpeningPostController:
     class: ../../../controllers/jobOpenings/JobOpeningPostController
     arguments: [ "@App.jobOpenings.JobOpeningCreator", "@App.users.AuthChecker", "@App.users.CompanyRoleChecker" ]

@@ -48,7 +48,7 @@ Feature: Student Registry
     Given I have a Student Role Account with id "a6829f16-d3b4-4351-a521-a21c03d73086"
     And I am logged in the application
 
-    When I send a GET request with Auth header to "/students/a6829f16-d3b4-4351-a521-a21c03d73086"
+    When I send a GET request to "/students/a6829f16-d3b4-4351-a521-a21c03d73086"
 
     Then the response status code should be 200
 

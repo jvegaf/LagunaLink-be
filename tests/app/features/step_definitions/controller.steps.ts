@@ -22,7 +22,7 @@ import { CompanyRegionMother } from '../../../Contexts/LLBE/Companies/domain/Com
 import { CompanyCityMother } from '../../../Contexts/LLBE/Companies/domain/CompanyCityMother';
 import { CompanyRepository } from '../../../../src/Contexts/LLBE/Companies/domain/CompanyRepository';
 import { JobOpeningRepository } from '../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpeningRepository';
-import { UpgradeJobOpeningRequestMother } from '../../../Contexts/LLBE/JobOpenings/application/UpgradeJobOpeningRequestMother';
+import { UpgradeJobOpeningRequestMother } from '../../../Contexts/LLBE/JobOpenings/application/Update/UpgradeJobOpeningRequestMother';
 import { JobOpeningMother } from '../../../Contexts/LLBE/JobOpenings/domain/JobOpeningMother';
 import { StudentIdMother } from '../../../Contexts/LLBE/Shared/domain/Students/StudentIdMother';
 import { CompanyIdMother } from '../../../Contexts/LLBE/Shared/domain/Companies/CompanyIdMother';
@@ -111,9 +111,11 @@ async function loginUserAccount(authReq: object) {
     return response.body.access_token;
 }
 
-async function registerRandomJobOpening(id: string) {
+async function registerRandomJobOpening(id: string, companyId = '') {
     const jobOpeningRequest = UpgradeJobOpeningRequestMother.random(id);
-    jobOpeningRequest.company = authRequest.id;
+    if (companyId !== '') {
+        jobOpeningRequest.company = companyId;
+    }
     await jobOpenRepository.save(
       JobOpeningMother.fromUpgradeRequest(jobOpeningRequest)
     );
@@ -148,7 +150,7 @@ Given('I am logged in the application', async () => {
 });
 
 Given('I published a Job Opening with id {string}', async (id: string) => {
-    await registerRandomJobOpening(id);
+    await registerRandomJobOpening(id, authRequest.id);
 });
 
 Given('exists a Job Opening with id {string}', async (id: string) => {
@@ -161,11 +163,14 @@ Given('I am a user with account not yet verified', async () => {
     await createAccountNotVerified();
 });
 
-When('I send a GET request to {string}', (route: string) => {
-    _request = request(app).get(route);
+Given('Previously was created a Job Opening with id {string}', async (id: string) => {
+    await registerRandomJobOpening(id);
 });
 
-When('I send a GET request with Auth header to {string}', (route: string) => {
+When('I send a GET request to {string}', (route: string) => {
+    if (accessToken === '') {
+        _request = request(app).get(route).send();
+    }
     _request = request(app)
       .get(route)
       .auth(accessToken, {type: 'bearer'})

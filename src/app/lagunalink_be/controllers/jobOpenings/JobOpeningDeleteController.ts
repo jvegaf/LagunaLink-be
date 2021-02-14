@@ -5,8 +5,8 @@ import httpStatus from 'http-status';
 import { Payload } from '../../../../Contexts/LLBE/Users/domain/Payload';
 import { AuthRole } from '../../../../Contexts/LLBE/Users/domain/AuthRole';
 import { AuthChecker } from '../../../../Contexts/LLBE/Users/domain/AuthChecker';
-import {JobOpeningRemover} from '../../../../Contexts/LLBE/JobOpenings/application/JobOpeningRemover';
-import {RemoveJobOpeningRequest} from '../../../../Contexts/LLBE/JobOpenings/application/RemoveJobOpeningRequest';
+import { JobOpeningRemover } from '../../../../Contexts/LLBE/JobOpenings/application/Remove/JobOpeningRemover';
+import { RemoveJobOpeningRequest } from '../../../../Contexts/LLBE/JobOpenings/application/Remove/RemoveJobOpeningRequest';
 
 // noinspection SpellCheckingInspection
 export class JobOpeningDeleteController implements Controller {

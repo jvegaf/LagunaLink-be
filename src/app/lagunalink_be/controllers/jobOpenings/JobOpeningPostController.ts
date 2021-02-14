@@ -4,8 +4,8 @@ import { Token } from '../../../../Contexts/LLBE/Users/domain/Token';
 import httpStatus from 'http-status';
 import { Payload } from '../../../../Contexts/LLBE/Users/domain/Payload';
 import { AuthRole } from '../../../../Contexts/LLBE/Users/domain/AuthRole';
-import { JobOpeningCreator } from '../../../../Contexts/LLBE/JobOpenings/application/JobOpeningCreator';
-import { CreateJobOpeningRequest } from '../../../../Contexts/LLBE/JobOpenings/application/CreateJobOpeningRequest';
+import { JobOpeningCreator } from '../../../../Contexts/LLBE/JobOpenings/application/Create/JobOpeningCreator';
+import { CreateJobOpeningRequest } from '../../../../Contexts/LLBE/JobOpenings/application/Create/CreateJobOpeningRequest';
 import { AuthChecker } from '../../../../Contexts/LLBE/Users/domain/AuthChecker';
 
 export class JobOpeningPostController implements Controller {
