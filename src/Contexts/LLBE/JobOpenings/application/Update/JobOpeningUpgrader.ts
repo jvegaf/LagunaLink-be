@@ -1,18 +1,18 @@
-import { JobOpeningRepository } from '../domain/JobOpeningRepository';
+import { JobOpeningRepository } from '../../domain/JobOpeningRepository';
 import { UpgradeJobOpeningRequest } from './UpgradeJobOpeningRequest';
-import { JobOpening } from '../domain/JobOpening';
-import { CompanyId } from '../../Shared/domain/Companies/CompanyId';
-import { JobOpenTitle } from '../domain/JobOpenTitle';
-import { JobOpenPosition } from '../domain/JobOpenPosition';
-import { JobOpenConditions } from '../domain/JobOpenConditions';
-import { JobOpenResponsibilities } from '../domain/JobOpenResponsibilities';
-import { JobOpenQualification } from '../domain/JobOpenQualification';
-import { JobOpenPrevExperience } from '../domain/JobOpenPrevExperience';
-import { JobOpeningId } from '../../Shared/domain/JobOpenings/JobOpeningId';
-import { JobOpeningNotFound } from '../domain/JobOpeningNotFound';
-import { ApplicationService } from '../../../Shared/domain/ApplicationService';
+import { JobOpening } from '../../domain/JobOpening';
+import { CompanyId } from '../../../Shared/domain/Companies/CompanyId';
+import { JobOpenTitle } from '../../domain/JobOpenTitle';
+import { JobOpenPosition } from '../../domain/JobOpenPosition';
+import { JobOpenConditions } from '../../domain/JobOpenConditions';
+import { JobOpenResponsibilities } from '../../domain/JobOpenResponsibilities';
+import { JobOpenQualification } from '../../domain/JobOpenQualification';
+import { JobOpenPrevExperience } from '../../domain/JobOpenPrevExperience';
+import { JobOpeningId } from '../../../Shared/domain/JobOpenings/JobOpeningId';
+import { JobOpeningNotFound } from '../../domain/JobOpeningNotFound';
+import { ApplicationService } from '../../../../Shared/domain/ApplicationService';
 
-export class JobOpeningUpgrader extends ApplicationService{
+export class JobOpeningUpgrader extends ApplicationService {
   private repository: JobOpeningRepository;
 
   constructor(repository: JobOpeningRepository) {

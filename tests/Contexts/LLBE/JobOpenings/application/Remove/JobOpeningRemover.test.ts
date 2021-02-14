@@ -1,12 +1,10 @@
-import { JobOpeningMother } from '../domain/JobOpeningMother';
-import { JobOpeningRepositoryMock } from '../__mocks__/JobOpeningRepositoryMock';
-import { JobOpeningIdMother } from '../../Shared/domain/JobOpenings/JobOpeningIdMother';
-import { UpgradeJobOpeningRequestMother } from './UpgradeJobOpeningRequestMother';
-import { JobOpeningNotFound } from '../../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpeningNotFound';
-import { RemoveJobOpeningRequest } from '../../../../../src/Contexts/LLBE/JobOpenings/application/RemoveJobOpeningRequest';
-import { JobOpeningRemover } from '../../../../../src/Contexts/LLBE/JobOpenings/application/JobOpeningRemover';
-import {RemoveJobOpeningRequestMother} from './RemoveJobOpeningRequestMother';
-import {InvalidArgumentError} from '../../../../../src/Contexts/Shared/domain/value-object/InvalidArgumentError';
+import { JobOpeningMother } from '../../domain/JobOpeningMother';
+import { JobOpeningRepositoryMock } from '../../__mocks__/JobOpeningRepositoryMock';
+import { JobOpeningNotFound } from '../../../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpeningNotFound';
+import { RemoveJobOpeningRequest } from '../../../../../../src/Contexts/LLBE/JobOpenings/application/Remove/RemoveJobOpeningRequest';
+import { JobOpeningRemover } from '../../../../../../src/Contexts/LLBE/JobOpenings/application/Remove/JobOpeningRemover';
+import { RemoveJobOpeningRequestMother } from './RemoveJobOpeningRequestMother';
+import { InvalidArgumentError } from '../../../../../../src/Contexts/Shared/domain/value-object/InvalidArgumentError';
 
 let repository: JobOpeningRepositoryMock;
 let remover: JobOpeningRemover;
@@ -44,5 +42,3 @@ it('should throw a InvalidArgumentError when try remove a non owner Job Opening'
   repository.whenSearchThenReturn(jobOpening);
   await expect(remover.run(request)).rejects.toThrow(InvalidArgumentError);
 });
-
-

@@ -1,4 +1,4 @@
-import { CreateJobOpeningRequestMother } from '../application/CreateJobOpeningRequestMother';
+import { CreateJobOpeningRequestMother } from '../application/Create/CreateJobOpeningRequestMother';
 import { JobOpeningMother } from './JobOpeningMother';
 
 describe('JobOpening', () => {

@@ -5,13 +5,13 @@ services:
     arguments: ['@App.shared.ConnectionManager']
 
   App.jobOpenings.JobOpeningCreator:
-    class: ../../../../../Contexts/LLBE/JobOpenings/application/JobOpeningCreator
+    class: ../../../../../Contexts/LLBE/JobOpenings/application/Create/JobOpeningCreator
     arguments: ['@App.jobOpenings.JobOpeningRepository']
 
   App.jobOpenings.JobOpeningUpgrader:
-    class: ../../../../../Contexts/LLBE/JobOpenings/application/JobOpeningUpgrader
+    class: ../../../../../Contexts/LLBE/JobOpenings/application/Update/JobOpeningUpgrader
     arguments: ['@App.jobOpenings.JobOpeningRepository']
 
   App.jobOpenings.JobOpeningRemover:
-    class: ../../../../../Contexts/LLBE/JobOpenings/application/JobOpeningRemover
+    class: ../../../../../Contexts/LLBE/JobOpenings/application/Remove/JobOpeningRemover
     arguments: ['@App.jobOpenings.JobOpeningRepository']

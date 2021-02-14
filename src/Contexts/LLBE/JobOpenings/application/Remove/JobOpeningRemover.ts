@@ -1,9 +1,9 @@
-import { JobOpeningRepository } from '../domain/JobOpeningRepository';
-import { JobOpeningId } from '../../Shared/domain/JobOpenings/JobOpeningId';
-import { JobOpeningNotFound } from '../domain/JobOpeningNotFound';
+import { JobOpeningRepository } from '../../domain/JobOpeningRepository';
+import { JobOpeningId } from '../../../Shared/domain/JobOpenings/JobOpeningId';
+import { JobOpeningNotFound } from '../../domain/JobOpeningNotFound';
 import { RemoveJobOpeningRequest } from './RemoveJobOpeningRequest';
-import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError';
-import { ApplicationService } from '../../../Shared/domain/ApplicationService';
+import { InvalidArgumentError } from '../../../../Shared/domain/value-object/InvalidArgumentError';
+import { ApplicationService } from '../../../../Shared/domain/ApplicationService';
 
 export class JobOpeningRemover extends ApplicationService {
   private repository: JobOpeningRepository;

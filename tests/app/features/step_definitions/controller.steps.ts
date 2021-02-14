@@ -22,7 +22,7 @@ import { CompanyRegionMother } from '../../../Contexts/LLBE/Companies/domain/Com
 import { CompanyCityMother } from '../../../Contexts/LLBE/Companies/domain/CompanyCityMother';
 import { CompanyRepository } from '../../../../src/Contexts/LLBE/Companies/domain/CompanyRepository';
 import { JobOpeningRepository } from '../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpeningRepository';
-import { UpgradeJobOpeningRequestMother } from '../../../Contexts/LLBE/JobOpenings/application/UpgradeJobOpeningRequestMother';
+import { UpgradeJobOpeningRequestMother } from '../../../Contexts/LLBE/JobOpenings/application/Update/UpgradeJobOpeningRequestMother';
 import { JobOpeningMother } from '../../../Contexts/LLBE/JobOpenings/domain/JobOpeningMother';
 import { StudentIdMother } from '../../../Contexts/LLBE/Shared/domain/Students/StudentIdMother';
 import { CompanyIdMother } from '../../../Contexts/LLBE/Shared/domain/Companies/CompanyIdMother';

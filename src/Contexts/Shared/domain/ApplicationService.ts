@@ -1,4 +1,3 @@
-import { DomainEvent } from './DomainEvent';
 import Logger from './Logger';
 import WinstonLogger from '../infrastructure/WinstonLogger';
 

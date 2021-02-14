@@ -7,7 +7,7 @@ import { JobOpenResponsibilities } from '../../../../../src/Contexts/LLBE/JobOpe
 import { JobOpenQualification } from '../../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpenQualification';
 import { JobOpenPrevExperience } from '../../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpenPrevExperience';
 import { JobOpening } from '../../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpening';
-import { CreateJobOpeningRequest } from '../../../../../src/Contexts/LLBE/JobOpenings/application/CreateJobOpeningRequest';
+import { CreateJobOpeningRequest } from '../../../../../src/Contexts/LLBE/JobOpenings/application/Create/CreateJobOpeningRequest';
 import { JobOpeningIdMother } from '../../Shared/domain/JobOpenings/JobOpeningIdMother';
 import { CompanyIdMother } from '../../Shared/domain/Companies/CompanyIdMother';
 import { JobOpenTitleMother } from './JobOpenTitleMother';
@@ -16,7 +16,7 @@ import { JobOpenConditionsMother } from './JobOpenConditionsMother';
 import { JobOpenResponsibilitiesMother } from './JobOpenResponsibilitiesMother';
 import { JobOpenQualificationMother } from './JobOpenQualificationMother';
 import { JobOpenPrevExperienceMother } from './JobOpenPrevExperienceMother';
-import { UpgradeJobOpeningRequest } from '../../../../../src/Contexts/LLBE/JobOpenings/application/UpgradeJobOpeningRequest';
+import { UpgradeJobOpeningRequest } from '../../../../../src/Contexts/LLBE/JobOpenings/application/Update/UpgradeJobOpeningRequest';
 
 export class JobOpeningMother {
   static create(

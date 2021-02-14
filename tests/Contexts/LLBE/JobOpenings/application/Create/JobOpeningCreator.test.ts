@@ -1,7 +1,7 @@
-import { JobOpeningMother } from '../domain/JobOpeningMother';
-import { JobOpeningRepositoryMock } from '../__mocks__/JobOpeningRepositoryMock';
+import { JobOpeningMother } from '../../domain/JobOpeningMother';
+import { JobOpeningRepositoryMock } from '../../__mocks__/JobOpeningRepositoryMock';
 import { CreateJobOpeningRequestMother } from './CreateJobOpeningRequestMother';
-import { JobOpeningCreator } from '../../../../../src/Contexts/LLBE/JobOpenings/application/JobOpeningCreator';
+import { JobOpeningCreator } from '../../../../../../src/Contexts/LLBE/JobOpenings/application/Create/JobOpeningCreator';
 
 let repository: JobOpeningRepositoryMock;
 let creator: JobOpeningCreator;
