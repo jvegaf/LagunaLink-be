@@ -26,7 +26,6 @@ import { UpgradeJobOpeningRequestMother } from '../../../Contexts/LLBE/JobOpenin
 import { JobOpeningMother } from '../../../Contexts/LLBE/JobOpenings/domain/JobOpeningMother';
 import { StudentIdMother } from '../../../Contexts/LLBE/Shared/domain/Students/StudentIdMother';
 import { CompanyIdMother } from '../../../Contexts/LLBE/Shared/domain/Companies/CompanyIdMother';
-import { CreateJobOpeningRequestMother } from '../../../Contexts/LLBE/JobOpenings/application/Create/CreateJobOpeningRequestMother';
 
 let _request: request.Test;
 let _response: request.Response;
@@ -113,11 +112,8 @@ async function loginUserAccount(authReq: object) {
 }
 
 async function registerRandomJobOpening() {
-    const jobOpeningRequest = CreateJobOpeningRequestMother.random();
-
-    await jobOpenRepository.save(
-      JobOpeningMother.fromCreateRequest(jobOpeningRequest)
-    );
+    const jobOpening = JobOpeningMother.random();
+    await jobOpenRepository.save(jobOpening);
 }
 
 async function registerRandomJobOpeningWithId(id: string, companyId = '') {
@@ -259,6 +255,10 @@ Then('the response should be empty', () => {
     assert.deepStrictEqual(_response.body, {});
 });
 
+Then('print the response', () => {
+    console.log(`JOBS ${_response.body.jobOpenings.length}`);
+});
+
 Then('the response content should be:', (response) => {
     assert.strictEqual(_response.body, JSON.parse(response));
 });
@@ -267,7 +267,7 @@ Before(async () => {
     accessToken = '';
     authRequest = {id: '', email: '', password: ''};
     const environmentArranger: Promise<EnvironmentArranger> = container.get(
-        'App.EnvironmentArranger'
+      'App.EnvironmentArranger'
     );
     await (await environmentArranger).arrange();
 });

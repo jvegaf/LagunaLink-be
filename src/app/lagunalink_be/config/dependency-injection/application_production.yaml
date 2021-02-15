@@ -1,2 +1,7 @@
 imports:
   - { resource: ./application.yaml }
+
+services:
+  App.Mailer:
+    class: ../../../../../src/Contexts/Shared/infrastructure/mail/NodeMailer
+    arguments: [ ]

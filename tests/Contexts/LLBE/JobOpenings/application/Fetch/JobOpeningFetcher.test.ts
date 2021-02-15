@@ -1,15 +1,15 @@
 import { JobOpeningRepositoryMock } from '../../__mocks__/JobOpeningRepositoryMock';
-import { JobOpeningsFetcher } from '../../../../../../src/Contexts/LLBE/JobOpenings/application/Fetch/JobOpeningsFetcher';
+import { JobOpeningFetcher } from '../../../../../../src/Contexts/LLBE/JobOpenings/application/Fetch/JobOpeningFetcher';
 import { CreateJobOpeningRequestMother } from '../Create/CreateJobOpeningRequestMother';
 import { JobOpening } from '../../../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpening';
 import { JobOpeningMother } from '../../domain/JobOpeningMother';
 
 let repository: JobOpeningRepositoryMock;
-let fetcher: JobOpeningsFetcher;
+let fetcher: JobOpeningFetcher;
 
 beforeEach(() => {
   repository = new JobOpeningRepositoryMock();
-  fetcher = new JobOpeningsFetcher(repository);
+  fetcher = new JobOpeningFetcher(repository);
 });
 
 it('should fetch all jobOpenings', async () => {

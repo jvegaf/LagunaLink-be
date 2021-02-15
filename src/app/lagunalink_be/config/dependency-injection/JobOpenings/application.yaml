@@ -12,6 +12,10 @@ services:
     class: ../../../../../Contexts/LLBE/JobOpenings/application/Find/JobOpeningFinder
     arguments: [ '@App.jobOpenings.JobOpeningRepository' ]
 
+  App.jobOpenings.JobOpeningFetcher:
+    class: ../../../../../Contexts/LLBE/JobOpenings/application/Fetch/JobOpeningFetcher
+    arguments: [ '@App.jobOpenings.JobOpeningRepository' ]
+
   App.jobOpenings.JobOpeningUpgrader:
     class: ../../../../../Contexts/LLBE/JobOpenings/application/Update/JobOpeningUpgrader
     arguments: [ '@App.jobOpenings.JobOpeningRepository' ]
