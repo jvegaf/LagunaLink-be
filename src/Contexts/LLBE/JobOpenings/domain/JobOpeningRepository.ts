@@ -9,5 +9,7 @@ export interface JobOpeningRepository {
 
   fetch(): Promise<Array<JobOpening>>;
 
+  fetchFromCompany(companyId: string): Promise<Array<JobOpening>>;
+
   remove(id: JobOpeningId): Promise<void>;
 }
