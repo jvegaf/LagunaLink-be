@@ -1,5 +1,5 @@
-import {CompanyCity} from "../../../../../src/Contexts/LLBE/Companies/domain/CompanyCity";
-import {CityMother} from "../../../Shared/domain/CityMother";
+import { CompanyCity } from '../../../../../src/Contexts/LLBE/Companies/domain/CompanyCity';
+import { CityMother } from '../../../Shared/domain/CityMother';
 
 export class CompanyCityMother {
   static create(value: string): CompanyCity {

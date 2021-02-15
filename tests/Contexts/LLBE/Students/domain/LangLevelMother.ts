@@ -1,5 +1,5 @@
-import {LanguageLevel} from "../../../../../src/Contexts/LLBE/Students/domain/LanguageLevel";
-import {IntegerMother} from "../../../Shared/domain/IntegerMother";
+import { LanguageLevel } from '../../../../../src/Contexts/LLBE/Students/domain/LanguageLevel';
+import { IntegerMother } from '../../../Shared/domain/IntegerMother';
 
 export class LangLevelMother {
     static create(value: number): LanguageLevel {
@@ -7,7 +7,7 @@ export class LangLevelMother {
     }
 
     static random(): LanguageLevel {
-        let value = IntegerMother.random(4) + 1;
+        const value = IntegerMother.random(4) + 1;
         return this.create(value);
     }
 }

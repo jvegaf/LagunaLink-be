@@ -10,7 +10,7 @@ import { UserUpdateRegistered } from '../../../Users/application/UserUpdateRegis
 import { UserId } from '../../../Shared/domain/Users/UserId';
 import { ApplicationService } from '../../../../Shared/domain/ApplicationService';
 
-export class StudentCreator extends ApplicationService{
+export class StudentCreator extends ApplicationService {
   private repository: StudentRepository;
   private userUpdateReg: UserUpdateRegistered;
 

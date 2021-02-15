@@ -1,5 +1,5 @@
 import { WordMother } from '../../../Shared/domain/WordMother';
-import {CompanyName} from "../../../../../src/Contexts/LLBE/Companies/domain/CompanyName";
+import { CompanyName } from '../../../../../src/Contexts/LLBE/Companies/domain/CompanyName';
 
 export class CompanyNameMother {
   static create(value: string): CompanyName {

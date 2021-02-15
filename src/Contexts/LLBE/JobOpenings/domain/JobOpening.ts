@@ -1,12 +1,12 @@
-import {AggregateRoot} from "../../../Shared/domain/AggregateRoot";
-import {CompanyId} from "../../Shared/domain/Companies/CompanyId";
-import {JobOpenResponsibilities} from "./JobOpenResponsibilities";
-import {JobOpenTitle} from "./JobOpenTitle";
-import {JobOpenConditions} from "./JobOpenConditions";
-import {JobOpenPosition} from "./JobOpenPosition";
-import {JobOpenPrevExperience} from "./JobOpenPrevExperience";
-import {JobOpenQualification} from "./JobOpenQualification";
-import {JobOpeningId} from "../../Shared/domain/JobOpenings/JobOpeningId";
+import { AggregateRoot } from '../../../Shared/domain/AggregateRoot';
+import { CompanyId } from '../../Shared/domain/Companies/CompanyId';
+import { JobOpenResponsibilities } from './JobOpenResponsibilities';
+import { JobOpenTitle } from './JobOpenTitle';
+import { JobOpenConditions } from './JobOpenConditions';
+import { JobOpenPosition } from './JobOpenPosition';
+import { JobOpenPrevExperience } from './JobOpenPrevExperience';
+import { JobOpenQualification } from './JobOpenQualification';
+import { JobOpeningId } from '../../Shared/domain/JobOpenings/JobOpeningId';
 
 export class JobOpening extends AggregateRoot {
     readonly id: JobOpeningId;
@@ -17,7 +17,6 @@ export class JobOpening extends AggregateRoot {
     readonly responsibilities: JobOpenResponsibilities;
     readonly qualification: JobOpenQualification;
     readonly prevExperience: JobOpenPrevExperience;
-
 
     constructor(
         id: JobOpeningId,
@@ -63,25 +62,25 @@ export class JobOpening extends AggregateRoot {
     }
 
     static fromPrimitives(
-        plaindata: {
-            id: string;
-            company: string;
-            title: string;
-            position: string;
-            conditions: string;
-            responsibilities: string;
-            qualification: string;
-            prevExperience: string;
-        } ){
+      plaindata: {
+          id: string;
+          company: string;
+          title: string;
+          position: string;
+          conditions: string;
+          responsibilities: string;
+          qualification: string;
+          prevExperience: string;
+      }) {
         return new JobOpening(
-            new JobOpeningId(plaindata.id),
-            new CompanyId(plaindata.company),
-            new JobOpenTitle(plaindata.title),
-            new JobOpenPosition(plaindata.position),
-            new JobOpenConditions(plaindata.conditions),
-            new JobOpenResponsibilities(plaindata.responsibilities),
-            new JobOpenQualification(plaindata.qualification),
-            new JobOpenPrevExperience(plaindata.prevExperience)
+          new JobOpeningId(plaindata.id),
+          new CompanyId(plaindata.company),
+          new JobOpenTitle(plaindata.title),
+          new JobOpenPosition(plaindata.position),
+          new JobOpenConditions(plaindata.conditions),
+          new JobOpenResponsibilities(plaindata.responsibilities),
+          new JobOpenQualification(plaindata.qualification),
+          new JobOpenPrevExperience(plaindata.prevExperience)
         );
     }
 

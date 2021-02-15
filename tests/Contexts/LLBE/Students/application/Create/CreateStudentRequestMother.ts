@@ -5,8 +5,8 @@ import { StudentLastname } from '../../../../../../src/Contexts/LLBE/Students/do
 import { StudentNameMother } from '../../domain/StudentNameMother';
 import { StudentSurnameMother } from '../../domain/StudentSurnameMother';
 import { StudentLastnameMother } from '../../domain/StudentLastnameMother';
-import { StudentId } from "../../../../../../src/Contexts/LLBE/Shared/domain/Students/StudentId";
-import { StudentIdMother } from "../../../Shared/domain/Students/StudentIdMother";
+import { StudentId } from '../../../../../../src/Contexts/LLBE/Shared/domain/Students/StudentId';
+import { StudentIdMother } from '../../../Shared/domain/Students/StudentIdMother';
 
 export class CreateStudentRequestMother {
   static create(

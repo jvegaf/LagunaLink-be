@@ -1,5 +1,5 @@
-import {EndDate} from "../../../../../src/Contexts/LLBE/Shared/domain/EndDate";
-import {DateMother} from "../../../Shared/domain/DateMother";
+import { EndDate } from '../../../../../src/Contexts/LLBE/Shared/domain/EndDate';
+import { DateMother } from '../../../Shared/domain/DateMother';
 
 // TODO: FIX the end date maybe later than start date
 export class EndDateMother {
@@ -8,6 +8,6 @@ export class EndDateMother {
     }
 
     static random(): EndDate {
-        return this.create(DateMother.random().toISOString().substr(0,10));
+        return this.create(DateMother.random().toISOString().substr(0, 10));
     }
 }

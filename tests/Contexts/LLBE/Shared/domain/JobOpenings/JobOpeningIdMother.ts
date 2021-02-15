@@ -1,5 +1,5 @@
 import { UuidMother } from '../../../../Shared/domain/UuidMother';
-import {JobOpeningId} from "../../../../../../src/Contexts/LLBE/Shared/domain/JobOpenings/JobOpeningId";
+import { JobOpeningId } from '../../../../../../src/Contexts/LLBE/Shared/domain/JobOpenings/JobOpeningId';
 
 export class JobOpeningIdMother {
   static create(value: string): JobOpeningId {

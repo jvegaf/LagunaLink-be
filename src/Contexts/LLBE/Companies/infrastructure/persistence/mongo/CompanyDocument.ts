@@ -1,4 +1,4 @@
-import {MongoDocument} from '../../../../../Shared/infrastructure/persistence/mongo/MongoDocument';
+import { MongoDocument } from '../../../../../Shared/infrastructure/persistence/mongo/MongoDocument';
 
 export type CompanyDocument = MongoDocument & {
     name: string;
@@ -7,4 +7,4 @@ export type CompanyDocument = MongoDocument & {
     postalCode: number;
     region: string;
     city: string;
-}
+};

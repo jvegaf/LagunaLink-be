@@ -4,13 +4,13 @@ import { LangLevelMother } from './LangLevelMother';
 
 export class StudentLangsMother {
   static create(value: Language): Language[] {
-    let langs = [];
+    const langs = [];
     langs.push(value);
     return langs;
   }
 
   static random(): Language[] {
-    let studentLang = this.createRandomLang();
+    const studentLang = this.createRandomLang();
     return this.create(studentLang);
   }
 
@@ -23,8 +23,8 @@ export class StudentLangsMother {
   }
 
   static randomToPrimitives() {
-    let langs = [];
-    let lang = this.createRandomLang();
+    const langs = [];
+    const lang = this.createRandomLang();
     langs.push(lang.toPrimitives());
     return langs;
   }

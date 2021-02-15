@@ -1,5 +1,5 @@
-import {CompanyRegion} from "../../../../../src/Contexts/LLBE/Companies/domain/CompanyRegion";
-import {RegionMother} from "../../../Shared/domain/RegionMother";
+import { CompanyRegion } from '../../../../../src/Contexts/LLBE/Companies/domain/CompanyRegion';
+import { RegionMother } from '../../../Shared/domain/RegionMother';
 
 export class CompanyRegionMother {
   static create(value: string): CompanyRegion {

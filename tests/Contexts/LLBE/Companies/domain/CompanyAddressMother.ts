@@ -1,5 +1,5 @@
-import {CompanyAddress} from "../../../../../src/Contexts/LLBE/Companies/domain/CompanyAddress";
-import {AddressMother} from "../../../Shared/domain/AddressMother";
+import { CompanyAddress } from '../../../../../src/Contexts/LLBE/Companies/domain/CompanyAddress';
+import { AddressMother } from '../../../Shared/domain/AddressMother';
 
 export class CompanyAddressMother {
   static create(value: string): CompanyAddress {

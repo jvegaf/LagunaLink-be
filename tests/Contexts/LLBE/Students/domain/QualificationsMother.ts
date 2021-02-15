@@ -5,20 +5,20 @@ import { EndDateMother } from '../../Shared/domain/EndDateMother';
 
 export class QualificationsMother {
     static create(value: Qualification): Qualification[] {
-        let quals = [];
+        const quals = [];
         quals.push(value);
         return quals;
     }
 
     static randomToPrimitives() {
-        let quals = [];
-        let qualification = this.createRandomQualification();
+        const quals = [];
+        const qualification = this.createRandomQualification();
         quals.push(qualification.toPrimitives());
         return quals;
     }
 
     static random(): Qualification[] {
-        let rndQualification = this.createRandomQualification();
+        const rndQualification = this.createRandomQualification();
         return this.create(rndQualification);
     }
 

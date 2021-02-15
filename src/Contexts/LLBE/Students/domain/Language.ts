@@ -1,5 +1,5 @@
-import {LanguageLevel} from "./LanguageLevel";
-import {LanguageName} from "./LanguageName";
+import { LanguageLevel } from './LanguageLevel';
+import { LanguageName } from './LanguageName';
 
 export class Language {
     readonly name: LanguageName;

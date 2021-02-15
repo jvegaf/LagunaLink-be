@@ -1,5 +1,5 @@
 import { WordMother } from '../../../Shared/domain/WordMother';
-import {TitleName} from "../../../../../src/Contexts/LLBE/Students/domain/TitleName";
+import { TitleName } from '../../../../../src/Contexts/LLBE/Students/domain/TitleName';
 
 export class TitleNameMother {
   static create(value: string): TitleName {

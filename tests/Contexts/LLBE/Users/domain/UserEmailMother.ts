@@ -1,5 +1,5 @@
-import { UserEmail } from "../../../../../src/Contexts/LLBE/Users/domain/UserEmail";
-import { EmailMother } from "../../../Shared/domain/EmailMother";
+import { UserEmail } from '../../../../../src/Contexts/LLBE/Users/domain/UserEmail';
+import { EmailMother } from '../../../Shared/domain/EmailMother';
 
 export class UserEmailMother {
   static create(value: string): UserEmail {

@@ -1,7 +1,7 @@
 import container from '../../../../../../src/app/lagunalink_be/config/dependency-injection';
 import { EnvironmentArranger } from '../../../../Shared/infrastructure/arranger/EnvironmentArranger';
-import {CompanyRepository} from "../../../../../../src/Contexts/LLBE/Companies/domain/CompanyRepository";
-import {CompanyMother} from "../../domain/CompanyMother";
+import { CompanyRepository } from '../../../../../../src/Contexts/LLBE/Companies/domain/CompanyRepository';
+import { CompanyMother } from '../../domain/CompanyMother';
 
 const repository: CompanyRepository = container.get('App.companies.CompanyRepository');
 const environmentArranger: Promise<EnvironmentArranger> = container.get('App.EnvironmentArranger');

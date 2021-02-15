@@ -1,11 +1,13 @@
-import {LanguageLevel} from "../../../../../src/Contexts/LLBE/Students/domain/LanguageLevel";
-import {InvalidArgumentError} from "../../../../../src/Contexts/Shared/domain/value-object/InvalidArgumentError";
+import { LanguageLevel } from '../../../../../src/Contexts/LLBE/Students/domain/LanguageLevel';
+import { InvalidArgumentError } from '../../../../../src/Contexts/Shared/domain/value-object/InvalidArgumentError';
 
 describe('Language Level', () => {
 
   it('should throw an InvalidArgumentError when the value is incorrect', () => {
     const EXCESS_VALUE = 7;
-    expect(() => {LanguageLevel.create(EXCESS_VALUE)} ).toThrow(InvalidArgumentError);
+    expect(() => {
+      LanguageLevel.create(EXCESS_VALUE);
+    }).toThrow(InvalidArgumentError);
   });
 
   it('should create a LanguageLevel instance', function () {

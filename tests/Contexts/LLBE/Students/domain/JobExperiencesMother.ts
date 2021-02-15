@@ -11,14 +11,20 @@ export class JobExperiencesMother {
     // }
 
     static random(): JobExperience[] {
-        let jobs = [];
+        const jobs = [];
         for (let i = 0; i < 2; i++) {
-            let job = this.createJobExperience()
+            const job = this.createJobExperience();
             jobs.push(job);
         }
         return jobs;
     }
 
+    static randomToPrimitives() {
+        const jobs = [];
+        const job = this.createJobExperience();
+        jobs.push(job.toPrimitives());
+        return jobs;
+    }
 
     private static createJobExperience() {
         return new JobExperience(
@@ -27,13 +33,6 @@ export class JobExperiencesMother {
           JobResponsMother.random(),
           StartDateMother.random(),
           EndDateMother.random()
-        )
-    }
-
-    static randomToPrimitives() {
-        let jobs = [];
-        let job = this.createJobExperience();
-        jobs.push(job.toPrimitives());
-        return jobs;
+        );
     }
 }

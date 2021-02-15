@@ -1,9 +1,9 @@
 import { StringValueObject } from '../../../Shared/domain/value-object/StringValueObject';
-import { InvalidArgumentError } from "../../../Shared/domain/value-object/InvalidArgumentError";
+import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError';
 
 export class UserRole extends StringValueObject {
 
-  private roles = ["ROLE_STUDENT", "ROLE_COMPANY"];
+  private roles = ['ROLE_STUDENT', 'ROLE_COMPANY'];
 
   constructor(value: string) {
     super(value);
@@ -15,7 +15,7 @@ export class UserRole extends StringValueObject {
   }
 
   private ensureIsAValidRole(value: string) {
-    if (this.roles.indexOf(value) === -1){
+    if (this.roles.indexOf(value) === -1) {
       throw new InvalidArgumentError(`The role <${value}> is not valid`);
     }
   }

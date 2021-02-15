@@ -53,7 +53,13 @@ export class Student extends AggregateRoot {
             lastname: string;
             qualifications: { title: string; start_date: string; end_date: string }[];
             languages: { name: string; speak: number; write: number }[];
-            job_experiences: { company: string; position: string; responsibilities: string; start_date: string; end_date: string }[];
+            job_experiences: {
+                company: string;
+                position: string;
+                responsibilities: string;
+                start_date: string;
+                end_date: string
+            }[];
         }): Student {
         return new Student(
             new StudentId(plainData.id),
@@ -78,31 +84,46 @@ export class Student extends AggregateRoot {
         };
     }
 
-    private qualificationsToPrimitives() {
-        return this.qualifications?.map(qualification => qualification.toPrimitives())
+    private static qualificationsFromPrimitives(qualifications: {
+        title: string;
+        start_date: string;
+        end_date: string
+    }[]) {
+        if (qualifications === undefined) {
+            return;
+        }
+        return qualifications.map(qualification => Qualification.fromPrimitives(qualification));
     }
 
     private languagesToPrimitives() {
         return this.languages?.map(language => language.toPrimitives());
     }
 
-
     private jobexperiencesToPrimitives() {
         return this.jobexperiences?.map(job => job.toPrimitives());
     }
 
-    private static qualificationsFromPrimitives(qualifications: { title: string; start_date: string; end_date: string }[]) {
-        if (qualifications === undefined) return;
-        return qualifications.map(qualification => Qualification.fromPrimitives(qualification));
-    }
-
     private static languagesFromPrimitives(languages: { name: string; speak: number; write: number }[]) {
-        if (languages === undefined) return;
+        if (languages === undefined) {
+            return;
+        }
         return languages.map(language => Language.fromPrimitives(language));
     }
 
-    private static jobexperiencesFromPrimitives(jobexperiences: { company: string; position: string; responsibilities: string; start_date: string; end_date: string }[]) {
-        if (jobexperiences === undefined) return;
+    private static jobexperiencesFromPrimitives(jobexperiences: {
+        company: string;
+        position: string;
+        responsibilities: string;
+        start_date: string;
+        end_date: string
+    }[]) {
+        if (jobexperiences === undefined) {
+            return;
+        }
         return jobexperiences.map(job => JobExperience.fromPrimitives(job));
+    }
+
+    private qualificationsToPrimitives() {
+        return this.qualifications?.map(qualification => qualification.toPrimitives());
     }
 }

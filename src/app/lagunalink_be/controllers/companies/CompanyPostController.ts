@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { Controller } from '../Controller';
-import { AuthJWTChecker } from '../../../../Contexts/LLBE/Users/infrastructure/token/AuthJWTChecker';
 import { Token } from '../../../../Contexts/LLBE/Users/domain/Token';
 import httpStatus from 'http-status';
 import { Payload } from '../../../../Contexts/LLBE/Users/domain/Payload';
@@ -14,7 +13,7 @@ export class CompanyPostController implements Controller {
   private authChecker: AuthChecker;
   private authRoleChecker: AuthRole;
 
-  constructor(companyCreator: CompanyCreator, authChecker: AuthChecker ,authRole: AuthRole) {
+  constructor(companyCreator: CompanyCreator, authChecker: AuthChecker, authRole: AuthRole) {
     this.authChecker = authChecker;
     this.creator = companyCreator;
     this.authRoleChecker = authRole;

@@ -1,11 +1,11 @@
-import {AggregateRoot} from "../../../Shared/domain/AggregateRoot";
-import {CompanyId} from "../../Shared/domain/Companies/CompanyId";
-import {CompanyName} from "./CompanyName";
-import {CompanyDescription} from "./CompanyDescription";
-import {CompanyAddress} from "./CompanyAddress";
-import {CompanyPostalCode} from "./CompanyPostalCode";
-import {CompanyCity} from "./CompanyCity";
-import {CompanyRegion} from "./CompanyRegion";
+import { AggregateRoot } from '../../../Shared/domain/AggregateRoot';
+import { CompanyId } from '../../Shared/domain/Companies/CompanyId';
+import { CompanyName } from './CompanyName';
+import { CompanyDescription } from './CompanyDescription';
+import { CompanyAddress } from './CompanyAddress';
+import { CompanyPostalCode } from './CompanyPostalCode';
+import { CompanyCity } from './CompanyCity';
+import { CompanyRegion } from './CompanyRegion';
 
 export class Company extends AggregateRoot {
     readonly id: CompanyId;
@@ -15,7 +15,6 @@ export class Company extends AggregateRoot {
     readonly postalCode: CompanyPostalCode;
     readonly region: CompanyRegion;
     readonly city: CompanyCity;
-
 
     constructor(
         id: CompanyId,
@@ -56,23 +55,23 @@ export class Company extends AggregateRoot {
     }
 
     static fromPrimitives(
-        plaindata: {
-            id: string;
-            name: string;
-            description: string;
-            address: string;
-            postalCode: number;
-            region: string;
-            city: string;
-        } ){
+      plaindata: {
+          id: string;
+          name: string;
+          description: string;
+          address: string;
+          postalCode: number;
+          region: string;
+          city: string;
+      }) {
         return new Company(
-            new CompanyId(plaindata.id),
-            new CompanyName(plaindata.name),
-            new CompanyDescription(plaindata.description),
-            new CompanyAddress(plaindata.address),
-            new CompanyPostalCode(plaindata.postalCode),
-            new CompanyRegion(plaindata.region),
-            new CompanyCity(plaindata.city)
+          new CompanyId(plaindata.id),
+          new CompanyName(plaindata.name),
+          new CompanyDescription(plaindata.description),
+          new CompanyAddress(plaindata.address),
+          new CompanyPostalCode(plaindata.postalCode),
+          new CompanyRegion(plaindata.region),
+          new CompanyCity(plaindata.city)
         );
     }
 

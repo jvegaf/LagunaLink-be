@@ -7,7 +7,7 @@ import { EnrollmentId } from '../../Shared/domain/Enrollments/EnrollmentId';
 import { StudentId } from '../../Shared/domain/Students/StudentId';
 import { ApplicationService } from '../../../Shared/domain/ApplicationService';
 
-export class EnrollmentCreator extends ApplicationService{
+export class EnrollmentCreator extends ApplicationService {
   private repository: EnrollmentRepository;
 
   constructor(repository: EnrollmentRepository) {

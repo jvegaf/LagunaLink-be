@@ -1,5 +1,5 @@
-import { UserIsActive } from "../../../../../src/Contexts/LLBE/Users/domain/UserIsActive";
-import { BooleanMother } from "../../../Shared/domain/BooleanMother";
+import { UserIsActive } from '../../../../../src/Contexts/LLBE/Users/domain/UserIsActive';
+import { BooleanMother } from '../../../Shared/domain/BooleanMother';
 
 export class UserIsActiveMother {
     static create(value: boolean): UserIsActive {

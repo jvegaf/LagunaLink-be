@@ -13,7 +13,7 @@ import { UserUpdateRegistered } from '../../../Users/application/UserUpdateRegis
 import { UserId } from '../../../Shared/domain/Users/UserId';
 import { ApplicationService } from '../../../../Shared/domain/ApplicationService';
 
-export class CompanyCreator extends ApplicationService{
+export class CompanyCreator extends ApplicationService {
   private repository: CompanyRepository;
   private userUpdateReg: UserUpdateRegistered;
 

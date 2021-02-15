@@ -1,7 +1,7 @@
 import { CompanyRepository } from '../../../../../src/Contexts/LLBE/Companies/domain/CompanyRepository';
 import { Nullable } from '../../../../../src/Contexts/Shared/domain/Nullable';
-import {Company} from "../../../../../src/Contexts/LLBE/Companies/domain/Company";
-import {CompanyId} from "../../../../../src/Contexts/LLBE/Shared/domain/Companies/CompanyId";
+import { Company } from '../../../../../src/Contexts/LLBE/Companies/domain/Company';
+import { CompanyId } from '../../../../../src/Contexts/LLBE/Shared/domain/Companies/CompanyId';
 
 export class CompanyRepositoryMock implements CompanyRepository {
   private mockSave = jest.fn();

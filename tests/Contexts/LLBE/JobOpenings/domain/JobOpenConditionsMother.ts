@@ -1,5 +1,5 @@
 import { WordMother } from '../../../Shared/domain/WordMother';
-import {JobOpenConditions} from "../../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpenConditions";
+import { JobOpenConditions } from '../../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpenConditions';
 
 export class JobOpenConditionsMother {
   static create(value: string): JobOpenConditions {
