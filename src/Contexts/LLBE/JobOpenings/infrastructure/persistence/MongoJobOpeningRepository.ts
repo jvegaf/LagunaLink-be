@@ -36,4 +36,15 @@ export class MongoJobOpeningRepository extends MongoRepository<JobOpening> imple
 
         return resultSet;
     }
+
+    public async fetchFromCompany(companyId: string): Promise<Array<JobOpening>> {
+        const collection = await this.collection();
+        const resultSet: JobOpening[] = [];
+        const cursor = collection.find({company: companyId});
+        await cursor.forEach(document => {
+            resultSet.push(JobOpening.fromPrimitives({...document, id: document._id}));
+        });
+
+        return resultSet;
+    }
 }

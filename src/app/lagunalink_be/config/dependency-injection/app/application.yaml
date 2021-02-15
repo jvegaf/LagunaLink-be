@@ -39,6 +39,10 @@ services:
     class: ../../../controllers/companies/CompanyGetController
     arguments: [ "@App.companies.CompanyFinder", "@App.users.AuthChecker" ]
 
+  App.controllers.companies.CompanyJobsGetController:
+    class: ../../../controllers/companies/CompanyJobsGetController
+    arguments: [ "@App.jobOpenings.CompanyJobsFetcher", "@App.users.AuthChecker" ]
+
   App.controllers.companies.CompanyPostController:
     class: ../../../controllers/companies/CompanyPostController
     arguments: [ "@App.companies.CompanyCreator", "@App.users.AuthChecker", "@App.users.CompanyRoleChecker" ]

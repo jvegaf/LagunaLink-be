@@ -7,6 +7,7 @@ export class JobOpeningRepositoryMock implements JobOpeningRepository {
   private mockSave = jest.fn();
   private mockSearch = jest.fn();
   private mockFetch = jest.fn();
+  private mockCompanyFetch = jest.fn();
 
   async save(jobOpening: JobOpening): Promise<void> {
     this.mockSave(jobOpening);
@@ -33,6 +34,10 @@ export class JobOpeningRepositoryMock implements JobOpeningRepository {
     this.mockFetch.mockReturnValue(value);
   }
 
+  whenFetchFromCompanyThenReturn(value: Array<JobOpening>): void {
+    this.mockCompanyFetch.mockReturnValue(value);
+  }
+
   assertLastSearchedJobOpeningIs(expected: JobOpeningId): void {
     expect(this.mockSearch).toHaveBeenCalledWith(expected);
   }
@@ -43,5 +48,9 @@ export class JobOpeningRepositoryMock implements JobOpeningRepository {
 
   fetch(): Promise<Array<JobOpening>> {
     return this.mockFetch();
+  }
+
+  fetchFromCompany(companyId: string): Promise<Array<JobOpening>> {
+    return this.mockCompanyFetch();
   }
 }

@@ -26,6 +26,7 @@ import { UpgradeJobOpeningRequestMother } from '../../../Contexts/LLBE/JobOpenin
 import { JobOpeningMother } from '../../../Contexts/LLBE/JobOpenings/domain/JobOpeningMother';
 import { StudentIdMother } from '../../../Contexts/LLBE/Shared/domain/Students/StudentIdMother';
 import { CompanyIdMother } from '../../../Contexts/LLBE/Shared/domain/Companies/CompanyIdMother';
+import { CreateJobOpeningRequestMother } from '../../../Contexts/LLBE/JobOpenings/application/Create/CreateJobOpeningRequestMother';
 
 let _request: request.Test;
 let _response: request.Response;
@@ -132,6 +133,14 @@ async function registerSeveralJobOpenings() {
     }
 }
 
+async function registerSeveralJobOpeningsOfCompany(companyId: string) {
+    for (let i = 0; i < 10; i++) {
+        const comReq = CreateJobOpeningRequestMother.randomOfCompany(companyId);
+        const job = JobOpeningMother.fromCreateRequest(comReq);
+        await jobOpenRepository.save(job);
+    }
+}
+
 Given('I have a Student Role Account', async () => {
     authRequest = await createUser('ROLE_STUDENT');
 });
@@ -141,7 +150,7 @@ Given('I have a Company Role Account', async () => {
 });
 
 Given('Previously was registered a company with id {string}', async (id: string) => {
-    await createUser('ROLE_COMPANY', id);
+    authRequest = await createUser('ROLE_COMPANY', id);
 });
 
 Given('I have a Student Role Account with id {string}', async (id: string) => {
@@ -179,6 +188,10 @@ Given('Previously was created a Job Opening with id {string}', async (id: string
 
 Given('Several Job Openings were previously created', async () => {
     await registerSeveralJobOpenings();
+});
+
+Given('This Company published several Job Openings', async () => {
+    await registerSeveralJobOpeningsOfCompany(authRequest.id);
 });
 
 When('I send a GET request to {string}', (route: string) => {
@@ -253,10 +266,6 @@ Then('the response status code should be {int}', async (status: number) => {
 
 Then('the response should be empty', () => {
     assert.deepStrictEqual(_response.body, {});
-});
-
-Then('print the response', () => {
-    console.log(`JOBS ${_response.body.jobOpenings.length}`);
 });
 
 Then('the response content should be:', (response) => {

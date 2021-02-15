@@ -3,6 +3,7 @@ import container from '../config/dependency-injection';
 import { CompanyPostController } from '../controllers/companies/CompanyPostController';
 import { CompanyPutController } from '../controllers/companies/CompanyPutController';
 import { CompanyGetController } from '../controllers/companies/CompanyGetController';
+import { CompanyJobsGetController } from '../controllers/companies/CompanyJobsGetController';
 
 export const register = (router: Router) => {
   const companyGetController: CompanyGetController = container.get(
@@ -10,6 +11,13 @@ export const register = (router: Router) => {
   );
   router.get('/companies/:id', (req: Request, res: Response) =>
     companyGetController.run(req, res)
+  );
+
+  const companyJobsGetController: CompanyJobsGetController = container.get(
+    'App.controllers.companies.CompanyJobsGetController'
+  );
+  router.get('/companies/:id/job_openings', (req: Request, res: Response) =>
+    companyJobsGetController.run(req, res)
   );
 
   const companyPostController: CompanyPostController = container.get(
