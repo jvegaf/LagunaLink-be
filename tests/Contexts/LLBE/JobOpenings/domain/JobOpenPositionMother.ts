@@ -1,5 +1,5 @@
-import { WordMother } from '../../../Shared/domain/WordMother';
 import { JobOpenPosition } from '../../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpenPosition';
+import { PositionMother } from '../../../Shared/domain/PositionMother';
 
 export class JobOpenPositionMother {
   static create(value: string): JobOpenPosition {
@@ -7,6 +7,6 @@ export class JobOpenPositionMother {
   }
 
   static random(): JobOpenPosition {
-    return this.create(WordMother.random());
+    return this.create(PositionMother.random());
   }
 }

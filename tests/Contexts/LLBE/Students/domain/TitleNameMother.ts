@@ -1,5 +1,5 @@
-import { WordMother } from '../../../Shared/domain/WordMother';
 import { TitleName } from '../../../../../src/Contexts/LLBE/Students/domain/TitleName';
+import { DegreeTitleMother } from '../../../Shared/domain/DegreeTitleMother';
 
 export class TitleNameMother {
   static create(value: string): TitleName {
@@ -7,6 +7,6 @@ export class TitleNameMother {
   }
 
   static random(): TitleName {
-    return this.create(WordMother.random());
+    return this.create(DegreeTitleMother.random());
   }
 }

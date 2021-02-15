@@ -1,5 +1,5 @@
-import { WordMother } from '../../../Shared/domain/WordMother';
 import { JobRespons } from '../../../../../src/Contexts/LLBE/Students/domain/JobRespons';
+import { ParagraphMother } from '../../../Shared/domain/ParagraphMother';
 
 export class JobResponsMother {
   static create(value: string): JobRespons {
@@ -7,6 +7,6 @@ export class JobResponsMother {
   }
 
   static random(): JobRespons {
-    return this.create(WordMother.random());
+    return this.create(ParagraphMother.random());
   }
 }

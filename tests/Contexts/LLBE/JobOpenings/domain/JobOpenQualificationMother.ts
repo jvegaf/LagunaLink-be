@@ -1,5 +1,5 @@
 import { JobOpenQualification } from '../../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpenQualification';
-import { WordMother } from '../../../Shared/domain/WordMother';
+import { DegreeTitleMother } from '../../../Shared/domain/DegreeTitleMother';
 
 export class JobOpenQualificationMother {
     static create(value: string): JobOpenQualification {
@@ -7,6 +7,6 @@ export class JobOpenQualificationMother {
     }
 
     static random(): JobOpenQualification {
-        return this.create(WordMother.random());
+        return this.create(DegreeTitleMother.random());
     }
 }

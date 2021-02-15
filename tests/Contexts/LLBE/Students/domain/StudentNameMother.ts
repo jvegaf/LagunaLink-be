@@ -1,5 +1,5 @@
 import { StudentName } from '../../../../../src/Contexts/LLBE/Students/domain/StudentName';
-import { WordMother } from '../../../Shared/domain/WordMother';
+import { PersonNameMother } from '../../../Shared/domain/PersonNameMother';
 
 export class StudentNameMother {
   static create(value: string): StudentName {
@@ -7,6 +7,6 @@ export class StudentNameMother {
   }
 
   static random(): StudentName {
-    return this.create(WordMother.random());
+    return this.create(PersonNameMother.random());
   }
 }

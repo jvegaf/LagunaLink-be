@@ -4,7 +4,7 @@ import { InvalidArgumentError } from '../../../Shared/domain/value-object/Invali
 export class TitleName extends StringValueObject {
   constructor(value: string) {
     super(value);
-    this.ensureLengthIsLessThan30Characters(value);
+    // this.ensureLengthIsLessThan30Characters(value);
   }
 
   private ensureLengthIsLessThan30Characters(value: string): void {
