@@ -1,21 +1,26 @@
 services:
 
+  # STATUS
   App.controllers.status.StatusGetController:
     class: ../../../controllers/status/StatusGetController
-    arguments: []
+    arguments: [ ]
 
+
+  # AUTH
   App.controllers.auth.SignUpPostController:
     class: ../../../controllers/auth/SignUpPostController
-    arguments: ["@App.users.UserCreator"]
+    arguments: [ "@App.users.UserCreator" ]
 
   App.controllers.auth.SignInPostController:
     class: ../../../controllers/auth/SignInPostController
-    arguments: ["@App.users.UserAuth"]
+    arguments: [ "@App.users.UserAuth" ]
 
   App.controllers.auth.EmailVerificationGetController:
     class: ../../../controllers/auth/EmailVerificationGetController
     arguments: [ "@App.users.AuthChecker", "@App.users.UserEmailConfirmator" ]
 
+
+  # STUDENTS
   App.controllers.students.StudentGetController:
     class: ../../../controllers/students/StudentGetController
     arguments: [ "@App.students.StudentFinder", "@App.users.AuthChecker", "@App.users.StudentRoleChecker" ]
@@ -28,6 +33,8 @@ services:
     class: ../../../controllers/students/StudentPutController
     arguments: [ "@App.students.StudentUpgrader", "@App.users.AuthChecker", "@App.users.StudentRoleChecker" ]
 
+
+  # COMPANIES
   App.controllers.companies.CompanyGetController:
     class: ../../../controllers/companies/CompanyGetController
     arguments: [ "@App.companies.CompanyFinder", "@App.users.AuthChecker" ]
@@ -40,9 +47,15 @@ services:
     class: ../../../controllers/companies/CompanyPutController
     arguments: [ "@App.companies.CompanyUpgrader", "@App.users.AuthChecker", "@App.users.CompanyRoleChecker" ]
 
+
+  # JOB OPENINGS
   App.controllers.jobOpenings.JobOpeningGetController:
     class: ../../../controllers/jobOpenings/JobOpeningGetController
     arguments: [ "@App.jobOpenings.JobOpeningFinder", "@App.users.AuthChecker" ]
+
+  App.controllers.jobOpenings.JobOpeningFetchController:
+    class: ../../../controllers/jobOpenings/JobOpeningFetchController
+    arguments: [ "@App.jobOpenings.JobOpeningFetcher", "@App.users.AuthChecker" ]
 
   App.controllers.jobOpenings.JobOpeningPostController:
     class: ../../../controllers/jobOpenings/JobOpeningPostController
@@ -56,6 +69,8 @@ services:
     class: ../../../controllers/jobOpenings/JobOpeningDeleteController
     arguments: [ "@App.jobOpenings.JobOpeningRemover", "@App.users.AuthChecker", "@App.users.CompanyRoleChecker" ]
 
+
+  # ENROLLMENTS
   App.controllers.enrollments.EnrollmentPostController:
     class: ../../../controllers/enrollments/EnrollmentPostController
     arguments: [ "@App.enrollments.EnrollmentCreator", "@App.users.StudentRoleChecker" ]

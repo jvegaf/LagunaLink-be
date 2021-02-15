@@ -111,7 +111,12 @@ async function loginUserAccount(authReq: object) {
     return response.body.access_token;
 }
 
-async function registerRandomJobOpening(id: string, companyId = '') {
+async function registerRandomJobOpening() {
+    const jobOpening = JobOpeningMother.random();
+    await jobOpenRepository.save(jobOpening);
+}
+
+async function registerRandomJobOpeningWithId(id: string, companyId = '') {
     const jobOpeningRequest = UpgradeJobOpeningRequestMother.random(id);
     if (companyId !== '') {
         jobOpeningRequest.company = companyId;
@@ -119,6 +124,12 @@ async function registerRandomJobOpening(id: string, companyId = '') {
     await jobOpenRepository.save(
       JobOpeningMother.fromUpgradeRequest(jobOpeningRequest)
     );
+}
+
+async function registerSeveralJobOpenings() {
+    for (let i = 0; i < 10; i++) {
+        await registerRandomJobOpening();
+    }
 }
 
 Given('I have a Student Role Account', async () => {
@@ -150,7 +161,7 @@ Given('I am logged in the application', async () => {
 });
 
 Given('I published a Job Opening with id {string}', async (id: string) => {
-    await registerRandomJobOpening(id, authRequest.id);
+    await registerRandomJobOpeningWithId(id, authRequest.id);
 });
 
 Given('exists a Job Opening with id {string}', async (id: string) => {
@@ -162,9 +173,12 @@ Given('exists a Job Opening with id {string}', async (id: string) => {
 Given('I am a user with account not yet verified', async () => {
     await createAccountNotVerified();
 });
-
 Given('Previously was created a Job Opening with id {string}', async (id: string) => {
-    await registerRandomJobOpening(id);
+    await registerRandomJobOpeningWithId(id);
+});
+
+Given('Several Job Openings were previously created', async () => {
+    await registerSeveralJobOpenings();
 });
 
 When('I send a GET request to {string}', (route: string) => {
@@ -241,6 +255,10 @@ Then('the response should be empty', () => {
     assert.deepStrictEqual(_response.body, {});
 });
 
+Then('print the response', () => {
+    console.log(`JOBS ${_response.body.jobOpenings.length}`);
+});
+
 Then('the response content should be:', (response) => {
     assert.strictEqual(_response.body, JSON.parse(response));
 });
@@ -249,7 +267,7 @@ Before(async () => {
     accessToken = '';
     authRequest = {id: '', email: '', password: ''};
     const environmentArranger: Promise<EnvironmentArranger> = container.get(
-        'App.EnvironmentArranger'
+      'App.EnvironmentArranger'
     );
     await (await environmentArranger).arrange();
 });

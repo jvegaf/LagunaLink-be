@@ -14,7 +14,7 @@ services:
 
   App.users.ConfirmationEmail:
     class: ../../../../../Contexts/LLBE/Users/application/UserConfirmationEmailDealer
-    arguments: [ '@App.shared.Mailer', '@App.users.TokenGenerator' ]
+    arguments: [ '@App.Mailer', '@App.users.TokenGenerator' ]
 
   App.users.UserEmailConfirmator:
     class: ../../../../../Contexts/LLBE/Users/application/UserEmailConfirmator

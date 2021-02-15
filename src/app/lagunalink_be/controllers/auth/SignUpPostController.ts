@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import httpStatus from 'http-status';
 import { Controller } from '../Controller';
 import { UserCreator } from '../../../../Contexts/LLBE/Users/application/UserCreator';
 import { CreateUserRequest } from '../../../../Contexts/LLBE/Users/application/CreateUserRequest';

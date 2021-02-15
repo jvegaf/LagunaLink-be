@@ -4,4 +4,8 @@ imports:
 services:
   App.EnvironmentArranger:
     class: ../../../../../tests/Contexts/Shared/infrastructure/mongo/MongoEnvironmentArranger
-    arguments: ['@App.shared.ConnectionManager']
+    arguments: [ '@App.shared.ConnectionManager' ]
+
+  App.Mailer:
+    class: ../../../../../src/Contexts/Shared/infrastructure/mail/MockMailer
+    arguments: [ ]

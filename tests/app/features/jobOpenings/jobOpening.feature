@@ -87,3 +87,12 @@ Feature: Job Opening
     When I send a GET request to "/job_openings/311d5640-07f8-485e-bf39-6b78a057e4a6"
 
     Then the response status code should be 200
+
+  Scenario: Get all Job Openings
+    Given Several Job Openings were previously created
+    And I have a Student Role Account
+    And I am logged in the application
+
+    When I send a GET request to "/job_openings"
+
+    Then the response status code should be 200

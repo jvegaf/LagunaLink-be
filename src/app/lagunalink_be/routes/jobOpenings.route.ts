@@ -4,6 +4,7 @@ import { JobOpeningPostController } from '../controllers/jobOpenings/JobOpeningP
 import { JobOpeningPutController } from '../controllers/jobOpenings/JobOpeningPutController';
 import { JobOpeningDeleteController } from '../controllers/jobOpenings/JobOpeningDeleteController';
 import { JobOpeningGetController } from '../controllers/jobOpenings/JobOpeningGetController';
+import { JobOpeningFetchController } from '../controllers/jobOpenings/JobOpeningFetchController';
 
 export const register = (router: Router) => {
   const jobOpeningGetController: JobOpeningGetController = container.get(
@@ -11,6 +12,13 @@ export const register = (router: Router) => {
   );
   router.get('/job_openings/:id', (req: Request, res: Response) =>
     jobOpeningGetController.run(req, res)
+  );
+
+  const jobOpeningFetchController: JobOpeningFetchController = container.get(
+    'App.controllers.jobOpenings.JobOpeningFetchController'
+  );
+  router.get('/job_openings', (req: Request, res: Response) =>
+    jobOpeningFetchController.run(req, res)
   );
 
   const jobOpeningPostController: JobOpeningPostController = container.get(
