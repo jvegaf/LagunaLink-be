@@ -84,6 +84,6 @@ Feature: Company Registry
     And I have a Student Role Account
     And I am logged in the application
 
-    When I send a GET request to "companies/63252037-4292-46e4-bb5d-27966852f116/job_openings"
+    When I send a GET request to "/companies/63252037-4292-46e4-bb5d-27966852f116/job_openings"
 
     Then the response status code should be 200
