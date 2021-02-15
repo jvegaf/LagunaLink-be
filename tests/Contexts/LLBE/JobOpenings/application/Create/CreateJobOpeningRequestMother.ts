@@ -46,4 +46,16 @@ export class CreateJobOpeningRequestMother {
       JobOpenPrevExperienceMother.random()
     );
   }
+
+  static randomOfCompany(companyId: string): CreateJobOpeningRequest {
+    return this.create(
+      CompanyIdMother.create(companyId),
+      JobOpenTitleMother.random(),
+      JobOpenPositionMother.random(),
+      JobOpenConditionsMother.random(),
+      JobOpenResponsibilitiesMother.random(),
+      JobOpenQualificationMother.random(),
+      JobOpenPrevExperienceMother.random()
+    );
+  }
 }
