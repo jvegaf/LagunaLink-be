@@ -21,7 +21,7 @@
 - [X] PUT /companies/{id}                                    # update a company account
 
 ### Job Openings
-- [ ] GET /job_openings                                      # get all job openings
+- [X] GET /job_openings                                      # get all job openings
 - [X] GET /job_openings/{id}                                 # get a job opening
 - [X] POST /job_openings                                     # create a job opening
 - [X] PUT /job_openings/{id}                                 # update a job opening
