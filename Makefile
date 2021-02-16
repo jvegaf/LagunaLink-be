@@ -29,13 +29,13 @@ clean:
 database_start:
 	@docker-compose up -d mongo
 
+.PHONY: dev
+dev: database_start
+	@npm run dev
+
 .PHONY: local/start
 local/start: database_start
 	@npm run build && npm run start
-
-.PHONY: local/dev
-local/dev: database_start
-	@npm run build && npm run dev
 
 .PHONY: local/test
 local/test: database_start

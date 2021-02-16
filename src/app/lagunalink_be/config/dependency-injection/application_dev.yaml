@@ -4,4 +4,4 @@ imports:
 services:
   App.Mailer:
     class: ../../../../../src/Contexts/Shared/infrastructure/mail/MockMailer
-    arguments: [ ]
+    arguments: ['@App.users.UserRepository', '@App.users.UserEmailConfirmator']
