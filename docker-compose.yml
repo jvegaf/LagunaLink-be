@@ -7,7 +7,7 @@ services:
     ports:
       - 3300:3300
     environment:
-      - MONGO_URL=mongodb://mongo:27017/dev
+      - MONGODB_URI=mongodb://mongo:27017/dev
     depends_on:
       - mongo
     volumes:

@@ -11,7 +11,7 @@ const convictConfig = convict({
     url: {
       doc: 'The Mongo connection URL',
       format: String,
-      env: 'MONGO_URI',
+      env: 'MONGODB_URI',
       default: 'mongodb://mongo:27017/dev'
     }
   }
