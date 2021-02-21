@@ -26,9 +26,5 @@ jobs:
           npm ci
           npm run build --if-present
           npm test
-      - name: todo-actions
-        uses: dtinth/todo-actions@v0.2.0
-      - name: Pull Request size labeler
-        uses: CodelyTV/pr-size-labeler@v1
         env:
           CI: true
