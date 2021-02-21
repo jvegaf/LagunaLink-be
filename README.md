@@ -1,6 +1,8 @@
 #  🎯 LagunaLink Backend
 
-![Node CI status](https://github.com/jvegaf/LagunaLink-be/workflows/Node%20CI/badge.svg?branch=master)
+[![Node CI](https://github.com/jvegaf/LagunaLink-be/actions/workflows/nodejs.yml/badge.svg?branch=master&event=push)](https://github.com/jvegaf/LagunaLink-be/actions/workflows/nodejs.yml)
+[![TODO checker](https://github.com/jvegaf/LagunaLink-be/actions/workflows/todo-checker.yml/badge.svg?event=push)](https://github.com/jvegaf/LagunaLink-be/actions/workflows/todo-checker.yml)
+
 
 [Estado de implementacion del API](https://github.com/jvegaf/LagunaLink-be/blob/master/api-endpoints.md)
 
@@ -56,4 +58,3 @@ make local/test-unit
 ```shell script
 make local/test-features
 ```
-
