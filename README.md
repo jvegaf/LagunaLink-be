@@ -1,6 +1,6 @@
 #  🎯 LagunaLink Backend
 
-[![Node CI](https://github.com/jvegaf/LagunaLink-be/actions/workflows/nodejs.yml/badge.svg?branch=master&event=pull_request_target)](https://github.com/jvegaf/LagunaLink-be/actions/workflows/nodejs.yml)
+[![Node CI](https://github.com/jvegaf/LagunaLink-be/actions/workflows/nodejs.yml/badge.svg?event=pull_request_target)](https://github.com/jvegaf/LagunaLink-be/actions/workflows/nodejs.yml)
 [![TODO checker](https://github.com/jvegaf/LagunaLink-be/actions/workflows/todo-checker.yml/badge.svg?event=push)](https://github.com/jvegaf/LagunaLink-be/actions/workflows/todo-checker.yml)
 
 
