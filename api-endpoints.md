@@ -14,9 +14,8 @@
 - [X] PUT /students/{id}                                     # update a student account
 
 ### Companies
-- [ ] GET /companies                                         # get all companies
-- [X] GET /companies/{id} # get a company account
-- [X] GET /companies/{id}/job_openings # get all job openings from a company
+- [X] GET /companies/{id}                                    # get a company account
+- [X] GET /companies/{id}/job_openings                       # get all job openings from a company
 - [X] POST /companies # register a company account
 - [X] PUT /companies/{id}                                    # update a company account
 
