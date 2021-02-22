@@ -5,7 +5,7 @@ Feature: Job Opening
     Given I have a Company Role Account
     And I am logged in the application
 
-    When I send a POST request with Auth header to "/job_openings" with body:
+    When I send a POST request to "/job_openings" with body:
     """
     {
       "title": "Frontend Developer",
@@ -22,7 +22,7 @@ Feature: Job Opening
     Given I have a Student Role Account
     And I am logged in the application
 
-    When I send a POST request with Auth header to "/job_openings" with body:
+    When I send a POST request to "/job_openings" with body:
     """
     {
       "title": "Frontend Developer",

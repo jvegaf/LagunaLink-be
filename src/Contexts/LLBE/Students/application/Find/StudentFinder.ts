@@ -15,8 +15,10 @@ export class StudentFinder extends ApplicationService {
   async run(studentId: StudentId): Promise<Student> {
     const result = await this.repository.search(studentId);
     if (result === null) {
+      this.logError(`Not found a student with id ${studentId.value}`);
       throw new StudentNotFound(`Not found a student with id ${studentId.value}`);
     }
+    this.logInfo(`Founded student with id ${studentId.value}`);
     return result;
   }
 }

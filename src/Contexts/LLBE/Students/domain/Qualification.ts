@@ -4,16 +4,17 @@ import { EndDate } from '../../Shared/domain/EndDate';
 
 export class Qualification {
   readonly title: TitleName;
-  readonly start_date: StartDate;
-  readonly end_date: EndDate;
+  readonly startDate: StartDate;
+  readonly endDate: EndDate;
 
-  constructor(title: TitleName, start_date: StartDate, end_date: EndDate) {
+  constructor(title: TitleName, startDate: StartDate, endDate: EndDate) {
     this.title = title;
-    this.start_date = start_date;
-    this.end_date = end_date;
+    this.startDate = startDate;
+    this.endDate = endDate;
   }
 
   static fromPrimitives(plaindata: { title: string, start_date: string, end_date: string }) {
+    if (plaindata === undefined) { return; }
     return new Qualification(
       new TitleName(plaindata.title),
       new StartDate(plaindata.start_date),
@@ -24,8 +25,8 @@ export class Qualification {
   toPrimitives() {
     return {
       title: this.title.value,
-      start_date: this.start_date.toString(),
-      end_date: this.end_date.toString()
+      start_date: this.startDate.toString(),
+      end_date: this.endDate.toString()
     };
   }
 }

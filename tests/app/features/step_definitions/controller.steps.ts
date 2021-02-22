@@ -76,7 +76,7 @@ async function createUser(role: string, id = '', registered = true) {
     }
     return {
         id: userRequest.id,
-        email: user.email.value,
+        email: userRequest.email,
         password: passwordPlane,
     };
 }
@@ -157,6 +157,10 @@ Given('I have a Student Role Account with id {string}', async (id: string) => {
     authRequest = await createUser('ROLE_STUDENT', id);
 });
 
+Given('I have a Company Role Account with id {string}', async (id: string) => {
+    authRequest = await createUser('ROLE_COMPANY', id);
+});
+
 Given('I have a Student Role Account without complete register', async () => {
     authRequest = await createUser('ROLE_STUDENT', '', false);
 });
@@ -205,43 +209,33 @@ When('I send a GET request to {string}', (route: string) => {
 });
 
 When(
-  'I send a POST request to {string} with body:',
-  (route: string, body: string) => {
+  'I send a POST request to {string}',
+  (route: string) => {
+      if (accessToken === '') {
+          _request = request(app).post(route).send();
+      }
       _request = request(app)
         .post(route)
+        .auth(accessToken, {type: 'bearer'})
+        .send();
+  }
+);
+
+When(
+  'I send a POST request to {string} with body:',
+  (route: string, body: string) => {
+      if (accessToken === '') {
+          _request = request(app).post(route).send(JSON.parse(body));
+      }
+      _request = request(app)
+        .post(route)
+        .auth(accessToken, {type: 'bearer'})
         .send(JSON.parse(body));
   }
 );
 
-When('I send a POST request with Auth header to {string}', (route: string) => {
-    _request = request(app)
-        .post(route)
-        .auth(accessToken, {type: 'bearer'})
-        .send();
-});
-
-When(
-    'I send a POST request with Auth header to {string} with body:',
-    (route: string, body: string) => {
-        _request = request(app)
-            .post(route)
-            .auth(accessToken, {type: 'bearer'})
-            .send(JSON.parse(body));
-    }
-);
-
 When(
     'I send a PUT request to {string} with body:',
-    (route: string, body: string) => {
-        _request = request(app)
-            .put(route)
-            .auth(accessToken, {type: 'bearer'})
-            .send(JSON.parse(body));
-    }
-);
-
-When(
-    'I send a PUT request with Auth header to {string} with body:',
     (route: string, body: string) => {
         _request = request(app)
             .put(route)
@@ -270,6 +264,10 @@ Then('the response should be empty', () => {
 
 Then('the response content should be:', (response) => {
     assert.strictEqual(_response.body, JSON.parse(response));
+});
+
+Then('print the response', () => {
+    console.log(_response.body);
 });
 
 Before(async () => {
