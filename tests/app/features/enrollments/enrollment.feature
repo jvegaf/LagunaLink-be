@@ -5,5 +5,5 @@ Feature: Enrollments
     Given I have a Student Role Account
     And I am logged in the application
     And exists a Job Opening with id "96db8670-7ad1-4a91-b917-35decef5c49e"
-    When I send a POST request with Auth header to "/job_openings/96db8670-7ad1-4a91-b917-35decef5c49e/enrollments"
+    When I send a POST request to "/job_openings/96db8670-7ad1-4a91-b917-35decef5c49e/enrollments"
     Then the response status code should be 201

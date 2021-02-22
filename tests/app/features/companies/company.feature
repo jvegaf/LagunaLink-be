@@ -5,7 +5,7 @@ Feature: Company Registry
   Scenario: Register a Company account
     Given I have a Company Role Account without complete register
     And I am logged in the application
-    When I send a POST request with Auth header to "/companies" with body:
+    When I send a POST request to "/companies" with body:
     """
     {
       "name": "La sureña",
@@ -22,7 +22,7 @@ Feature: Company Registry
     Given I have a Student Role Account
     And I am logged in the application
 
-    When I send a POST request with Auth header to "/companies" with body:
+    When I send a POST request to "/companies" with body:
     """
     {
       "name": "La sureña",
@@ -39,7 +39,7 @@ Feature: Company Registry
     Given I have a Company Role Account
     And I am logged in the application
 
-    When I send a POST request with Auth header to "/companies" with body:
+    When I send a POST request to "/companies" with body:
     """
     {
       "name": "La sureña",
@@ -53,10 +53,10 @@ Feature: Company Registry
     Then the response status code should be 400
 
   Scenario: Upgrade a company with new data
-    Given I have a Company Role Account
+    Given I have a Company Role Account with id "60c72c72-00d0-4231-adb1-1be01c6a4e13"
     And I am logged in the application
 
-    When I send a PUT request with Auth header to "/companies" with body:
+    When I send a PUT request to "/companies/60c72c72-00d0-4231-adb1-1be01c6a4e13" with body:
     """
     {
       "name": "La Sureña",

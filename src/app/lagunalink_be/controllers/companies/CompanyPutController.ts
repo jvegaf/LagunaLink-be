@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { Controller } from '../Controller';
-import { AuthJWTChecker } from '../../../../Contexts/LLBE/Users/infrastructure/token/AuthJWTChecker';
 import { Token } from '../../../../Contexts/LLBE/Users/domain/Token';
 import httpStatus from 'http-status';
 import { Payload } from '../../../../Contexts/LLBE/Users/domain/Payload';
@@ -40,6 +39,10 @@ export class CompanyPutController implements Controller {
     } catch (e) {
       res.status(400).send({ error: e.message });
       return;
+    }
+
+    if (payload.userId !== req.params.id) {
+      res.status(403).send();
     }
 
     const companyRequest: CompanyRequest = { ...req.body, id: payload.userId };

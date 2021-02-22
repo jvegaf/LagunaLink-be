@@ -11,7 +11,7 @@ import { StudentLastnameMother } from './StudentLastnameMother';
 import { Qualification } from '../../../../../src/Contexts/LLBE/Students/domain/Qualification';
 import { Language } from '../../../../../src/Contexts/LLBE/Students/domain/Language';
 import { JobExperience } from '../../../../../src/Contexts/LLBE/Students/domain/JobExperience';
-import { QualificationsMother } from './QualificationsMother';
+import { QualificationMother } from './QualificationMother';
 import { StudentLangsMother } from './StudentLangsMother';
 import { JobExperiencesMother } from './JobExperiencesMother';
 
@@ -21,10 +21,10 @@ export class StudentMother {
       name: StudentName,
       surname: StudentSurname,
       lastname: StudentLastname,
-      qualifications?: Qualification[],
+      qualification?: Qualification,
       languages?: Language[],
       jobexperiences?: JobExperience[]): Student {
-        return new Student(id, name, surname, lastname, qualifications, languages, jobexperiences);
+        return new Student(id, name, surname, lastname, qualification, languages, jobexperiences);
     }
 
     static fromCreateRequest(request: CreateStudentRequest): Student {
@@ -42,7 +42,7 @@ export class StudentMother {
             StudentNameMother.random(),
             StudentSurnameMother.random(),
             StudentLastnameMother.random(),
-            QualificationsMother.random(),
+            QualificationMother.random(),
             StudentLangsMother.random(),
             JobExperiencesMother.random()
         );

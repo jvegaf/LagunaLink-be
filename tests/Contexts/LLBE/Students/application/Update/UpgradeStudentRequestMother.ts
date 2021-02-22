@@ -3,7 +3,7 @@ import { StudentSurnameMother } from '../../domain/StudentSurnameMother';
 import { StudentLastnameMother } from '../../domain/StudentLastnameMother';
 import { StudentIdMother } from '../../../Shared/domain/Students/StudentIdMother';
 import { UpgradeStudentRequest } from '../../../../../../src/Contexts/LLBE/Students/application/Update/UpgradeStudentRequest';
-import { QualificationsMother } from '../../domain/QualificationsMother';
+import { QualificationMother } from '../../domain/QualificationMother';
 import { StudentLangsMother } from '../../domain/StudentLangsMother';
 import { JobExperiencesMother } from '../../domain/JobExperiencesMother';
 
@@ -13,8 +13,9 @@ export class UpgradeStudentRequestMother {
     name: string,
     surname: string,
     lastname: string,
-    qualifications: { end_date: string; title: string; start_date: string }[],
+    qualification: { end_date: string; title: string; start_date: string },
     languages: { name: string; speak: number; write: number }[],
+    // tslint:disable-next-line:variable-name
     job_experiences: {
       company: string;
       position: string;
@@ -27,7 +28,7 @@ export class UpgradeStudentRequestMother {
       name: name,
       surname: surname,
       lastname: lastname,
-      qualifications: qualifications,
+      qualification: qualification,
       languages: languages,
       job_experiences: job_experiences
     };
@@ -39,7 +40,7 @@ export class UpgradeStudentRequestMother {
       StudentNameMother.random().value,
       StudentSurnameMother.random().value,
       StudentLastnameMother.random().value,
-      QualificationsMother.randomToPrimitives(),
+      QualificationMother.random().toPrimitives(),
       StudentLangsMother.randomToPrimitives(),
       JobExperiencesMother.randomToPrimitives()
     );

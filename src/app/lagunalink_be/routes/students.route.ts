@@ -22,7 +22,7 @@ export const register = (router: Router) => {
     const studentPutController: StudentPutController = container.get(
         'App.controllers.students.StudentPutController'
     );
-    router.put('/students', (req: Request, res: Response) =>
+    router.put('/students/:id', (req: Request, res: Response) =>
         studentPutController.run(req, res)
     );
 };

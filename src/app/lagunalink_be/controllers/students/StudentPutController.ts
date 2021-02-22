@@ -41,6 +41,10 @@ export class StudentPutController implements Controller {
       return;
     }
 
+    if (payload.userId !== req.params.id) {
+      res.status(403).send();
+    }
+
     const studentRequest: UpgradeStudentRequest = {
       ...req.body,
       id: payload.userId,

@@ -30,7 +30,7 @@ export const register = (router: Router) => {
   const companyPutController: CompanyPutController = container.get(
     'App.controllers.companies.CompanyPutController'
   );
-  router.put('/companies', (req: Request, res: Response) =>
+  router.put('/companies/:id', (req: Request, res: Response) =>
     companyPutController.run(req, res)
   );
 };

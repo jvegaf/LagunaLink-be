@@ -46,7 +46,8 @@ export class StudentGetController implements Controller {
         }
 
         try {
-            const student = await this.finder.run(new StudentId(req.params.id));
+            // @ts-ignore
+            const student = await this.finder.run(new StudentId(payload.userId));
 
             res.status(200).send({student: student.toPrimitives()});
         } catch (e) {
