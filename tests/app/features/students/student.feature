@@ -1,3 +1,4 @@
+
 Feature: Student Registry
   The next step after of create a new account is complete
   the registry of a student account.
@@ -96,29 +97,30 @@ Feature: Student Registry
     Then the response status code should be 403
 
 
-  Scenario: Upgrade a student with new data
+  Scenario: Upgrade a student Qualification
+    Given I have a Student Role Account with id "e204cdf4-e012-4915-84c8-f5c2a812176c"
+    And I am logged in the application
+
+    When I send a PUT request to "/students/e204cdf4-e012-4915-84c8-f5c2a812176c" with body:
+    """
+    {
+      "qualification" :
+        {
+            "title" : "Ingenierio Aeronautico",
+            "start_date" : "2020-08-18",
+            "end_date" : "2020-08-27"
+        }
+    }
+    """
+    Then the response status code should be 200
+
+Scenario: Upgrade a student with new data
     Given I have a Student Role Account with id "e6d3cd09-2985-441d-9c49-1c3f23d16a92"
     And I am logged in the application
 
     When I send a PUT request to "/students/e6d3cd09-2985-441d-9c49-1c3f23d16a92" with body:
     """
     {
-      "name" : "quibusdam",
-      "surname" : "nihil",
-      "lastname" : "ipsum",
-      "qualification" :
-        {
-            "title" : "Ingenierio Aeronautico",
-            "start_date" : "2020-08-18",
-            "end_date" : "2020-08-27"
-        },
-      "languages" : [
-          {
-              "name" : "English",
-              "speak" : 3,
-              "write" : 4
-          }
-      ],
       "job_experiences" : [
           {
               "company" : "repudiandae",
