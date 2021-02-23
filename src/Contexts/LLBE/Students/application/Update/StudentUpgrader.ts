@@ -4,12 +4,13 @@ import { UpgradeStudentRequest } from './UpgradeStudentRequest';
 import { ApplicationService } from '../../../../Shared/domain/ApplicationService';
 import { UserLastUpdateResumer } from '../../../Users/application/UserLastUpdateResumer';
 import { UserId } from '../../../Shared/domain/Users/UserId';
+import { LastUpdateResumer } from '../../../Users/application/LastUpdateResumer';
 
 export class StudentUpgrader extends ApplicationService {
   private repository: StudentRepository;
-  private userUpdater: UserLastUpdateResumer;
+  private userUpdater: LastUpdateResumer;
 
-  constructor(repository: StudentRepository, userUpdater: UserLastUpdateResumer) {
+  constructor(repository: StudentRepository, userUpdater: LastUpdateResumer) {
     super();
     this.repository = repository;
     this.userUpdater = userUpdater;

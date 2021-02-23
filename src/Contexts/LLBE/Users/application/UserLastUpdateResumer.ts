@@ -1,10 +1,11 @@
 import { UserRepository } from '../domain/UserRepository';
 import { User } from '../domain/User';
 import { UserId } from '../../Shared/domain/Users/UserId';
+import { LastUpdateResumer } from './LastUpdateResumer';
 import { ApplicationService } from '../../../Shared/domain/ApplicationService';
 
-export class UserLastUpdateResumer extends ApplicationService {
-  private repository: UserRepository;
+export class UserLastUpdateResumer extends ApplicationService implements LastUpdateResumer {
+  repository: UserRepository;
 
   constructor(repository: UserRepository) {
     super();

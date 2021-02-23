@@ -8,8 +8,8 @@ describe('Student', () => {
 
     const student = StudentMother.fromCreateRequest(request);
 
-    expect(student.name.value).toBe(request.name);
-    expect(student.surname.value).toBe(request.surname);
-    expect(student.lastname.value).toBe(request.lastname);
+    expect(student.name!.value).toBe(request.name);
+    expect(student.surname!.value).toBe(request.surname);
+    expect(student.lastname!.value).toBe(request.lastname);
   });
 });
