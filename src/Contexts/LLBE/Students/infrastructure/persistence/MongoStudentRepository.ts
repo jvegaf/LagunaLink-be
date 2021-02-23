@@ -15,7 +15,7 @@ export class MongoStudentRepository extends MongoRepository<Student> implements 
 
     const document = await collection.findOne({ _id: id.value });
 
-    return document ? Student.fromPrimitives({ ...document, id: id.value }) : null;
+    return document ? Student.fromPrimitives({...document, id: id.value}) : null;
   }
 
   protected moduleName(): string {

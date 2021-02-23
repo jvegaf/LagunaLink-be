@@ -15,5 +15,6 @@ export class StudentUpgrader extends ApplicationService {
 
     const student = Student.fromPrimitives(request);
     await this.repository.save(student);
+    this.logInfo(`student ${request.id} updated`);
   }
 }
