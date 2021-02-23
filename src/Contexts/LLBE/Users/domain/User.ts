@@ -110,6 +110,19 @@ export class User extends AggregateRoot {
     );
   }
 
+  resumeUpdatedAt(): User {
+    return new User(
+      this.id,
+      this.email,
+      this.password,
+      this.isActive,
+      this.role,
+      this.registered,
+      this.createdAt,
+      new UserUpdatedAt(Timestamp.now())
+    );
+  }
+
   register(): User {
     return new User(
       this.id,

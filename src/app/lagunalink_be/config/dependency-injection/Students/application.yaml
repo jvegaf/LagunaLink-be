@@ -10,7 +10,7 @@ services:
 
   App.students.StudentUpgrader:
     class: ../../../../../Contexts/LLBE/Students/application/Update/StudentUpgrader
-    arguments: ['@App.students.StudentRepository']
+    arguments: ['@App.students.StudentRepository', '@App.users.UserLastUpdateResumer']
 
   App.students.StudentFinder:
     class: ../../../../../Contexts/LLBE/Students/application/Find/StudentFinder
