@@ -27,5 +27,6 @@
 
 ### Enrollments
 - [X] GET /job_openings/{id}/enrollments                     # get all enrollments of one job opening
+- [X] GET /enrollments/{id}                                  # get determinate enrollment
 - [X] POST /job_openings/{id}/enrollments                    # create a enrollment
-- [X] DELETE /job_openings/enrollments/{id}                  # remove a enrollment
+- [X] DELETE /enrollments/{id}                                # remove a enrollment
