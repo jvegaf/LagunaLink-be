@@ -30,14 +30,14 @@ export class StudentPutController implements Controller {
     try {
       payload = this.authChecker.check(token);
     } catch (e) {
-      res.status(402).send({ message: e.message });
+      res.status(401).send({ message: e.message });
       return;
     }
 
     try {
       this.authRoleChecker.check(payload);
     } catch (e) {
-      res.status(400).send({ error: e.message });
+      res.status(403).send({ error: e.message });
       return;
     }
 

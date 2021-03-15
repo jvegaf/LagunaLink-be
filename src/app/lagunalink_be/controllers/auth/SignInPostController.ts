@@ -22,8 +22,14 @@ export class SignInPostController implements Controller {
       const response = await this.userAuth.run(request);
       res
         .status(response.code)
-        .send({ user_role: response.role, user_id: response.userId, access_token: response.token });
-    } catch (e) {
+        .send({
+          user_role: response.role,
+          user_id: response.userId,
+          access_token: response.token,
+          email: response.email
+        });
+    }
+    catch (e) {
       if (e instanceof AccountNotConfirmed) {
         res.status(NOT_ACTIVE_STATUS_CODE).send();
       }

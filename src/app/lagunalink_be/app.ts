@@ -7,11 +7,15 @@ import { registerRoutes } from './routes';
 import dotenv from 'dotenv';
 import path from 'path';
 import cors from 'cors';
+import swaggerUi from 'swagger-ui-express';
+import YAML from 'yamljs';
 
 dotenv.config();
 const defaultEnv = 'local';
 const envPath = path.resolve(process.cwd(), `.env.${defaultEnv}`);
 dotenv.config({ path: envPath });
+
+const swaggerDocument = YAML.load('./openapi.yaml');
 
 const app: express.Express = express();
 
@@ -25,6 +29,12 @@ app.use(helmet.noSniff());
 app.use(helmet.hidePoweredBy());
 app.use(helmet.frameguard({ action: 'deny' }));
 app.use(compress());
+
+app.use(
+  '/docs',
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument)
+);
 
 const router = Router();
 app.use(router);

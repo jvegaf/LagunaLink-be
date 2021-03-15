@@ -1,0 +1,811 @@
+openapi: 3.0.1
+info:
+  description: This is the backend of the Lagunalink App.  You can find out more about this project at [https://github.com/jvegaf/LagunaLink-be](https://github.com/jvegaf/LagunaLink-be)
+  version: 1.1.0
+  title: LagunaLink Backend
+  contact:
+    email: josevega234@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+paths:
+  /auth/signin:
+    post:
+      tags:
+        - Auth
+      summary: Authenticate in the Application
+      requestBody:
+        $ref: '#/components/requestBodies/SignInBody'
+      responses:
+        '200':
+          $ref: '#/components/responses/AuthSuccess'
+        '230':
+          $ref: '#/components/responses/AuthSuccessRegister'
+        '231':
+          $ref: '#/components/responses/AuthSuccessRegister'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '450':
+          $ref: '#/components/responses/Inactive'
+
+  /auth/signup:
+    post:
+      tags:
+        - Auth
+      summary: Create new user account in the Application
+      requestBody:
+        $ref: '#/components/requestBodies/SignUpBody'
+      responses:
+        '201':
+          description: Created
+
+
+  /students:
+    post:
+      tags:
+        - Student
+      summary: Register a Student Account
+      security:
+        - BearerAuth: []
+      requestBody:
+        $ref: '#/components/requestBodies/StudentPostBody'
+
+      responses:
+        '200':
+          $ref: '#/components/responses/AuthSuccess'
+
+  /students/{studentId}:
+    get:
+      tags:
+        - Student
+      summary: Gets a Student By Id
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: studentId
+          in: path
+          description: Student ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  student:
+                    $ref: '#/components/schemas/Student'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      tags:
+        - Student
+      summary: Update a Student
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: studentId
+          in: path
+          description: Student ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        $ref: '#/components/requestBodies/StudentPutBody'
+      responses:
+        '200':
+          $ref: '#/components/responses/Success'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /companies:
+    post:
+      tags:
+        - Company
+      security:
+        - BearerAuth: []
+      summary: Register a Company Account
+      requestBody:
+        $ref: '#/components/requestBodies/CompanyBody'
+      responses:
+        '201':
+          description: Created
+
+  /companies/{companyId}:
+    get:
+      tags:
+        - Company
+      security:
+        - BearerAuth: []
+      summary: Gets a Company By Id
+      parameters:
+        - name: companyId
+          in: path
+          description: Company ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  company:
+                    $ref: '#/components/schemas/Company'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      tags:
+        - Company
+      security:
+        - BearerAuth: []
+      summary: Update a Company
+      parameters:
+        - name: companyId
+          in: path
+          description: Company ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        $ref: '#/components/requestBodies/CompanyBody'
+      responses:
+        '200':
+          $ref: '#/components/responses/Success'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /companies/{companyId}/job_openings:
+    get:
+      tags:
+        - Job Opening
+      security:
+        - BearerAuth: [ ]
+      summary: Gets all Job Openings of determiate Company
+      parameters:
+        - name: companyId
+          in: path
+          description: Company ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job_openings:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Company'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      tags:
+        - Job Opening
+      security:
+        - BearerAuth: []
+      summary: Update a Company
+      parameters:
+        - name: companyId
+          in: path
+          description: Company ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        $ref: '#/components/requestBodies/CompanyBody'
+      responses:
+        '200':
+          $ref: '#/components/responses/Success'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /job_openings:
+    get:
+      tags:
+        - Job Opening
+      security:
+        - BearerAuth: []
+      summary: Returns a list of job openings.
+      responses:
+        '200':
+          description: A JSON array of job opening objects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/JobOpening'
+
+    post:
+      tags:
+        - Job Opening
+      security:
+        - BearerAuth: [ ]
+      summary: Create a new job opening
+      requestBody:
+        $ref: '#/components/requestBodies/JobOpeningBody'
+
+      responses:
+        '201':
+          description: Created
+
+  /job_openings/{jobOpeningId}:
+    get:
+      tags:
+        - Job Opening
+      security:
+        - BearerAuth: []
+      summary: Gets a JobOpening By Id
+      parameters:
+        - name: jobOpeningId
+          in: path
+          description: JobOpening ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job_opening:
+                    $ref: '#/components/schemas/JobOpening'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      tags:
+        - Job Opening
+      security:
+        - BearerAuth: []
+      summary: Update a JobOpening
+      parameters:
+        - name: jobOpeningId
+          in: path
+          description: JobOpening ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        $ref: '#/components/requestBodies/JobOpeningBody'
+      responses:
+        '200':
+          $ref: '#/components/responses/Success'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /job_openings/{jobOpeningId}/enrollments:
+    get:
+      tags:
+        - Enrollment
+      security:
+        - BearerAuth: []
+      summary: Gets all enrollments of a determinate JobOpening
+      parameters:
+        - name: jobOpeningId
+          in: path
+          description: JobOpening ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  enrollments:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Enrollment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      tags:
+        - Enrollment
+      security:
+        - BearerAuth: []
+      summary: Create a new Enrollment of determinate Job Opening
+      parameters:
+        - name: jobOpeningId
+          in: path
+          description: JobOpening ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        $ref: '#/components/requestBodies/EnrollmentBody'
+      responses:
+        '200':
+          $ref: '#/components/responses/Success'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /enrollments/{enrollmentId}:
+    get:
+      tags:
+        - Enrollment
+      security:
+        - BearerAuth: [ ]
+      summary: Gets a Enrollment By Id
+      parameters:
+        - name: enrollmentId
+          in: path
+          description: Enrollment ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  enrollment:
+                    $ref: '#/components/schemas/Enrollment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      tags:
+        - Enrollment
+      security:
+        - BearerAuth: [ ]
+      summary: Remove determinate Enrollment
+      parameters:
+        - name: enrollmentId
+          in: path
+          description: Enrollment ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          $ref: '#/components/responses/Success'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+components:
+  schemas:
+    Signin:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      required:
+        - email
+        - password
+    SignUp:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        role:
+          type: string
+          enum:
+            - ROLE_STUDENT
+            - ROLE_COMPANY
+      required:
+        - email
+        - password
+        - role
+
+    Auth:
+      type: object
+      properties:
+        code:
+          type: integer
+        role:
+          type: string
+          enum:
+            - ROLE_STUDENT
+            - ROLE_COMPANY
+        userId:
+          type: string
+          format: uuid
+        email:
+          type: string
+        access_token:
+          type: string
+      required:
+        - code
+        - role
+        - userId
+        - email
+        - access_token
+
+
+    Student:
+      allOf:
+        - $ref: '#/components/schemas/StudentBasic'
+        - $ref: '#/components/schemas/StudentExtend'
+        - type: object
+          required:
+            - id
+            - name
+            - surname
+            - lastname
+          properties:
+            id:
+              type: string
+              format: uuid
+    StudentBasic:
+      type: object
+      properties:
+        name:
+          type: string
+        surname:
+          type: string
+        lastname:
+          type: string
+      required:
+        - name
+        - surname
+        - lastname
+    StudentExtend:
+      type: object
+      properties:
+        qualification:
+          type: object
+        languages:
+          type: array
+          items:
+            $ref: "#/components/schemas/Language"
+        job_experiences:
+          type: array
+          items:
+            $ref: "#/components/schemas/JobExperience"
+
+    CompanyBasic:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        address:
+          type: string
+        postalCode:
+          type: integer
+        region:
+          type: string
+        city:
+          type: string
+      required:
+        - id
+        - name
+        - description
+        - address
+        - postalCode
+        - region
+        - city
+    Company:
+      allOf:
+        - $ref: '#/components/schemas/CompanyBasic'
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+
+    Language:
+      type: object
+      properties:
+        name:
+          type: string
+        speak:
+          type: integer
+          minimum: 1
+          maximum: 5
+        write:
+          type: integer
+          minimum: 1
+          maximum: 5
+      required:
+        - name
+        - speak
+        - write
+
+    Qualification:
+      type: object
+      properties:
+        title:
+          type: string
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+      required:
+        - title
+        - start_date
+        - end_date
+
+    JobExperience:
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+        responsibilities:
+          type: string
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+      required:
+        - company
+        - position
+        - responsibilities
+        - start_date
+        - end_date
+
+    JobOpeningBasic:
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+        responsibilities:
+          type: string
+        conditions:
+          type: string
+        qualification:
+          type: string
+        prevExperience:
+          type: string
+      required:
+        - company
+        - position
+        - responsibilities
+    JobOpening:
+      allOf:
+        - $ref: '#/components/schemas/JobOpeningBasic'
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+
+    User:
+      type: object
+      properties:
+        email:
+          type: string
+        role:
+          type: string
+          enum:
+            - ROLE_STUDENT
+            - ROLE_COMPANY
+        password:
+          type: string
+      required:
+        - id
+        - email
+        - role
+        - password
+
+    EnrollmentBasic:
+      type: object
+      properties:
+        student:
+          type: string
+          format: uuid
+        jobOpening:
+          type: string
+          format: uuid
+        enrollmentDate:
+          type: string
+          format: date
+      required:
+        - student
+        - jobOpening
+        - enrollmentDate
+    Enrollment:
+      allOf:
+        - $ref: '#/components/schemas/EnrollmentBasic'
+        - type: object
+          required:
+            - id
+          properties:
+            id:
+              type: string
+              format: uuid
+
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      required:
+        - code
+        - message
+
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  responses:
+    AuthSuccess:
+      description: Authentication Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Auth'
+    AuthSuccessRegister:
+      description: Authentication Success redirected to complete register process
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Auth'
+    Success:
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiResponse'
+    Unauthorized:
+      description: Access token is missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Access token does not have the required scope
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The specified resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Inactive:
+      description: The account is not verified yet
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+  requestBodies:
+    SignUpBody:
+      description: A JSON object containing email password and selected role
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SignUp'
+    SignInBody:
+      description: A JSON object containing email and password
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Signin'
+    UserBody:
+      description: A JSON object containing user information
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+    StudentPostBody:
+      description: A JSON object containing student information
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StudentBasic'
+    StudentPutBody:
+      description: A JSON object containing student information
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StudentExtend'
+    CompanyBody:
+      description: A JSON object containing company information
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Company'
+    JobOpeningBody:
+      description: A JSON object containing job opening information
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/JobOpeningBasic'
+    EnrollmentBody:
+      description: A JSON object containing enrollment information
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EnrollmentBasic'
