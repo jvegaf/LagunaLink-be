@@ -4,7 +4,10 @@
 [![TODO checker](https://github.com/jvegaf/LagunaLink-be/actions/workflows/todo-checker.yml/badge.svg?event=push)](https://github.com/jvegaf/LagunaLink-be/actions/workflows/todo-checker.yml)
 
 
-[Estado de implementacion del API](https://github.com/jvegaf/LagunaLink-be/blob/master/api-endpoints.md)
+[Estado de implementacion de la API](https://github.com/jvegaf/LagunaLink-be/blob/master/api-endpoints.md)
+
+## Documentacion de la API
+[Documentacion de la API](https://lagunalink-be.herokuapp.com/docs/)
 
 ## Preparacion del entorno
 1. Clonar el repositorio: `git clone https://github.com/jvegaf/LagunaLink-be.git`
