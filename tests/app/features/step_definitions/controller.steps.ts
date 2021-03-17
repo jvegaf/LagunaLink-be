@@ -27,6 +27,7 @@ import { JobOpeningMother } from '../../../Contexts/LLBE/JobOpenings/domain/JobO
 import { StudentIdMother } from '../../../Contexts/LLBE/Shared/domain/Students/StudentIdMother';
 import { CompanyIdMother } from '../../../Contexts/LLBE/Shared/domain/Companies/CompanyIdMother';
 import { CreateJobOpeningRequestMother } from '../../../Contexts/LLBE/JobOpenings/application/Create/CreateJobOpeningRequestMother';
+import path from 'path';
 
 let _request: request.Test;
 let _response: request.Response;
@@ -251,6 +252,16 @@ When(
             .delete(route)
             .auth(accessToken, {type: 'bearer'})
             .send();
+    }
+);
+
+When(
+    'Upload a image in a PUT request to {string}',
+    (route: string) => {
+        _request = request(app)
+          .put(route)
+          .auth(accessToken, { type: 'bearer' })
+          .attach('image', path.join(__dirname, 'fakelogo.jpg'));
     }
 );
 

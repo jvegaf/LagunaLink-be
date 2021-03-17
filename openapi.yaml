@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   description: This is the backend of the Lagunalink App.  You can find out more about this project at [https://github.com/jvegaf/LagunaLink-be](https://github.com/jvegaf/LagunaLink-be)
-  version: 1.1.0
+  version: 1.2.0
   title: LagunaLink Backend
   contact:
     email: josevega234@gmail.com
@@ -39,6 +39,87 @@ paths:
         '201':
           description: Created
 
+  /avatar/{id}:
+    get:
+      summary: Download determinate avatar
+      tags:
+        - Avatar
+      security:
+        - BearerAuth: [ ]
+      parameters:
+        - name: id
+          in: path
+          description: avatarId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /user/{id}/avatar:
+    put:
+      summary: Upload avatar image of user account
+      tags:
+        - Avatar
+      security:
+        - BearerAuth: [ ]
+      parameters:
+        - name: id
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          image/png:
+            schema:
+              type: string
+              format: binary
+          image/jpeg:
+            schema:
+              type: string
+              format: binary
+
+      responses:
+        '200':
+          description: Success
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    delete:
+      tags:
+        - Avatar
+      security:
+        - BearerAuth: [ ]
+      summary: Remove avatar of determinate user
+      parameters:
+        - name: id
+          in: path
+          description: User Id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          $ref: '#/components/responses/Success'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
 
   /students:
     post:
@@ -46,13 +127,17 @@ paths:
         - Student
       summary: Register a Student Account
       security:
-        - BearerAuth: []
+        - BearerAuth: [ ]
       requestBody:
         $ref: '#/components/requestBodies/StudentPostBody'
 
       responses:
         '200':
-          $ref: '#/components/responses/AuthSuccess'
+          $ref: '#/components/responses/Success'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
 
   /students/{studentId}:
     get:
@@ -60,7 +145,7 @@ paths:
         - Student
       summary: Gets a Student By Id
       security:
-        - BearerAuth: []
+        - BearerAuth: [ ]
       parameters:
         - name: studentId
           in: path
@@ -90,7 +175,7 @@ paths:
         - Student
       summary: Update a Student
       security:
-        - BearerAuth: []
+        - BearerAuth: [ ]
       parameters:
         - name: studentId
           in: path
@@ -114,7 +199,7 @@ paths:
       tags:
         - Company
       security:
-        - BearerAuth: []
+        - BearerAuth: [ ]
       summary: Register a Company Account
       requestBody:
         $ref: '#/components/requestBodies/CompanyBody'
@@ -127,7 +212,7 @@ paths:
       tags:
         - Company
       security:
-        - BearerAuth: []
+        - BearerAuth: [ ]
       summary: Gets a Company By Id
       parameters:
         - name: companyId
@@ -155,7 +240,7 @@ paths:
       tags:
         - Company
       security:
-        - BearerAuth: []
+        - BearerAuth: [ ]
       summary: Update a Company
       parameters:
         - name: companyId
@@ -210,7 +295,7 @@ paths:
       tags:
         - Job Opening
       security:
-        - BearerAuth: []
+        - BearerAuth: [ ]
       summary: Update a Company
       parameters:
         - name: companyId
@@ -235,7 +320,7 @@ paths:
       tags:
         - Job Opening
       security:
-        - BearerAuth: []
+        - BearerAuth: [ ]
       summary: Returns a list of job openings.
       responses:
         '200':
@@ -265,7 +350,7 @@ paths:
       tags:
         - Job Opening
       security:
-        - BearerAuth: []
+        - BearerAuth: [ ]
       summary: Gets a JobOpening By Id
       parameters:
         - name: jobOpeningId
@@ -293,7 +378,7 @@ paths:
       tags:
         - Job Opening
       security:
-        - BearerAuth: []
+        - BearerAuth: [ ]
       summary: Update a JobOpening
       parameters:
         - name: jobOpeningId
@@ -318,7 +403,7 @@ paths:
       tags:
         - Enrollment
       security:
-        - BearerAuth: []
+        - BearerAuth: [ ]
       summary: Gets all enrollments of a determinate JobOpening
       parameters:
         - name: jobOpeningId
@@ -348,7 +433,7 @@ paths:
       tags:
         - Enrollment
       security:
-        - BearerAuth: []
+        - BearerAuth: [ ]
       summary: Create a new Enrollment of determinate Job Opening
       parameters:
         - name: jobOpeningId

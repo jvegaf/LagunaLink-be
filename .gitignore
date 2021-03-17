@@ -6,3 +6,5 @@ logs
 .idea
 /ssl
 package-lock.json
+
+avatars/

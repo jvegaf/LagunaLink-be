@@ -4,10 +4,10 @@ import { QualificationDocument } from './QualificationDocument';
 import { LanguageDocument } from './LanguageDocument';
 
 export type StudentDocument = MongoDocument & {
-    name: string;
-    surname: string;
-    lastname: string;
-    qualification: QualificationDocument;
-    languages: Array<LanguageDocument>;
-    job_experiences: Array<JobExperienceDocument>;
+  name: string;
+  surname: string;
+  lastname: string;
+  qualification: QualificationDocument;
+  languages: Array<LanguageDocument>;
+  job_experiences: Array<JobExperienceDocument>;
 };

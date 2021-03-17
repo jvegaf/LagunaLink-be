@@ -28,8 +28,7 @@ export class SignInPostController implements Controller {
           access_token: response.token,
           email: response.email
         });
-    }
-    catch (e) {
+    } catch (e) {
       if (e instanceof AccountNotConfirmed) {
         res.status(NOT_ACTIVE_STATUS_CODE).send();
       }

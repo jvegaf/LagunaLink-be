@@ -22,9 +22,9 @@ export class Student extends AggregateRoot {
     name?: StudentName,
     surname?: StudentSurname,
     lastname?: StudentLastname,
-    qualification ?: Qualification,
-    languages ?: Language[],
-    jobexperiences ?: JobExperience[]) {
+    qualification?: Qualification,
+    languages?: Language[],
+    jobexperiences?: JobExperience[]) {
     super();
     this.id = id;
     this.name = name;
@@ -40,9 +40,9 @@ export class Student extends AggregateRoot {
     name?: StudentName,
     surname?: StudentSurname,
     lastname?: StudentLastname,
-    qualification ?: Qualification,
-    languages ?: Language[],
-    jobexperiences ?: JobExperience[]): Student {
+    qualification?: Qualification,
+    languages?: Language[],
+    jobexperiences?: JobExperience[]): Student {
     return new Student(id, name, surname, lastname, qualification, languages, jobexperiences);
   }
 
@@ -59,7 +59,7 @@ export class Student extends AggregateRoot {
       Qualification.fromPrimitives(plainData.qualification),
       this.languagesFromPrimitives(plainData.languages),
       this.jobexperiencesFromPrimitives(plainData.job_experiences)
-  );
+    );
   }
 
   toPrimitives() {
@@ -94,7 +94,7 @@ export class Student extends AggregateRoot {
     position: string;
     responsibilities: string;
     start_date: string;
-    end_date: string
+    end_date: string;
   }[] | undefined) {
     if (jobexperiences === undefined) {
       return;

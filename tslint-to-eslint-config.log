@@ -1,0 +1,20 @@
+6 ESLint rules behave differently from their TSLint counterparts:
+  * space-before-function-paren:
+    - Option "method" is not supported by ESLint.
+    - Option "constructor" is not supported by ESLint.
+  * arrow-body-style:
+    - ESLint will throw an error if the function body is multiline yet has a one-line return on it.
+  * no-underscore-dangle:
+    - Leading and trailing underscores (_) on identifiers will now be ignored.
+  * @typescript-eslint/no-unused-expressions:
+    - The TSLint optional config "allow-new" is the default ESLint behavior and will no longer be ignored.
+  * brace-style:
+    - ESLint's brace-style will check all tokens.
+  * @typescript-eslint/quotes:
+    - Option "jsx-double" is not supported by ESLint.
+
+3 rules are not known by tslint-to-eslint-config to have ESLint equivalents:
+  * tslint-to-eslint-config does not know the ESLint equivalent for TSLint's "prefer-method-signature".
+  * tslint-to-eslint-config does not know the ESLint equivalent for TSLint's "ter-max-len".
+  * tslint-to-eslint-config does not know the ESLint equivalent for TSLint's "whitespace".
+

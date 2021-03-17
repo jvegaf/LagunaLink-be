@@ -17,72 +17,87 @@ services:
 
   App.controllers.auth.EmailVerificationGetController:
     class: ../../../controllers/auth/EmailVerificationGetController
-    arguments: [ "@App.users.AuthChecker", "@App.users.UserEmailConfirmator" ]
+    arguments: [ "@App.users.UserEmailConfirmator" ]
 
 
   # STUDENTS
   App.controllers.students.StudentGetController:
     class: ../../../controllers/students/StudentGetController
-    arguments: [ "@App.students.StudentFinder", "@App.users.AuthChecker", "@App.users.StudentRoleChecker" ]
+    arguments: [ "@App.students.StudentFinder" ]
 
   App.controllers.students.StudentPostController:
     class: ../../../controllers/students/StudentPostController
-    arguments: [ "@App.students.StudentCreator", "@App.users.AuthChecker", "@App.users.StudentRoleChecker" ]
+    arguments: [ "@App.students.StudentCreator" ]
 
   App.controllers.students.StudentPutController:
     class: ../../../controllers/students/StudentPutController
-    arguments: [ "@App.students.StudentUpgrader", "@App.users.AuthChecker", "@App.users.StudentRoleChecker" ]
+    arguments: [ "@App.students.StudentUpgrader" ]
 
 
   # COMPANIES
   App.controllers.companies.CompanyGetController:
     class: ../../../controllers/companies/CompanyGetController
-    arguments: [ "@App.companies.CompanyFinder", "@App.users.AuthChecker" ]
+    arguments: [ "@App.companies.CompanyFinder" ]
 
   App.controllers.companies.CompanyJobsGetController:
     class: ../../../controllers/companies/CompanyJobsGetController
-    arguments: [ "@App.jobOpenings.CompanyJobsFetcher", "@App.users.AuthChecker" ]
+    arguments: [ "@App.jobOpenings.CompanyJobsFetcher" ]
 
   App.controllers.companies.CompanyPostController:
     class: ../../../controllers/companies/CompanyPostController
-    arguments: [ "@App.companies.CompanyCreator", "@App.users.AuthChecker", "@App.users.CompanyRoleChecker" ]
+    arguments: [ "@App.companies.CompanyCreator" ]
 
   App.controllers.companies.CompanyPutController:
     class: ../../../controllers/companies/CompanyPutController
-    arguments: [ "@App.companies.CompanyUpgrader", "@App.users.AuthChecker", "@App.users.CompanyRoleChecker" ]
+    arguments: [ "@App.companies.CompanyUpgrader" ]
 
 
   # JOB OPENINGS
   App.controllers.jobOpenings.JobOpeningGetController:
     class: ../../../controllers/jobOpenings/JobOpeningGetController
-    arguments: [ "@App.jobOpenings.JobOpeningFinder", "@App.users.AuthChecker" ]
+    arguments: [ "@App.jobOpenings.JobOpeningFinder" ]
 
   App.controllers.jobOpenings.JobOpeningFetchController:
     class: ../../../controllers/jobOpenings/JobOpeningFetchController
-    arguments: [ "@App.jobOpenings.JobOpeningFetcher", "@App.users.AuthChecker" ]
+    arguments: [ "@App.jobOpenings.JobOpeningFetcher" ]
 
   App.controllers.jobOpenings.JobOpeningPostController:
     class: ../../../controllers/jobOpenings/JobOpeningPostController
-    arguments: [ "@App.jobOpenings.JobOpeningCreator", "@App.users.AuthChecker", "@App.users.CompanyRoleChecker" ]
+    arguments: [ "@App.jobOpenings.JobOpeningCreator" ]
 
   App.controllers.jobOpenings.JobOpeningPutController:
     class: ../../../controllers/jobOpenings/JobOpeningPutController
-    arguments: [ "@App.jobOpenings.JobOpeningUpgrader", "@App.users.AuthChecker", "@App.users.CompanyRoleChecker" ]
+    arguments: [ "@App.jobOpenings.JobOpeningUpgrader" ]
 
   App.controllers.jobOpenings.JobOpeningDeleteController:
     class: ../../../controllers/jobOpenings/JobOpeningDeleteController
-    arguments: [ "@App.jobOpenings.JobOpeningRemover", "@App.users.AuthChecker", "@App.users.CompanyRoleChecker" ]
+    arguments: [ "@App.jobOpenings.JobOpeningRemover" ]
 
 
   # ENROLLMENTS
   App.controllers.enrollments.EnrollmentPostController:
     class: ../../../controllers/enrollments/EnrollmentPostController
-    arguments: [ "@App.enrollments.EnrollmentCreator", "@App.users.StudentRoleChecker" ]
+    arguments: [ "@App.enrollments.EnrollmentCreator" ]
 
   App.controllers.enrollments.EnrollmentDeleteController:
     class: ../../../controllers/enrollments/EnrollmentDeleteController
-    arguments: [ "@App.enrollments.EnrollmentRemover", "@App.users.StudentRoleChecker" ]
+    arguments: [ "@App.enrollments.EnrollmentRemover" ]
 
   App.controllers.enrollments.EnrollmentsGetController:
     class: ../../../controllers/enrollments/EnrollmentsGetController
-    arguments: [ "@App.enrollments.EnrollmentsSearcher", "@App.users.CompanyRoleChecker", "@App.students.StudentFinder", "@App.users.UserEmailFinder" ]
+    arguments: [ "@App.enrollments.EnrollmentsSearcher",
+                 "@App.students.StudentFinder",
+                 "@App.users.UserEmailFinder"]
+
+  # Avatar
+  App.controllers.avatar.AvatarGetController:
+    class: ../../../controllers/avatar/AvatarGetController
+    arguments: []
+
+  App.controllers.avatar.AvatarPutController:
+    class: ../../../controllers/avatar/AvatarPutController
+    arguments: [ "@App.users.AvatarUpdater"]
+
+  App.controllers.avatar.AvatarDeleteController:
+    class: ../../../controllers/avatar/AvatarDeleteController
+    arguments: [ "@App.users.AvatarRemover"]

@@ -32,18 +32,14 @@ services:
     class: ../../../../../Contexts/LLBE/Users/application/UserAuth
     arguments: [ '@App.users.TokenGenerator','@App.users.UserRepository' ]
 
-  App.users.AuthChecker:
-    class: ../../../../../Contexts/LLBE/Users/infrastructure/token/AuthJWTChecker
-    arguments: []
-
-  App.users.StudentRoleChecker:
-    class: ../../../../../Contexts/LLBE/Users/application/StudentRoleChecker
-    arguments: []
-
-  App.users.CompanyRoleChecker:
-    class: ../../../../../Contexts/LLBE/Users/application/CompanyRoleChecker
-    arguments: []
-
   App.users.TokenGenerator:
     class: ../../../../../Contexts/LLBE/Users/infrastructure/token/JWTTokenGenerator
     arguments: []
+
+  App.users.AvatarUpdater:
+    class: ../../../../../Contexts/LLBE/Users/application/AvatarUpdater
+    arguments: [ '@App.users.UserRepository']
+
+  App.users.AvatarRemover:
+    class: ../../../../../Contexts/LLBE/Users/application/AvatarRemover
+    arguments: [ '@App.users.UserRepository']
