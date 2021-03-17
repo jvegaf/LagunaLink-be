@@ -159,7 +159,7 @@ export class User extends AggregateRoot {
       this.registered,
       this.createdAt,
       new UserUpdatedAt(Timestamp.now())
-    )
+    );
   }
 
   removeAvatar(): User {
@@ -173,7 +173,7 @@ export class User extends AggregateRoot {
       this.registered,
       this.createdAt,
       new UserUpdatedAt(Timestamp.now())
-    )
+    );
   }
 
 }

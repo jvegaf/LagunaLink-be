@@ -19,9 +19,7 @@ export class InMemorySyncEventBus implements EventBus {
     events.map(event => {
       const subscribers = this.subscriptions.get(event.eventName);
       if (subscribers) {
-        return subscribers.map(subscriber => {
-          return executions.push(subscriber.boundedCallback(event));
-        });
+        return subscribers.map(subscriber => executions.push(subscriber.boundedCallback(event)));
       }
     });
 
@@ -29,11 +27,7 @@ export class InMemorySyncEventBus implements EventBus {
   }
 
   addSubscribers(subscribers: Array<DomainEventSubscriber<DomainEvent>>) {
-    subscribers.map(subscriber => {
-      return subscriber.subscribedTo().map(event => {
-        return this.subscribe(event.EVENT_NAME!, subscriber);
-      });
-    }
+    subscribers.map(subscriber => subscriber.subscribedTo().map(event => this.subscribe(event.EVENT_NAME!, subscriber))
     );
   }
 

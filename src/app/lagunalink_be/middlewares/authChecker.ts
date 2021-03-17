@@ -9,7 +9,7 @@ export const authChecker = (req: Request, res: Response, next: NextFunction) => 
     return res.status(httpStatus.PAYMENT_REQUIRED).send();
   }
 
-  let token = req.headers.authorization;
+  const token = req.headers.authorization;
   let tokenSanitized = token;
   if (token.indexOf(' ') > 0) {
     tokenSanitized = token.split(' ')[1];

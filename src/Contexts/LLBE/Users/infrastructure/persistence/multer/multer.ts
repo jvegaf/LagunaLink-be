@@ -6,7 +6,7 @@ import { v4 } from 'uuid';
 const storage = multer.diskStorage({
   destination: 'avatars',
   filename: (req, file, cb) => {
-    cb(null, v4() + path.extname(file.originalname))
+    cb(null, v4() + path.extname(file.originalname));
   }
 });
 export default multer({storage});

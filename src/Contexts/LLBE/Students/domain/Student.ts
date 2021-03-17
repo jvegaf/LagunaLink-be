@@ -75,24 +75,18 @@ export class Student extends AggregateRoot {
   }
 
   private languagesToPrimitives() {
-    return this.languages?.map(language => {
-      return language.toPrimitives();
-    });
+    return this.languages?.map(language => language.toPrimitives());
   }
 
   private static languagesFromPrimitives(languages: { name: string; speak: number; write: number }[] | undefined) {
     if (languages === undefined) {
       return;
     }
-    return languages.map(language => {
-      return Language.fromPrimitives(language);
-    });
+    return languages.map(language => Language.fromPrimitives(language));
   }
 
   private jobexperiencesToPrimitives() {
-    return this.jobexperiences?.map(job => {
-      return job.toPrimitives();
-    });
+    return this.jobexperiences?.map(job => job.toPrimitives());
   }
 
   private static jobexperiencesFromPrimitives(jobexperiences: {
@@ -105,8 +99,6 @@ export class Student extends AggregateRoot {
     if (jobexperiences === undefined) {
       return;
     }
-    return jobexperiences.map(job => {
-      return JobExperience.fromPrimitives(job);
-    });
+    return jobexperiences.map(job => JobExperience.fromPrimitives(job));
   }
 }

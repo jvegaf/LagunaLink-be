@@ -21,7 +21,7 @@
     "build:tsc": "tsc -p tsconfig.prod.json",
     "build:di": "copy 'src/**/*.{json,yaml}' dist/src",
     "build:clean": "rm -r dist; exit 0",
-    "lint": "eslint -c .eslintrc.js --ext .ts src "
+    "lint": "eslint -c .eslintrc.js --ext .ts src --fix"
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.2",

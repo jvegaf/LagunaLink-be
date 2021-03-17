@@ -22,8 +22,6 @@ export class EventEmitterBus extends EventEmitter {
   }
 
   publish(events: DomainEvent[]): void {
-    events.map(event => {
-      return this.emit(event.eventName, event);
-    });
+    events.map(event => this.emit(event.eventName, event));
   }
 }

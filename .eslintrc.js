@@ -48,8 +48,6 @@ module.exports = {
                 }
             }
         ],
-        "@typescript-eslint/naming-convention": "error",
-        "@typescript-eslint/no-empty-function": "off",
         "@typescript-eslint/no-empty-interface": "error",
         "@typescript-eslint/no-inferrable-types": [
             "error",
@@ -80,7 +78,7 @@ module.exports = {
         "@typescript-eslint/unified-signatures": "error",
         "arrow-body-style": [
             "error",
-            "always"
+            "as-needed"
         ],
         "eol-last": "off",
         "eqeqeq": [
@@ -116,7 +114,6 @@ module.exports = {
         "no-redeclare": "error",
         "no-throw-literal": "error",
         "no-trailing-spaces": "error",
-        "no-underscore-dangle": "error",
         "no-var": "error",
         "prefer-const": "error",
         "space-before-function-paren": [

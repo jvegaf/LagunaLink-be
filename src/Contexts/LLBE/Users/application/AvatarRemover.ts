@@ -19,7 +19,7 @@ export class AvatarRemover extends ApplicationService {
     if (avatarPath === '') {
       return this.logInfo(`not have avatar of ${user.email}`);
     }
-    await fs.unlink(path.resolve(avatarPath))
+    await fs.unlink(path.resolve(avatarPath));
     await this.repository.save(user.removeAvatar());
     this.logInfo(`deleted avatar of user ${user.email}`);
   }

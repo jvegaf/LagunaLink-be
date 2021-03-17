@@ -28,9 +28,7 @@ export class EnrollmentsGetController implements Controller {
       res.status(204).send();
       return;
     }
-    const resultMap = enrollments.map((enrollment) => {
-      return enrollment.toPrimitives();
-    }
+    const resultMap = enrollments.map((enrollment) => enrollment.toPrimitives()
     );
 
     const result = resultMap.map(async (enrollment) => {
