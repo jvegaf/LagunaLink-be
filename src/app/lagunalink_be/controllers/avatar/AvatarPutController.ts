@@ -11,13 +11,14 @@ export class AvatarPutController implements Controller {
   }
 
   async run(req: Request, res: Response) {
+
     const request: UpdateAvatarRequest = {
-      userId: req.body.payload.userId,
+      userId: req.params.id,
       path: req.file.path,
     };
 
     await this.updater.run(request);
 
-    res.status(201).send();
+    res.status(200).send();
   }
 }

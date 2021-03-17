@@ -36,7 +36,7 @@ app.use(
   swaggerUi.setup(swaggerDocument)
 );
 
-app.use('/avatars', express.static(path.resolve('/avatars')));
+app.use('/avatars', express.static(path.resolve('avatars')));
 
 const router = Router();
 app.use(router);

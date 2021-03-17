@@ -147,4 +147,33 @@ export class User extends AggregateRoot {
       new UserUpdatedAt(Timestamp.now())
     );
   }
+
+  updateAvatar(avatar: UserAvatar): User {
+    return new User(
+      this.id,
+      this.email,
+      this.password,
+      this.isActive,
+      this.role,
+      avatar,
+      this.registered,
+      this.createdAt,
+      new UserUpdatedAt(Timestamp.now())
+    )
+  }
+
+  removeAvatar(): User {
+    return new User(
+      this.id,
+      this.email,
+      this.password,
+      this.isActive,
+      this.role,
+      new UserAvatar(),
+      this.registered,
+      this.createdAt,
+      new UserUpdatedAt(Timestamp.now())
+    )
+  }
+
 }

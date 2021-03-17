@@ -12,6 +12,10 @@ export class AvatarDeleteController implements Controller {
   }
 
   async run(req: Request, res: Response) {
+
     await this.remover.run(new UserId(req.params.id));
+
+    res.status(200).send();
+
   }
 }

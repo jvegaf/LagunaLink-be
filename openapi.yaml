@@ -39,6 +39,8 @@ paths:
         '201':
           description: Created
 
+  /avatar:
+    get:
 
   /students:
     post:

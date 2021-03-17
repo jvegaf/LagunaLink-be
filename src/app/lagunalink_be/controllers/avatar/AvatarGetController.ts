@@ -1,11 +1,10 @@
 import { Request, Response } from 'express';
 import { Controller } from '../Controller';
-import { AvatarFetcher } from '../../../../Contexts/LLBE/Users/application/AvatarFetcher';
+import path from 'path';
 
 export class AvatarGetController implements Controller {
-
-  constructor(fetcher: AvatarFetcher) {
+  async run(req: Request, res: Response) {
+    const avatar = path.join('/uploads', req.params.id);
+    res.download(avatar, (e)=> res.status(404).send());
   }
-
-  async run(req: Request, res: Response) {}
 }
