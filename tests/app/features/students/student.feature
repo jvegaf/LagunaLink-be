@@ -29,7 +29,7 @@ Feature: Student Registry
       "lastname": "Fernandez"
     }
     """
-    Then the response status code should be 400
+    Then the response status code should be 403
 
   Scenario: Get an bad request error when try register a Student previously registered
     Given I have a Student Role Account

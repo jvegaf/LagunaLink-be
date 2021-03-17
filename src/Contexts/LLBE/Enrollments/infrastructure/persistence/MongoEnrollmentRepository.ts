@@ -39,8 +39,9 @@ export class MongoEnrollmentRepository
       .find({ job_opening: openingId.value })
       .toArray();
 
-    return resultDocs.map((document) =>
-      Enrollment.fromPrimitives({ ...document, id: document._id })
+    return resultDocs.map((document) => {
+      return Enrollment.fromPrimitives({ ...document, id: document._id });
+    }
     );
   }
 }

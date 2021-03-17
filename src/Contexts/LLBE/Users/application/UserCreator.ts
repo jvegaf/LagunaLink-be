@@ -14,6 +14,7 @@ import { Timestamp } from '../../Shared/domain/Timestamp';
 import { UserRegistered } from '../domain/UserRegistered';
 import { hashSync } from 'bcryptjs';
 import { ApplicationService } from '../../../Shared/domain/ApplicationService';
+import { UserAvatar } from '../domain/UserAvatar';
 
 export class UserCreator extends ApplicationService {
   private repository: UserRepository;
@@ -36,6 +37,7 @@ export class UserCreator extends ApplicationService {
       new UserPassword(passwordHashed),
       new UserIsActive(request.isActive),
       new UserRole(request.role),
+      new UserAvatar(),
       new UserRegistered(request.registered),
       new UserCreatedAt(Timestamp.now()),
       new UserUpdatedAt(Timestamp.now())

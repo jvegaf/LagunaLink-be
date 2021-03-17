@@ -14,7 +14,9 @@ export class CompanyFinder extends ApplicationService {
 
   async run(companyId: CompanyId): Promise<Company> {
     const result = await this.repository.search(companyId);
-    if (result === null) { throw new CompanyNotFound(`Not found a company with id ${companyId.value}`); }
+    if (result === null) {
+      throw new CompanyNotFound(`Not found a company with id ${companyId.value}`);
+    }
     return result;
   }
 }

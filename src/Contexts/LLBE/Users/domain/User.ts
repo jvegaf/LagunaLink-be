@@ -8,6 +8,7 @@ import { UserId } from '../../Shared/domain/Users/UserId';
 import { UserRole } from './UserRole';
 import { UserRegistered } from './UserRegistered';
 import { Timestamp } from '../../Shared/domain/Timestamp';
+import { UserAvatar } from './UserAvatar';
 
 export class User extends AggregateRoot {
   readonly id: UserId;
@@ -15,30 +16,10 @@ export class User extends AggregateRoot {
   readonly password: UserPassword;
   readonly isActive: UserIsActive;
   readonly role: UserRole;
+  readonly avatar: UserAvatar;
   readonly registered: UserRegistered;
   readonly createdAt: UserCreatedAt;
   readonly updatedAt: UserUpdatedAt;
-
-  constructor(
-    id: UserId,
-    email: UserEmail,
-    password: UserPassword,
-    isActive: UserIsActive,
-    role: UserRole,
-    registered: UserRegistered,
-    createdAt: UserCreatedAt,
-    updatedAt: UserUpdatedAt
-  ) {
-    super();
-    this.id = id;
-    this.email = email;
-    this.password = password;
-    this.isActive = isActive;
-    this.role = role;
-    this.registered = registered;
-    this.createdAt = createdAt;
-    this.updatedAt = updatedAt;
-  }
 
   static create(
     id: UserId,
@@ -46,6 +27,7 @@ export class User extends AggregateRoot {
     password: UserPassword,
     isActive: UserIsActive,
     role: UserRole,
+    avatar: UserAvatar,
     registered: UserRegistered,
     createdAt: UserCreatedAt,
     updatedAt: UserUpdatedAt
@@ -56,6 +38,7 @@ export class User extends AggregateRoot {
       password,
       isActive,
       role,
+      avatar,
       registered,
       createdAt,
       updatedAt
@@ -68,6 +51,7 @@ export class User extends AggregateRoot {
     password: string;
     isActive: boolean;
     role: string;
+    avatar: string;
     registered: boolean;
     createdAt: string;
     updatedAt: string;
@@ -78,10 +62,34 @@ export class User extends AggregateRoot {
       new UserPassword(plaindata.password),
       new UserIsActive(plaindata.isActive),
       new UserRole(plaindata.role),
+      new UserAvatar(plaindata.avatar),
       new UserRegistered(plaindata.registered),
       new UserCreatedAt(plaindata.createdAt),
       new UserUpdatedAt(plaindata.updatedAt)
     );
+  }
+
+  constructor(
+    id: UserId,
+    email: UserEmail,
+    password: UserPassword,
+    isActive: UserIsActive,
+    role: UserRole,
+    avatar: UserAvatar,
+    registered: UserRegistered,
+    createdAt: UserCreatedAt,
+    updatedAt: UserUpdatedAt
+  ) {
+    super();
+    this.id = id;
+    this.email = email;
+    this.password = password;
+    this.isActive = isActive;
+    this.role = role;
+    this.avatar = avatar;
+    this.registered = registered;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
 
   toPrimitives(): any {
@@ -91,6 +99,7 @@ export class User extends AggregateRoot {
       password: this.password.value,
       isActive: this.isActive.value,
       role: this.role.value,
+      avatar: this.avatar.value,
       registered: this.registered.value,
       createdAt: this.createdAt.toISOString(),
       updatedAt: this.updatedAt.toISOString(),
@@ -104,6 +113,7 @@ export class User extends AggregateRoot {
       this.password,
       new UserIsActive(true),
       this.role,
+      this.avatar,
       this.registered,
       this.createdAt,
       new UserUpdatedAt(Timestamp.now())
@@ -117,6 +127,7 @@ export class User extends AggregateRoot {
       this.password,
       this.isActive,
       this.role,
+      this.avatar,
       this.registered,
       this.createdAt,
       new UserUpdatedAt(Timestamp.now())
@@ -130,6 +141,7 @@ export class User extends AggregateRoot {
       this.password,
       this.isActive,
       this.role,
+      this.avatar,
       new UserRegistered(true),
       this.createdAt,
       new UserUpdatedAt(Timestamp.now())

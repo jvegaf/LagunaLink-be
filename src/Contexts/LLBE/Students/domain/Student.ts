@@ -22,9 +22,9 @@ export class Student extends AggregateRoot {
     name?: StudentName,
     surname?: StudentSurname,
     lastname?: StudentLastname,
-    qualification ?: Qualification,
-    languages ?: Language[],
-    jobexperiences ?: JobExperience[]) {
+    qualification?: Qualification,
+    languages?: Language[],
+    jobexperiences?: JobExperience[]) {
     super();
     this.id = id;
     this.name = name;
@@ -40,9 +40,9 @@ export class Student extends AggregateRoot {
     name?: StudentName,
     surname?: StudentSurname,
     lastname?: StudentLastname,
-    qualification ?: Qualification,
-    languages ?: Language[],
-    jobexperiences ?: JobExperience[]): Student {
+    qualification?: Qualification,
+    languages?: Language[],
+    jobexperiences?: JobExperience[]): Student {
     return new Student(id, name, surname, lastname, qualification, languages, jobexperiences);
   }
 
@@ -59,7 +59,7 @@ export class Student extends AggregateRoot {
       Qualification.fromPrimitives(plainData.qualification),
       this.languagesFromPrimitives(plainData.languages),
       this.jobexperiencesFromPrimitives(plainData.job_experiences)
-  );
+    );
   }
 
   toPrimitives() {
@@ -75,18 +75,24 @@ export class Student extends AggregateRoot {
   }
 
   private languagesToPrimitives() {
-    return this.languages?.map(language => language.toPrimitives());
+    return this.languages?.map(language => {
+      return language.toPrimitives();
+    });
   }
 
   private static languagesFromPrimitives(languages: { name: string; speak: number; write: number }[] | undefined) {
     if (languages === undefined) {
       return;
     }
-    return languages.map(language => Language.fromPrimitives(language));
+    return languages.map(language => {
+      return Language.fromPrimitives(language);
+    });
   }
 
   private jobexperiencesToPrimitives() {
-    return this.jobexperiences?.map(job => job.toPrimitives());
+    return this.jobexperiences?.map(job => {
+      return job.toPrimitives();
+    });
   }
 
   private static jobexperiencesFromPrimitives(jobexperiences: {
@@ -94,11 +100,13 @@ export class Student extends AggregateRoot {
     position: string;
     responsibilities: string;
     start_date: string;
-    end_date: string
+    end_date: string;
   }[] | undefined) {
     if (jobexperiences === undefined) {
       return;
     }
-    return jobexperiences.map(job => JobExperience.fromPrimitives(job));
+    return jobexperiences.map(job => {
+      return JobExperience.fromPrimitives(job);
+    });
   }
 }

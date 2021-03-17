@@ -33,7 +33,7 @@ Feature: Company Registry
       "city": "Madrid"
     }
     """
-    Then the response status code should be 400
+    Then the response status code should be 403
 
   Scenario: Get an bad request error when try register a Company previously registered
     Given I have a Company Role Account

@@ -33,7 +33,7 @@ Feature: Job Opening
       "prevExperience": "3 meses"
     }
     """
-    Then the response status code should be 400
+    Then the response status code should be 403
 
   Scenario: Upgrade a Job Opening with new data
     Given I have a Company Role Account

@@ -6,7 +6,8 @@ export const register = (router: Router) => {
   const controller: StatusController = container.get(
     'App.controllers.status.StatusGetController'
   );
-  router.get('/status', (req: Request, res: Response) =>
-    controller.run(req, res)
+  router.get('/status', (req: Request, res: Response) => {
+    return controller.run(req, res);
+  }
   );
 };
