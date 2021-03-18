@@ -26,7 +26,8 @@ export class SignInPostController implements Controller {
           user_role: response.role,
           user_id: response.userId,
           access_token: response.token,
-          email: response.email
+          email: response.email,
+          avatar: response.avatar
         });
     } catch (e) {
       if (e instanceof AccountNotConfirmed) {
