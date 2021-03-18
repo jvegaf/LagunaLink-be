@@ -12,7 +12,7 @@ export const register = (router: Router) => {
   router.get('/avatar/:id', authChecker, (req: Request, res: Response) => avatarGetController.run(req, res));
 
   const avatarPutController: AvatarPutController = container.get('App.controllers.avatar.AvatarPutController');
-  router.put('/user/:id/avatar/', authChecker, userOwnChecker, upload.single('image'), (req: Request, res: Response) =>
+  router.put('/user/:id/avatar', authChecker, userOwnChecker, upload.single('image'), (req: Request, res: Response) =>
     avatarPutController.run(req, res)
   );
 
