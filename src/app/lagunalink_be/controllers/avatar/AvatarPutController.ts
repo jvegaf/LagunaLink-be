@@ -19,6 +19,6 @@ export class AvatarPutController implements Controller {
 
     await this.updater.run(request);
 
-    res.status(200).send();
+    res.status(200).send( { avatar: req.file.path });
   }
 }

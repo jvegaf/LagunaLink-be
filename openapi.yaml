@@ -92,6 +92,13 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  avatar:
+                    type: string
         '401':
           $ref: '#/components/responses/Unauthorized'
         '403':
