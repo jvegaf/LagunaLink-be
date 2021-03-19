@@ -9,6 +9,10 @@ export abstract class DateValueObject {
     return this.date.toISOString().substr(0, 10);
   }
 
+  yearMonthValue(): string {
+    return this.date.toISOString().substr(0, 7);
+  }
+
   toISOString(): string {
     return this.date.toISOString();
   }

@@ -40,8 +40,8 @@ export class JobExperience {
       company: this.company.toString(),
       position: this.position.toString(),
       responsibilities: this.responsibilities.toString(),
-      start_date: this.startDate.toString(),
-      end_date: this.endDate.toString()
+      start_date: this.startDate.yearMonthValue(),
+      end_date: this.endDate.yearMonthValue(),
     };
   }
 }

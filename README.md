@@ -2,9 +2,8 @@
 
 [![Node CI](https://github.com/jvegaf/LagunaLink-be/actions/workflows/nodejs.yml/badge.svg?event=workflow_dispatch)](https://github.com/jvegaf/LagunaLink-be/actions/workflows/nodejs.yml)
 [![TODO checker](https://github.com/jvegaf/LagunaLink-be/actions/workflows/todo-checker.yml/badge.svg?event=push)](https://github.com/jvegaf/LagunaLink-be/actions/workflows/todo-checker.yml)
-
-
-[Estado de implementacion de la API](https://github.com/jvegaf/LagunaLink-be/blob/master/api-endpoints.md)
+[![Node CI ](https://github.com/jvegaf/LagunaLink-be/actions/workflows/nodejs.yml/badge.svg?branch=master&event=push)
+](https://github.com/jvegaf/LagunaLink-be/actions/workflows/nodejs.yml)
 
 ## Documentacion de la API
 [Documentacion de la API](https://lagunalink-be.herokuapp.com/docs/)
