@@ -8,6 +8,6 @@ export class StartDateMother {
     }
 
     static random(): StartDate {
-        return this.create(DateMother.random().toISOString().substr(0, 10));
+        return this.create(DateMother.random().toISOString().substr(0, 7));
     }
 }
