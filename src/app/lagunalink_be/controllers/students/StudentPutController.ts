@@ -16,8 +16,8 @@ export class StudentPutController implements Controller {
       ...req.body,
       id: req.params.id,
     };
-    await this.upgrader.run(studentRequest);
+    const studentUpdated = await this.upgrader.run(studentRequest);
 
-    res.status(200).send();
+    res.status(200).send({student: studentUpdated});
   }
 }

@@ -195,7 +195,14 @@ paths:
         $ref: '#/components/requestBodies/StudentPutBody'
       responses:
         '200':
-          $ref: '#/components/responses/Success'
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  student:
+                    $ref: '#/components/schemas/Student'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '403':
