@@ -18,6 +18,6 @@ export class StudentPutController implements Controller {
     };
     const studentUpdated = await this.upgrader.run(studentRequest);
 
-    res.status(200).send({student: studentUpdated});
+    res.status(200).send({student: studentUpdated.toPrimitives()});
   }
 }
