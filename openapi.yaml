@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   description: This is the backend of the Lagunalink App.  You can find out more about this project at [https://github.com/jvegaf/LagunaLink-be](https://github.com/jvegaf/LagunaLink-be)
-  version: 1.2.6
+  version: 1.2.7
   title: LagunaLink Backend
   contact:
     email: josevega234@gmail.com
@@ -358,6 +358,17 @@ paths:
       responses:
         '201':
           description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job_opening:
+                    $ref: '#/components/schemas/JobOpening'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':`
+          $ref: '#/components/responses/Forbidden'
 
   /job_openings/{jobOpeningId}:
     get:

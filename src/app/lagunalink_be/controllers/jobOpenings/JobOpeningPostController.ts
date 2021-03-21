@@ -22,8 +22,8 @@ export class JobOpeningPostController implements Controller {
       prevExperience: req.body.prevExperience,
     };
 
-    await this.creator.run(jobOpenRequest);
-
-    res.status(201).send();
+    const jobOpening = await this.creator.run(jobOpenRequest);
+    const jobOpPrimitives = jobOpening.toPrimitives()
+    res.status(201).send({ job_opening: jobOpPrimitives });
   }
 }

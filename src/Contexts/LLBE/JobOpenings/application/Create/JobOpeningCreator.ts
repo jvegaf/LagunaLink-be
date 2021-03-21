@@ -20,7 +20,7 @@ export class JobOpeningCreator extends ApplicationService {
     this.repository = repository;
   }
 
-  async run(request: CreateJobOpeningRequest): Promise<void> {
+  async run(request: CreateJobOpeningRequest): Promise<JobOpening> {
     const jobOpenId = JobOpeningId.random();
 
     const jobOpening = JobOpening.create(
@@ -36,6 +36,7 @@ export class JobOpeningCreator extends ApplicationService {
     );
 
     await this.repository.save(jobOpening);
-    this.logInfo(`JobOpening ${jobOpenId.value} created`);
+    this.logInfo(`JobOpening ${jobOpenId.value !} created`);
+    return jobOpening;
   }
 }
