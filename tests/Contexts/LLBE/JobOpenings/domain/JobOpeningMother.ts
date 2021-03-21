@@ -17,10 +17,12 @@ import { JobOpenResponsibilitiesMother } from './JobOpenResponsibilitiesMother';
 import { JobOpenQualificationMother } from './JobOpenQualificationMother';
 import { JobOpenPrevExperienceMother } from './JobOpenPrevExperienceMother';
 import { UpgradeJobOpeningRequest } from '../../../../../src/Contexts/LLBE/JobOpenings/application/Update/UpgradeJobOpeningRequest';
+import { JobOpenCreatedAt } from '../../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpenCreatedAt';
 
 export class JobOpeningMother {
   static create(
     id: JobOpeningId,
+    createdAt: JobOpenCreatedAt,
     company: CompanyId,
     title: JobOpenTitle,
     position: JobOpenPosition,
@@ -31,6 +33,7 @@ export class JobOpeningMother {
   ): JobOpening {
     return new JobOpening(
       id,
+      createdAt,
       company,
       title,
       position,
@@ -44,6 +47,7 @@ export class JobOpeningMother {
   static fromCreateRequest(request: CreateJobOpeningRequest): JobOpening {
     return this.create(
       JobOpeningIdMother.random(),
+      JobOpenCreatedAt.now(),
       CompanyIdMother.create(request.company),
       JobOpenTitleMother.create(request.title),
       JobPositionMother.create(request.position),
@@ -57,6 +61,7 @@ export class JobOpeningMother {
   static fromUpgradeRequest(request: UpgradeJobOpeningRequest): JobOpening {
     return this.create(
       JobOpeningIdMother.create(request.id),
+      JobOpenCreatedAt.now(),
       CompanyIdMother.create(request.company),
       JobOpenTitleMother.create(request.title),
       JobPositionMother.create(request.position),
@@ -70,6 +75,7 @@ export class JobOpeningMother {
   static random(): JobOpening {
     return this.create(
       JobOpeningIdMother.random(),
+      JobOpenCreatedAt.now(),
       CompanyIdMother.random(),
       JobOpenTitleMother.random(),
       JobPositionMother.random(),

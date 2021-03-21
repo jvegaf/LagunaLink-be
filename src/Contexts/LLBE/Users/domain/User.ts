@@ -7,7 +7,6 @@ import { UserCreatedAt } from './UserCreatedAt';
 import { UserId } from '../../Shared/domain/Users/UserId';
 import { UserRole } from './UserRole';
 import { UserRegistered } from './UserRegistered';
-import { Timestamp } from '../../Shared/domain/Timestamp';
 import { UserAvatar } from './UserAvatar';
 
 export class User extends AggregateRoot {
@@ -116,7 +115,7 @@ export class User extends AggregateRoot {
       this.avatar,
       this.registered,
       this.createdAt,
-      new UserUpdatedAt(Timestamp.now())
+      UserUpdatedAt.now()
     );
   }
 
@@ -130,7 +129,7 @@ export class User extends AggregateRoot {
       this.avatar,
       this.registered,
       this.createdAt,
-      new UserUpdatedAt(Timestamp.now())
+      UserUpdatedAt.now()
     );
   }
 
@@ -144,7 +143,7 @@ export class User extends AggregateRoot {
       this.avatar,
       new UserRegistered(true),
       this.createdAt,
-      new UserUpdatedAt(Timestamp.now())
+      UserUpdatedAt.now()
     );
   }
 
@@ -158,7 +157,7 @@ export class User extends AggregateRoot {
       avatar,
       this.registered,
       this.createdAt,
-      new UserUpdatedAt(Timestamp.now())
+      UserUpdatedAt.now()
     );
   }
 
@@ -172,7 +171,7 @@ export class User extends AggregateRoot {
       new UserAvatar(),
       this.registered,
       this.createdAt,
-      new UserUpdatedAt(Timestamp.now())
+      UserUpdatedAt.now()
     );
   }
 

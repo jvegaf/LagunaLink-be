@@ -10,6 +10,7 @@ import { JobOpenConditions } from '../../domain/JobOpenConditions';
 import { JobOpenTitle } from '../../domain/JobOpenTitle';
 import { JobOpeningId } from '../../../Shared/domain/JobOpenings/JobOpeningId';
 import { ApplicationService } from '../../../../Shared/domain/ApplicationService';
+import { JobOpenCreatedAt } from '../../domain/JobOpenCreatedAt';
 
 export class JobOpeningCreator extends ApplicationService {
   private repository: JobOpeningRepository;
@@ -24,6 +25,7 @@ export class JobOpeningCreator extends ApplicationService {
 
     const jobOpening = JobOpening.create(
       jobOpenId,
+      JobOpenCreatedAt.now(),
       new CompanyId(request.company),
       new JobOpenTitle(request.title),
       new JobOpenPosition(request.position),

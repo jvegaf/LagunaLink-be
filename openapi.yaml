@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   description: This is the backend of the Lagunalink App.  You can find out more about this project at [https://github.com/jvegaf/LagunaLink-be](https://github.com/jvegaf/LagunaLink-be)
-  version: 1.2.0
+  version: 1.2.6
   title: LagunaLink Backend
   contact:
     email: josevega234@gmail.com
@@ -535,6 +535,7 @@ components:
       properties:
         email:
           type: string
+          example: pepe@api.com
         password:
           type: string
         role:
@@ -574,7 +575,7 @@ components:
 
     Student:
       allOf:
-        - $ref: '#/components/schemas/StudentBasic'
+        - $ref: '#/components/schemas/StudentRequest'
         - $ref: '#/components/schemas/StudentExtend'
         - type: object
           required:
@@ -586,15 +587,18 @@ components:
             id:
               type: string
               format: uuid
-    StudentBasic:
+    StudentRequest:
       type: object
       properties:
         name:
           type: string
+          example: Ruben
         surname:
           type: string
+          example: Navarro
         lastname:
           type: string
+          example: Sanchez
       required:
         - name
         - surname
@@ -653,6 +657,7 @@ components:
       properties:
         name:
           type: string
+          example: Italiano
         speak:
           type: integer
           minimum: 1
@@ -671,12 +676,15 @@ components:
       properties:
         title:
           type: string
+          example: Grado Superior en Desarrollo de Aplicaciones Multiplaforma
         start_date:
           type: string
           format: date
+          example: 2016-09
         end_date:
           type: string
           format: date
+          example: 2018-06
       required:
         - title
         - start_date
@@ -687,16 +695,21 @@ components:
       properties:
         company:
           type: string
+          example: Talleres Jumosa
         position:
           type: string
+          example: Aprendiz de Mecanico
         responsibilities:
           type: string
+          example: Cambiar Aceite
         start_date:
           type: string
           format: date
+          example: 2018-06
         end_date:
           type: string
           format: date
+          example: 2020-06
       required:
         - company
         - position
@@ -709,16 +722,26 @@ components:
       properties:
         company:
           type: string
+          format: uuid
         position:
           type: string
+          example: Pastelero
         responsibilities:
           type: string
+          example: Tareas en el obrador
         conditions:
           type: string
+          example: '- Estabilidad laboral
+                    - Buena remuneración
+                    - Buenas condiciones
+                    - Formación
+                    - Buen equipo y buen ambiente laboral'
         qualification:
           type: string
+          example: Grado Superior de Cocina
         prevExperience:
           type: string
+          example: de 3 a 5 años
       required:
         - company
         - position
@@ -731,12 +754,15 @@ components:
             id:
               type: string
               format: uuid
+            createdAt:
+              type: string
 
     User:
       type: object
       properties:
         email:
           type: string
+          example: juan@api.com
         role:
           type: string
           enum:
@@ -762,6 +788,7 @@ components:
         enrollmentDate:
           type: string
           format: date
+          example: 2018-06
       required:
         - student
         - jobOpening
@@ -882,7 +909,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/StudentBasic'
+            $ref: '#/components/schemas/StudentRequest'
     StudentPutBody:
       description: A JSON object containing student information
       required: true
@@ -903,7 +930,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/JobOpeningBasic'
+            $ref: '#/components/schemas/JobOpeningRequest'
     EnrollmentBody:
       description: A JSON object containing enrollment information
       required: true

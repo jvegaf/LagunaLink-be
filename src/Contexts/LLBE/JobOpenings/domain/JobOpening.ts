@@ -7,9 +7,11 @@ import { JobOpenPosition } from './JobOpenPosition';
 import { JobOpenPrevExperience } from './JobOpenPrevExperience';
 import { JobOpenQualification } from './JobOpenQualification';
 import { JobOpeningId } from '../../Shared/domain/JobOpenings/JobOpeningId';
+import { JobOpenCreatedAt } from './JobOpenCreatedAt';
 
 export class JobOpening extends AggregateRoot {
   readonly id: JobOpeningId;
+  readonly createdAt: JobOpenCreatedAt;
   readonly company: CompanyId;
   readonly title: JobOpenTitle;
   readonly position: JobOpenPosition;
@@ -20,6 +22,7 @@ export class JobOpening extends AggregateRoot {
 
   constructor(
     id: JobOpeningId,
+    createdAt: JobOpenCreatedAt,
     company: CompanyId,
     title: JobOpenTitle,
     position: JobOpenPosition,
@@ -30,6 +33,7 @@ export class JobOpening extends AggregateRoot {
   ) {
     super();
     this.id = id;
+    this.createdAt = createdAt;
     this.company = company;
     this.title = title;
     this.position = position;
@@ -41,6 +45,7 @@ export class JobOpening extends AggregateRoot {
 
   static create(
     id: JobOpeningId,
+    createdAt: JobOpenCreatedAt,
     company: CompanyId,
     title: JobOpenTitle,
     position: JobOpenPosition,
@@ -51,6 +56,7 @@ export class JobOpening extends AggregateRoot {
   ): JobOpening {
     return new JobOpening(
       id,
+      createdAt,
       company,
       title,
       position,
@@ -64,6 +70,7 @@ export class JobOpening extends AggregateRoot {
   static fromPrimitives(
     plaindata: {
       id: string;
+      createdAt: string;
       company: string;
       title: string;
       position: string;
@@ -74,6 +81,7 @@ export class JobOpening extends AggregateRoot {
     }) {
     return new JobOpening(
       new JobOpeningId(plaindata.id),
+      new JobOpenCreatedAt(plaindata.createdAt),
       new CompanyId(plaindata.company),
       new JobOpenTitle(plaindata.title),
       new JobOpenPosition(plaindata.position),
@@ -87,6 +95,7 @@ export class JobOpening extends AggregateRoot {
   toPrimitives(): any {
     return {
       id: this.id.value,
+      createdAt: this.createdAt.toString(),
       company: this.company.value,
       title: this.title.value,
       position: this.position.value,

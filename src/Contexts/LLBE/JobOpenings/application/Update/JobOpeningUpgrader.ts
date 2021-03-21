@@ -11,6 +11,7 @@ import { JobOpenPrevExperience } from '../../domain/JobOpenPrevExperience';
 import { JobOpeningId } from '../../../Shared/domain/JobOpenings/JobOpeningId';
 import { JobOpeningNotFound } from '../../domain/JobOpeningNotFound';
 import { ApplicationService } from '../../../../Shared/domain/ApplicationService';
+import { JobOpenCreatedAt } from '../../domain/JobOpenCreatedAt';
 
 export class JobOpeningUpgrader extends ApplicationService {
   private repository: JobOpeningRepository;
@@ -25,6 +26,7 @@ export class JobOpeningUpgrader extends ApplicationService {
 
     const jobOpening = JobOpening.create(
       new JobOpeningId(request.id),
+      JobOpenCreatedAt.now(),
       new CompanyId(request.company),
       new JobOpenTitle(request.title),
       new JobOpenPosition(request.position),
