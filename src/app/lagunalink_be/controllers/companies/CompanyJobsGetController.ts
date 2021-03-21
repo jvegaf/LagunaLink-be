@@ -13,7 +13,8 @@ export class CompanyJobsGetController implements Controller {
   async run(req: Request, res: Response) {
     try {
       const jobOpenings = await this.jobsFetcher.run(new CompanyId(req.params.id));
-      res.status(200).send({jobOpenings: jobOpenings});
+      const jobs = jobOpenings.map(job => job.toPrimitives());
+      res.status(200).send({job_openings: jobs});
     } catch (e) {
       res.status(404).send({message: e.message});
     }
