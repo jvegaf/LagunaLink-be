@@ -613,7 +613,7 @@ components:
           items:
             $ref: "#/components/schemas/JobExperience"
 
-    CompanyBasic:
+    CompanyRequest:
       type: object
       properties:
         name:
@@ -629,7 +629,6 @@ components:
         city:
           type: string
       required:
-        - id
         - name
         - description
         - address
@@ -638,12 +637,16 @@ components:
         - city
     Company:
       allOf:
-        - $ref: '#/components/schemas/CompanyBasic'
+        - $ref: '#/components/schemas/CompanyRequest'
         - type: object
           properties:
             id:
               type: string
               format: uuid
+            job_openings:
+              type: array
+              items:
+                $ref: '#/components/schemas/JobOpening'
 
     Language:
       type: object
@@ -701,7 +704,7 @@ components:
         - start_date
         - end_date
 
-    JobOpeningBasic:
+    JobOpeningRequest:
       type: object
       properties:
         company:
@@ -722,7 +725,7 @@ components:
         - responsibilities
     JobOpening:
       allOf:
-        - $ref: '#/components/schemas/JobOpeningBasic'
+        - $ref: '#/components/schemas/JobOpeningRequest'
         - type: object
           properties:
             id:
@@ -893,7 +896,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Company'
+            $ref: '#/components/schemas/CompanyRequest'
     JobOpeningBody:
       description: A JSON object containing job opening information
       required: true
