@@ -367,7 +367,7 @@ paths:
                     $ref: '#/components/schemas/JobOpening'
         '401':
           $ref: '#/components/responses/Unauthorized'
-        '403':`
+        '403':
           $ref: '#/components/responses/Forbidden'
 
   /job_openings/{jobOpeningId}:
