@@ -15,7 +15,7 @@ export class JobOpeningPutController implements Controller {
     const jobOpenUprgRequest: UpgradeJobOpeningRequest = {
       id: req.params.id,
       company: req.body.payload.userId,
-      title: req.body.title,
+      description: req.body.description,
       position: req.body.position,
       conditions: req.body.conditions,
       responsibilities: req.body.responsibilities,

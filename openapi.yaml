@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   description: This is the backend of the Lagunalink App.  You can find out more about this project at [https://github.com/jvegaf/LagunaLink-be](https://github.com/jvegaf/LagunaLink-be)
-  version: 1.2.7
+  version: 1.2.8
   title: LagunaLink Backend
   contact:
     email: josevega234@gmail.com
@@ -737,6 +737,9 @@ components:
         position:
           type: string
           example: Pastelero
+        description:
+          type: string
+          example: Obrador situado en Zaragoza, necesita incorporar un puesto de trabajo en la categoría de oficial de primera de manera estable
         responsibilities:
           type: string
           example: Tareas en el obrador

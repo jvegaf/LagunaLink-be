@@ -2,7 +2,7 @@ import { JobOpeningRepository } from '../../domain/JobOpeningRepository';
 import { UpgradeJobOpeningRequest } from './UpgradeJobOpeningRequest';
 import { JobOpening } from '../../domain/JobOpening';
 import { CompanyId } from '../../../Shared/domain/Companies/CompanyId';
-import { JobOpenTitle } from '../../domain/JobOpenTitle';
+import { JobOpenDescription } from '../../domain/JobOpenDescription';
 import { JobOpenPosition } from '../../domain/JobOpenPosition';
 import { JobOpenConditions } from '../../domain/JobOpenConditions';
 import { JobOpenResponsibilities } from '../../domain/JobOpenResponsibilities';
@@ -28,7 +28,7 @@ export class JobOpeningUpgrader extends ApplicationService {
       new JobOpeningId(request.id),
       JobOpenCreatedAt.now(),
       new CompanyId(request.company),
-      new JobOpenTitle(request.title),
+      new JobOpenDescription(request.description),
       new JobOpenPosition(request.position),
       new JobOpenConditions(request.conditions),
       new JobOpenResponsibilities(request.responsibilities),

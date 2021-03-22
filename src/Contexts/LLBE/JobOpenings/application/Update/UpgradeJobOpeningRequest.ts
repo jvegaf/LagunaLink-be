@@ -1,7 +1,7 @@
 export type UpgradeJobOpeningRequest = {
   id: string;
   company: string;
-  title: string;
+  description: string;
   position: string;
   conditions: string;
   responsibilities: string;

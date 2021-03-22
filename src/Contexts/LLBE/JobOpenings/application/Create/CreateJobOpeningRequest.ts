@@ -1,6 +1,6 @@
 export type CreateJobOpeningRequest = {
   company: string;
-  title: string;
+  description: string;
   position: string;
   conditions: string;
   responsibilities: string;

@@ -14,7 +14,7 @@ export class JobOpeningPostController implements Controller {
 
     const jobOpenRequest: CreateJobOpeningRequest = {
       company: req.body.payload.userId,
-      title: req.body.title,
+      description: req.body.description,
       position: req.body.position,
       conditions: req.body.conditions,
       responsibilities: req.body.responsibilities,

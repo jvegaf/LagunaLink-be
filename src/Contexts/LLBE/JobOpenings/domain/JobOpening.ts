@@ -1,7 +1,7 @@
 import { AggregateRoot } from '../../../Shared/domain/AggregateRoot';
 import { CompanyId } from '../../Shared/domain/Companies/CompanyId';
 import { JobOpenResponsibilities } from './JobOpenResponsibilities';
-import { JobOpenTitle } from './JobOpenTitle';
+import { JobOpenDescription } from './JobOpenDescription';
 import { JobOpenConditions } from './JobOpenConditions';
 import { JobOpenPosition } from './JobOpenPosition';
 import { JobOpenPrevExperience } from './JobOpenPrevExperience';
@@ -13,7 +13,7 @@ export class JobOpening extends AggregateRoot {
   readonly id: JobOpeningId;
   readonly createdAt: JobOpenCreatedAt;
   readonly company: CompanyId;
-  readonly title: JobOpenTitle;
+  readonly title: JobOpenDescription;
   readonly position: JobOpenPosition;
   readonly conditions: JobOpenConditions;
   readonly responsibilities: JobOpenResponsibilities;
@@ -24,7 +24,7 @@ export class JobOpening extends AggregateRoot {
     id: JobOpeningId,
     createdAt: JobOpenCreatedAt,
     company: CompanyId,
-    title: JobOpenTitle,
+    title: JobOpenDescription,
     position: JobOpenPosition,
     conditions: JobOpenConditions,
     responsibilities: JobOpenResponsibilities,
@@ -47,7 +47,7 @@ export class JobOpening extends AggregateRoot {
     id: JobOpeningId,
     createdAt: JobOpenCreatedAt,
     company: CompanyId,
-    title: JobOpenTitle,
+    title: JobOpenDescription,
     position: JobOpenPosition,
     conditions: JobOpenConditions,
     responsibilities: JobOpenResponsibilities,
@@ -83,7 +83,7 @@ export class JobOpening extends AggregateRoot {
       new JobOpeningId(plaindata.id),
       new JobOpenCreatedAt(plaindata.createdAt),
       new CompanyId(plaindata.company),
-      new JobOpenTitle(plaindata.title),
+      new JobOpenDescription(plaindata.title),
       new JobOpenPosition(plaindata.position),
       new JobOpenConditions(plaindata.conditions),
       new JobOpenResponsibilities(plaindata.responsibilities),

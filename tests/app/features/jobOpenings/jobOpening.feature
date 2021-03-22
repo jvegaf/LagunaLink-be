@@ -8,7 +8,7 @@ Feature: Job Opening
     When I send a POST request to "/job_openings" with body:
     """
     {
-      "title": "Frontend Developer",
+      "description": "Frontend Developer",
       "position": "Junior Frontend Developer",
       "conditions": "salario 20K anuales",
       "responsibilities": "Desarrollo de interfaz de apliacion web",
@@ -25,7 +25,7 @@ Feature: Job Opening
     When I send a POST request to "/job_openings" with body:
     """
     {
-      "title": "Frontend Developer",
+      "description": "Frontend Developer",
       "position": "Junior Frontend Developer",
       "conditions": "salario 20K anuales",
       "responsibilities": "Desarrollo de interfaz de apliacion web",
@@ -43,7 +43,7 @@ Feature: Job Opening
     When I send a PUT request to "/job_openings/ef8ac118-8d7f-49cc-abec-78e0d05af80a" with body:
     """
     {
-      "title": "Frontend Developer",
+      "description": "Frontend Developer",
       "position": "Junior Frontend Developer",
       "conditions": "salario 25K anuales",
       "responsibilities": "Desarrollo de interfaz de apliacion web",
@@ -60,7 +60,7 @@ Feature: Job Opening
     When I send a PUT request to "/job_openings/ef8ac121-8d7f-49cc-abec-78e0d05af80a" with body:
     """
     {
-      "title": "Frontend Developer",
+      "description": "Frontend Developer",
       "position": "Junior Frontend Developer",
       "conditions": "salario 25K anuales",
       "responsibilities": "Desarrollo de interfaz de apliacion web",

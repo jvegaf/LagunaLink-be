@@ -1,6 +1,6 @@
 import { JobOpeningId } from '../../../../../src/Contexts/LLBE/Shared/domain/JobOpenings/JobOpeningId';
 import { CompanyId } from '../../../../../src/Contexts/LLBE/Shared/domain/Companies/CompanyId';
-import { JobOpenTitle } from '../../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpenTitle';
+import { JobOpenDescription } from '../../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpenDescription';
 import { JobOpenPosition } from '../../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpenPosition';
 import { JobOpenConditions } from '../../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpenConditions';
 import { JobOpenResponsibilities } from '../../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpenResponsibilities';
@@ -10,7 +10,7 @@ import { JobOpening } from '../../../../../src/Contexts/LLBE/JobOpenings/domain/
 import { CreateJobOpeningRequest } from '../../../../../src/Contexts/LLBE/JobOpenings/application/Create/CreateJobOpeningRequest';
 import { JobOpeningIdMother } from '../../Shared/domain/JobOpenings/JobOpeningIdMother';
 import { CompanyIdMother } from '../../Shared/domain/Companies/CompanyIdMother';
-import { JobOpenTitleMother } from './JobOpenTitleMother';
+import { JobOpenDescriptionMother } from './JobOpenDescriptionMother';
 import { JobPositionMother } from '../../Students/domain/JobPositionMother';
 import { JobOpenConditionsMother } from './JobOpenConditionsMother';
 import { JobOpenResponsibilitiesMother } from './JobOpenResponsibilitiesMother';
@@ -24,7 +24,7 @@ export class JobOpeningMother {
     id: JobOpeningId,
     createdAt: JobOpenCreatedAt,
     company: CompanyId,
-    title: JobOpenTitle,
+    title: JobOpenDescription,
     position: JobOpenPosition,
     conditions: JobOpenConditions,
     responsibilities: JobOpenResponsibilities,
@@ -49,7 +49,7 @@ export class JobOpeningMother {
       JobOpeningIdMother.random(),
       JobOpenCreatedAt.now(),
       CompanyIdMother.create(request.company),
-      JobOpenTitleMother.create(request.title),
+      JobOpenDescriptionMother.create(request.description),
       JobPositionMother.create(request.position),
       JobOpenConditionsMother.create(request.conditions),
       JobOpenResponsibilitiesMother.create(request.responsibilities),
@@ -63,7 +63,7 @@ export class JobOpeningMother {
       JobOpeningIdMother.create(request.id),
       JobOpenCreatedAt.now(),
       CompanyIdMother.create(request.company),
-      JobOpenTitleMother.create(request.title),
+      JobOpenDescriptionMother.create(request.description),
       JobPositionMother.create(request.position),
       JobOpenConditionsMother.create(request.conditions),
       JobOpenResponsibilitiesMother.create(request.responsibilities),
@@ -77,7 +77,7 @@ export class JobOpeningMother {
       JobOpeningIdMother.random(),
       JobOpenCreatedAt.now(),
       CompanyIdMother.random(),
-      JobOpenTitleMother.random(),
+      JobOpenDescriptionMother.random(),
       JobPositionMother.random(),
       JobOpenConditionsMother.random(),
       JobOpenResponsibilitiesMother.random(),

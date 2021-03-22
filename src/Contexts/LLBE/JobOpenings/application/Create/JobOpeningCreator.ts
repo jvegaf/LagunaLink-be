@@ -7,7 +7,7 @@ import { JobOpenPrevExperience } from '../../domain/JobOpenPrevExperience';
 import { JobOpenQualification } from '../../domain/JobOpenQualification';
 import { JobOpenPosition } from '../../domain/JobOpenPosition';
 import { JobOpenConditions } from '../../domain/JobOpenConditions';
-import { JobOpenTitle } from '../../domain/JobOpenTitle';
+import { JobOpenDescription } from '../../domain/JobOpenDescription';
 import { JobOpeningId } from '../../../Shared/domain/JobOpenings/JobOpeningId';
 import { ApplicationService } from '../../../../Shared/domain/ApplicationService';
 import { JobOpenCreatedAt } from '../../domain/JobOpenCreatedAt';
@@ -27,7 +27,7 @@ export class JobOpeningCreator extends ApplicationService {
       jobOpenId,
       JobOpenCreatedAt.now(),
       new CompanyId(request.company),
-      new JobOpenTitle(request.title),
+      new JobOpenDescription(request.description),
       new JobOpenPosition(request.position),
       new JobOpenConditions(request.conditions),
       new JobOpenResponsibilities(request.responsibilities),
