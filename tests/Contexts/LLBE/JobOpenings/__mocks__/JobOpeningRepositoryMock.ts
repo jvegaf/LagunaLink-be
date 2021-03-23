@@ -18,7 +18,7 @@ export class JobOpeningRepositoryMock implements JobOpeningRepository {
     const lastSavedJobOpening = mock.calls[mock.calls.length - 1][0] as JobOpening;
     expect(lastSavedJobOpening).toBeInstanceOf(JobOpening);
     expect(lastSavedJobOpening.company).toEqual(expected.company);
-    expect(lastSavedJobOpening.title).toEqual(expected.title);
+    expect(lastSavedJobOpening.description).toEqual(expected.description);
     expect(lastSavedJobOpening.position).toEqual(expected.position);
   }
 

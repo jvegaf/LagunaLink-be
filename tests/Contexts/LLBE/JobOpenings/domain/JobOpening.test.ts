@@ -8,7 +8,7 @@ describe('JobOpening', () => {
     const jobOpening = JobOpeningMother.fromCreateRequest(request);
 
     expect(jobOpening.company.value).toBe(request.company);
-    expect(jobOpening.title.value).toBe(request.description);
+    expect(jobOpening.description.value).toBe(request.description);
     expect(jobOpening.position.value).toBe(request.position);
   });
 });
