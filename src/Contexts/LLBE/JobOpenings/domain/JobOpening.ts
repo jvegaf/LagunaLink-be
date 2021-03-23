@@ -13,7 +13,7 @@ export class JobOpening extends AggregateRoot {
   readonly id: JobOpeningId;
   readonly createdAt: JobOpenCreatedAt;
   readonly company: CompanyId;
-  readonly title: JobOpenDescription;
+  readonly description: JobOpenDescription;
   readonly position: JobOpenPosition;
   readonly conditions: JobOpenConditions;
   readonly responsibilities: JobOpenResponsibilities;
@@ -24,7 +24,7 @@ export class JobOpening extends AggregateRoot {
     id: JobOpeningId,
     createdAt: JobOpenCreatedAt,
     company: CompanyId,
-    title: JobOpenDescription,
+    description: JobOpenDescription,
     position: JobOpenPosition,
     conditions: JobOpenConditions,
     responsibilities: JobOpenResponsibilities,
@@ -35,7 +35,7 @@ export class JobOpening extends AggregateRoot {
     this.id = id;
     this.createdAt = createdAt;
     this.company = company;
-    this.title = title;
+    this.description = description;
     this.position = position;
     this.conditions = conditions;
     this.responsibilities = responsibilities;
@@ -47,7 +47,7 @@ export class JobOpening extends AggregateRoot {
     id: JobOpeningId,
     createdAt: JobOpenCreatedAt,
     company: CompanyId,
-    title: JobOpenDescription,
+    description: JobOpenDescription,
     position: JobOpenPosition,
     conditions: JobOpenConditions,
     responsibilities: JobOpenResponsibilities,
@@ -58,7 +58,7 @@ export class JobOpening extends AggregateRoot {
       id,
       createdAt,
       company,
-      title,
+      description,
       position,
       conditions,
       responsibilities,
@@ -72,7 +72,7 @@ export class JobOpening extends AggregateRoot {
       id: string;
       createdAt: string;
       company: string;
-      title: string;
+      description: string;
       position: string;
       conditions: string;
       responsibilities: string;
@@ -83,7 +83,7 @@ export class JobOpening extends AggregateRoot {
       new JobOpeningId(plaindata.id),
       new JobOpenCreatedAt(plaindata.createdAt),
       new CompanyId(plaindata.company),
-      new JobOpenDescription(plaindata.title),
+      new JobOpenDescription(plaindata.description),
       new JobOpenPosition(plaindata.position),
       new JobOpenConditions(plaindata.conditions),
       new JobOpenResponsibilities(plaindata.responsibilities),
@@ -97,7 +97,7 @@ export class JobOpening extends AggregateRoot {
       id: this.id.value,
       createdAt: this.createdAt.toString(),
       company: this.company.value,
-      title: this.title.value,
+      description: this.description.value,
       position: this.position.value,
       conditions: this.conditions.value,
       responsibilities: this.responsibilities.value,
