@@ -23,7 +23,7 @@ export class JobOpeningPostController implements Controller {
     };
 
     const jobOpening = await this.creator.run(jobOpenRequest);
-    const jobOpPrimitives = jobOpening.toPrimitives()
+    const jobOpPrimitives = jobOpening.toPrimitives();
     res.status(201).send({ job_opening: jobOpPrimitives });
   }
 }
