@@ -11,7 +11,7 @@ export class JobOpeningFetchController implements Controller {
 
   async run(req: Request, res: Response) {
     const jobs = await this.fetcher.run();
-
-    res.status(200).send({jobOpenings: jobs});
+    const primitiveJobs = jobs.map(job => job.toPrimitives());
+    res.status(200).send({jobOpenings: primitiveJobs});
   }
 }
