@@ -6,4 +6,6 @@ export interface CompanyRepository {
   save(company: Company): Promise<void>;
 
   search(id: CompanyId): Promise<Nullable<Company>>;
+
+  fetch(): Promise<Array<Company>>;
 }

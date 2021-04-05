@@ -7,10 +7,16 @@ import { CompanyJobsGetController } from '../controllers/companies/CompanyJobsGe
 import { authChecker } from '../middlewares/authChecker';
 import { userOwnChecker } from '../middlewares/userOwnChecker';
 import { companyRoleChecker } from '../middlewares/companyRoleChecker';
+import { CompanyFetchController } from '../controllers/companies/CompanyFetchController';
 
 export const register = (router: Router) => {
   const companyGetController: CompanyGetController = container.get('App.controllers.companies.CompanyGetController');
   router.get('/companies/:id', authChecker, (req: Request, res: Response) => companyGetController.run(req, res));
+
+  const companyFetchController: CompanyFetchController = container.get(
+    'App.controllers.companies.CompanyFetchController'
+  );
+  router.get('/companies', authChecker, (req: Request, res: Response) => companyFetchController.run(req, res));
 
   const companyJobsGetController: CompanyJobsGetController = container.get(
     'App.controllers.companies.CompanyJobsGetController'

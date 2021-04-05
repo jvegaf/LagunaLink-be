@@ -18,6 +18,17 @@ export class MongoCompanyRepository extends MongoRepository<Company> implements 
     return document ? Company.fromPrimitives({...document, id: id.value}) : null;
   }
 
+  public async fetch(): Promise<Array<Company>> {
+    const collection = await this.collection();
+    const resultSet: Company[] = [];
+    const cursor = collection.find();
+    await cursor.forEach(document => {
+      resultSet.push(Company.fromPrimitives({...document, id: document._id}));
+    });
+
+    return resultSet;
+  }
+
   protected moduleName(): string {
     return 'companies';
   }

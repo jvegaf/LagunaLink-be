@@ -39,6 +39,10 @@ services:
     class: ../../../controllers/companies/CompanyGetController
     arguments: [ "@App.companies.CompanyFinder", "@App.jobOpenings.CompanyJobsFetcher" ]
 
+  App.controllers.companies.CompanyFetchController:
+    class: ../../../controllers/companies/CompanyFetchController
+    arguments: [ "@App.companies.CompanyFetcher" ]
+
   App.controllers.companies.CompanyJobsGetController:
     class: ../../../controllers/companies/CompanyJobsGetController
     arguments: [ "@App.jobOpenings.CompanyJobsFetcher" ]

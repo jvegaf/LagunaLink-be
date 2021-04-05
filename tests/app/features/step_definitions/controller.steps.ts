@@ -32,267 +32,237 @@ import path from 'path';
 let _request: request.Test;
 let _response: request.Response;
 let accessToken: string;
-let authRequest: { id: string, email: string, password: string };
+let authRequest: { id: string; email: string; password: string };
 
-const userRepository: UserRepository = container.get(
-  'App.users.UserRepository'
-);
+const userRepository: UserRepository = container.get('App.users.UserRepository');
 
-const studentRepository: StudentRepository = container.get(
-    'App.students.StudentRepository'
-);
+const studentRepository: StudentRepository = container.get('App.students.StudentRepository');
 
-const companyRepository: CompanyRepository = container.get(
-    'App.companies.CompanyRepository'
-);
+const companyRepository: CompanyRepository = container.get('App.companies.CompanyRepository');
 
-const jobOpenRepository: JobOpeningRepository = container.get(
-    'App.jobOpenings.JobOpeningRepository'
-);
+const jobOpenRepository: JobOpeningRepository = container.get('App.jobOpenings.JobOpeningRepository');
 
 async function createAccountNotVerified() {
-    const userRequest = CreateUserRequestMother.random();
-    userRequest.email = 'ramoncin@gmail.com';
-    userRequest.password = hashSync('123123', 10);
-    userRequest.isActive = false;
-    userRequest.registered = false;
-    const user = UserMother.fromRequest(userRequest);
-    await userRepository.save(user);
+  const userRequest = CreateUserRequestMother.random();
+  userRequest.email = 'ramoncin@gmail.com';
+  userRequest.password = hashSync('123123', 10);
+  userRequest.isActive = false;
+  userRequest.registered = false;
+  const user = UserMother.fromRequest(userRequest);
+  await userRepository.save(user);
 }
 
 async function createUser(role: string, id = '', registered = true) {
-    const userRequest = CreateUserRequestMother.random();
-    const passwordPlane = userRequest.password;
-    if (id !== '') {
-        userRequest.id = id;
-    }
-    userRequest.password = hashSync(userRequest.password, 10);
-    userRequest.isActive = true;
-    userRequest.registered = registered;
-    userRequest.role = role;
-    const user = UserMother.fromRequest(userRequest);
-    await userRepository.save(user);
-    if (registered) {
-        await register(userRequest.id, userRequest.role);
-    }
-    return {
-        id: userRequest.id,
-        email: userRequest.email,
-        password: passwordPlane,
-    };
+  const userRequest = CreateUserRequestMother.random();
+  const passwordPlane = userRequest.password;
+  if (id !== '') {
+    userRequest.id = id;
+  }
+  userRequest.password = hashSync(userRequest.password, 10);
+  userRequest.isActive = true;
+  userRequest.registered = registered;
+  userRequest.role = role;
+  const user = UserMother.fromRequest(userRequest);
+  await userRepository.save(user);
+  if (registered) {
+    await register(userRequest.id, userRequest.role);
+  }
+  return {
+    id: userRequest.id,
+    email: userRequest.email,
+    password: passwordPlane,
+  };
 }
 
+const ROLE_COMPANY = 'ROLE_COMPANY';
+
 async function register(id: string, role: string) {
-    if (role === 'ROLE_STUDENT') {
-        const student = Student.create(
-          StudentIdMother.create(id),
-          StudentNameMother.random(),
-          StudentSurnameMother.random(),
-          StudentLastnameMother.random()
-        );
+  if (role === 'ROLE_STUDENT') {
+    const student = Student.create(
+      StudentIdMother.create(id),
+      StudentNameMother.random(),
+      StudentSurnameMother.random(),
+      StudentLastnameMother.random()
+    );
 
-        await studentRepository.save(student);
-    }
+    await studentRepository.save(student);
+  }
 
-    if (role === 'ROLE_COMPANY') {
-        const company = Company.create(
-          CompanyIdMother.create(id),
-          CompanyNameMother.random(),
-          CompanyDescriptionMother.random(),
-          CompanyAddressMother.random(),
-          CompanyPostalCodeMother.random(),
-          CompanyRegionMother.random(),
-          CompanyCityMother.random()
-        );
-        await companyRepository.save(company);
-    }
+  if (role === ROLE_COMPANY) {
+    const company = Company.create(
+      CompanyIdMother.create(id),
+      CompanyNameMother.random(),
+      CompanyDescriptionMother.random(),
+      CompanyAddressMother.random(),
+      CompanyPostalCodeMother.random(),
+      CompanyRegionMother.random(),
+      CompanyCityMother.random()
+    );
+    await companyRepository.save(company);
+  }
 }
 
 async function loginUserAccount(authReq: object) {
-    const response = await request(app).post('/auth/signin').send(authReq);
-    return response.body.access_token;
+  const response = await request(app).post('/auth/signin').send(authReq);
+  return response.body.access_token;
 }
 
 async function registerRandomJobOpening() {
-    const jobOpening = JobOpeningMother.random();
-    await jobOpenRepository.save(jobOpening);
+  const jobOpening = JobOpeningMother.random();
+  await jobOpenRepository.save(jobOpening);
 }
 
 async function registerRandomJobOpeningWithId(id: string, companyId = '') {
-    const jobOpeningRequest = UpgradeJobOpeningRequestMother.random(id);
-    if (companyId !== '') {
-        jobOpeningRequest.company = companyId;
-    }
-    await jobOpenRepository.save(
-      JobOpeningMother.fromUpgradeRequest(jobOpeningRequest)
-    );
+  const jobOpeningRequest = UpgradeJobOpeningRequestMother.random(id);
+  if (companyId !== '') {
+    jobOpeningRequest.company = companyId;
+  }
+  await jobOpenRepository.save(JobOpeningMother.fromUpgradeRequest(jobOpeningRequest));
 }
 
 async function registerSeveralJobOpenings() {
-    for (let i = 0; i < 10; i++) {
-        await registerRandomJobOpening();
-    }
+  for (let i = 0; i < 10; i++) {
+    await registerRandomJobOpening();
+  }
 }
 
-async function registerSeveralJobOpeningsOfCompany(companyId: string) {
-    for (let i = 0; i < 10; i++) {
-        const comReq = CreateJobOpeningRequestMother.randomOfCompany(companyId);
-        const job = JobOpeningMother.fromCreateRequest(comReq);
-        await jobOpenRepository.save(job);
-    }
+async function registerSeveralCompanies() {
+  for (let i = 0; i < 10; i++) {
+    const user = await createUser(ROLE_COMPANY);
+    await register(user.id, ROLE_COMPANY);
+  }
+}
+
+async function registerSeveralJobOpeningsOfCompany(companyId: string, quantity?: number) {
+  const amount = quantity !== undefined ? quantity : 10;
+  for (let i = 0; i < amount; i++) {
+    const comReq = CreateJobOpeningRequestMother.randomOfCompany(companyId);
+    const job = JobOpeningMother.fromCreateRequest(comReq);
+    await jobOpenRepository.save(job);
+  }
 }
 
 Given('I have a Student Role Account', async () => {
-    authRequest = await createUser('ROLE_STUDENT');
+  authRequest = await createUser('ROLE_STUDENT');
 });
 
 Given('I have a Company Role Account', async () => {
-    authRequest = await createUser('ROLE_COMPANY');
+  authRequest = await createUser(ROLE_COMPANY);
 });
 
 Given('Previously was registered a company with id {string}', async (id: string) => {
-    authRequest = await createUser('ROLE_COMPANY', id);
+  authRequest = await createUser(ROLE_COMPANY, id);
 });
 
 Given('I have a Student Role Account with id {string}', async (id: string) => {
-    authRequest = await createUser('ROLE_STUDENT', id);
+  authRequest = await createUser('ROLE_STUDENT', id);
 });
 
 Given('I have a Company Role Account with id {string}', async (id: string) => {
-    authRequest = await createUser('ROLE_COMPANY', id);
+  authRequest = await createUser(ROLE_COMPANY, id);
 });
 
 Given('I have a Student Role Account without complete register', async () => {
-    authRequest = await createUser('ROLE_STUDENT', '', false);
+  authRequest = await createUser('ROLE_STUDENT', '', false);
 });
 
 Given('I have a Company Role Account without complete register', async () => {
-    authRequest = await createUser('ROLE_COMPANY', '', false);
+  authRequest = await createUser(ROLE_COMPANY, '', false);
 });
 
 Given('I am logged in the application', async () => {
-    accessToken = await loginUserAccount(authRequest);
+  accessToken = await loginUserAccount(authRequest);
 });
 
 Given('I published a Job Opening with id {string}', async (id: string) => {
-    await registerRandomJobOpeningWithId(id, authRequest.id);
+  await registerRandomJobOpeningWithId(id, authRequest.id);
 });
 
 Given('exists a Job Opening with id {string}', async (id: string) => {
-    const jobOpeningRequest = UpgradeJobOpeningRequestMother.random(id);
-    const jobOpening = JobOpeningMother.fromUpgradeRequest(jobOpeningRequest);
-    await jobOpenRepository.save(jobOpening);
+  const jobOpeningRequest = UpgradeJobOpeningRequestMother.random(id);
+  const jobOpening = JobOpeningMother.fromUpgradeRequest(jobOpeningRequest);
+  await jobOpenRepository.save(jobOpening);
 });
 
 Given('I am a user with account not yet verified', async () => {
-    await createAccountNotVerified();
+  await createAccountNotVerified();
 });
 Given('Previously was created a Job Opening with id {string}', async (id: string) => {
-    await registerRandomJobOpeningWithId(id);
+  await registerRandomJobOpeningWithId(id);
 });
 
 Given('Several Job Openings were previously created', async () => {
-    await registerSeveralJobOpenings();
+  await registerSeveralJobOpenings();
+});
+
+Given('Several Companies were previously created', async () => {
+  await registerSeveralCompanies();
 });
 
 Given('This Company published several Job Openings', async () => {
-    await registerSeveralJobOpeningsOfCompany(authRequest.id);
+  await registerSeveralJobOpeningsOfCompany(authRequest.id);
 });
 
 When('I send a GET request to {string}', (route: string) => {
-    if (accessToken === '') {
-        _request = request(app).get(route).send();
-    }
-    _request = request(app)
-      .get(route)
-      .auth(accessToken, {type: 'bearer'})
-      .send();
+  if (accessToken === '') {
+    _request = request(app).get(route).send();
+  }
+  _request = request(app).get(route).auth(accessToken, { type: 'bearer' }).send();
 });
 
-When(
-  'I send a POST request to {string}',
-  (route: string) => {
-      if (accessToken === '') {
-          _request = request(app).post(route).send();
-      }
-      _request = request(app)
-        .post(route)
-        .auth(accessToken, {type: 'bearer'})
-        .send();
+When('I send a POST request to {string}', (route: string) => {
+  if (accessToken === '') {
+    _request = request(app).post(route).send();
   }
-);
+  _request = request(app).post(route).auth(accessToken, { type: 'bearer' }).send();
+});
 
-When(
-  'I send a POST request to {string} with body:',
-  (route: string, body: string) => {
-      if (accessToken === '') {
-          _request = request(app).post(route).send(JSON.parse(body));
-      }
-      _request = request(app)
-        .post(route)
-        .auth(accessToken, {type: 'bearer'})
-        .send(JSON.parse(body));
+When('I send a POST request to {string} with body:', (route: string, body: string) => {
+  if (accessToken === '') {
+    _request = request(app).post(route).send(JSON.parse(body));
   }
-);
+  _request = request(app).post(route).auth(accessToken, { type: 'bearer' }).send(JSON.parse(body));
+});
 
-When(
-    'I send a PUT request to {string} with body:',
-    (route: string, body: string) => {
-        _request = request(app)
-            .put(route)
-            .auth(accessToken, {type: 'bearer'})
-            .send(JSON.parse(body));
-    }
-);
+When('I send a PUT request to {string} with body:', (route: string, body: string) => {
+  _request = request(app).put(route).auth(accessToken, { type: 'bearer' }).send(JSON.parse(body));
+});
 
-When(
-    'I send a DELETE request to {string}',
-    (route: string) => {
-        _request = request(app)
-            .delete(route)
-            .auth(accessToken, {type: 'bearer'})
-            .send();
-    }
-);
+When('I send a DELETE request to {string}', (route: string) => {
+  _request = request(app).delete(route).auth(accessToken, { type: 'bearer' }).send();
+});
 
-When(
-    'Upload a image in a PUT request to {string}',
-    (route: string) => {
-        _request = request(app)
-          .put(route)
-          .auth(accessToken, { type: 'bearer' })
-          .attach('image', path.join(__dirname, 'fakelogo.jpg'));
-    }
-);
+When('Upload a image in a PUT request to {string}', (route: string) => {
+  _request = request(app)
+    .put(route)
+    .auth(accessToken, { type: 'bearer' })
+    .attach('image', path.join(__dirname, 'fakelogo.jpg'));
+});
 
 Then('the response status code should be {int}', async (status: number) => {
-    _response = await _request.expect(status);
+  _response = await _request.expect(status);
 });
 
 Then('the response should be empty', () => {
-    assert.deepStrictEqual(_response.body, {});
+  assert.deepStrictEqual(_response.body, {});
 });
 
-Then('the response content should be:', (response) => {
-    assert.strictEqual(_response.body, JSON.parse(response));
+Then('the response content should be:', response => {
+  assert.strictEqual(_response.body, JSON.parse(response));
 });
 
 Then('print the response', () => {
-    console.log(_response.body);
+  console.log(_response.body);
 });
 
 Before(async () => {
-    accessToken = '';
-    authRequest = {id: '', email: '', password: ''};
-    const environmentArranger: Promise<EnvironmentArranger> = container.get(
-      'App.EnvironmentArranger'
-    );
-    await (await environmentArranger).arrange();
+  accessToken = '';
+  authRequest = { id: '', email: '', password: '' };
+  const environmentArranger: Promise<EnvironmentArranger> = container.get('App.EnvironmentArranger');
+  await (await environmentArranger).arrange();
 });
 
 AfterAll(async () => {
-    const environmentArranger: Promise<EnvironmentArranger> = container.get(
-        'App.EnvironmentArranger'
-    );
-    await (await environmentArranger).close();
+  const environmentArranger: Promise<EnvironmentArranger> = container.get('App.EnvironmentArranger');
+  await (await environmentArranger).close();
 });

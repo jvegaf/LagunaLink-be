@@ -6,6 +6,7 @@ import { CompanyId } from '../../../../../src/Contexts/LLBE/Shared/domain/Compan
 export class CompanyRepositoryMock implements CompanyRepository {
   private mockSave = jest.fn();
   private mockSearch = jest.fn();
+  private mockFetch = jest.fn();
 
   async save(company: Company): Promise<void> {
     this.mockSave(company);
@@ -30,5 +31,9 @@ export class CompanyRepositoryMock implements CompanyRepository {
 
   assertLastSearchedCompanyIs(expected: CompanyId): void {
     expect(this.mockSearch).toHaveBeenCalledWith(expected);
+  }
+
+  fetch(): Promise<Array<Company>> {
+    return this.mockFetch();
   }
 }
