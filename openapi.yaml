@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   description: This is the backend of the Lagunalink App.  You can find out more about this project at [https://github.com/jvegaf/LagunaLink-be](https://github.com/jvegaf/LagunaLink-be)
-  version: 1.3.0
+  version: 1.3.1
   title: LagunaLink Backend
   contact:
     email: josevega234@gmail.com
@@ -39,9 +39,9 @@ paths:
         '201':
           description: Created
 
-  /avatar/{id}:
+  /user/{id}/avatar:
     get:
-      summary: Download determinate avatar
+      summary: get avatar id from determinate user
       tags:
         - Avatar
       security:
@@ -49,7 +49,7 @@ paths:
       parameters:
         - name: id
           in: path
-          description: avatarId
+          description: userId
           required: true
           schema:
             type: string
@@ -57,12 +57,18 @@ paths:
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  avatarId:
+                    type: string
+                    format: uuid
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
-
-  /user/{id}/avatar:
     put:
       summary: Upload avatar image of user account
       tags:

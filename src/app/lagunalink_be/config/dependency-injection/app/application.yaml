@@ -96,7 +96,7 @@ services:
   # Avatar
   App.controllers.avatar.AvatarGetController:
     class: ../../../controllers/avatar/AvatarGetController
-    arguments: []
+    arguments: ["@App.users.AvatarFinder"]
 
   App.controllers.avatar.AvatarPutController:
     class: ../../../controllers/avatar/AvatarPutController

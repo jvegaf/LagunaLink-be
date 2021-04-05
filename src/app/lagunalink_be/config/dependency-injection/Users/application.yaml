@@ -36,6 +36,10 @@ services:
     class: ../../../../../Contexts/LLBE/Users/infrastructure/token/JWTTokenGenerator
     arguments: []
 
+  App.users.AvatarFinder:
+    class: ../../../../../Contexts/LLBE/Users/application/AvatarFinder
+    arguments: [ '@App.users.UserRepository']
+
   App.users.AvatarUpdater:
     class: ../../../../../Contexts/LLBE/Users/application/AvatarUpdater
     arguments: [ '@App.users.UserRepository']
