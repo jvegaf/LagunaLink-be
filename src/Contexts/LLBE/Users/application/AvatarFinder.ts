@@ -2,10 +2,7 @@ import { ApplicationService } from '../../../Shared/domain/ApplicationService';
 import { UserId } from '../../Shared/domain/Users/UserId';
 import { UserRepository } from '../domain/UserRepository';
 import { User } from '../domain/User';
-import path from 'path';
-import fs from 'fs-extra';
-import {UserAvatar} from "../domain/UserAvatar";
-import {UserAvatarNotFound} from "../domain/UserAvatarNotFound";
+import {UserAvatar} from '../domain/UserAvatar';
 
 export class AvatarFinder extends ApplicationService {
   private repository: UserRepository;
@@ -16,12 +13,7 @@ export class AvatarFinder extends ApplicationService {
   }
 
   public async run(userId: UserId): Promise<UserAvatar> {
-    const user = (await this.repository.search(userId)) as User;
-    const avatarId = user.avatar.value;
-    if (avatarId === '') {
-      this.logInfo(`not founded avatar of ${user.email}`);
-      throw new UserAvatarNotFound('Avatar not found');
-    }
+    const user = await this.repository.search(userId) as User;
     this.logInfo(`founded avatar of user ${user.email}`);
     return user.avatar;
   }
