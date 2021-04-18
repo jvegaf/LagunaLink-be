@@ -5,7 +5,7 @@ import { authChecker } from '../middlewares/authChecker';
 import { AvatarPutController } from '../controllers/avatar/AvatarPutController';
 import { userOwnChecker } from '../middlewares/userOwnChecker';
 import { AvatarDeleteController } from '../controllers/avatar/AvatarDeleteController';
-import upload from '../../../Contexts/LLBE/Users/infrastructure/persistence/multer/multer';
+import upload from '../../../Contexts/LLBE/Users/infrastructure/persistence/multer/cloudinary';
 
 export const register = (router: Router) => {
   const avatarGetController: AvatarGetController = container.get('App.controllers.avatar.AvatarGetController');

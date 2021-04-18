@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import { Controller } from '../Controller';
 import { UserEmailConfirmator } from '../../../../Contexts/LLBE/Users/application/UserEmailConfirmator';
+import { UserId } from '../../../../Contexts/LLBE/Shared/domain/Users/UserId';
 
 export class EmailVerificationGetController implements Controller {
   private confirmator: UserEmailConfirmator;
@@ -13,8 +14,9 @@ export class EmailVerificationGetController implements Controller {
   async run(req: Request, res: Response) {
 
     try {
-      await this.confirmator.run(req.body.payload.userId);
-    } catch (e) {
+      await this.confirmator.run(new UserId(req.body.payload.userId));
+    }
+    catch (e) {
       res.status(httpStatus.BAD_REQUEST).send({error: e.message});
     }
 
