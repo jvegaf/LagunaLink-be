@@ -13,6 +13,6 @@ export class AvatarGetController implements Controller {
   async run(req: Request, res: Response) {
     const avatar = await this.finder.run(new UserId(req.params.id));
 
-    res.status(200).send({avatarId: avatar.value});
+    res.status(200).send({avatarURL: avatar.value});
   }
 }
