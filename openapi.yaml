@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   description: This is the backend of the Lagunalink App.  You can find out more about this project at [https://github.com/jvegaf/LagunaLink-be](https://github.com/jvegaf/LagunaLink-be)
-  version: 1.3.1
+  version: 1.4.0
   title: LagunaLink Backend
   contact:
     email: josevega234@gmail.com
@@ -213,6 +213,28 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
+
+  /students/{studentId}/enrollments:
+    get:
+      tags:
+        - Enrollments
+      security:
+        - BearerAuth: [ ]
+      summary: Returns a enrollments list of determinate student
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  enrollments:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Enrollment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   /companies:
     get:
@@ -592,7 +614,7 @@ components:
           enum:
             - ROLE_STUDENT
             - ROLE_COMPANY
-        userId:
+        user_id:
           type: string
           format: uuid
         email:

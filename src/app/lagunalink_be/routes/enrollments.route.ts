@@ -6,6 +6,7 @@ import { EnrollmentsGetController } from '../controllers/enrollments/Enrollments
 import { authChecker } from '../middlewares/authChecker';
 import { userOwnChecker } from '../middlewares/userOwnChecker';
 import { companyRoleChecker } from '../middlewares/companyRoleChecker';
+import { EnrollmentsFetchController } from '../controllers/enrollments/EnrollmentsFetchController';
 
 export const register = (router: Router) => {
   const enrollmentPostController: EnrollmentPostController = container.get(
@@ -27,5 +28,13 @@ export const register = (router: Router) => {
   );
   router.get('/job_openings/:id/enrollments', authChecker, companyRoleChecker, (req: Request, res: Response) =>
     enrollmentsGetController.run(req, res)
+  );
+
+  const enrollmentsStudentFetchController: EnrollmentsFetchController = container.get(
+    'App.controllers.enrollments.EnrollmentsFetchController'
+  );
+
+  router.get('/students/:id/enrollments', userOwnChecker, (req: Request, res: Response) =>
+    enrollmentsStudentFetchController.run(req, res)
   );
 };

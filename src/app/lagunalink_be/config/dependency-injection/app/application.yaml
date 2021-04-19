@@ -93,6 +93,10 @@ services:
                  "@App.students.StudentFinder",
                  "@App.users.UserEmailFinder"]
 
+  App.controllers.enrollments.EnrollmentsFetchController:
+    class: ../../../controllers/enrollments/EnrollmentsFetchController
+    arguments: [ "@App.enrollments.EnrollmentsFetcher" ]
+
   # Avatar
   App.controllers.avatar.AvatarGetController:
     class: ../../../controllers/avatar/AvatarGetController
