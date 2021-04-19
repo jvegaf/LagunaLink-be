@@ -217,7 +217,7 @@ paths:
   /students/{studentId}/enrollments:
     get:
       tags:
-        - Enrollments
+        - Enrollment
       security:
         - BearerAuth: [ ]
       summary: Returns a enrollments list of determinate student
