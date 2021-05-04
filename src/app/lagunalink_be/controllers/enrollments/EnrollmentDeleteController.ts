@@ -1,13 +1,16 @@
-import { Request, Response } from 'express';
-import { Controller } from '../Controller';
-import { EnrollmentRemover } from '../../../../Contexts/LLBE/Enrollments/application/EnrollmentRemover';
-import { RemoveEnrollmentRequest } from '../../../../Contexts/LLBE/Enrollments/application/RemoveEnrollmentRequest';
+import {Request, Response} from 'express';
+import {Controller} from '../Controller';
+import {EnrollmentRemover} from '../../../../Contexts/LLBE/Enrollments/application/EnrollmentRemover';
+import {RemoveEnrollmentRequest} from '../../../../Contexts/LLBE/Enrollments/application/RemoveEnrollmentRequest';
+import {EnrollmentsFetcher} from '../../../../Contexts/LLBE/Enrollments/application/EnrollmentsFetcher';
 
 export class EnrollmentDeleteController implements Controller {
   private remover: EnrollmentRemover;
+  private fetcher: EnrollmentsFetcher;
 
-  constructor(enrollmentRemover: EnrollmentRemover) {
+  constructor(enrollmentRemover: EnrollmentRemover, fetcher: EnrollmentsFetcher) {
     this.remover = enrollmentRemover;
+    this.fetcher = fetcher;
   }
 
   async run(req: Request, res: Response) {
@@ -19,11 +22,10 @@ export class EnrollmentDeleteController implements Controller {
 
     try {
       await this.remover.run(request);
+      const enrolls = await this.fetcher.run(req.body.payload.userId);
+      res.status(200).send({enrollments: enrolls});
     } catch (e) {
-      res.status(404).send({ error: e.message });
-      return;
+      res.status(404).send({error: e.message});
     }
-
-    res.status(200).send();
   }
 }

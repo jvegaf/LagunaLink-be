@@ -2,11 +2,14 @@ import { Request, Response } from 'express';
 import { Controller } from '../Controller';
 import { EnrollmentCreator } from '../../../../Contexts/LLBE/Enrollments/application/EnrollmentCreator';
 import { CreateEnrollmentRequest } from '../../../../Contexts/LLBE/Enrollments/application/CreateEnrollmentRequest';
+import {EnrollmentsFetcher} from '../../../../Contexts/LLBE/Enrollments/application/EnrollmentsFetcher';
 
 export class EnrollmentPostController implements Controller {
   private creator: EnrollmentCreator;
+  private fetcher: EnrollmentsFetcher;
 
-  constructor(enrollCreator: EnrollmentCreator) {
+  constructor(enrollCreator: EnrollmentCreator, fetcher: EnrollmentsFetcher) {
+    this.fetcher = fetcher;
     this.creator = enrollCreator;
   }
 
@@ -18,7 +21,8 @@ export class EnrollmentPostController implements Controller {
     };
 
     await this.creator.run(request);
+    const enrolls = await this.fetcher.run(req.body.payload.userId);
 
-    res.status(201).send();
+    res.status(201).send({ enrollments: enrolls});
   }
 }

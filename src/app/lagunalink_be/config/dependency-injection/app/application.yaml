@@ -81,11 +81,11 @@ services:
   # ENROLLMENTS
   App.controllers.enrollments.EnrollmentPostController:
     class: ../../../controllers/enrollments/EnrollmentPostController
-    arguments: [ "@App.enrollments.EnrollmentCreator" ]
+    arguments: [ "@App.enrollments.EnrollmentCreator", "@App.enrollments.EnrollmentsFetcher" ]
 
   App.controllers.enrollments.EnrollmentDeleteController:
     class: ../../../controllers/enrollments/EnrollmentDeleteController
-    arguments: [ "@App.enrollments.EnrollmentRemover" ]
+    arguments: [ "@App.enrollments.EnrollmentRemover", "@App.enrollments.EnrollmentsFetcher" ]
 
   App.controllers.enrollments.EnrollmentsGetController:
     class: ../../../controllers/enrollments/EnrollmentsGetController

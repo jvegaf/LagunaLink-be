@@ -11,7 +11,8 @@ export class EnrollmentsFetcher extends ApplicationService {
     this.repository = repository;
   }
 
-  async run(studentId: string): Promise<Array<Enrollment>> {
-    return this.repository.searchByStudent(new StudentId(studentId));
+  async run(studentId: string): Promise<Array<object>>  {
+    const enrollments = await this.repository.searchByStudent(new StudentId(studentId));
+    return enrollments.map(enrollment => enrollment.toPrimitives());
   }
 }
