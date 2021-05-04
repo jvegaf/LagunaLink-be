@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   description: This is the backend of the Lagunalink App.  You can find out more about this project at [https://github.com/jvegaf/LagunaLink-be](https://github.com/jvegaf/LagunaLink-be)
-  version: 1.4.0
+  version: 1.5.0
   title: LagunaLink Backend
   contact:
     email: josevega234@gmail.com
@@ -233,6 +233,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Enrollment'
+        '204':
+          $ref: '#/components/schemas/NoContentResponse'
         '401':
           $ref: '#/components/responses/Unauthorized'
 
@@ -495,6 +497,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Enrollment'
+        '204':
+          $ref: '#/components/schemas/NoContentResponse'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
@@ -517,7 +521,16 @@ paths:
         $ref: '#/components/requestBodies/EnrollmentBody'
       responses:
         '200':
-          $ref: '#/components/responses/Success'
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  enrollments:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Enrollment'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '403':
@@ -568,7 +581,16 @@ paths:
             format: uuid
       responses:
         '200':
-          $ref: '#/components/responses/Success'
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  enrollments:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Enrollment'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '403':
@@ -874,6 +896,17 @@ components:
         message:
           type: string
 
+    NoContentResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+
     Error:
       type: object
       properties:
@@ -909,6 +942,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ApiResponse'
+    NoContent:
+      description: No Content
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NoContentResponse'
     Unauthorized:
       description: Access token is missing or invalid
       content:
