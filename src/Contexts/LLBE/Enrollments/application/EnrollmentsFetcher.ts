@@ -1,5 +1,4 @@
 import { EnrollmentRepository } from '../domain/EnrollmentRepository';
-import { Enrollment } from '../domain/Enrollment';
 import { ApplicationService } from '../../../Shared/domain/ApplicationService';
 import { StudentId } from '../../Shared/domain/Students/StudentId';
 
@@ -11,7 +10,7 @@ export class EnrollmentsFetcher extends ApplicationService {
     this.repository = repository;
   }
 
-  async run(studentId: string): Promise<Array<object>>  {
+  async run(studentId: string): Promise<Array<any>> {
     const enrollments = await this.repository.searchByStudent(new StudentId(studentId));
     return enrollments.map(enrollment => enrollment.toPrimitives());
   }

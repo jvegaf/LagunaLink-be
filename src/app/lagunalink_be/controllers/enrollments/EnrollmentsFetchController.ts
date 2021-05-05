@@ -11,7 +11,7 @@ export class EnrollmentsFetchController implements Controller {
 
   async run(req: Request, res: Response) {
 
-    const enrollments: Array<object> = await this.fetcher.run(req.params.id);
+    const enrollments = await this.fetcher.run(req.params.id);
     if (enrollments.length < 1) {
       res.status(204).send();
       return;
