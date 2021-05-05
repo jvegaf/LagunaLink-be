@@ -12,10 +12,10 @@ export class EnrollmentsFetchController implements Controller {
   async run(req: Request, res: Response) {
 
     const enrollments = await this.fetcher.run(req.params.id);
-    if (enrollments.length < 1) {
-      res.status(204).send();
-      return;
-    }
+    // if (enrollments.length < 1) {
+    //   res.status(204).send();
+    //   return;
+    // }
 
     const enrolls = enrollments.map(enrollment => enrollment.toPrimitives());
 
