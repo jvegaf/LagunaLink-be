@@ -22,7 +22,8 @@ export class EnrollmentDeleteController implements Controller {
 
     try {
       await this.remover.run(request);
-      const enrolls = await this.fetcher.run(req.body.payload.userId);
+      const enrollments = await this.fetcher.run(req.body.payload.userId);
+      const enrolls = enrollments.map(enrollment => enrollment.toPrimitives());
       res.status(200).send({enrollments: enrolls});
     } catch (e) {
       res.status(404).send({error: e.message});

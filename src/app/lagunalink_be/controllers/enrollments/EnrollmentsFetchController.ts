@@ -17,6 +17,8 @@ export class EnrollmentsFetchController implements Controller {
       return;
     }
 
-    res.status(200).send({ enrollments: enrollments });
+    const enrolls = enrollments.map(enrollment => enrollment.toPrimitives());
+
+    res.status(200).send({ enrollments: enrolls });
   }
 }

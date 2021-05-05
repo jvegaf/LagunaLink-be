@@ -21,8 +21,8 @@ export class EnrollmentPostController implements Controller {
     };
 
     await this.creator.run(request);
-    const enrolls = await this.fetcher.run(req.body.payload.userId);
-
+    const enrollments = await this.fetcher.run(req.body.payload.userId);
+    const enrolls = enrollments.map(enrollment => enrollment.toPrimitives());
     res.status(201).send({ enrollments: enrolls});
   }
 }
