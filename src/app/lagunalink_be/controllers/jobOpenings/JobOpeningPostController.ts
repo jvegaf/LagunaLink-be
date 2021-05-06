@@ -20,6 +20,7 @@ export class JobOpeningPostController implements Controller {
       responsibilities: req.body.responsibilities,
       qualification: req.body.qualification,
       prevExperience: req.body.prevExperience,
+      hiringDate: req.body.hiringDate
     };
 
     const jobOpening = await this.creator.run(jobOpenRequest);

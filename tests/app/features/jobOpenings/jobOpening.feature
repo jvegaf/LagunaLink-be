@@ -13,7 +13,8 @@ Feature: Job Opening
       "conditions": "salario 20K anuales",
       "responsibilities": "Desarrollo de interfaz de apliacion web",
       "qualification": "Tecnico Superior en desarrollo de aplicaciones web",
-      "prevExperience": "3 meses"
+      "prevExperience": "3 meses",
+      "hiringDate": "05-11-2022"
     }
     """
     Then the response status code should be 201
@@ -30,7 +31,8 @@ Feature: Job Opening
       "conditions": "salario 20K anuales",
       "responsibilities": "Desarrollo de interfaz de apliacion web",
       "qualification": "Tecnico Superior en desarrollo de aplicaciones web",
-      "prevExperience": "3 meses"
+      "prevExperience": "3 meses",
+      "hiringDate": "05-11-2022"
     }
     """
     Then the response status code should be 403
@@ -48,7 +50,8 @@ Feature: Job Opening
       "conditions": "salario 25K anuales",
       "responsibilities": "Desarrollo de interfaz de apliacion web",
       "qualification": "Tecnico Superior en desarrollo de aplicaciones web",
-      "prevExperience": "3 meses"
+      "prevExperience": "3 meses",
+      "hiringDate": "05-11-2022"
     }
     """
     Then the response status code should be 200
@@ -65,7 +68,8 @@ Feature: Job Opening
       "conditions": "salario 25K anuales",
       "responsibilities": "Desarrollo de interfaz de apliacion web",
       "qualification": "Tecnico Superior en desarrollo de aplicaciones web",
-      "prevExperience": "3 meses"
+      "prevExperience": "3 meses",
+      "hiringDate": "05-11-2022"
     }
     """
     Then the response status code should be 404

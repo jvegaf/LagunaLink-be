@@ -6,4 +6,5 @@ export type CreateJobOpeningRequest = {
   responsibilities: string;
   qualification: string;
   prevExperience: string;
+  hiringDate: string;
 };

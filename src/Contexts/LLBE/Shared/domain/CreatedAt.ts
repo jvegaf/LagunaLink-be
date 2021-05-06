@@ -4,6 +4,6 @@ import { Timestamp } from './Timestamp';
 export class CreatedAt extends DateValueObject{
 
   static now() {
-    return new CreatedAt(Timestamp.now())
+    return new CreatedAt(Timestamp.now());
   }
 }

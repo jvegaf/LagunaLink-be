@@ -21,6 +21,7 @@ export class JobOpeningPutController implements Controller {
       responsibilities: req.body.responsibilities,
       qualification: req.body.qualification,
       prevExperience: req.body.prevExperience,
+      hiringDate: req.body.hiringDate
     };
 
     try {
