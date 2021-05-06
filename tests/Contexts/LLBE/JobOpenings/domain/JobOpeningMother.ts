@@ -18,6 +18,8 @@ import { JobOpenQualificationMother } from './JobOpenQualificationMother';
 import { JobOpenPrevExperienceMother } from './JobOpenPrevExperienceMother';
 import { UpgradeJobOpeningRequest } from '../../../../../src/Contexts/LLBE/JobOpenings/application/Update/UpgradeJobOpeningRequest';
 import { JobOpenCreatedAt } from '../../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpenCreatedAt';
+import { JobOpenHiringDate } from '../../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpenHiringDate';
+import { JobOpenHiringDateMother } from './JobOpenHiringDateMother';
 
 export class JobOpeningMother {
   static create(
@@ -29,7 +31,8 @@ export class JobOpeningMother {
     conditions: JobOpenConditions,
     responsibilities: JobOpenResponsibilities,
     qualification: JobOpenQualification,
-    prevExperience: JobOpenPrevExperience
+    prevExperience: JobOpenPrevExperience,
+    hiringDate: JobOpenHiringDate
   ): JobOpening {
     return new JobOpening(
       id,
@@ -40,7 +43,8 @@ export class JobOpeningMother {
       conditions,
       responsibilities,
       qualification,
-      prevExperience
+      prevExperience,
+      hiringDate
     );
   }
 
@@ -54,7 +58,8 @@ export class JobOpeningMother {
       JobOpenConditionsMother.create(request.conditions),
       JobOpenResponsibilitiesMother.create(request.responsibilities),
       JobOpenQualificationMother.create(request.qualification),
-      JobOpenPrevExperienceMother.create(request.prevExperience)
+      JobOpenPrevExperienceMother.create(request.prevExperience),
+      JobOpenHiringDateMother.create(request.hiringDate)
     );
   }
 
@@ -68,7 +73,8 @@ export class JobOpeningMother {
       JobOpenConditionsMother.create(request.conditions),
       JobOpenResponsibilitiesMother.create(request.responsibilities),
       JobOpenQualificationMother.create(request.qualification),
-      JobOpenPrevExperienceMother.create(request.prevExperience)
+      JobOpenPrevExperienceMother.create(request.prevExperience),
+      JobOpenHiringDateMother.create(request.hiringDate)
     );
   }
 
@@ -82,7 +88,8 @@ export class JobOpeningMother {
       JobOpenConditionsMother.random(),
       JobOpenResponsibilitiesMother.random(),
       JobOpenQualificationMother.random(),
-      JobOpenPrevExperienceMother.random()
+      JobOpenPrevExperienceMother.random(),
+      JobOpenHiringDateMother.random()
     );
   }
 }

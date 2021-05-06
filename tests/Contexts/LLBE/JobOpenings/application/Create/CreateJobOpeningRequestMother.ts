@@ -13,6 +13,8 @@ import { JobOpenConditionsMother } from '../../domain/JobOpenConditionsMother';
 import { JobOpenResponsibilitiesMother } from '../../domain/JobOpenResponsibilitiesMother';
 import { JobOpenQualificationMother } from '../../domain/JobOpenQualificationMother';
 import { JobOpenPrevExperienceMother } from '../../domain/JobOpenPrevExperienceMother';
+import { JobOpenHiringDate } from '../../../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpenHiringDate';
+import { JobOpenHiringDateMother } from '../../domain/JobOpenHiringDateMother';
 
 export class CreateJobOpeningRequestMother {
   static create(
@@ -22,7 +24,8 @@ export class CreateJobOpeningRequestMother {
     conditions: JobOpenConditions,
     responsibilities: JobOpenResponsibilities,
     qualification: JobOpenQualification,
-    prevExperience: JobOpenPrevExperience
+    prevExperience: JobOpenPrevExperience,
+    hiringDate: JobOpenHiringDate
   ): CreateJobOpeningRequest {
     return {
       company: company.value,
@@ -32,6 +35,7 @@ export class CreateJobOpeningRequestMother {
       responsibilities: responsibilities.value,
       qualification: qualification.value,
       prevExperience: prevExperience.value,
+      hiringDate: hiringDate.toISOString()
     };
   }
 
@@ -43,7 +47,8 @@ export class CreateJobOpeningRequestMother {
       JobOpenConditionsMother.random(),
       JobOpenResponsibilitiesMother.random(),
       JobOpenQualificationMother.random(),
-      JobOpenPrevExperienceMother.random()
+      JobOpenPrevExperienceMother.random(),
+      JobOpenHiringDateMother.random()
     );
   }
 
@@ -55,7 +60,8 @@ export class CreateJobOpeningRequestMother {
       JobOpenConditionsMother.random(),
       JobOpenResponsibilitiesMother.random(),
       JobOpenQualificationMother.random(),
-      JobOpenPrevExperienceMother.random()
+      JobOpenPrevExperienceMother.random(),
+      JobOpenHiringDateMother.random()
     );
   }
 }

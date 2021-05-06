@@ -1,5 +1,5 @@
 import { UserUpdatedAt } from '../../../../../src/Contexts/LLBE/Users/domain/UserUpdatedAt';
-import { DateMother } from '../../../Shared/domain/DateMother';
+import { PastDateMother } from '../../../Shared/domain/PastDateMother';
 
 export class UserUpdatedAtMother {
   static create(value: string): UserUpdatedAt {
@@ -7,6 +7,6 @@ export class UserUpdatedAtMother {
   }
 
   static random(): UserUpdatedAt {
-    return this.create(DateMother.random().toISOString());
+    return this.create(PastDateMother.random().toISOString());
   }
 }
