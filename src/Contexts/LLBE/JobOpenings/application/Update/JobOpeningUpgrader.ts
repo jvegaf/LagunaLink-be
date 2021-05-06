@@ -12,6 +12,7 @@ import { JobOpeningId } from '../../../Shared/domain/JobOpenings/JobOpeningId';
 import { JobOpeningNotFound } from '../../domain/JobOpeningNotFound';
 import { ApplicationService } from '../../../../Shared/domain/ApplicationService';
 import { JobOpenCreatedAt } from '../../domain/JobOpenCreatedAt';
+import { JobOpenHiringDate } from '../../domain/JobOpenHiringDate';
 
 export class JobOpeningUpgrader extends ApplicationService {
   private repository: JobOpeningRepository;
@@ -33,7 +34,8 @@ export class JobOpeningUpgrader extends ApplicationService {
       new JobOpenConditions(request.conditions),
       new JobOpenResponsibilities(request.responsibilities),
       new JobOpenQualification(request.qualification),
-      new JobOpenPrevExperience(request.prevExperience)
+      new JobOpenPrevExperience(request.prevExperience),
+      new JobOpenHiringDate(request.hiringDate)
     );
 
     await this.repository.save(jobOpening);

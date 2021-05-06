@@ -8,6 +8,7 @@ import { JobOpenPrevExperience } from './JobOpenPrevExperience';
 import { JobOpenQualification } from './JobOpenQualification';
 import { JobOpeningId } from '../../Shared/domain/JobOpenings/JobOpeningId';
 import { JobOpenCreatedAt } from './JobOpenCreatedAt';
+import { JobOpenHiringDate } from './JobOpenHiringDate';
 
 export class JobOpening extends AggregateRoot {
   readonly id: JobOpeningId;
@@ -19,6 +20,7 @@ export class JobOpening extends AggregateRoot {
   readonly responsibilities: JobOpenResponsibilities;
   readonly qualification: JobOpenQualification;
   readonly prevExperience: JobOpenPrevExperience;
+  readonly hiringDate: JobOpenHiringDate;
 
   constructor(
     id: JobOpeningId,
@@ -29,7 +31,8 @@ export class JobOpening extends AggregateRoot {
     conditions: JobOpenConditions,
     responsibilities: JobOpenResponsibilities,
     qualification: JobOpenQualification,
-    prevExperience: JobOpenPrevExperience
+    prevExperience: JobOpenPrevExperience,
+    hiringDate: JobOpenHiringDate
   ) {
     super();
     this.id = id;
@@ -41,6 +44,7 @@ export class JobOpening extends AggregateRoot {
     this.responsibilities = responsibilities;
     this.qualification = qualification;
     this.prevExperience = prevExperience;
+    this.hiringDate = hiringDate;
   }
 
   static create(
@@ -52,7 +56,8 @@ export class JobOpening extends AggregateRoot {
     conditions: JobOpenConditions,
     responsibilities: JobOpenResponsibilities,
     qualification: JobOpenQualification,
-    prevExperience: JobOpenPrevExperience
+    prevExperience: JobOpenPrevExperience,
+    hiringDate: JobOpenHiringDate
   ): JobOpening {
     return new JobOpening(
       id,
@@ -63,7 +68,8 @@ export class JobOpening extends AggregateRoot {
       conditions,
       responsibilities,
       qualification,
-      prevExperience
+      prevExperience,
+      hiringDate
     );
   }
 
@@ -78,6 +84,7 @@ export class JobOpening extends AggregateRoot {
       responsibilities: string;
       qualification: string;
       prevExperience: string;
+      hiringDate: string;
     }) {
     return new JobOpening(
       new JobOpeningId(plaindata.id),
@@ -88,7 +95,8 @@ export class JobOpening extends AggregateRoot {
       new JobOpenConditions(plaindata.conditions),
       new JobOpenResponsibilities(plaindata.responsibilities),
       new JobOpenQualification(plaindata.qualification),
-      new JobOpenPrevExperience(plaindata.prevExperience)
+      new JobOpenPrevExperience(plaindata.prevExperience),
+      new JobOpenHiringDate(plaindata.hiringDate)
     );
   }
 
@@ -102,7 +110,8 @@ export class JobOpening extends AggregateRoot {
       conditions: this.conditions.value,
       responsibilities: this.responsibilities.value,
       qualification: this.qualification.value,
-      prevExperience: this.prevExperience.value
+      prevExperience: this.prevExperience.value,
+      hiringDate: this.hiringDate.toISOString()
     };
   }
 
