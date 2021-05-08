@@ -2,7 +2,6 @@ import { Request, Response, Router } from 'express';
 import container from '../config/dependency-injection';
 import { JobOpeningPostController } from '../controllers/jobOpenings/JobOpeningPostController';
 import { JobOpeningPutController } from '../controllers/jobOpenings/JobOpeningPutController';
-import { JobOpeningDeleteController } from '../controllers/jobOpenings/JobOpeningDeleteController';
 import { JobOpeningGetController } from '../controllers/jobOpenings/JobOpeningGetController';
 import { JobOpeningFetchController } from '../controllers/jobOpenings/JobOpeningFetchController';
 import { authChecker } from '../middlewares/authChecker';
@@ -33,12 +32,5 @@ export const register = (router: Router) => {
   );
   router.put('/job_openings/:id', authChecker, companyRoleChecker, (req: Request, res: Response) =>
     jobOpeningPutController.run(req, res)
-  );
-
-  const jobOpeningDeleteController: JobOpeningDeleteController = container.get(
-    'App.controllers.jobOpenings.JobOpeningDeleteController'
-  );
-  router.delete('/job_openings/:id', authChecker, companyRoleChecker, (req: Request, res: Response) =>
-    jobOpeningDeleteController.run(req, res)
   );
 };

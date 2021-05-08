@@ -13,6 +13,7 @@ import { JobOpeningNotFound } from '../../domain/JobOpeningNotFound';
 import { ApplicationService } from '../../../../Shared/domain/ApplicationService';
 import { JobOpenCreatedAt } from '../../domain/JobOpenCreatedAt';
 import { JobOpenHiringDate } from '../../domain/JobOpenHiringDate';
+import { InvalidArgumentError } from '../../../../Shared/domain/value-object/InvalidArgumentError';
 
 export class JobOpeningUpgrader extends ApplicationService {
   private repository: JobOpeningRepository;
@@ -24,6 +25,7 @@ export class JobOpeningUpgrader extends ApplicationService {
 
   async run(request: UpgradeJobOpeningRequest): Promise<void> {
     await this.ensureJobOpeningExists(new JobOpeningId(request.id));
+    await this.ensureJobOpeningisOwn(new JobOpeningId(request.id), new CompanyId(request.company));
 
     const jobOpening = JobOpening.create(
       new JobOpeningId(request.id),
@@ -44,6 +46,13 @@ export class JobOpeningUpgrader extends ApplicationService {
   private async ensureJobOpeningExists(jobOpeningId: JobOpeningId) {
     if ((await this.repository.search(jobOpeningId)) === null) {
       throw new JobOpeningNotFound('This job opening not exists');
+    }
+  }
+
+  private async ensureJobOpeningisOwn(jobOpeningId: JobOpeningId, companyId: CompanyId) {
+    const job = await this.repository.search(jobOpeningId) as JobOpening;
+    if (job.company.value !== companyId.value) {
+      throw new InvalidArgumentError('the job is not own of this company');
     }
   }
 }

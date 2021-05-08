@@ -39,7 +39,7 @@ export class UpgradeJobOpeningRequestMother {
       responsibilities: responsibilities.value,
       qualification: qualification.value,
       prevExperience: prevExperience.value,
-      hiringDate: hiringDate.toISOString()
+      hiringDate: hiringDate.toString()
     };
   }
 

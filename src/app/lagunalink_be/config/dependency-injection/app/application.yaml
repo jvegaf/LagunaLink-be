@@ -71,11 +71,7 @@ services:
 
   App.controllers.jobOpenings.JobOpeningPutController:
     class: ../../../controllers/jobOpenings/JobOpeningPutController
-    arguments: [ "@App.jobOpenings.JobOpeningUpgrader" ]
-
-  App.controllers.jobOpenings.JobOpeningDeleteController:
-    class: ../../../controllers/jobOpenings/JobOpeningDeleteController
-    arguments: [ "@App.jobOpenings.JobOpeningRemover" ]
+    arguments: [ "@App.jobOpenings.JobOpeningUpgrader", "@App.jobOpenings.CompanyJobsFetcher" ]
 
 
   # ENROLLMENTS

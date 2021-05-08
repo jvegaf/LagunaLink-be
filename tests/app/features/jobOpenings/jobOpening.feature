@@ -51,7 +51,7 @@ Feature: Job Opening
       "responsibilities": "Desarrollo de interfaz de apliacion web",
       "qualification": "Tecnico Superior en desarrollo de aplicaciones web",
       "prevExperience": "3 meses",
-      "hiringDate": "05-11-2022"
+      "hiringDate": "05-09-2022"
     }
     """
     Then the response status code should be 200
@@ -69,19 +69,10 @@ Feature: Job Opening
       "responsibilities": "Desarrollo de interfaz de apliacion web",
       "qualification": "Tecnico Superior en desarrollo de aplicaciones web",
       "prevExperience": "3 meses",
-      "hiringDate": "05-11-2022"
+      "hiringDate": "05-07-2022"
     }
     """
     Then the response status code should be 404
-
-  Scenario: Remove a Job Opening
-    Given I have a Company Role Account
-    And I am logged in the application
-    And I published a Job Opening with id "ef8ac118-8d7f-49cc-abec-78e0d05af80a"
-
-    When I send a DELETE request to "/job_openings/ef8ac118-8d7f-49cc-abec-78e0d05af80a"
-
-    Then the response status code should be 200
 
   Scenario: Get a Job Opening by Id
     Given Previously was created a Job Opening with id "311d5640-07f8-485e-bf39-6b78a057e4a6"

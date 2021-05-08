@@ -23,7 +23,3 @@ services:
   App.jobOpenings.JobOpeningUpgrader:
     class: ../../../../../Contexts/LLBE/JobOpenings/application/Update/JobOpeningUpgrader
     arguments: [ '@App.jobOpenings.JobOpeningRepository' ]
-
-  App.jobOpenings.JobOpeningRemover:
-    class: ../../../../../Contexts/LLBE/JobOpenings/application/Remove/JobOpeningRemover
-    arguments: [ '@App.jobOpenings.JobOpeningRepository' ]
