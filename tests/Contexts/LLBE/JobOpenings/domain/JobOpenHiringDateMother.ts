@@ -7,6 +7,6 @@ export class JobOpenHiringDateMother {
   }
 
   static random(): JobOpenHiringDate {
-    return this.create(FutureDateMother.random().toISOString());
+    return this.create(FutureDateMother.random().toISOString().substr(0, 10));
   }
 }
