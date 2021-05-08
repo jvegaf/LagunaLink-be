@@ -20,7 +20,7 @@ export const register = (router: Router) => {
   const enrollmentDeleteController: EnrollmentDeleteController = container.get(
     'App.controllers.enrollments.EnrollmentDeleteController'
   );
-  router.delete('/job_openings/enrollments/:id', authChecker, userOwnChecker, (req: Request, res: Response) =>
+  router.delete('/enrollments/:id', authChecker, studentRoleChecker, (req: Request, res: Response) =>
     enrollmentDeleteController.run(req, res)
   );
 
