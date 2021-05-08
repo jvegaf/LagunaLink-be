@@ -111,7 +111,7 @@ export class JobOpening extends AggregateRoot {
       responsibilities: this.responsibilities.value,
       qualification: this.qualification.value,
       prevExperience: this.prevExperience.value,
-      hiringDate: this.hiringDate.toISOString()
+      hiringDate: this.hiringDate.toString()
     };
   }
 
