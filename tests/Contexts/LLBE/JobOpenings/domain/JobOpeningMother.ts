@@ -20,6 +20,7 @@ import { UpgradeJobOpeningRequest } from '../../../../../src/Contexts/LLBE/JobOp
 import { JobOpenCreatedAt } from '../../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpenCreatedAt';
 import { JobOpenHiringDate } from '../../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpenHiringDate';
 import { JobOpenHiringDateMother } from './JobOpenHiringDateMother';
+import { JobOpenPositionMother } from './JobOpenPositionMother';
 
 export class JobOpeningMother {
   static create(
@@ -54,7 +55,7 @@ export class JobOpeningMother {
       JobOpenCreatedAt.now(),
       CompanyIdMother.create(request.company),
       JobOpenDescriptionMother.create(request.description),
-      JobPositionMother.create(request.position),
+      JobOpenPositionMother.create(request.position),
       JobOpenConditionsMother.create(request.conditions),
       JobOpenResponsibilitiesMother.create(request.responsibilities),
       JobOpenQualificationMother.create(request.qualification),
@@ -69,7 +70,7 @@ export class JobOpeningMother {
       JobOpenCreatedAt.now(),
       CompanyIdMother.create(request.company),
       JobOpenDescriptionMother.create(request.description),
-      JobPositionMother.create(request.position),
+      JobOpenPositionMother.create(request.position),
       JobOpenConditionsMother.create(request.conditions),
       JobOpenResponsibilitiesMother.create(request.responsibilities),
       JobOpenQualificationMother.create(request.qualification),

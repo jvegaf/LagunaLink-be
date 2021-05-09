@@ -3,7 +3,11 @@ import { Timestamp } from './Timestamp';
 
 export class CreatedAt extends DateValueObject{
 
+  static create(value: string) {
+    return new this(value);
+  }
+
   static now() {
-    return new CreatedAt(Timestamp.now());
+    return this.create(Timestamp.now());
   }
 }

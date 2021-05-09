@@ -38,10 +38,6 @@ export class JobOpeningRepositoryMock implements JobOpeningRepository {
     this.mockCompanyFetch.mockReturnValue(value);
   }
 
-  assertLastSearchedJobOpeningIs(expected: JobOpeningId): void {
-    expect(this.mockSearch).toHaveBeenCalledWith(expected);
-  }
-
   remove(id: JobOpeningId): Promise<void> {
     return Promise.resolve(undefined);
   }
