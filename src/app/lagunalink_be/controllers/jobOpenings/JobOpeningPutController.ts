@@ -14,7 +14,6 @@ export class JobOpeningPutController implements Controller {
   }
 
   async run(req: Request, res: Response) {
-
     const jobOpenUprgRequest: UpgradeJobOpeningRequest = {
       id: req.params.id,
       company: req.body.payload.userId,
@@ -24,15 +23,16 @@ export class JobOpeningPutController implements Controller {
       responsibilities: req.body.responsibilities,
       qualification: req.body.qualification,
       prevExperience: req.body.prevExperience,
-      hiringDate: req.body.hiringDate
+      hiringDate: req.body.hiringDate,
     };
 
     try {
       await this.upgrader.run(jobOpenUprgRequest);
       const ownJobs = await this.companyJobsFetcher.run(req.body.payload.userId);
-      res.status(200).send({job_openings: ownJobs});
+      const jobs = ownJobs.map(j => j.toPrimitives());
+      res.status(200).send({ job_openings: jobs });
     } catch (e) {
-      res.status(404).send({error: e.message});
+      res.status(404).send({ error: e.message });
     }
   }
 }
