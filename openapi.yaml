@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   description: This is the backend of the Lagunalink App.  You can find out more about this project at [https://github.com/jvegaf/LagunaLink-be](https://github.com/jvegaf/LagunaLink-be)
-  version: 1.6.2
+  version: 1.6.3
   title: LagunaLink Backend
   contact:
     email: josevega234@gmail.com
@@ -718,6 +718,9 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/JobOpening'
+            enrolls_count:
+              type: integer
+              example: 12
 
     Language:
       type: object

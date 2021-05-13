@@ -9,7 +9,6 @@ export class EnrollmentRepositoryMock implements EnrollmentRepository {
   private mockSave = jest.fn();
   private mockSearch = jest.fn();
   private mockFetch = jest.fn();
-
   async save(enrollment: Enrollment): Promise<void> {
     this.mockSave(enrollment);
   }
@@ -44,5 +43,9 @@ export class EnrollmentRepositoryMock implements EnrollmentRepository {
 
   searchByJobOpening(id: JobOpeningId): Promise<Array<Enrollment>> {
     return Promise.resolve([]);
+  }
+
+  quantityOfJobOpening(id: JobOpeningId): Promise<Number> {
+    return Promise.resolve(0);
   }
 }

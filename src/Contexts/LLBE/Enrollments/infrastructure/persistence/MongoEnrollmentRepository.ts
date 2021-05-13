@@ -7,7 +7,6 @@ import { JobOpeningId } from '../../../Shared/domain/JobOpenings/JobOpeningId';
 import { StudentId } from '../../../Shared/domain/Students/StudentId';
 
 export class MongoEnrollmentRepository extends MongoRepository<Enrollment> implements EnrollmentRepository {
-
   public save(enrollment: Enrollment): Promise<void> {
     return this.persist(enrollment.id.value, enrollment);
   }
@@ -15,10 +14,10 @@ export class MongoEnrollmentRepository extends MongoRepository<Enrollment> imple
   public async search(id: EnrollmentId): Promise<Nullable<Enrollment>> {
     const collection = await this.collection();
 
-    const document = await collection.findOne({ _id: id.value });
+    const document = await collection.findOne({_id: id.value});
 
     return document
-      ? Enrollment.fromPrimitives({ ...document, id: id.value })
+      ? Enrollment.fromPrimitives({...document, id: id.value})
       : null;
   }
 
@@ -26,11 +25,17 @@ export class MongoEnrollmentRepository extends MongoRepository<Enrollment> imple
     const collection = await this.collection();
 
     const resultDocs = await collection
-      .find({ student: studentId.value })
+      .find({student: studentId.value})
       .toArray();
 
-    return resultDocs.map((document) => Enrollment.fromPrimitives({ ...document, id: document._id })
+    return resultDocs.map((document) => Enrollment.fromPrimitives({...document, id: document._id})
     );
+  }
+
+  public async quantityOfJobOpening(id: JobOpeningId): Promise<Number> {
+    const collection = await this.collection();
+
+    return await collection.countDocuments({job_opening: id.value});
   }
 
   public remove(id: EnrollmentId): Promise<void> {
@@ -47,10 +52,10 @@ export class MongoEnrollmentRepository extends MongoRepository<Enrollment> imple
     const collection = await this.collection();
 
     const resultDocs = await collection
-      .find({ job_opening: openingId.value })
+      .find({job_opening: openingId.value})
       .toArray();
 
-    return resultDocs.map((document) => Enrollment.fromPrimitives({ ...document, id: document._id })
+    return resultDocs.map((document) => Enrollment.fromPrimitives({...document, id: document._id})
     );
   }
 }

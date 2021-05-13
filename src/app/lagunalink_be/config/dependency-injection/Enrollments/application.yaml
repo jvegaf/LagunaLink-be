@@ -16,6 +16,10 @@ services:
     class: ../../../../../Contexts/LLBE/Enrollments/application/EnrollmentsSearcher
     arguments: ['@App.enrollments.EnrollmentRepository']
 
+  App.enrollments.EnrollmentsCounter:
+    class: ../../../../../Contexts/LLBE/Enrollments/application/EnrollmentsCounter
+    arguments: ['@App.enrollments.EnrollmentRepository']
+
   App.enrollments.EnrollmentsFetcher:
     class: ../../../../../Contexts/LLBE/Enrollments/application/EnrollmentsFetcher
     arguments: ['@App.enrollments.EnrollmentRepository']

@@ -13,5 +13,7 @@ export interface EnrollmentRepository {
 
   searchByStudent(id: StudentId): Promise<Array<Enrollment>>;
 
+  quantityOfJobOpening(id: JobOpeningId): Promise<Number>;
+
   remove(id: EnrollmentId): Promise<void>;
 }

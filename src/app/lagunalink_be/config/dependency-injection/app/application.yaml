@@ -37,7 +37,9 @@ services:
   # COMPANIES
   App.controllers.companies.CompanyGetController:
     class: ../../../controllers/companies/CompanyGetController
-    arguments: [ "@App.companies.CompanyFinder", "@App.jobOpenings.CompanyJobsFetcher" ]
+    arguments: [ "@App.companies.CompanyFinder",
+        "@App.jobOpenings.CompanyJobsFetcher",
+        "@App.enrollments.EnrollmentsCounter" ]
 
   App.controllers.companies.CompanyFetchController:
     class: ../../../controllers/companies/CompanyFetchController
@@ -87,7 +89,7 @@ services:
     class: ../../../controllers/enrollments/EnrollmentsGetController
     arguments: [ "@App.enrollments.EnrollmentsSearcher",
                  "@App.students.StudentFinder",
-                 "@App.users.UserEmailFinder"]
+                 "@App.users.UserEmailFinder" ]
 
   App.controllers.enrollments.EnrollmentsFetchController:
     class: ../../../controllers/enrollments/EnrollmentsFetchController
@@ -96,12 +98,12 @@ services:
   # Avatar
   App.controllers.avatar.AvatarGetController:
     class: ../../../controllers/avatar/AvatarGetController
-    arguments: ["@App.users.AvatarFinder"]
+    arguments: [ "@App.users.AvatarFinder" ]
 
   App.controllers.avatar.AvatarPutController:
     class: ../../../controllers/avatar/AvatarPutController
-    arguments: [ "@App.users.AvatarUpdater"]
+    arguments: [ "@App.users.AvatarUpdater" ]
 
   App.controllers.avatar.AvatarDeleteController:
     class: ../../../controllers/avatar/AvatarDeleteController
-    arguments: [ "@App.users.AvatarRemover"]
+    arguments: [ "@App.users.AvatarRemover" ]
