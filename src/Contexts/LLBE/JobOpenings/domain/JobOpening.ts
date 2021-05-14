@@ -76,7 +76,7 @@ export class JobOpening extends AggregateRoot {
   static fromPrimitives(
     plaindata: {
       id: string;
-      createdAt: string;
+      createdAt: Date;
       company: string;
       description: string;
       position: string;
@@ -84,7 +84,7 @@ export class JobOpening extends AggregateRoot {
       responsibilities: string;
       qualification: string;
       prevExperience: string;
-      hiringDate: string;
+      hiringDate: Date;
     }) {
     return new JobOpening(
       new JobOpeningId(plaindata.id),
@@ -103,7 +103,7 @@ export class JobOpening extends AggregateRoot {
   toPrimitives(): any {
     return {
       id: this.id.value,
-      createdAt: this.createdAt.toString(),
+      createdAt: this.createdAt,
       company: this.company.value,
       description: this.description.value,
       position: this.position.value,
@@ -111,7 +111,7 @@ export class JobOpening extends AggregateRoot {
       responsibilities: this.responsibilities.value,
       qualification: this.qualification.value,
       prevExperience: this.prevExperience.value,
-      hiringDate: this.hiringDate.toString()
+      hiringDate: this.hiringDate
     };
   }
 

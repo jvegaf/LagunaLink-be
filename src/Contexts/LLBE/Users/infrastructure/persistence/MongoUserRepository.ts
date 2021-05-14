@@ -18,7 +18,7 @@ export class MongoUserRepository extends MongoRepository<MongoUser> implements U
 
     const document = await model.findOne({_id: id.value}).exec();
 
-    return document ? User.fromPrimitives({...document, id: id.value}) : null;
+    return document ? User.fromPrimitives({...document, id: document._id}) : null;
   }
 
   public async searchByEmail(email: UserEmail): Promise<Nullable<User>> {
@@ -37,7 +37,7 @@ export class MongoUserRepository extends MongoRepository<MongoUser> implements U
   }
 
   protected moduleName(): string {
-    return 'users';
+    return 'User';
   }
 
   protected schema(): Schema {

@@ -3,19 +3,24 @@ import { MongoRepository } from '../../../../Shared/infrastructure/persistence/m
 import { JobOpening } from '../../domain/JobOpening';
 import { JobOpeningRepository } from '../../domain/JobOpeningRepository';
 import { JobOpeningId } from '../../../Shared/domain/JobOpenings/JobOpeningId';
+import { JobOpening as MongoJobOpen, JobOpeningSchema } from './mongo/jobOpening.model';
+import { Schema } from 'mongoose';
 
-export class MongoJobOpeningRepository extends MongoRepository<JobOpening> implements JobOpeningRepository {
+export class MongoJobOpeningRepository extends MongoRepository<MongoJobOpen> implements JobOpeningRepository {
+  protected schema(): Schema {
+    return JobOpeningSchema;
+  }
   public save(jobOpening: JobOpening): Promise<void> {
     return this.persist(
       jobOpening.id.value, jobOpening);
   }
 
   public async search(id: JobOpeningId): Promise<Nullable<JobOpening>> {
-    const collection = await this.collection();
+    const model = await this.model();
 
-    const document = await collection.findOne({_id: id.value});
+    const document = await model.findOne({_id: id.value});
 
-    return document ? JobOpening.fromPrimitives({...document, id: id.value}) : null;
+    return document ? JobOpening.fromPrimitives({...document, company: document.company as string , id: document._id}) : null;
   }
 
   public async remove(id: JobOpeningId): Promise<void> {
@@ -23,28 +28,18 @@ export class MongoJobOpeningRepository extends MongoRepository<JobOpening> imple
   }
 
   protected moduleName(): string {
-    return 'jobOpenings';
+    return 'JobOpening';
   }
 
   public async fetch(): Promise<Array<JobOpening>> {
-    const collection = await this.collection();
-    const resultSet: JobOpening[] = [];
-    const cursor = collection.find();
-    await cursor.forEach(document => {
-      resultSet.push(JobOpening.fromPrimitives({...document, id: document._id}));
-    });
-
-    return resultSet;
+    const model = await this.model();
+    const cursor = await model.find();
+    return cursor.map(document => JobOpening.fromPrimitives({...document, company: document.company as string, id: document._id}));
   }
 
   public async fetchFromCompany(companyId: string): Promise<Array<JobOpening>> {
-    const collection = await this.collection();
-    const resultSet: JobOpening[] = [];
-    const cursor = collection.find({company: companyId});
-    await cursor.forEach(document => {
-      resultSet.push(JobOpening.fromPrimitives({...document, id: document._id}));
-    });
-
-    return resultSet;
+    const model = await this.model();
+    const cursor = await model.find({company: companyId});
+    return cursor.map(document => JobOpening.fromPrimitives({...document, company: document.company as string, id: document._id}));
   }
 }

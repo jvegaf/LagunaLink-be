@@ -17,14 +17,15 @@ export class MongoStudentRepository extends MongoRepository<MongoStudent> implem
 
     const document = await model.findOne({ _id: id.value }).exec();
 
-    return document ? Student.fromPrimitives({...document, id: id.value}) : null;
+    return document ? Student.fromPrimitives({...document, id: document._id}) : null;
   }
 
   protected moduleName(): string {
-    return 'students';
+    return 'Student';
   }
 
   protected schema(): Schema {
     return StudentSchema;
   }
+
 }
