@@ -1,3 +1,3 @@
-export type MongoDocument = {
+interface MongoDocument {
   _id: string;
-};
+}

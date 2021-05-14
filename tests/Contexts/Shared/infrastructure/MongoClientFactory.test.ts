@@ -1,8 +1,8 @@
-import { MongoClientFactory } from '../../../../src/Contexts/Shared/infrastructure/persistence/mongo/MongoClientFactory';
+import { MongooseClientFactory } from '../../../../src/Contexts/Shared/infrastructure/persistence/mongo/MongooseClientFactory';
 import { MongoClient } from 'mongodb';
 
 describe('Create a client', () => {
-  const factory = MongoClientFactory;
+  const factory = MongooseClientFactory;
   let client: MongoClient;
 
   beforeEach(async () => {

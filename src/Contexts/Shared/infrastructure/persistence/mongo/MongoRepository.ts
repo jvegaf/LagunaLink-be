@@ -1,21 +1,22 @@
-import { Collection, MongoClient } from 'mongodb';
+import { Model, Mongoose as MongooseClient, Schema } from 'mongoose';
 import { AggregateRoot } from '../../../domain/AggregateRoot';
 
-export abstract class MongoRepository<T extends AggregateRoot> {
-  constructor(private _client: Promise<MongoClient>) {}
+export abstract class MongoRepository<T extends MongoDocument> {
+  constructor(private _client: Promise<MongooseClient>) {}
 
   protected abstract moduleName(): string;
+  protected abstract schema(): Schema;
 
-  protected client(): Promise<MongoClient> {
+  protected client(): Promise<MongooseClient> {
     return this._client;
   }
 
-  protected async collection(): Promise<Collection> {
-    return (await this._client).db().collection(this.moduleName());
+  protected async model(): Promise<Model<T>> {
+    return (await this._client).model<T>(this.moduleName(), this.schema());
   }
 
-  protected async persist(id: string, aggregateRoot: T): Promise<void> {
-    const collection = await this.collection();
+  protected async persist(id: string, aggregateRoot: AggregateRoot ): Promise<void> {
+    const model = await this.model();
 
     const document = {
       ...aggregateRoot.toPrimitives(),
@@ -23,16 +24,16 @@ export abstract class MongoRepository<T extends AggregateRoot> {
       id: undefined,
     };
 
-    await collection.updateOne(
-      { _id: id },
-      { $set: document },
+    await model.replaceOne(
+      { _id: document._id },
+      document,
       { upsert: true }
     );
   }
 
   protected async delete(id: string): Promise<void> {
-    const collection = await this.collection();
+    const model = await this.model();
 
-    await collection.deleteOne({ _id: id });
+    await model.remove({ _id: id });
   }
 }
