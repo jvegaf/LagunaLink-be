@@ -1,5 +1,6 @@
 import { Schema } from 'mongoose';
 import { Company } from '../../../../Companies/infrastructure/persistence/mongo/company.model';
+import { Enrollment } from '../../../../Enrollments/infrastructure/persistence/mongo/enrollment.model';
 
 interface JobOpening extends MongoDocument {
   createdAt: Date;
@@ -11,6 +12,7 @@ interface JobOpening extends MongoDocument {
   qualification: string;
   prevExperience: string;
   hiringDate: Date;
+  enrollments: undefined | Enrollment[];
 }
 
 const JobOpeningSchemaFields: Record<keyof JobOpening, any> = {
@@ -29,7 +31,11 @@ const JobOpeningSchemaFields: Record<keyof JobOpening, any> = {
   responsibilities: String,
   qualification: String,
   prevExperience: String,
-  hiringDate: Date
+  hiringDate: Date,
+  enrollments: {
+    type: Schema.Types.ObjectId,
+    ref: 'Enrollment'
+  }
 };
 
 const JobOpeningSchema = new Schema(JobOpeningSchemaFields);

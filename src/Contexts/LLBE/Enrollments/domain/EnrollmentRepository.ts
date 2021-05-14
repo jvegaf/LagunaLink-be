@@ -9,11 +9,9 @@ export interface EnrollmentRepository {
 
   search(id: EnrollmentId): Promise<Nullable<Enrollment>>;
 
-  searchByJobOpening(id: JobOpeningId): Promise<Array<Enrollment>>;
+  fetchByJobOpening(id: JobOpeningId): Promise<Array<Enrollment>>;
 
-  searchByStudent(id: StudentId): Promise<Array<Enrollment>>;
-
-  quantityOfJobOpening(id: JobOpeningId): Promise<Number>;
+  fetchByStudent(id: StudentId): Promise<Array<Enrollment>>;
 
   remove(id: EnrollmentId): Promise<void>;
 }

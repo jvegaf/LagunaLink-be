@@ -36,7 +36,7 @@ export class Enrollment extends AggregateRoot {
     id: string;
     student: string;
     job_opening: string;
-    enrollment_date: string;
+    enrollment_date: Date;
   }) {
     return new Enrollment(
       new EnrollmentId(plaindata.id),
@@ -51,7 +51,7 @@ export class Enrollment extends AggregateRoot {
       id: this.id.value,
       student: this.student.value,
       job_opening: this.jobOpening.value,
-      enrollment_date: this.enrollmentDate.toString(),
+      enrollment_date: this.enrollmentDate,
     };
   }
 }

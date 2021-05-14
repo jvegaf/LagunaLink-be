@@ -2,6 +2,7 @@ import { Schema } from 'mongoose';
 import { Language } from './language';
 import { Qualification } from './qualification';
 import { JobExperience } from './jobExperience';
+import { Enrollment } from '../../../../Enrollments/infrastructure/persistence/mongo/enrollment.model';
 
 interface Student extends MongoDocument {
   name: string;
@@ -10,6 +11,7 @@ interface Student extends MongoDocument {
   qualification: Qualification;
   languages: [Language];
   job_experiences: [JobExperience];
+  enrollments: undefined | Enrollment[];
 }
 
 const StudentSchemaFields: Record<keyof Student, any> = {
@@ -39,6 +41,12 @@ const StudentSchemaFields: Record<keyof Student, any> = {
       responsibilities: String,
       start_date: Date,
       end_date: Date
+    }
+  ],
+  enrollments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Enrollment'
     }
   ]
 };
