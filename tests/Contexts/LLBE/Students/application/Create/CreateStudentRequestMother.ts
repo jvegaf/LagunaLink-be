@@ -33,10 +33,10 @@ export class CreateStudentRequestMother {
 
   static randomWithId(id: string): CreateStudentRequest {
     return this.create(
-        StudentIdMother.create(id),
-        StudentNameMother.random(),
-        StudentSurnameMother.random(),
-        StudentLastnameMother.random()
+      StudentIdMother.create(id),
+      StudentNameMother.random(),
+      StudentSurnameMother.random(),
+      StudentLastnameMother.random()
     );
   }
 }

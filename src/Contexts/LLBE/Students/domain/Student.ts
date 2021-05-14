@@ -10,21 +10,21 @@ import { UpgradeStudentRequest } from '../application/Update/UpgradeStudentReque
 
 export class Student extends AggregateRoot {
   readonly id: StudentId;
-  readonly name: StudentName | undefined;
-  readonly surname: StudentSurname | undefined;
-  readonly lastname: StudentLastname | undefined;
-  private qualification: Qualification | undefined;
-  private languages: Language[] | undefined;
-  private jobexperiences: JobExperience[] | undefined;
+  readonly name: StudentName;
+  readonly surname: StudentSurname;
+  readonly lastname: StudentLastname;
+  private qualification: Qualification;
+  private languages: Language[];
+  private jobexperiences: JobExperience[];
 
   constructor(
     id: StudentId,
-    name?: StudentName,
-    surname?: StudentSurname,
-    lastname?: StudentLastname,
-    qualification?: Qualification,
-    languages?: Language[],
-    jobexperiences?: JobExperience[]) {
+    name: StudentName,
+    surname: StudentSurname,
+    lastname: StudentLastname,
+    qualification: Qualification,
+    languages: Language[],
+    jobexperiences: JobExperience[]) {
     super();
     this.id = id;
     this.name = name;
@@ -37,25 +37,22 @@ export class Student extends AggregateRoot {
 
   static create(
     id: StudentId,
-    name?: StudentName,
-    surname?: StudentSurname,
-    lastname?: StudentLastname,
-    qualification?: Qualification,
-    languages?: Language[],
-    jobexperiences?: JobExperience[]): Student {
+    name: StudentName,
+    surname: StudentSurname,
+    lastname: StudentLastname,
+    qualification: Qualification,
+    languages: Language[],
+    jobexperiences: JobExperience[]): Student {
     return new Student(id, name, surname, lastname, qualification, languages, jobexperiences);
   }
 
   static fromPrimitives(
     plainData: UpgradeStudentRequest): Student {
-    const name = typeof plainData.name === 'string' ? new StudentName(plainData.name) : undefined;
-    const surname = typeof plainData.surname === 'string' ? new StudentSurname(plainData.surname) : undefined;
-    const lastname = typeof plainData.lastname === 'string' ? new StudentLastname(plainData.lastname) : undefined;
     return new Student(
       new StudentId(plainData.id),
-      name,
-      surname,
-      lastname,
+      new StudentName(plainData.name),
+      new StudentSurname(plainData.surname),
+      new StudentLastname(plainData.lastname),
       Qualification.fromPrimitives(plainData.qualification),
       this.languagesFromPrimitives(plainData.languages),
       this.jobexperiencesFromPrimitives(plainData.job_experiences)
@@ -78,27 +75,25 @@ export class Student extends AggregateRoot {
     return this.languages?.map(language => language.toPrimitives());
   }
 
-  private static languagesFromPrimitives(languages: { name: string; speak: number; write: number }[] | undefined) {
-    if (languages === undefined) {
-      return;
-    }
+  private static languagesFromPrimitives(languages: [{ name: string; speak: number; write: number }]) {
+
     return languages.map(language => Language.fromPrimitives(language));
   }
 
   private jobexperiencesToPrimitives() {
-    return this.jobexperiences?.map(job => job.toPrimitives());
+    return this.jobexperiences.map(job => job.toPrimitives());
   }
 
-  private static jobexperiencesFromPrimitives(jobexperiences: {
-    company: string;
-    position: string;
-    responsibilities: string;
-    start_date: string;
-    end_date: string;
-  }[] | undefined) {
-    if (jobexperiences === undefined) {
-      return;
+  private static jobexperiencesFromPrimitives(jobexperiences: [
+    {
+      company: string;
+      position: string;
+      responsibilities: string;
+      start_date: Date;
+      end_date: Date;
     }
+  ]) {
+
     return jobexperiences.map(job => JobExperience.fromPrimitives(job));
   }
 }

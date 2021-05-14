@@ -1,13 +1,12 @@
 import { DateValueObject } from '../../../Shared/domain/value-object/DateValueObject';
-import { Timestamp } from './Timestamp';
 
 export class UpdatedAt extends DateValueObject{
 
-  constructor(value: string) {
+  constructor(value: Date) {
     super(value);
   }
 
   static now() {
-    return new UpdatedAt(Timestamp.now());
+    return new UpdatedAt(new Date(Date.now()));
   }
 }

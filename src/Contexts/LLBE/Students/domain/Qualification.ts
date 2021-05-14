@@ -13,10 +13,7 @@ export class Qualification {
     this.endDate = endDate;
   }
 
-  static fromPrimitives(plaindata: { title: string; start_date: string; end_date: string } | undefined) {
-    if (plaindata === undefined) {
-      return;
-    }
+  static fromPrimitives(plaindata: { title: string; start_date: Date; end_date: Date }) {
     return new Qualification(
       new TitleName(plaindata.title),
       new StartDate(plaindata.start_date),
@@ -27,8 +24,8 @@ export class Qualification {
   toPrimitives() {
     return {
       title: this.title.value,
-      start_date: this.startDate.yearMonthValue(),
-      end_date: this.endDate.yearMonthValue(),
+      start_date: this.startDate,
+      end_date: this.endDate,
     };
   }
 }

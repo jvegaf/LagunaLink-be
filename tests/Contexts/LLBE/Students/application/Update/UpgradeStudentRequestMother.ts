@@ -21,7 +21,7 @@ export class UpgradeStudentRequestMother {
       position: string;
       responsibilities: string;
       start_date: string;
-      end_date: string }[]
+      end_date: string; }[]
   ): UpgradeStudentRequest {
     return {
       id: id,

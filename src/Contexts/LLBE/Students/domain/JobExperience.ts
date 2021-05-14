@@ -23,8 +23,8 @@ export class JobExperience {
     company: string;
     position: string;
     responsibilities: string;
-    start_date: string;
-    end_date: string;
+    start_date: Date;
+    end_date: Date;
   }) {
     return new JobExperience(
       new JobOpenCompany(plaindata.company),
@@ -40,8 +40,8 @@ export class JobExperience {
       company: this.company.toString(),
       position: this.position.toString(),
       responsibilities: this.responsibilities.toString(),
-      start_date: this.startDate.yearMonthValue(),
-      end_date: this.endDate.yearMonthValue(),
+      start_date: this.startDate,
+      end_date: this.endDate,
     };
   }
 }

@@ -1,17 +1,17 @@
-import { model, Schema } from 'mongoose';
+import { Schema } from 'mongoose';
 
-interface IUser extends MongoDocument {
+interface User extends MongoDocument {
   email: string;
   password: string;
   isActive: boolean;
   role: string;
   registered: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
   avatar: string;
 }
 
-const UserSchemaFields: Record<keyof IUser, any> = {
+const UserSchemaFields: Record<keyof User, any> = {
   _id: {
     type: String,
     unique: true
@@ -31,4 +31,4 @@ const UserSchemaFields: Record<keyof IUser, any> = {
 
 const UserSchema = new Schema(UserSchemaFields);
 
-export { UserSchema, IUser };
+export { UserSchema, User };

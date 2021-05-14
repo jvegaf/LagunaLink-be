@@ -52,8 +52,8 @@ export class User extends AggregateRoot {
     role: string;
     avatar: string;
     registered: boolean;
-    createdAt: string;
-    updatedAt: string;
+    createdAt: Date;
+    updatedAt: Date;
   }) {
     return new User(
       new UserId(plaindata.id),
@@ -100,8 +100,8 @@ export class User extends AggregateRoot {
       role: this.role.value,
       avatar: this.avatar.value,
       registered: this.registered.value,
-      createdAt: this.createdAt.toISOString(),
-      updatedAt: this.updatedAt.toISOString(),
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
     };
   }
 

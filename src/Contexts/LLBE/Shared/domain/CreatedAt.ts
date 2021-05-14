@@ -1,13 +1,12 @@
 import { DateValueObject } from '../../../Shared/domain/value-object/DateValueObject';
-import { Timestamp } from './Timestamp';
 
 export class CreatedAt extends DateValueObject{
 
-  static create(value: string) {
+  static create(value: Date) {
     return new this(value);
   }
 
   static now() {
-    return this.create(Timestamp.now());
+    return this.create(new Date(Date.now()));
   }
 }

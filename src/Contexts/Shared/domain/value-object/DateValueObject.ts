@@ -1,19 +1,15 @@
 export abstract class DateValueObject {
-  private date: Date;
+  private value: Date;
 
-  constructor(value: string) {
-    this.date = new Date(value);
+  constructor(value?: Date) {
+    this.value = value || new Date();
   }
 
-  toString(): string {
-    return this.date.toISOString().substr(0, 10);
+  stringValue(): string {
+    return this.value.toISOString().substr(0, 10);
   }
 
   yearMonthValue(): string {
-    return this.date.toISOString().substr(0, 7);
-  }
-
-  toISOString(): string {
-    return this.date.toISOString();
+    return this.value.toISOString().substr(0, 7);
   }
 }

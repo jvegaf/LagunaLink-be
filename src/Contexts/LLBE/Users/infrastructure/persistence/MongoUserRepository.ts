@@ -4,10 +4,10 @@ import { User } from '../../domain/User';
 import { UserRepository } from '../../domain/UserRepository';
 import { UserId } from '../../../Shared/domain/Users/UserId';
 import { UserEmail } from '../../domain/UserEmail';
-import { IUser, UserSchema } from './mongo/user.model';
+import { User as MongoUser, UserSchema } from './mongo/user.model';
 import { Schema } from 'mongoose';
 
-export class MongoUserRepository extends MongoRepository<IUser> implements UserRepository {
+export class MongoUserRepository extends MongoRepository<MongoUser> implements UserRepository {
   public async save(user: User): Promise<void> {
     await this.ensureEmailIndex();
     await this.persist(user.id.value, user);
