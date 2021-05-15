@@ -15,7 +15,7 @@
 Necesitas tener instalado Make: 
 - Windows: puedes usar el gestor de paquetes [winget](https://docs.microsoft.com/es-es/windows/package-manager/winget/ "Microsoft: Winget")  
 - Linux: puedes usar el metapaquete [build-essential](https://packages.debian.org/es/source/sid/build-essential "Debian: build-essential/binary packages") para Debian, o derivados.  
-
+ 
 Se puede optar por dos modos
 #### Local
 - Nodejs
