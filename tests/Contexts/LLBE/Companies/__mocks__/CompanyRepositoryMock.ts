@@ -7,6 +7,7 @@ export class CompanyRepositoryMock implements CompanyRepository {
   private mockSave = jest.fn();
   private mockSearch = jest.fn();
   private mockFetch = jest.fn();
+  private mockProfile = jest.fn();
 
   async save(company: Company): Promise<void> {
     this.mockSave(company);
@@ -35,5 +36,9 @@ export class CompanyRepositoryMock implements CompanyRepository {
 
   fetch(): Promise<Array<Company>> {
     return this.mockFetch();
+  }
+
+  searchProfile(id: CompanyId): Promise<Nullable<Company>> {
+    return this.mockProfile();
   }
 }

@@ -1,4 +1,4 @@
-export type UpgradeStudentRequest = {
+export type StudentDTO = {
   id: string;
   name: string;
   surname: string;

@@ -6,6 +6,8 @@ import { CompanyAddress } from './CompanyAddress';
 import { CompanyPostalCode } from './CompanyPostalCode';
 import { CompanyCity } from './CompanyCity';
 import { CompanyRegion } from './CompanyRegion';
+import { CompanyDTO } from '../../Shared/domain/Companies/CompanyDTO';
+import { CompanyType } from '../../Shared/domain/Companies/CompanyType';
 
 export class Company extends AggregateRoot {
   readonly id: CompanyId;
@@ -16,67 +18,39 @@ export class Company extends AggregateRoot {
   readonly region: CompanyRegion;
   readonly city: CompanyCity;
 
-  constructor(
-    id: CompanyId,
-    name: CompanyName,
-    description: CompanyDescription,
-    address: CompanyAddress,
-    postalCode: CompanyPostalCode,
-    region: CompanyRegion,
-    city: CompanyCity
-  ) {
+  constructor(company: CompanyType) {
     super();
-    this.id = id;
-    this.name = name;
-    this.description = description;
-    this.address = address;
-    this.postalCode = postalCode;
-    this.region = region;
-    this.city = city;
+    this.id = company.id;
+    this.name = company.name;
+    this.description = company.description;
+    this.address = company.address;
+    this.postalCode = company.postalCode;
+    this.region = company.region;
+    this.city = company.city;
   }
 
   static create(
-    id: CompanyId,
-    name: CompanyName,
-    description: CompanyDescription,
-    address: CompanyAddress,
-    postalCode: CompanyPostalCode,
-    region: CompanyRegion,
-    city: CompanyCity
+    company: CompanyType
   ): Company {
-    return new Company(
-      id,
-      name,
-      description,
-      address,
-      postalCode,
-      region,
-      city
-    );
+    return new Company(company);
   }
 
   static fromPrimitives(
-    plaindata: {
-      id: string;
-      name: string;
-      description: string;
-      address: string;
-      postalCode: number;
-      region: string;
-      city: string;
-    }) {
+    plaindata: CompanyDTO) {
     return new Company(
-      new CompanyId(plaindata.id),
-      new CompanyName(plaindata.name),
-      new CompanyDescription(plaindata.description),
-      new CompanyAddress(plaindata.address),
-      new CompanyPostalCode(plaindata.postalCode),
-      new CompanyRegion(plaindata.region),
-      new CompanyCity(plaindata.city)
+      {
+        id: new CompanyId(plaindata.id),
+        name: new CompanyName(plaindata.name),
+        description: new CompanyDescription(plaindata.description),
+        address: new CompanyAddress(plaindata.address),
+        postalCode: new CompanyPostalCode(plaindata.postalCode),
+        region: new CompanyRegion(plaindata.region),
+        city: new CompanyCity(plaindata.city)
+      }
     );
   }
 
-  toPrimitives(): any {
+  toPrimitives(): CompanyDTO {
     return {
       id: this.id.value,
       name: this.name.value,

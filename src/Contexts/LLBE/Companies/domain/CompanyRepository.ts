@@ -7,5 +7,7 @@ export interface CompanyRepository {
 
   search(id: CompanyId): Promise<Nullable<Company>>;
 
+  searchProfile(id: CompanyId): Promise<Nullable<Company>>;
+
   fetch(): Promise<Array<Company>>;
 }

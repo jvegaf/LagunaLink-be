@@ -6,87 +6,48 @@ import { StudentLastname } from './StudentLastname';
 import { Qualification } from './Qualification';
 import { Language } from './Language';
 import { JobExperience } from './JobExperience';
-import { UpgradeStudentRequest } from '../application/Update/UpgradeStudentRequest';
+import { StudentType } from '../../Shared/domain/Students/StudentType';
+import { StudentDTO } from '../../Shared/domain/Students/StudentDTO';
 
 export class Student extends AggregateRoot {
   readonly id: StudentId;
-  readonly name: StudentName | undefined;
-  readonly surname: StudentSurname | undefined;
-  readonly lastname: StudentLastname | undefined;
-  private qualification: Qualification | undefined;
-  private languages: Language[] | undefined;
-  private jobexperiences: JobExperience[] | undefined;
+  readonly name: StudentName;
+  readonly surname: StudentSurname;
+  readonly lastname: StudentLastname;
+  readonly qualification: Qualification;
+  readonly languages: Language[];
+  readonly jobexperiences: JobExperience[];
 
-  constructor(
-    id: StudentId,
-    name?: StudentName,
-    surname?: StudentSurname,
-    lastname?: StudentLastname,
-    qualification?: Qualification,
-    languages?: Language[],
-    jobexperiences?: JobExperience[]) {
+  constructor(student: StudentType) {
     super();
-    this.id = id;
-    this.name = name;
-    this.surname = surname;
-    this.lastname = lastname;
-    this.qualification = qualification;
-    this.languages = languages;
-    this.jobexperiences = jobexperiences;
+    this.id = student.id;
+    this.name = student.name;
+    this.surname = student.surname;
+    this.lastname = student.lastname;
+    this.qualification = student.qualification;
+    this.languages = student.languages;
+    this.jobexperiences = student.jobexperiences;
   }
 
-  static create(
-    id: StudentId,
-    name?: StudentName,
-    surname?: StudentSurname,
-    lastname?: StudentLastname,
-    qualification?: Qualification,
-    languages?: Language[],
-    jobexperiences?: JobExperience[]): Student {
-    return new Student(id, name, surname, lastname, qualification, languages, jobexperiences);
+  static create(data: StudentType): Student {
+    return new Student(data);
   }
 
   static fromPrimitives(
-    plainData: UpgradeStudentRequest): Student {
-    const name = typeof plainData.name === 'string' ? new StudentName(plainData.name) : undefined;
-    const surname = typeof plainData.surname === 'string' ? new StudentSurname(plainData.surname) : undefined;
-    const lastname = typeof plainData.lastname === 'string' ? new StudentLastname(plainData.lastname) : undefined;
-    return new Student(
-      new StudentId(plainData.id),
-      name,
-      surname,
-      lastname,
-      Qualification.fromPrimitives(plainData.qualification),
-      this.languagesFromPrimitives(plainData.languages),
-      this.jobexperiencesFromPrimitives(plainData.job_experiences)
-    );
+    plainData: StudentDTO): Student {
+    return new Student({
+      id: new StudentId(plainData.id),
+      name: new StudentName(plainData.name),
+      surname: new StudentSurname(plainData.surname),
+      lastname: new StudentLastname(plainData.lastname),
+      qualification: Qualification.fromPrimitives(plainData.qualification),
+      languages: this.languagesFromPrimitives(plainData.languages),
+      jobexperiences: this.jobexperiencesFromPrimitives(plainData.job_experiences)
+    });
   }
 
-  toPrimitives() {
-    return {
-      id: this.id.value,
-      name: this.name?.value,
-      surname: this.surname?.value,
-      lastname: this.lastname?.value,
-      qualification: this.qualification?.toPrimitives(),
-      languages: this.languagesToPrimitives(),
-      job_experiences: this.jobexperiencesToPrimitives()
-    };
-  }
-
-  private languagesToPrimitives() {
-    return this.languages?.map(language => language.toPrimitives());
-  }
-
-  private static languagesFromPrimitives(languages: { name: string; speak: number; write: number }[] | undefined) {
-    if (languages === undefined) {
-      return;
-    }
+  private static languagesFromPrimitives(languages: { name: string; speak: number; write: number }[]) {
     return languages.map(language => Language.fromPrimitives(language));
-  }
-
-  private jobexperiencesToPrimitives() {
-    return this.jobexperiences?.map(job => job.toPrimitives());
   }
 
   private static jobexperiencesFromPrimitives(jobexperiences: {
@@ -95,10 +56,27 @@ export class Student extends AggregateRoot {
     responsibilities: string;
     start_date: string;
     end_date: string;
-  }[] | undefined) {
-    if (jobexperiences === undefined) {
-      return;
-    }
+  }[]) {
     return jobexperiences.map(job => JobExperience.fromPrimitives(job));
+  }
+
+  toPrimitives(): StudentDTO {
+    return {
+      id: this.id.value,
+      name: this.name.value,
+      surname: this.surname.value,
+      lastname: this.lastname.value,
+      qualification: this.qualification.toPrimitives(),
+      languages: this.languagesToPrimitives(),
+      job_experiences: this.jobexperiencesToPrimitives()
+    };
+  }
+
+  private languagesToPrimitives() {
+    return this.languages.map(language => language.toPrimitives());
+  }
+
+  private jobexperiencesToPrimitives() {
+    return this.jobexperiences.map(job => job.toPrimitives());
   }
 }

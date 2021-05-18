@@ -9,6 +9,8 @@ import { JobOpenQualification } from './JobOpenQualification';
 import { JobOpeningId } from '../../Shared/domain/JobOpenings/JobOpeningId';
 import { JobOpenCreatedAt } from './JobOpenCreatedAt';
 import { JobOpenHiringDate } from './JobOpenHiringDate';
+import { JobOpeningDTO } from '../../Shared/domain/JobOpenings/JobOpeningDTO';
+import { JobOpeningType } from '../../Shared/domain/JobOpenings/JobOpeningType';
 
 export class JobOpening extends AggregateRoot {
   readonly id: JobOpeningId;
@@ -22,85 +24,42 @@ export class JobOpening extends AggregateRoot {
   readonly prevExperience: JobOpenPrevExperience;
   readonly hiringDate: JobOpenHiringDate;
 
-  constructor(
-    id: JobOpeningId,
-    createdAt: JobOpenCreatedAt,
-    company: CompanyId,
-    description: JobOpenDescription,
-    position: JobOpenPosition,
-    conditions: JobOpenConditions,
-    responsibilities: JobOpenResponsibilities,
-    qualification: JobOpenQualification,
-    prevExperience: JobOpenPrevExperience,
-    hiringDate: JobOpenHiringDate
-  ) {
+  constructor(jobOpen: JobOpeningType) {
     super();
-    this.id = id;
-    this.createdAt = createdAt;
-    this.company = company;
-    this.description = description;
-    this.position = position;
-    this.conditions = conditions;
-    this.responsibilities = responsibilities;
-    this.qualification = qualification;
-    this.prevExperience = prevExperience;
-    this.hiringDate = hiringDate;
+    this.id = jobOpen.id;
+    this.createdAt = jobOpen.createdAt;
+    this.company = jobOpen.company;
+    this.description = jobOpen.description;
+    this.position = jobOpen.position;
+    this.conditions = jobOpen.conditions;
+    this.responsibilities = jobOpen.responsibilities;
+    this.qualification = jobOpen.qualification;
+    this.prevExperience = jobOpen.prevExperience;
+    this.hiringDate = jobOpen.hiringDate;
   }
 
-  static create(
-    id: JobOpeningId,
-    createdAt: JobOpenCreatedAt,
-    company: CompanyId,
-    description: JobOpenDescription,
-    position: JobOpenPosition,
-    conditions: JobOpenConditions,
-    responsibilities: JobOpenResponsibilities,
-    qualification: JobOpenQualification,
-    prevExperience: JobOpenPrevExperience,
-    hiringDate: JobOpenHiringDate
-  ): JobOpening {
+  static create(data: JobOpeningType): JobOpening {
+    return new JobOpening(data);
+  }
+
+  static fromPrimitives(plaindata: JobOpeningDTO) {
     return new JobOpening(
-      id,
-      createdAt,
-      company,
-      description,
-      position,
-      conditions,
-      responsibilities,
-      qualification,
-      prevExperience,
-      hiringDate
+      {
+        id: new JobOpeningId(plaindata.id),
+        createdAt: new JobOpenCreatedAt(plaindata.createdAt),
+        company: new CompanyId(plaindata.company),
+        description: new JobOpenDescription(plaindata.description),
+        position: new JobOpenPosition(plaindata.position),
+        conditions: new JobOpenConditions(plaindata.conditions),
+        responsibilities: new JobOpenResponsibilities(plaindata.responsibilities),
+        qualification: new JobOpenQualification(plaindata.qualification),
+        prevExperience: new JobOpenPrevExperience(plaindata.prevExperience),
+        hiringDate: new JobOpenHiringDate(plaindata.hiringDate)
+      }
     );
   }
 
-  static fromPrimitives(
-    plaindata: {
-      id: string;
-      createdAt: string;
-      company: string;
-      description: string;
-      position: string;
-      conditions: string;
-      responsibilities: string;
-      qualification: string;
-      prevExperience: string;
-      hiringDate: string;
-    }) {
-    return new JobOpening(
-      new JobOpeningId(plaindata.id),
-      new JobOpenCreatedAt(plaindata.createdAt),
-      new CompanyId(plaindata.company),
-      new JobOpenDescription(plaindata.description),
-      new JobOpenPosition(plaindata.position),
-      new JobOpenConditions(plaindata.conditions),
-      new JobOpenResponsibilities(plaindata.responsibilities),
-      new JobOpenQualification(plaindata.qualification),
-      new JobOpenPrevExperience(plaindata.prevExperience),
-      new JobOpenHiringDate(plaindata.hiringDate)
-    );
-  }
-
-  toPrimitives(): any {
+  toPrimitives(): JobOpeningDTO {
     return {
       id: this.id.value,
       createdAt: this.createdAt.toString(),
