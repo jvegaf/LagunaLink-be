@@ -16,7 +16,7 @@ export class EnrollmentMother {
     jobOpening: JobOpeningId,
     enrollmentDate: EnrollmentDate
   ): Enrollment {
-    return new Enrollment(id, student, jobOpening, enrollmentDate);
+    return new Enrollment({id, student, jobOpening, enrollmentDate});
   }
 
   static fromRequest(request: CompleteEnrollmentRequest): Enrollment {

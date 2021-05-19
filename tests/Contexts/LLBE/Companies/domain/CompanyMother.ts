@@ -25,7 +25,7 @@ export class CompanyMother {
     region: CompanyRegion,
     city: CompanyCity
   ): Company {
-    return new Company(
+    return new Company({
       id,
       name,
       description,
@@ -33,7 +33,7 @@ export class CompanyMother {
       postalCode,
       region,
       city
-    );
+    });
   }
 
   static fromRequest(request: CompanyRequest): Company {

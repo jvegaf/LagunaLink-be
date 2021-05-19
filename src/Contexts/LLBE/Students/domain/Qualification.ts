@@ -13,6 +13,14 @@ export class Qualification {
     this.endDate = endDate;
   }
 
+  static emptyQualification(): Qualification {
+    return new Qualification(
+      new TitleName(),
+      new StartDate(),
+      new EndDate()
+    );
+  }
+
   static fromPrimitives(plaindata: { title: string; start_date: string; end_date: string }) {
     return new Qualification(
       new TitleName(plaindata.title),

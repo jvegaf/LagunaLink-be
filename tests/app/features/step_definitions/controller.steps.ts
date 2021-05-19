@@ -28,6 +28,9 @@ import { StudentIdMother } from '../../../Contexts/LLBE/Shared/domain/Students/S
 import { CompanyIdMother } from '../../../Contexts/LLBE/Shared/domain/Companies/CompanyIdMother';
 import { CreateJobOpeningRequestMother } from '../../../Contexts/LLBE/JobOpenings/application/Create/CreateJobOpeningRequestMother';
 import path from 'path';
+import { StudentLangsMother } from '../../../Contexts/LLBE/Students/domain/StudentLangsMother';
+import { QualificationMother } from '../../../Contexts/LLBE/Students/domain/QualificationMother';
+import { JobExperiencesMother } from '../../../Contexts/LLBE/Students/domain/JobExperiencesMother';
 
 let _request: request.Test;
 let _response: request.Response;
@@ -78,26 +81,29 @@ const ROLE_COMPANY = 'ROLE_COMPANY';
 
 async function register(id: string, role: string) {
   if (role === 'ROLE_STUDENT') {
-    const student = Student.create(
-      StudentIdMother.create(id),
-      StudentNameMother.random(),
-      StudentSurnameMother.random(),
-      StudentLastnameMother.random()
-    );
+    const student = Student.create({
+      id: StudentIdMother.create(id),
+      name: StudentNameMother.random(),
+      surname: StudentSurnameMother.random(),
+      lastname: StudentLastnameMother.random(),
+      languages: StudentLangsMother.random(),
+      qualification: QualificationMother.random(),
+      jobexperiences: JobExperiencesMother.random()
+    });
 
     await studentRepository.save(student);
   }
 
   if (role === ROLE_COMPANY) {
-    const company = Company.create(
-      CompanyIdMother.create(id),
-      CompanyNameMother.random(),
-      CompanyDescriptionMother.random(),
-      CompanyAddressMother.random(),
-      CompanyPostalCodeMother.random(),
-      CompanyRegionMother.random(),
-      CompanyCityMother.random()
-    );
+    const company = Company.create({
+      id: CompanyIdMother.create(id),
+      name: CompanyNameMother.random(),
+      description: CompanyDescriptionMother.random(),
+      address: CompanyAddressMother.random(),
+      postalCode: CompanyPostalCodeMother.random(),
+      region: CompanyRegionMother.random(),
+      city: CompanyCityMother.random()
+    });
     await companyRepository.save(company);
   }
 }

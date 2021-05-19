@@ -27,7 +27,7 @@ export class JobOpeningMother {
     id: JobOpeningId,
     createdAt: JobOpenCreatedAt,
     company: CompanyId,
-    title: JobOpenDescription,
+    description: JobOpenDescription,
     position: JobOpenPosition,
     conditions: JobOpenConditions,
     responsibilities: JobOpenResponsibilities,
@@ -35,18 +35,18 @@ export class JobOpeningMother {
     prevExperience: JobOpenPrevExperience,
     hiringDate: JobOpenHiringDate
   ): JobOpening {
-    return new JobOpening(
+    return new JobOpening({
       id,
       createdAt,
       company,
-      title,
+      description,
       position,
       conditions,
       responsibilities,
       qualification,
       prevExperience,
       hiringDate
-    );
+    });
   }
 
   static fromCreateRequest(request: CreateJobOpeningRequest): JobOpening {

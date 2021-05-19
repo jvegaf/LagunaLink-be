@@ -31,16 +31,18 @@ export class EnrollmentsGetController implements Controller {
     const resultMap = enrollments.map((enrollment) => enrollment.toPrimitives()
     );
 
-    const result = resultMap.map(async (enrollment) => {
-      const student = await this.studentFinder.run(
-        new StudentId(enrollment.student)
-      );
-      enrollment.student = student.toPrimitives();
-      const email = await this.userEmailFinder.run(
-        new UserId(enrollment.student.id)
-      );
-      enrollment.student.email = email.value;
-    });
+    // const result = resultMap.map(async (enrollment) => {
+    //   const student = await this.studentFinder.run(
+    //     new StudentId(enrollment.student)
+    //   );
+    //   enrollment.student = student.toPrimitives();
+    //   const email = await this.userEmailFinder.run(
+    //     new UserId(enrollment.student.id)
+    //   );
+    //   enrollment.student.email = email.value;
+    // });
+
+    const result = {}; // TODO: FIX
 
     res.status(200).send({ enrollments: result });
   }
