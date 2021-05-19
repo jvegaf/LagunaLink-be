@@ -1,5 +1,4 @@
 import { Company } from '../../../Companies/domain/Company';
-import { JobOpening } from '../../../JobOpenings/domain/JobOpening';
 import { CompanyProfileType } from './CompanyProfileType';
 import { CompanyProfileDTO } from './CompanyProfileDTO';
 import { CompanyId } from './CompanyId';
@@ -9,9 +8,10 @@ import { CompanyAddress } from '../../../Companies/domain/CompanyAddress';
 import { CompanyPostalCode } from '../../../Companies/domain/CompanyPostalCode';
 import { CompanyRegion } from '../../../Companies/domain/CompanyRegion';
 import { CompanyCity } from '../../../Companies/domain/CompanyCity';
+import { JobOpenEnrolls } from '../JobOpenings/JobOpenEnrolls';
 
 export class CompanyProfile extends Company {
-  readonly jobOpenings: JobOpening[];
+  readonly jobOpenings: JobOpenEnrolls[];
 
   constructor(values: CompanyProfileType) {
     super(values);
@@ -28,7 +28,7 @@ export class CompanyProfile extends Company {
         postalCode: new CompanyPostalCode(data.postalCode),
         region: new CompanyRegion(data.region),
         city: new CompanyCity(data.city),
-        jobOpenings: data.jobOpenings.map(j => JobOpening.fromPrimitives(j))
+        jobOpenings: data.jobOpenings.map(j => JobOpenEnrolls.fromPrimitives(j))
       }
     );
   }

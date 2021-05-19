@@ -1,6 +1,6 @@
 import { CompanyDTO } from './CompanyDTO';
-import { JobOpeningDTO } from '../JobOpenings/JobOpeningDTO';
+import { JobOpenEnrollsDTO } from '../JobOpenings/JobOpenEnrollsDTO';
 
 export type CompanyProfileDTO = CompanyDTO & {
-  jobOpenings: JobOpeningDTO[];
+  jobOpenings: JobOpenEnrollsDTO[];
 };

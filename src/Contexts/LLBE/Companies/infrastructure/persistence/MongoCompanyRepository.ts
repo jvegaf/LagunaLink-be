@@ -23,62 +23,105 @@ export class MongoCompanyRepository extends MongoRepository<Company> implements 
     const collection = await this.collection();
     const agg = [
       {
+        '$match': {
+          '_id': id.value
+        }
+      }, {
         '$lookup': {
           'from': 'jobOpenings',
           'localField': '_id',
           'foreignField': 'company',
           'as': 'jobOpenings'
         }
-      },
-      {
-        '$unwind': '$jobOpenings'
-      },
-      {
+      }, {
+        '$unwind': {
+          'path': '$jobOpenings',
+          'preserveNullAndEmptyArrays': true
+        }
+      }, {
         '$lookup': {
           'from': 'enrollments',
           'localField': 'jobOpenings._id',
-          'foreignField': 'jobOpening',
-          'as': 'enrollments'
+          'foreignField': 'job_opening',
+          'as': 'enrolls'
         }
-      },
-      {
-        '$unwind': '$enrollments'
-      },
-      {
+      }, {
+        '$unwind': {
+          'path': '$enrolls',
+          'preserveNullAndEmptyArrays': true
+        }
+      }, {
         '$lookup': {
           'from': 'students',
-          'localField': 'enrollments.student',
+          'localField': 'enrolls.student',
           'foreignField': '_id',
-          'as': 'studentDetail'
+          'as': 'enrolls.studentDetail'
         }
-      },
-      {
-        '$match': {
-          '_id': id.value
+      }, {
+        '$unwind': {
+          'path': '$enrolls.studentDetail',
+          'preserveNullAndEmptyArrays': true
+        }
+      }, {
+        '$group': {
+          '_id': {
+            '_id': '$_id',
+            'address': '$address',
+            'city': '$city',
+            'description': '$description',
+            'name': '$name',
+            'postalCode': '$postalCode',
+            'region': '$region',
+            'jobOpenings': {
+              '_id': '$jobOpenings._id',
+              'conditions': '$jobOpenings.conditions',
+              'createdAt': '$jobOpenings.createdAt',
+              'position': '$jobOpenings.position',
+              'prevExperience': '$jobOpenings.prevExperience',
+              'title': '$jobOpenings.title',
+              'hiringDate': '$jobOpenings.hiringDate'
+            }
+          },
+          'enrolls': {
+            '$push': '$enrolls'
+          }
+        }
+      }, {
+        '$group': {
+          '_id': '$_id._id',
+          'address': {
+            '$first': '$_id.address'
+          },
+          'city': {
+            '$first': '$_id.city'
+          },
+          'description': {
+            '$first': '$_id.description'
+          },
+          'name': {
+            '$first': '$_id.name'
+          },
+          'postalCode': {
+            '$first': '$_id.postalCode'
+          },
+          'region': {
+            '$first': '$_id.region'
+          },
+          'jobOpenings': {
+            '$push': {
+              '_id': '$_id.jobOpenings._id',
+              'conditions': '$_id.jobOpenings.conditions',
+              'createdAt': '$_id.jobOpenings.createdAt',
+              'position': '$_id.jobOpenings.position',
+              'prevExperience': '$_id.jobOpenings.prevExperience',
+              'title': '$_id.jobOpenings.title',
+              'hiringDate': '$_id.jobOpenings.hiringDate',
+              'enrolls': '$enrolls'
+            }
+          }
         }
       }
     ];
-
-    // position.aggregate([
-    //   { "$lookup": {
-    //       "from": "companies",
-    //       "localField": "company_id",
-    //       "foreignField": "_id",
-    //       "as": "companies"
-    //     }},
-    //   { "$unwind": "$companies" },
-    //   { "$lookup": {
-    //       "from": "industries",
-    //       "localField": "companies.industry_id",
-    //       "foreignField": "_id",
-    //       "as": "companies.industry"
-    //     }},
-    //   { "$unwind": "$companies.industry" },
-    //   { "$group": {
-    //       "_id": "$_id",
-    //       "companies": { "$push": "$companies" }
-    //     }}
-    // ])
 
     const docArr = await collection.aggregate(agg).toArray();
     const document = docArr[0];

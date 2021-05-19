@@ -36,4 +36,8 @@ export class JobOpenEnrolls extends JobOpening {
       responsibilities: new JobOpenResponsibilities(data.responsibilities)
     });
   }
+
+  toPrimitives(): JobOpenEnrollsDTO {
+    return {...(super.toPrimitives()), enrolls: this.enrolls.map(en => en.toPrimitives())};
+  }
 }
