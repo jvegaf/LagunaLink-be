@@ -85,9 +85,7 @@ services:
 
   App.controllers.enrollments.EnrollmentsGetController:
     class: ../../../controllers/enrollments/EnrollmentsGetController
-    arguments: [ "@App.enrollments.EnrollmentsSearcher",
-                 "@App.students.StudentFinder",
-                 "@App.users.UserEmailFinder" ]
+    arguments: [ "@App.enrollments.EnrollmentsSearcher" ]
 
   App.controllers.enrollments.EnrollmentsFetchController:
     class: ../../../controllers/enrollments/EnrollmentsFetchController

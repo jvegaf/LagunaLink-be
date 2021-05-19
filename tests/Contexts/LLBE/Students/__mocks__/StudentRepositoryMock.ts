@@ -2,6 +2,8 @@ import { StudentRepository } from '../../../../../src/Contexts/LLBE/Students/dom
 import { Student } from '../../../../../src/Contexts/LLBE/Students/domain/Student';
 import { StudentId } from '../../../../../src/Contexts/LLBE/Shared/domain/Students/StudentId';
 import { Nullable } from '../../../../../src/Contexts/Shared/domain/Nullable';
+import { UpgradeStudentRequest } from '../../../../../src/Contexts/LLBE/Students/application/Update/UpgradeStudentRequest';
+import { StudentDTO } from '../../../../../src/Contexts/LLBE/Shared/domain/Students/StudentDTO';
 
 export class StudentRepositoryMock implements StudentRepository {
   private mockSave = jest.fn();
@@ -30,5 +32,9 @@ export class StudentRepositoryMock implements StudentRepository {
 
   assertLastSearchedStudentIs(expected: StudentId): void {
     expect(this.mockSearch).toHaveBeenCalledWith(expected);
+  }
+
+  async update(values: UpgradeStudentRequest): Promise<void> {
+    this.mockSave(Student.fromPrimitives(values as StudentDTO));
   }
 }

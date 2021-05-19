@@ -1,7 +1,6 @@
 import { StudentNameMother } from '../../domain/StudentNameMother';
 import { StudentSurnameMother } from '../../domain/StudentSurnameMother';
 import { StudentLastnameMother } from '../../domain/StudentLastnameMother';
-import { StudentIdMother } from '../../../Shared/domain/Students/StudentIdMother';
 import { UpgradeStudentRequest } from '../../../../../../src/Contexts/LLBE/Students/application/Update/UpgradeStudentRequest';
 import { QualificationMother } from '../../domain/QualificationMother';
 import { StudentLangsMother } from '../../domain/StudentLangsMother';
@@ -15,13 +14,12 @@ export class UpgradeStudentRequestMother {
     lastname: string,
     qualification: { end_date: string; title: string; start_date: string },
     languages: { name: string; speak: number; write: number }[],
-    // tslint:disable-next-line:variable-name
     job_experiences: {
       company: string;
       position: string;
       responsibilities: string;
       start_date: string;
-      end_date: string }[]
+      end_date: string; }[]
   ): UpgradeStudentRequest {
     return {
       id: id,
@@ -34,9 +32,9 @@ export class UpgradeStudentRequestMother {
     };
   }
 
-  static random(): UpgradeStudentRequest {
+  static random(studentId: string): UpgradeStudentRequest {
     return this.create(
-      StudentIdMother.random().value,
+      studentId,
       StudentNameMother.random().value,
       StudentSurnameMother.random().value,
       StudentLastnameMother.random().value,

@@ -28,6 +28,7 @@ it('should throw a CompanyNotFound exception if company not exists', async () =>
 it('should found a valid company', async () => {
   const request = CreateCompanyRequestMother.random();
   const company = CompanyMother.fromCreateRequest(request);
+  const companyResult = company.toPrimitives();
 
   repository.whenSearchThenReturn(company);
 
@@ -36,5 +37,5 @@ it('should found a valid company', async () => {
     accountOwner: false
   };
 
-  await expect(finder.run(req)).resolves.toEqual(company);
+  await expect(finder.run(req)).resolves.toEqual(companyResult);
 });

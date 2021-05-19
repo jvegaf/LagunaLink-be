@@ -4,6 +4,7 @@ import { EnvironmentArranger } from '../../../../Shared/infrastructure/arranger/
 import { StudentMother } from '../../domain/StudentMother';
 import { UpgradeStudentRequestMother } from '../../application/Update/UpgradeStudentRequestMother';
 import { Student } from '../../../../../../src/Contexts/LLBE/Students/domain/Student';
+import { StudentDTO } from '../../../../../../src/Contexts/LLBE/Shared/domain/Students/StudentDTO';
 
 const repository: StudentRepository = container.get('App.students.StudentRepository');
 const environmentArranger: Promise<EnvironmentArranger> = container.get('App.EnvironmentArranger');
@@ -25,13 +26,17 @@ describe('Save student', () => {
     expect(student).toEqual(await repository.search(student.id));
   });
 
-  it('should save a complete student', async () => {
-    const request = UpgradeStudentRequestMother.random();
-    const student = Student.fromPrimitives(request);
-
+  it('should update a student', async () => {
+    const student = StudentMother.random();
     await repository.save(student);
+    console.log({student});
 
-    expect(student).toEqual(await repository.search(student.id));
+    const request = UpgradeStudentRequestMother.random(student.id.value);
+    const studentUpdated = Student.fromPrimitives(request as StudentDTO);
+    console.log({studentUpdated});
+    await repository.update(request);
+
+    expect(studentUpdated).toEqual(await repository.search(student.id));
   });
 });
 

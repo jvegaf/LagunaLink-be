@@ -18,8 +18,7 @@ export class StudentUpgrader extends ApplicationService {
 
   async run(request: UpgradeStudentRequest): Promise<Student> {
 
-    const student = Student.fromPrimitives(request);
-    await this.repository.save(student);
+    await this.repository.update(request);
     await this.userUpdater.run(new UserId(request.id));
     this.logInfo(`student ${request.id} updated`);
 
