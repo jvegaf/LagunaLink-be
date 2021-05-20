@@ -1,9 +1,9 @@
-import { Nullable } from '../../../../Shared/domain/Nullable';
-import { MongoRepository } from '../../../../Shared/infrastructure/persistence/mongo/MongoRepository';
-import { CompanyId } from '../../../Shared/domain/Companies/CompanyId';
-import { Company } from '../../domain/Company';
-import { CompanyRepository } from '../../domain/CompanyRepository';
-import { CompanyProfile } from '../../../Shared/domain/Companies/CompanyProfile';
+import {Nullable} from '../../../../Shared/domain/Nullable';
+import {MongoRepository} from '../../../../Shared/infrastructure/persistence/mongo/MongoRepository';
+import {CompanyId} from '../../../Shared/domain/Companies/CompanyId';
+import {Company} from '../../domain/Company';
+import {CompanyRepository} from '../../domain/CompanyRepository';
+import {CompanyProfile} from '../../../Shared/domain/Companies/CompanyProfile';
 
 export class MongoCompanyRepository extends MongoRepository<Company> implements CompanyRepository {
   public save(company: Company): Promise<void> {
@@ -19,7 +19,7 @@ export class MongoCompanyRepository extends MongoRepository<Company> implements 
     return document ? Company.fromPrimitives({...document, id: id.value}) : null;
   }
 
-  public async searchProfile(id: CompanyId): Promise<Nullable<Company>> {
+  public async searchProfile(id: CompanyId): Promise<Company> {
     const collection = await this.collection();
     const agg = [
       {
@@ -55,69 +55,42 @@ export class MongoCompanyRepository extends MongoRepository<Company> implements 
           'from': 'students',
           'localField': 'enrolls.student',
           'foreignField': '_id',
-          'as': 'enrolls.studentDetail'
+          'as': 'studentDetail'
         }
       }, {
         '$unwind': {
-          'path': '$enrolls.studentDetail',
+          'path': '$studentDetail',
           'preserveNullAndEmptyArrays': true
         }
       }, {
         '$group': {
-          '_id': {
-            '_id': '$_id',
-            'address': '$address',
-            'city': '$city',
-            'description': '$description',
-            'name': '$name',
-            'postalCode': '$postalCode',
-            'region': '$region',
-            'jobOpenings': {
-              '_id': '$jobOpenings._id',
-              'conditions': '$jobOpenings.conditions',
-              'createdAt': '$jobOpenings.createdAt',
-              'position': '$jobOpenings.position',
-              'prevExperience': '$jobOpenings.prevExperience',
-              'title': '$jobOpenings.title',
-              'hiringDate': '$jobOpenings.hiringDate'
-            }
+          '_id': '$_id',
+          'address': {
+            '$first': '$address'
+          },
+          'city': {
+            '$first': '$city'
+          },
+          'description': {
+            '$first': '$description'
+          },
+          'name': {
+            '$first': '$name'
+          },
+          'postalCode': {
+            '$first': '$postalCode'
+          },
+          'region': {
+            '$first': '$region'
+          },
+          'jobOpenings': {
+            '$push': '$jobOpenings'
           },
           'enrolls': {
             '$push': '$enrolls'
-          }
-        }
-      }, {
-        '$group': {
-          '_id': '$_id._id',
-          'address': {
-            '$first': '$_id.address'
           },
-          'city': {
-            '$first': '$_id.city'
-          },
-          'description': {
-            '$first': '$_id.description'
-          },
-          'name': {
-            '$first': '$_id.name'
-          },
-          'postalCode': {
-            '$first': '$_id.postalCode'
-          },
-          'region': {
-            '$first': '$_id.region'
-          },
-          'jobOpenings': {
-            '$push': {
-              '_id': '$_id.jobOpenings._id',
-              'conditions': '$_id.jobOpenings.conditions',
-              'createdAt': '$_id.jobOpenings.createdAt',
-              'position': '$_id.jobOpenings.position',
-              'prevExperience': '$_id.jobOpenings.prevExperience',
-              'title': '$_id.jobOpenings.title',
-              'hiringDate': '$_id.jobOpenings.hiringDate',
-              'enrolls': '$enrolls'
-            }
+          'students': {
+            '$push': '$studentDetail'
           }
         }
       }
@@ -125,7 +98,7 @@ export class MongoCompanyRepository extends MongoRepository<Company> implements 
 
     const docArr = await collection.aggregate(agg).toArray();
     const document = docArr[0];
-    return document ? CompanyProfile.fromPrimitives({...document, id: id.value}) : null;
+    return CompanyProfile.fromPrimitives({...document, id: id.value});
   }
 
   public async fetch(): Promise<Array<Company>> {

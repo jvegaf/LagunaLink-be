@@ -20,6 +20,10 @@ services:
     class: ../../../../../Contexts/LLBE/Users/application/UserConfirmationEmailDealer
     arguments: [ '@App.Mailer', '@App.users.TokenGenerator' ]
 
+  App.users.UserProfiler:
+    class: ../../../../../Contexts/LLBE/Shared/application/Users/UserProfiler
+    arguments: [ '@App.students.StudentRepository', '@App.companies.CompanyRepository' ]
+
   App.users.UserEmailConfirmator:
     class: ../../../../../Contexts/LLBE/Users/application/UserEmailConfirmator
     arguments: [ '@App.users.UserRepository' ]
@@ -30,7 +34,7 @@ services:
 
   App.users.UserAuth:
     class: ../../../../../Contexts/LLBE/Users/application/UserAuth
-    arguments: [ '@App.users.TokenGenerator','@App.users.UserRepository' ]
+    arguments: [ '@App.users.TokenGenerator','@App.users.UserRepository', '@App.users.UserProfiler' ]
 
   App.users.TokenGenerator:
     class: ../../../../../Contexts/LLBE/Users/infrastructure/token/JWTTokenGenerator

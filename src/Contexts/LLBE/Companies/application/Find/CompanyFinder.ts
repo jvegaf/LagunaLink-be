@@ -1,11 +1,9 @@
-import { ApplicationService } from '../../../../Shared/domain/ApplicationService';
-import { CompanyRepository } from '../../domain/CompanyRepository';
-import { CompanyId } from '../../../Shared/domain/Companies/CompanyId';
-import { Company } from '../../domain/Company';
-import { CompanyNotFound } from '../../domain/CompanyNotFound';
-import { CompanyFinderRequest } from './CompanyFinderRequest';
-import { CompanyDTO } from '../../../Shared/domain/Companies/CompanyDTO';
-import { CompanyProfile } from '../../../Shared/domain/Companies/CompanyProfile';
+import {ApplicationService} from '../../../../Shared/domain/ApplicationService';
+import {CompanyRepository} from '../../domain/CompanyRepository';
+import {CompanyId} from '../../../Shared/domain/Companies/CompanyId';
+import {Company} from '../../domain/Company';
+import {CompanyNotFound} from '../../domain/CompanyNotFound';
+import {CompanyDTO} from '../../../Shared/domain/Companies/CompanyDTO';
 
 export class CompanyFinder extends ApplicationService {
   private repository: CompanyRepository;
@@ -15,17 +13,13 @@ export class CompanyFinder extends ApplicationService {
     this.repository = repository;
   }
 
-  async run(request: CompanyFinderRequest): Promise<CompanyDTO> {
-    const {companyId, accountOwner} = request;
+  async run(companyId: string): Promise<CompanyDTO> {
     const id = new CompanyId(companyId);
     await this.checkExists(id);
-    if (!accountOwner) {
-      const _company = await this.repository.search(id) as Company;
-      return _company.toPrimitives();
-    }
 
-    const _companyProfile = await this.repository.searchProfile(id) as CompanyProfile;
-    return _companyProfile.toPrimitives();
+    const company = await this.repository.search(id) as Company;
+    return company.toPrimitives();
+
   }
 
   private async checkExists(id: CompanyId) {

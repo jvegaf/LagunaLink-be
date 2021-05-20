@@ -1,6 +1,10 @@
-import { CompanyType } from './CompanyType';
-import { JobOpenEnrolls } from '../JobOpenings/JobOpenEnrolls';
+import {CompanyType} from './CompanyType';
+import {JobOpening} from '../../../JobOpenings/domain/JobOpening';
+import {Enrollment} from '../../../Enrollments/domain/Enrollment';
+import {Student} from '../../../Students/domain/Student';
 
 export type CompanyProfileType = CompanyType & {
-  jobOpenings: JobOpenEnrolls[];
+  jobOpenings: JobOpening[];
+  enrolls: Enrollment[];
+  students: Student[];
 };

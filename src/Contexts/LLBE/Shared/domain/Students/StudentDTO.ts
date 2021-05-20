@@ -1,5 +1,6 @@
-export type StudentDTO = {
-  id: string;
+import {UserProfileDTO} from '../Users/UserProfileDTO';
+
+export type StudentDTO = UserProfileDTO & {
   name: string;
   surname: string;
   lastname: string;

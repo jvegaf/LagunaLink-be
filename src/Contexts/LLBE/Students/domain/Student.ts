@@ -1,13 +1,13 @@
-import { AggregateRoot } from '../../../Shared/domain/AggregateRoot';
-import { StudentId } from '../../Shared/domain/Students/StudentId';
-import { StudentName } from './StudentName';
-import { StudentSurname } from './StudentSurname';
-import { StudentLastname } from './StudentLastname';
-import { Qualification } from './Qualification';
-import { Language } from './Language';
-import { JobExperience } from './JobExperience';
-import { StudentType } from '../../Shared/domain/Students/StudentType';
-import { StudentDTO } from '../../Shared/domain/Students/StudentDTO';
+import {AggregateRoot} from '../../../Shared/domain/AggregateRoot';
+import {StudentId} from '../../Shared/domain/Students/StudentId';
+import {StudentName} from './StudentName';
+import {StudentSurname} from './StudentSurname';
+import {StudentLastname} from './StudentLastname';
+import {Qualification} from './Qualification';
+import {Language} from './Language';
+import {JobExperience} from './JobExperience';
+import {StudentType} from '../../Shared/domain/Students/StudentType';
+import {StudentDTO} from '../../Shared/domain/Students/StudentDTO';
 
 export class Student extends AggregateRoot {
   readonly id: StudentId;
@@ -46,11 +46,11 @@ export class Student extends AggregateRoot {
     });
   }
 
-  private static languagesFromPrimitives(languages: { name: string; speak: number; write: number }[]) {
+  protected static languagesFromPrimitives(languages: { name: string; speak: number; write: number }[]) {
     return languages.map(language => Language.fromPrimitives(language));
   }
 
-  private static jobexperiencesFromPrimitives(jobexperiences: {
+  protected static jobexperiencesFromPrimitives(jobexperiences: {
     company: string;
     position: string;
     responsibilities: string;

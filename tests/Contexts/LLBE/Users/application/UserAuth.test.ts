@@ -1,21 +1,26 @@
-import { UserRepositoryMock } from '../__mocks__/UserRepositoryMock';
-import { TokenGeneratorMock } from '../__mocks__/TokenGeneratorMock';
-import { UserAuth } from '../../../../../src/Contexts/LLBE/Users/application/UserAuth';
-import { AuthUserRequestMother } from './AuthUserRequestMother';
-import { UserAuthFail } from '../../../../../src/Contexts/LLBE/Users/application/UserAuthFail';
-import { AuthUserRequest } from '../../../../../src/Contexts/LLBE/Users/application/AuthUserRequest';
-import { AccountNotConfirmed } from '../../../../../src/Contexts/LLBE/Users/application/AccountNotConfirmed';
-import { AuthResponse } from '../../../../../src/Contexts/LLBE/Users/application/AuthResponse';
+import {UserRepositoryMock} from '../__mocks__/UserRepositoryMock';
+import {TokenGeneratorMock} from '../__mocks__/TokenGeneratorMock';
+import {UserAuth} from '../../../../../src/Contexts/LLBE/Users/application/UserAuth';
+import {AuthUserRequestMother} from './AuthUserRequestMother';
+import {UserAuthFail} from '../../../../../src/Contexts/LLBE/Users/application/UserAuthFail';
+import {AuthUserRequest} from '../../../../../src/Contexts/LLBE/Users/application/AuthUserRequest';
+import {AccountNotConfirmed} from '../../../../../src/Contexts/LLBE/Users/application/AccountNotConfirmed';
+import {UserProfiler} from '../../../../../src/Contexts/LLBE/Shared/application/Users/UserProfiler';
+import {UserProfilerMock} from '../__mocks__/UserProfilerMock';
+import {CompanyRepositoryMock} from '../../Companies/__mocks__/CompanyRepositoryMock';
+import {StudentRepositoryMock} from '../../Students/__mocks__/StudentRepositoryMock';
 
 let repository: UserRepositoryMock;
 let tokenGenerator: TokenGeneratorMock;
+let profiler: UserProfiler;
 
 let auth: UserAuth;
 
 beforeEach(() => {
   repository = new UserRepositoryMock();
   tokenGenerator = new TokenGeneratorMock();
-  auth = new UserAuth(tokenGenerator, repository);
+  profiler = new UserProfilerMock(new StudentRepositoryMock(), new CompanyRepositoryMock());
+  auth = new UserAuth(tokenGenerator, repository, profiler);
 });
 
 it('should throw a UserAuthFail with non exist user', async () => {
@@ -48,5 +53,5 @@ it('should get a success AuthResponse', async () => {
     password: '123123',
   };
 
-  await expect(auth.run(request)).resolves.toBeInstanceOf(AuthResponse);
+  await expect(auth.run(request)).resolves.toBeTruthy();
 });

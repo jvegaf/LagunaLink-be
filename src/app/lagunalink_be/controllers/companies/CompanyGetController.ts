@@ -1,7 +1,6 @@
-import { Request, Response } from 'express';
-import { Controller } from '../Controller';
-import { CompanyFinder } from '../../../../Contexts/LLBE/Companies/application/Find/CompanyFinder';
-import { CompanyFinderRequest } from '../../../../Contexts/LLBE/Companies/application/Find/CompanyFinderRequest';
+import {Request, Response} from 'express';
+import {Controller} from '../Controller';
+import {CompanyFinder} from '../../../../Contexts/LLBE/Companies/application/Find/CompanyFinder';
 
 export class CompanyGetController implements Controller {
   private finder: CompanyFinder;
@@ -12,15 +11,10 @@ export class CompanyGetController implements Controller {
 
   async run(req: Request, res: Response) {
 
-    const finderReq: CompanyFinderRequest = {
-      companyId: req.params.id,
-      accountOwner: req.params.id === req.body.payload.userId
-    };
-
     try {
-      const _company = await this.finder.run(finderReq);
+      const company = await this.finder.run(req.params.id);
 
-      res.status(200).send({company: _company});
+      res.status(200).send({company});
     }
     catch (e) {
       res.status(404).send({message: e.message});
