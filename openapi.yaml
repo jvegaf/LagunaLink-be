@@ -1,13 +1,13 @@
 openapi: 3.0.1
 info:
   description: This is the backend of the Lagunalink App.  You can find out more about this project at [https://github.com/jvegaf/LagunaLink-be](https://github.com/jvegaf/LagunaLink-be)
-  version: 1.6.3
+  version: 2.0.0
   title: LagunaLink Backend
   contact:
     email: josevega234@gmail.com
   license:
     name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
 paths:
   /auth/signin:
     post:
@@ -20,8 +20,6 @@ paths:
         '200':
           $ref: '#/components/responses/AuthSuccess'
         '230':
-          $ref: '#/components/responses/AuthSuccessRegister'
-        '231':
           $ref: '#/components/responses/AuthSuccessRegister'
         '400':
           $ref: '#/components/responses/BadRequest'
@@ -615,16 +613,9 @@ components:
         - password
         - role
 
-    Auth:
+    AuthRegisterResponse:
       type: object
       properties:
-        code:
-          type: integer
-        role:
-          type: string
-          enum:
-            - ROLE_STUDENT
-            - ROLE_COMPANY
         user_id:
           type: string
           format: uuid
@@ -632,28 +623,71 @@ components:
           type: string
         access_token:
           type: string
+        role:
+          type: string
+          enum:
+            - ROLE_STUDENT
+            - ROLE_COMPANY
       required:
-        - code
-        - role
-        - userId
+        - user_id
         - email
         - access_token
+        - role
+
+    AuthResponse:
+      type: object
+      properties:
+        user_id:
+          type: string
+          format: uuid
+        email:
+          type: string
+        access_token:
+          type: string
+        avatar:
+          type: string
+        profile:
+          type: object
+          oneOf:
+            - $ref: '#/components/schemas/CompanyProfile'
+            - $ref: '#/components/schemas/StudentProfile'
+
+      required:
+        - user_id
+        - email
+        - access_token
+        - role
+
+    StudentProfile:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Student'
+      properties:
+        enrolls:
+          type: array
+          items:
+            $ref: '#/components/schemas/Enrollment'
+        jobOpenings:
+          description: Set of Job Openings that are enrolled
+          type: array
+          items:
+            $ref: '#/components/schemas/JobOpening'
 
 
     Student:
+      type: object
       allOf:
         - $ref: '#/components/schemas/StudentRequest'
         - $ref: '#/components/schemas/StudentExtend'
-        - type: object
-          required:
-            - id
-            - name
-            - surname
-            - lastname
-          properties:
-            id:
-              type: string
-              format: uuid
+      properties:
+        id:
+          type: string
+          format: uuid
+      required:
+        - id
+        - name
+        - surname
+        - lastname
     StudentRequest:
       type: object
       properties:
@@ -706,21 +740,37 @@ components:
         - postalCode
         - region
         - city
+
     Company:
+      type: object
       allOf:
         - $ref: '#/components/schemas/CompanyRequest'
-        - type: object
-          properties:
-            id:
-              type: string
-              format: uuid
-            job_openings:
-              type: array
-              items:
-                $ref: '#/components/schemas/JobOpening'
-            enrolls_count:
-              type: integer
-              example: 12
+      properties:
+        id:
+          type: string
+          format: uuid
+        job_openings:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobOpening'
+
+    CompanyProfile:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Company'
+      properties:
+        jobOpenings:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobOpening'
+        enrolls:
+          type: array
+          items:
+            $ref: '#/components/schemas/Enrollment'
+        students:
+          type: array
+          items:
+            $ref: '#/components/schemas/Student'
 
     Language:
       type: object
@@ -870,16 +920,15 @@ components:
         - student
         - jobOpening
         - enrollmentDate
+
     Enrollment:
+      type: object
       allOf:
         - $ref: '#/components/schemas/EnrollmentBasic'
-        - type: object
-          required:
-            - id
-          properties:
-            id:
-              type: string
-              format: uuid
+      properties:
+        id:
+          type: string
+          format: uuid
 
     ApiResponse:
       type: object
@@ -925,13 +974,13 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Auth'
+            $ref: '#/components/schemas/AuthResponse'
     AuthSuccessRegister:
       description: Authentication Success redirected to complete register process
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Auth'
+            $ref: '#/components/schemas/AuthRegisterResponse'
     Success:
       description: Success
       content:

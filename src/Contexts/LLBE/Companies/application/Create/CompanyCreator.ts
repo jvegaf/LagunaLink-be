@@ -26,15 +26,15 @@ export class CompanyCreator extends ApplicationService {
   async run(request: CompanyRequest): Promise<void> {
     await this.ensureCompanyNotExists(new CompanyId(request.id));
 
-    const company = Company.create(
-      new CompanyId(request.id),
-      new CompanyName(request.name),
-      new CompanyDescription(request.description),
-      new CompanyAddress(request.address),
-      new CompanyPostalCode(request.postalCode),
-      new CompanyRegion(request.region),
-      new CompanyCity(request.city)
-    );
+    const company = Company.create({
+      id: new CompanyId(request.id),
+      name: new CompanyName(request.name),
+      description: new CompanyDescription(request.description),
+      address: new CompanyAddress(request.address),
+      postalCode: new CompanyPostalCode(request.postalCode),
+      region: new CompanyRegion(request.region),
+      city: new CompanyCity(request.city)
+    });
 
     await this.repository.save(company);
     await this.userUpdateReg.run(new UserId(company.id.value));

@@ -1,12 +1,13 @@
-import { CompanyRepository } from '../../../../../src/Contexts/LLBE/Companies/domain/CompanyRepository';
-import { Nullable } from '../../../../../src/Contexts/Shared/domain/Nullable';
-import { Company } from '../../../../../src/Contexts/LLBE/Companies/domain/Company';
-import { CompanyId } from '../../../../../src/Contexts/LLBE/Shared/domain/Companies/CompanyId';
+import {CompanyRepository} from '../../../../../src/Contexts/LLBE/Companies/domain/CompanyRepository';
+import {Nullable} from '../../../../../src/Contexts/Shared/domain/Nullable';
+import {Company} from '../../../../../src/Contexts/LLBE/Companies/domain/Company';
+import {CompanyId} from '../../../../../src/Contexts/LLBE/Shared/domain/Companies/CompanyId';
 
 export class CompanyRepositoryMock implements CompanyRepository {
   private mockSave = jest.fn();
   private mockSearch = jest.fn();
   private mockFetch = jest.fn();
+  private mockProfile = jest.fn();
 
   async save(company: Company): Promise<void> {
     this.mockSave(company);
@@ -35,5 +36,9 @@ export class CompanyRepositoryMock implements CompanyRepository {
 
   fetch(): Promise<Array<Company>> {
     return this.mockFetch();
+  }
+
+  searchProfile(id: CompanyId): Promise<Company> {
+    return this.mockProfile();
   }
 }

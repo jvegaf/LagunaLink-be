@@ -3,6 +3,8 @@ import { EnrollmentDate } from './EnrollmentDate';
 import { JobOpeningId } from '../../Shared/domain/JobOpenings/JobOpeningId';
 import { EnrollmentId } from '../../Shared/domain/Enrollments/EnrollmentId';
 import { StudentId } from '../../Shared/domain/Students/StudentId';
+import { EnrollmentDTO } from '../../Shared/domain/Enrollments/EnrollmentDTO';
+import { EnrollmentType } from '../../Shared/domain/Enrollments/EnrollmentType';
 
 export class Enrollment extends AggregateRoot {
   readonly id: EnrollmentId;
@@ -10,43 +12,28 @@ export class Enrollment extends AggregateRoot {
   readonly jobOpening: JobOpeningId;
   readonly enrollmentDate: EnrollmentDate;
 
-  constructor(
-    id: EnrollmentId,
-    student: StudentId,
-    jobOpening: JobOpeningId,
-    enrollmentDate: EnrollmentDate
-  ) {
+  constructor(enroll: EnrollmentType) {
     super();
-    this.id = id;
-    this.student = student;
-    this.jobOpening = jobOpening;
-    this.enrollmentDate = enrollmentDate;
+    this.id = enroll.id;
+    this.student = enroll.student;
+    this.jobOpening = enroll.jobOpening;
+    this.enrollmentDate = enroll.enrollmentDate;
   }
 
-  static create(
-    id: EnrollmentId,
-    student: StudentId,
-    jobOpening: JobOpeningId,
-    enrollmentDate: EnrollmentDate
-  ): Enrollment {
-    return new Enrollment(id, student, jobOpening, enrollmentDate);
+  static create(data: EnrollmentType): Enrollment {
+    return new Enrollment(data);
   }
 
-  static fromPrimitives(plaindata: {
-    id: string;
-    student: string;
-    job_opening: string;
-    enrollment_date: string;
-  }) {
-    return new Enrollment(
-      new EnrollmentId(plaindata.id),
-      new StudentId(plaindata.student),
-      new JobOpeningId(plaindata.job_opening),
-      new EnrollmentDate(plaindata.enrollment_date)
-    );
+  static fromPrimitives(plaindata: EnrollmentDTO) {
+    return new Enrollment({
+      id: new EnrollmentId(plaindata.id),
+      student: new StudentId(plaindata.student),
+      jobOpening: new JobOpeningId(plaindata.job_opening),
+      enrollmentDate: new EnrollmentDate(plaindata.enrollment_date)
+    });
   }
 
-  toPrimitives(): any {
+  toPrimitives(): EnrollmentDTO {
     return {
       id: this.id.value,
       student: this.student.value,

@@ -5,6 +5,6 @@ export class Timestamp {
   }
 
   static now(): string {
-    return new Timestamp().value.toISOString().substr(0,10);
+    return new Timestamp().value.toISOString().substr(0, 10);
   }
 }

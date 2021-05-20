@@ -16,7 +16,6 @@ services:
     class: ../../../../../Contexts/LLBE/Companies/application/Find/CompanyFinder
     arguments: [ '@App.companies.CompanyRepository' ]
 
-
   App.companies.CompanyFetcher:
     class: ../../../../../Contexts/LLBE/Companies/application/Fetch/CompanyFetcher
     arguments: [ '@App.companies.CompanyRepository' ]

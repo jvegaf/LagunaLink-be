@@ -4,6 +4,8 @@ import { UpgradeStudentRequestMother } from './UpgradeStudentRequestMother';
 import { Student } from '../../../../../../src/Contexts/LLBE/Students/domain/Student';
 import { UserLastUpdateResumerMock } from '../../../Shared/__mocks__/UserLastUpdateResumerMock';
 import { LastUpdateResumer } from '../../../../../../src/Contexts/LLBE/Users/application/LastUpdateResumer';
+import { StudentMother } from '../../domain/StudentMother';
+import { StudentDTO } from '../../../../../../src/Contexts/LLBE/Shared/domain/Students/StudentDTO';
 
 let repository: StudentRepositoryMock;
 let upgrader: StudentUpgrader;
@@ -16,12 +18,12 @@ beforeEach(() => {
 });
 
 it('should can upgrade a valid student', async () => {
-  const request = UpgradeStudentRequestMother.random();
+  const student = StudentMother.random();
 
-  const student = Student.fromPrimitives(request);
+  const request = UpgradeStudentRequestMother.random(student.id.value);
+  const studentUpd = Student.fromPrimitives(request as StudentDTO);
+  repository.whenSearchThenReturn(studentUpd);
+  const studentUpdated = await upgrader.run(request);
 
-  repository.whenSearchThenReturn(student);
-  await upgrader.run(request);
-
-  repository.assertLastSavedStudentIs(student);
+  repository.assertLastSavedStudentIs(studentUpdated);
 });

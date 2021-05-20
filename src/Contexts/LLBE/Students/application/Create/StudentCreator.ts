@@ -9,6 +9,7 @@ import { StudentExists } from '../../domain/StudentExists';
 import { UserUpdateRegistered } from '../../../Users/application/UserUpdateRegistered';
 import { UserId } from '../../../Shared/domain/Users/UserId';
 import { ApplicationService } from '../../../../Shared/domain/ApplicationService';
+import { Qualification } from '../../domain/Qualification';
 
 export class StudentCreator extends ApplicationService {
   private repository: StudentRepository;
@@ -23,12 +24,15 @@ export class StudentCreator extends ApplicationService {
   async run(request: CreateStudentRequest): Promise<void> {
     await this.ensureStudentNotExists(new StudentId(request.id));
 
-    const student = Student.create(
-      new StudentId(request.id),
-      new StudentName(request.name),
-      new StudentSurname(request.surname),
-      new StudentLastname(request.lastname)
-    );
+    const student = Student.create({
+      id: new StudentId(request.id),
+      name: new StudentName(request.name),
+      surname: new StudentSurname(request.surname),
+      lastname: new StudentLastname(request.lastname),
+      qualification: Qualification.emptyQualification(),
+      jobexperiences: [],
+      languages: []
+    });
 
     await this.repository.save(student);
     await this.userUpdateReg.run(new UserId(student.id.value));

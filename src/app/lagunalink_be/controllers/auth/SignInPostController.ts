@@ -1,10 +1,10 @@
-import { Request, Response } from 'express';
+import {Request, Response} from 'express';
 import httpStatus from 'http-status';
-import { Controller } from '../Controller';
-import { UserAuth } from '../../../../Contexts/LLBE/Users/application/UserAuth';
-import { AuthUserRequest } from '../../../../Contexts/LLBE/Users/application/AuthUserRequest';
-import { AccountNotConfirmed } from '../../../../Contexts/LLBE/Users/application/AccountNotConfirmed';
-import { UserAuthFail } from '../../../../Contexts/LLBE/Users/application/UserAuthFail';
+import {Controller} from '../Controller';
+import {UserAuth} from '../../../../Contexts/LLBE/Users/application/UserAuth';
+import {AuthUserRequest} from '../../../../Contexts/LLBE/Users/application/AuthUserRequest';
+import {AccountNotConfirmed} from '../../../../Contexts/LLBE/Users/application/AccountNotConfirmed';
+import {UserAuthFail} from '../../../../Contexts/LLBE/Users/application/UserAuthFail';
 
 const NOT_ACTIVE_STATUS_CODE = 450;
 
@@ -21,14 +21,8 @@ export class SignInPostController implements Controller {
     try {
       const response = await this.userAuth.run(request);
       res
-        .status(response.code)
-        .send({
-          user_role: response.role,
-          user_id: response.userId,
-          access_token: response.token,
-          email: response.email,
-          avatar: response.avatar
-        });
+        .status(response.status)
+        .send(response);
     } catch (e) {
       if (e instanceof AccountNotConfirmed) {
         res.status(NOT_ACTIVE_STATUS_CODE).send();

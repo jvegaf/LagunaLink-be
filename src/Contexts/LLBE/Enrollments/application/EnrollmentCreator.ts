@@ -18,12 +18,12 @@ export class EnrollmentCreator extends ApplicationService {
   async run(request: CreateEnrollmentRequest): Promise<void> {
     const enrollmentId = EnrollmentId.random();
 
-    const enrollment = Enrollment.create(
-      enrollmentId,
-      new StudentId(request.student),
-      new JobOpeningId(request.job_opening),
-      EnrollmentDate.now()
-    );
+    const enrollment = Enrollment.create({
+      enrollmentDate: EnrollmentDate.now(),
+      id: enrollmentId,
+      jobOpening: new JobOpeningId(request.job_opening),
+      student: new StudentId(request.student)
+    });
 
     await this.repository.save(enrollment);
   }

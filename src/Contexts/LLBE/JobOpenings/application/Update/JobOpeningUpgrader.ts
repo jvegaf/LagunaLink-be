@@ -27,18 +27,18 @@ export class JobOpeningUpgrader extends ApplicationService {
     await this.ensureJobOpeningExists(new JobOpeningId(request.id));
     await this.ensureJobOpeningisOwn(new JobOpeningId(request.id), new CompanyId(request.company));
 
-    const jobOpening = JobOpening.create(
-      new JobOpeningId(request.id),
-      JobOpenCreatedAt.now(),
-      new CompanyId(request.company),
-      new JobOpenDescription(request.description),
-      new JobOpenPosition(request.position),
-      new JobOpenConditions(request.conditions),
-      new JobOpenResponsibilities(request.responsibilities),
-      new JobOpenQualification(request.qualification),
-      new JobOpenPrevExperience(request.prevExperience),
-      new JobOpenHiringDate(request.hiringDate)
-    );
+    const jobOpening = JobOpening.create({
+      id: new JobOpeningId(request.id),
+      createdAt: JobOpenCreatedAt.now(),
+      company: new CompanyId(request.company),
+      description: new JobOpenDescription(request.description),
+      position: new JobOpenPosition(request.position),
+      conditions: new JobOpenConditions(request.conditions),
+      responsibilities: new JobOpenResponsibilities(request.responsibilities),
+      qualification: new JobOpenQualification(request.qualification),
+      prevExperience: new JobOpenPrevExperience(request.prevExperience),
+      hiringDate: new JobOpenHiringDate(request.hiringDate),
+    });
 
     await this.repository.save(jobOpening);
   }

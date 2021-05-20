@@ -16,35 +16,38 @@ import { StudentLangsMother } from './StudentLangsMother';
 import { JobExperiencesMother } from './JobExperiencesMother';
 
 export class StudentMother {
-    static create(
-      id: StudentId,
-      name: StudentName,
-      surname: StudentSurname,
-      lastname: StudentLastname,
-      qualification?: Qualification,
-      languages?: Language[],
-      jobexperiences?: JobExperience[]): Student {
-        return new Student(id, name, surname, lastname, qualification, languages, jobexperiences);
-    }
+  static create(
+    id: StudentId,
+    name: StudentName,
+    surname: StudentSurname,
+    lastname: StudentLastname,
+    qualification: Qualification,
+    languages: Language[],
+    jobexperiences: JobExperience[]): Student {
+    return new Student({id, name, surname, lastname, qualification, languages, jobexperiences});
+  }
 
-    static fromCreateRequest(request: CreateStudentRequest): Student {
-        return this.create(
-          StudentIdMother.random(),
-          StudentNameMother.create(request.name),
-          StudentSurnameMother.create(request.surname),
-          StudentLastnameMother.create(request.lastname)
-        );
-    }
+  static fromCreateRequest(request: CreateStudentRequest): Student {
+    return this.create(
+      StudentIdMother.random(),
+      StudentNameMother.create(request.name),
+      StudentSurnameMother.create(request.surname),
+      StudentLastnameMother.create(request.lastname),
+      Qualification.emptyQualification(),
+      [],
+      []
+    );
+  }
 
-    static random(): Student {
-        return this.create(
-            StudentIdMother.random(),
-            StudentNameMother.random(),
-            StudentSurnameMother.random(),
-            StudentLastnameMother.random(),
-            QualificationMother.random(),
-            StudentLangsMother.random(),
-            JobExperiencesMother.random()
-        );
-    }
+  static random(): Student {
+    return this.create(
+      StudentIdMother.random(),
+      StudentNameMother.random(),
+      StudentSurnameMother.random(),
+      StudentLastnameMother.random(),
+      QualificationMother.random(),
+      StudentLangsMother.random(),
+      JobExperiencesMother.random()
+    );
+  }
 }

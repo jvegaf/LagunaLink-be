@@ -1,8 +1,8 @@
 export abstract class DateValueObject {
   private date: Date;
 
-  constructor(value: string) {
-    this.date = new Date(value);
+  constructor(value?: string) {
+    this.date = new Date(value || Date.now());
   }
 
   toString(): string {
