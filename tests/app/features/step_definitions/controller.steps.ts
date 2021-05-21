@@ -110,7 +110,7 @@ async function register(id: string, role: string) {
 
 async function loginUserAccount(authReq: object) {
   const response = await request(app).post('/auth/signin').send(authReq);
-  return response.body.access_token;
+  return response.body.accessToken;
 }
 
 async function registerRandomJobOpening() {

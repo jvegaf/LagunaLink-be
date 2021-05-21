@@ -47,10 +47,10 @@ export class UserAuth extends ApplicationService {
     const token = this.createToken(user);
 
     const response = {
-      user_id: user.id.value,
-      access_token: token.value,
+      userId: user.id.value,
+      accessToken: token.value,
       email: request.email,
-      user_role: user.role.value
+      userRole: user.role.value
     };
 
     if (!user.registered.value) {

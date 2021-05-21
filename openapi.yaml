@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   description: This is the backend of the Lagunalink App.  You can find out more about this project at [https://github.com/jvegaf/LagunaLink-be](https://github.com/jvegaf/LagunaLink-be)
-  version: 2.0.0
+  version: 2.0.1
   title: LagunaLink Backend
   contact:
     email: josevega234@gmail.com
@@ -616,12 +616,12 @@ components:
     AuthRegisterResponse:
       type: object
       properties:
-        user_id:
+        userId:
           type: string
           format: uuid
         email:
           type: string
-        access_token:
+        accessToken:
           type: string
         role:
           type: string
@@ -629,20 +629,20 @@ components:
             - ROLE_STUDENT
             - ROLE_COMPANY
       required:
-        - user_id
+        - userId
         - email
-        - access_token
+        - accessToken
         - role
 
     AuthResponse:
       type: object
       properties:
-        user_id:
+        userId:
           type: string
           format: uuid
         email:
           type: string
-        access_token:
+        accessToken:
           type: string
         avatar:
           type: string
@@ -653,9 +653,9 @@ components:
             - $ref: '#/components/schemas/StudentProfile'
 
       required:
-        - user_id
+        - userId
         - email
-        - access_token
+        - accessToken
         - role
 
     StudentProfile:
