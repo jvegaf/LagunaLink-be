@@ -16,7 +16,7 @@ export class SignUpPostController implements Controller {
       email: req.body.email,
       password: req.body.password,
       isActive: false,
-      role: req.body.role,
+      role: req.body.userRole,
       registered: false,
       createdAt: Timestamp.now(),
       updatedAt: Timestamp.now(),
