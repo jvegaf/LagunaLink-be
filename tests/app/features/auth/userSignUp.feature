@@ -8,7 +8,7 @@ Feature: Register a new account
     {
       "email": "julian-fernandez@gmail.com",
       "password": "123123123",
-      "role": "ROLE_STUDENT"
+      "userRole": "ROLE_STUDENT"
     }
     """
     Then the response status code should be 201
