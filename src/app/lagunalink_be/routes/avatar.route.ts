@@ -9,15 +9,15 @@ import upload from '../../../Contexts/LLBE/Users/infrastructure/persistence/mult
 
 export const register = (router: Router) => {
   const avatarGetController: AvatarGetController = container.get('App.controllers.avatar.AvatarGetController');
-  router.get('/user/:id/avatar', authChecker, (req: Request, res: Response) => avatarGetController.run(req, res));
+  router.get('/avatar/:id', authChecker, (req: Request, res: Response) => avatarGetController.run(req, res));
 
   const avatarPutController: AvatarPutController = container.get('App.controllers.avatar.AvatarPutController');
-  router.put('/user/:id/avatar', authChecker, userOwnChecker, upload.single('image'), (req: Request, res: Response) =>
+  router.put('/avatar/:id', authChecker, userOwnChecker, upload.single('image'), (req: Request, res: Response) =>
     avatarPutController.run(req, res)
   );
 
   const avatarDeleteController: AvatarDeleteController = container.get('App.controllers.avatar.AvatarDeleteController');
-  router.delete('/user/:id/avatar', authChecker, userOwnChecker, (req: Request, res: Response) =>
+  router.delete('/avatar/:id', authChecker, userOwnChecker, (req: Request, res: Response) =>
     avatarDeleteController.run(req, res)
   );
 };

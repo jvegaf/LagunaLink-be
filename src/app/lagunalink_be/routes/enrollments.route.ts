@@ -13,7 +13,7 @@ export const register = (router: Router) => {
   const enrollmentPostController: EnrollmentPostController = container.get(
     'App.controllers.enrollments.EnrollmentPostController'
   );
-  router.post('/job_openings/:id/enrollments', authChecker, studentRoleChecker, (req: Request, res: Response) =>
+  router.post('/enrollments/:id', authChecker, studentRoleChecker, (req: Request, res: Response) =>
     enrollmentPostController.run(req, res)
   );
 
@@ -27,7 +27,7 @@ export const register = (router: Router) => {
   const enrollmentsGetController: EnrollmentsGetController = container.get(
     'App.controllers.enrollments.EnrollmentsGetController'
   );
-  router.get('/job_openings/:id/enrollments', authChecker, companyRoleChecker, (req: Request, res: Response) =>
+  router.get('/enrollments/:id', authChecker, companyRoleChecker, (req: Request, res: Response) =>
     enrollmentsGetController.run(req, res)
   );
 
@@ -35,7 +35,7 @@ export const register = (router: Router) => {
     'App.controllers.enrollments.EnrollmentsFetchController'
   );
 
-  router.get('/students/:id/enrollments', authChecker, userOwnChecker, (req: Request, res: Response) =>
+  router.get('/enrollments/fetch/:id', authChecker, userOwnChecker, (req: Request, res: Response) =>
     enrollmentsStudentFetchController.run(req, res)
   );
 };

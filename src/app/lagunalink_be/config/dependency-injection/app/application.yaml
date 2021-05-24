@@ -19,6 +19,11 @@ services:
     class: ../../../controllers/auth/EmailVerificationGetController
     arguments: [ "@App.users.UserEmailConfirmator" ]
 
+  # USER
+
+  App.controllers.user.ProfileGetController:
+    class: ../../../controllers/user/ProfileGetController
+    arguments: [ "@App.users.UserProfiler" ]
 
   # STUDENTS
   App.controllers.students.StudentGetController:
