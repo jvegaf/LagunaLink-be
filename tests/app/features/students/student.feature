@@ -1,49 +1,6 @@
 
-Feature: Student Registry
-  The next step after of create a new account is complete
-  the registry of a student account.
-
-  Scenario: Register a Student account
-    Given I have a Student Role Account without complete register
-    And I am logged in the application
-
-    When I send a POST request to "/students" with body:
-    """
-    {
-      "name": "Juan",
-      "surname": "Lopez",
-      "lastname": "Fernandez"
-    }
-    """
-    Then the response status code should be 201
-
-  Scenario: Get an bad request error when try register a Student with Company account
-    Given I have a Company Role Account
-    And I am logged in the application
-
-    When I send a POST request to "/students" with body:
-    """
-    {
-      "name": "Juan",
-      "surname": "Lopez",
-      "lastname": "Fernandez"
-    }
-    """
-    Then the response status code should be 403
-
-  Scenario: Get an bad request error when try register a Student previously registered
-    Given I have a Student Role Account
-    And I am logged in the application
-
-    When I send a POST request to "/students" with body:
-    """
-    {
-      "name": "Juan",
-      "surname": "Lopez",
-      "lastname": "Fernandez"
-    }
-    """
-    Then the response status code should be 400
+Feature: Student
+  The student features
 
   Scenario: Obtain a self student data
     Given I have a Student Role Account with id "ab1d3820-a3e2-4ff8-b5d0-6ef270deb2f7"

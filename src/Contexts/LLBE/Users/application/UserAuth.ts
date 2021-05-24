@@ -1,21 +1,17 @@
-import {TokenGenerator} from '../domain/TokenGenerator';
-import {UserRepository} from '../domain/UserRepository';
-import {AuthUserRequest} from './AuthUserRequest';
-import {UserEmail} from '../domain/UserEmail';
-import {UserAuthFail} from './UserAuthFail';
-import {AuthResponse} from './AuthResponse';
-import {AccountNotConfirmed} from './AccountNotConfirmed';
-import {compareSync} from 'bcryptjs';
-import {ApplicationService} from '../../../Shared/domain/ApplicationService';
-import {UserProfiler} from '../../Shared/application/Users/UserProfiler';
-import {User} from '../domain/User';
-import {Token} from '../domain/Token';
+import { TokenGenerator } from '../domain/TokenGenerator';
+import { UserRepository } from '../domain/UserRepository';
+import { AuthUserRequest } from './AuthUserRequest';
+import { UserEmail } from '../domain/UserEmail';
+import { UserAuthFail } from './UserAuthFail';
+import { AuthResponse } from './AuthResponse';
+import { AccountNotConfirmed } from './AccountNotConfirmed';
+import { compareSync } from 'bcryptjs';
+import { ApplicationService } from '../../../Shared/domain/ApplicationService';
+import { UserProfiler } from '../../Shared/application/Users/UserProfiler';
+import { User } from '../domain/User';
+import { Token } from '../domain/Token';
 
 const BAD_EMAIL_PASS_MESSAGE = 'Incorrect Email or Password';
-
-const NEED_REGISTER_STATUS = 230;
-
-const OK_STATUS = 200;
 
 export class UserAuth extends ApplicationService {
   private readonly tokenGenerator: TokenGenerator;
@@ -46,27 +42,15 @@ export class UserAuth extends ApplicationService {
 
     const token = this.createToken(user);
 
-    const response = {
-      userId: user.id.value,
-      accessToken: token.value,
-      email: request.email,
-      userRole: user.role.value
-    };
-
-    if (!user.registered.value) {
-      return {
-        ...response,
-        status: NEED_REGISTER_STATUS,
-      };
-    }
-
     const profile = await this.profiler.run({userId: user.id.value, role: user.role.value});
 
     this.logInfo(`user ${user.email.value} authenticated`);
 
     return {
-      ...response,
-      status: OK_STATUS,
+      userId: user.id.value,
+      accessToken: token.value,
+      email: request.email,
+      userRole: user.role.value,
       avatar: user.avatar.value,
       profile
     };

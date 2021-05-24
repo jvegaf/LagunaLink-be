@@ -2,26 +2,35 @@ import { CompanyRepositoryMock } from '../../__mocks__/CompanyRepositoryMock';
 import { CompanyCreator } from '../../../../../../src/Contexts/LLBE/Companies/application/Create/CompanyCreator';
 import { CreateCompanyRequestMother } from './CreateCompanyRequestMother';
 import { CompanyMother } from '../../domain/CompanyMother';
-import { UserUpdateRegistered } from '../../../../../../src/Contexts/LLBE/Users/application/UserUpdateRegistered';
-import { UserUpdateRegisteredMock } from '../../../Shared/__mocks__/UserUpdateRegisteredMock';
-import { UserRepositoryMock } from '../../../Users/__mocks__/UserRepositoryMock';
+import { CompanyExists } from '../../../../../../src/Contexts/LLBE/Companies/domain/CompanyExists';
 
 let repository: CompanyRepositoryMock;
-let userUpdRegMock: UserUpdateRegistered;
 let creator: CompanyCreator;
 
 beforeEach(() => {
-  userUpdRegMock = new UserUpdateRegisteredMock(new UserRepositoryMock());
   repository = new CompanyRepositoryMock();
-  creator = new CompanyCreator(repository, userUpdRegMock);
+  creator = new CompanyCreator(repository);
 });
 
 it('should create a valid company', async () => {
-  const request = CreateCompanyRequestMother.random();
+  const request = CreateCompanyRequestMother.empty();
 
   const company = CompanyMother.fromRequest(request);
   repository.whenSearchThenReturn(null);
-  await creator.run(request);
+  await creator.run(request.id);
 
   repository.assertLastSavedCompanyIs(company);
+});
+
+it('should throw an error when try create a previously created company', async () => {
+  const request = CreateCompanyRequestMother.empty();
+
+  const company = CompanyMother.fromCreateRequest(request);
+
+  repository.whenSearchThenReturn(null);
+  await creator.run(request.id);
+
+  repository.whenSearchThenReturn(company);
+
+  await expect(creator.run(request.id)).rejects.toThrow(CompanyExists);
 });

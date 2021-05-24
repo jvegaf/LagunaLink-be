@@ -5,7 +5,7 @@ export type UserDocument = MongoDocument & {
   password: string;
   isActive: boolean;
   role: string;
-  registered: boolean;
+  avatar: string;
   createdAt: string;
   updatedAt: string;
 };

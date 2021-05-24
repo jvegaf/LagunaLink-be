@@ -31,12 +31,21 @@ export class CreateStudentRequestMother {
     );
   }
 
+  static empty(): CreateStudentRequest {
+    return this.create(
+      StudentIdMother.random(),
+      StudentNameMother.create(''),
+      StudentSurnameMother.create(''),
+      StudentLastnameMother.create('')
+    );
+  }
+
   static randomWithId(id: string): CreateStudentRequest {
     return this.create(
-        StudentIdMother.create(id),
-        StudentNameMother.random(),
-        StudentSurnameMother.random(),
-        StudentLastnameMother.random()
+      StudentIdMother.create(id),
+      StudentNameMother.random(),
+      StudentSurnameMother.random(),
+      StudentLastnameMother.random()
     );
   }
 }

@@ -8,10 +8,6 @@ services:
     class: ../../../../../Contexts/LLBE/Users/application/UserCreator
     arguments: [ '@App.users.UserRepository', '@App.users.ConfirmationEmail' ]
 
-  App.users.UserUpdateRegistered:
-    class: ../../../../../Contexts/LLBE/Users/application/UserUpdateRegistered
-    arguments: [ '@App.users.UserRepository' ]
-
   App.users.UserLastUpdateResumer:
     class: ../../../../../Contexts/LLBE/Users/application/UserLastUpdateResumer
     arguments: [ '@App.users.UserRepository' ]
@@ -24,9 +20,13 @@ services:
     class: ../../../../../Contexts/LLBE/Shared/application/Users/UserProfiler
     arguments: [ '@App.students.StudentRepository', '@App.companies.CompanyRepository' ]
 
+  App.users.RoleAccountCreator:
+    class: ../../../../../Contexts/LLBE/Shared/application/Users/RoleAccountCreator
+    arguments: [ '@App.students.StudentCreator', '@App.companies.CompanyCreator' ]
+
   App.users.UserEmailConfirmator:
     class: ../../../../../Contexts/LLBE/Users/application/UserEmailConfirmator
-    arguments: [ '@App.users.UserRepository' ]
+    arguments: [ '@App.users.UserRepository', '@App.users.RoleAccountCreator' ]
 
   App.users.UserEmailFinder:
     class: ../../../../../Contexts/LLBE/Users/application/UserEmailFinder
@@ -38,16 +38,16 @@ services:
 
   App.users.TokenGenerator:
     class: ../../../../../Contexts/LLBE/Users/infrastructure/token/JWTTokenGenerator
-    arguments: []
+    arguments: [ ]
 
   App.users.AvatarFinder:
     class: ../../../../../Contexts/LLBE/Users/application/AvatarFinder
-    arguments: [ '@App.users.UserRepository']
+    arguments: [ '@App.users.UserRepository' ]
 
   App.users.AvatarUpdater:
     class: ../../../../../Contexts/LLBE/Users/application/AvatarUpdater
-    arguments: [ '@App.users.UserRepository']
+    arguments: [ '@App.users.UserRepository' ]
 
   App.users.AvatarRemover:
     class: ../../../../../Contexts/LLBE/Users/application/AvatarRemover
-    arguments: [ '@App.users.UserRepository']
+    arguments: [ '@App.users.UserRepository' ]

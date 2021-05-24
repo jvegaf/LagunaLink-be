@@ -12,10 +12,6 @@ import { UserIsActiveMother } from '../domain/UserIsActiveMother';
 import { UserCreatedAtMother } from '../domain/UserCreatedAtMother';
 import { UserRole } from '../../../../../src/Contexts/LLBE/Users/domain/UserRole';
 import { UserRoleMother } from '../domain/UserRoleMother';
-import { UserRegistered } from '../../../../../src/Contexts/LLBE/Users/domain/UserRegistered';
-import { UserRegisteredMother } from '../domain/UserRegisteredMother';
-import { UserAvatar } from '../../../../../src/Contexts/LLBE/Users/domain/UserAvatar';
-import { UserAvatarMother } from '../domain/UserAvatarMother';
 
 export class CreateUserRequestMother {
   static create(
@@ -24,8 +20,6 @@ export class CreateUserRequestMother {
     password: UserPassword,
     isActive: UserIsActive,
     role: UserRole,
-    avatar: UserAvatar,
-    registered: UserRegistered,
     createdAt: UserCreatedAt,
     updatedAt: UserUpdatedAt
   ): CreateUserRequest {
@@ -35,7 +29,6 @@ export class CreateUserRequestMother {
       password: password.value,
       isActive: isActive.value,
       role: role.value,
-      registered: registered.value,
       createdAt: createdAt.toISOString(),
       updatedAt: updatedAt.toISOString(),
     };
@@ -48,8 +41,6 @@ export class CreateUserRequestMother {
       UserPasswordMother.random(),
       UserIsActiveMother.random(),
       UserRoleMother.random(),
-      UserAvatarMother.random(),
-      UserRegisteredMother.random(),
       UserCreatedAtMother.random(),
       UserCreatedAtMother.random()
     );

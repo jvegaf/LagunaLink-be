@@ -19,15 +19,16 @@ services:
     class: ../../../controllers/auth/EmailVerificationGetController
     arguments: [ "@App.users.UserEmailConfirmator" ]
 
+  # USER
+
+  App.controllers.user.ProfileGetController:
+    class: ../../../controllers/user/ProfileGetController
+    arguments: [ "@App.users.UserProfiler" ]
 
   # STUDENTS
   App.controllers.students.StudentGetController:
     class: ../../../controllers/students/StudentGetController
     arguments: [ "@App.students.StudentFinder" ]
-
-  App.controllers.students.StudentPostController:
-    class: ../../../controllers/students/StudentPostController
-    arguments: [ "@App.students.StudentCreator" ]
 
   App.controllers.students.StudentPutController:
     class: ../../../controllers/students/StudentPutController
@@ -46,10 +47,6 @@ services:
   App.controllers.companies.CompanyJobsGetController:
     class: ../../../controllers/companies/CompanyJobsGetController
     arguments: [ "@App.jobOpenings.CompanyJobsFetcher" ]
-
-  App.controllers.companies.CompanyPostController:
-    class: ../../../controllers/companies/CompanyPostController
-    arguments: [ "@App.companies.CompanyCreator" ]
 
   App.controllers.companies.CompanyPutController:
     class: ../../../controllers/companies/CompanyPutController

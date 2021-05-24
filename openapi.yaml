@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   description: This is the backend of the Lagunalink App.  You can find out more about this project at [https://github.com/jvegaf/LagunaLink-be](https://github.com/jvegaf/LagunaLink-be)
-  version: 2.0.1
+  version: 2.1.0
   title: LagunaLink Backend
   contact:
     email: josevega234@gmail.com
@@ -37,7 +37,28 @@ paths:
         '201':
           description: Created
 
-  /user/{id}/avatar:
+  /user/profile:
+    get:
+      tags:
+        - User
+      summary: get my profile
+      security:
+        - BearerAuth: [ ]
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  profile:
+                    type: object
+                    oneOf:
+                      - $ref: '#/components/schemas/CompanyProfile'
+                      - $ref: '#/components/schemas/StudentProfile'
+
+  /avatar/{userId}:
     get:
       summary: get avatar id from determinate user
       tags:
@@ -45,7 +66,7 @@ paths:
       security:
         - BearerAuth: [ ]
       parameters:
-        - name: id
+        - name: userId
           in: path
           description: userId
           required: true
@@ -74,7 +95,7 @@ paths:
       security:
         - BearerAuth: [ ]
       parameters:
-        - name: id
+        - name: userId
           in: path
           description: User ID
           required: true
@@ -117,31 +138,13 @@ paths:
         - BearerAuth: [ ]
       summary: Remove avatar of determinate user
       parameters:
-        - name: id
+        - name: userId
           in: path
           description: User Id
           required: true
           schema:
             type: string
             format: uuid
-      responses:
-        '200':
-          $ref: '#/components/responses/Success'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-
-  /students:
-    post:
-      tags:
-        - Student
-      summary: Register a Student Account
-      security:
-        - BearerAuth: [ ]
-      requestBody:
-        $ref: '#/components/requestBodies/StudentPostBody'
-
       responses:
         '200':
           $ref: '#/components/responses/Success'
@@ -212,7 +215,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 
-  /students/{studentId}/enrollments:
+  /enrollments/fetch/{studentId}:
     get:
       tags:
         - Enrollment
@@ -260,17 +263,6 @@ paths:
                   $ref: '#/components/schemas/Company'
         '401':
           $ref: '#/components/responses/Unauthorized'
-    post:
-      tags:
-        - Company
-      security:
-        - BearerAuth: [ ]
-      summary: Register a Company Account
-      requestBody:
-        $ref: '#/components/requestBodies/CompanyBody'
-      responses:
-        '201':
-          description: Created
 
   /companies/{companyId}:
     get:
@@ -324,38 +316,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
-
-  /companies/{companyId}/job_openings:
-    get:
-      tags:
-        - Job Opening
-      security:
-        - BearerAuth: [ ]
-      summary: Gets all Job Openings of determiate Company
-      parameters:
-        - name: companyId
-          in: path
-          description: Company ID
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  job_openings:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Company'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
 
   /job_openings:
     get:
@@ -457,71 +417,8 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 
-  /job_openings/{jobOpeningId}/enrollments:
-    get:
-      tags:
-        - Enrollment
-      security:
-        - BearerAuth: [ ]
-      summary: Gets all enrollments of a determinate JobOpening
-      parameters:
-        - name: jobOpeningId
-          in: path
-          description: JobOpening ID
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  enrollments:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Enrollment'
-        '204':
-          $ref: '#/components/schemas/NoContentResponse'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
-    post:
-      tags:
-        - Enrollment
-      security:
-        - BearerAuth: [ ]
-      summary: Create a new Enrollment of determinate Job Opening
-      parameters:
-        - name: jobOpeningId
-          in: path
-          description: JobOpening ID
-          required: true
-          schema:
-            type: string
-            format: uuid
-      requestBody:
-        $ref: '#/components/requestBodies/EnrollmentBody'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  enrollments:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Enrollment'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
+  
+    
 
   /enrollments/{enrollmentId}:
     get:
@@ -552,6 +449,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+    
     delete:
       tags:
         - Enrollment
@@ -566,6 +464,40 @@ paths:
           schema:
             type: string
             format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  enrollments:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Enrollment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /enrollments/{jobOpeningId}:
+    post:
+      tags:
+        - Enrollment
+      security:
+        - BearerAuth: [ ]
+      summary: Create a new Enrollment of determinate Job Opening
+      parameters:
+        - name: jobOpeningId
+          in: path
+          description: JobOpening ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        $ref: '#/components/requestBodies/EnrollmentBody'
       responses:
         '200':
           description: OK
@@ -1046,13 +978,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/User'
-    StudentPostBody:
-      description: A JSON object containing student information
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/StudentRequest'
     StudentPutBody:
       description: A JSON object containing student information
       required: true

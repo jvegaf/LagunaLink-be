@@ -4,7 +4,6 @@ export type CreateUserRequest = {
   password: string;
   isActive: boolean;
   role: string;
-  registered: boolean;
   createdAt: string;
   updatedAt: string;
 };

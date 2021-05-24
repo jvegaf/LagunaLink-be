@@ -1,5 +1,4 @@
 import { CompanyRepository } from '../../domain/CompanyRepository';
-import { CompanyRequest } from '../CompanyRequest';
 import { Company } from '../../domain/Company';
 import { CompanyId } from '../../../Shared/domain/Companies/CompanyId';
 import { CompanyName } from '../../domain/CompanyName';
@@ -9,35 +8,30 @@ import { CompanyPostalCode } from '../../domain/CompanyPostalCode';
 import { CompanyAddress } from '../../domain/CompanyAddress';
 import { CompanyDescription } from '../../domain/CompanyDescription';
 import { CompanyExists } from '../../domain/CompanyExists';
-import { UserUpdateRegistered } from '../../../Users/application/UserUpdateRegistered';
-import { UserId } from '../../../Shared/domain/Users/UserId';
 import { ApplicationService } from '../../../../Shared/domain/ApplicationService';
 
 export class CompanyCreator extends ApplicationService {
   private repository: CompanyRepository;
-  private userUpdateReg: UserUpdateRegistered;
 
-  constructor(repository: CompanyRepository, userUpdateReg: UserUpdateRegistered) {
+  constructor(repository: CompanyRepository) {
     super();
-    this.userUpdateReg = userUpdateReg;
     this.repository = repository;
   }
 
-  async run(request: CompanyRequest): Promise<void> {
-    await this.ensureCompanyNotExists(new CompanyId(request.id));
+  async run(userId: string): Promise<void> {
+    await this.ensureCompanyNotExists(new CompanyId(userId));
 
     const company = Company.create({
-      id: new CompanyId(request.id),
-      name: new CompanyName(request.name),
-      description: new CompanyDescription(request.description),
-      address: new CompanyAddress(request.address),
-      postalCode: new CompanyPostalCode(request.postalCode),
-      region: new CompanyRegion(request.region),
-      city: new CompanyCity(request.city)
+      id: new CompanyId(userId),
+      name: new CompanyName(),
+      description: new CompanyDescription(),
+      address: new CompanyAddress(),
+      postalCode: new CompanyPostalCode(),
+      region: new CompanyRegion(),
+      city: new CompanyCity()
     });
 
     await this.repository.save(company);
-    await this.userUpdateReg.run(new UserId(company.id.value));
   }
 
   private async ensureCompanyNotExists(id: CompanyId) {
