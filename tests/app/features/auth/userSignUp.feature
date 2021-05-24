@@ -6,7 +6,7 @@ Feature: Register a new account
     When I send a POST request to "/auth/signup" with body:
     """
     {
-      "email": "julian-fernandez@gmail.com",
+      "email": "julian.fernandez@gmail.com",
       "password": "123123123",
       "userRole": "ROLE_STUDENT"
     }

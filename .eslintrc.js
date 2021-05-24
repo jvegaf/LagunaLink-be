@@ -12,7 +12,6 @@ module.exports = {
     "plugins": [
         "eslint-plugin-jsdoc",
         "@typescript-eslint",
-        "@typescript-eslint/tslint"
     ],
     "rules": {
         "@typescript-eslint/adjacent-overload-signatures": "error",
@@ -124,32 +123,32 @@ module.exports = {
                 "asyncArrow": "always"
             }
         ],
-        "@typescript-eslint/tslint/config": [
-            "error",
-            {
-                "rules": {
-                    "prefer-method-signature": true,
-                    "ter-max-len": [
-                        true,
-                        {
-                            "code": 120,
-                            "tabWidth": 2,
-                            "ignoreImports": true,
-                            "ignoreUrls": true,
-                            "ignoreTemplateLiterals": true,
-                            "ignoreStrings": true
-                        }
-                    ],
-                    "whitespace": [
-                        true,
-                        "check-branch",
-                        "check-decl",
-                        "check-operator",
-                        "check-separator",
-                        "check-type"
-                    ]
-                }
-            }
-        ]
+        // "@typescript-eslint/tslint/config": [
+        //     "error",
+        //     {
+        //         "rules": {
+        //             "prefer-method-signature": true,
+        //             "ter-max-len": [
+        //                 true,
+        //                 {
+        //                     "code": 120,
+        //                     "tabWidth": 2,
+        //                     "ignoreImports": true,
+        //                     "ignoreUrls": true,
+        //                     "ignoreTemplateLiterals": true,
+        //                     "ignoreStrings": true
+        //                 }
+        //             ],
+        //             "whitespace": [
+        //                 true,
+        //                 "check-branch",
+        //                 "check-decl",
+        //                 "check-operator",
+        //                 "check-separator",
+        //                 "check-type"
+        //             ]
+        //         }
+        //     }
+        // ]
     }
 };

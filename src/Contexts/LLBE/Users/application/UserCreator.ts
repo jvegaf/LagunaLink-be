@@ -10,7 +10,6 @@ import { UserCreatedAt } from '../domain/UserCreatedAt';
 import { UserRole } from '../domain/UserRole';
 import { UserEmailExists } from './UserEmailExists';
 import { ConfirmationEmail } from '../domain/ConfirmationEmail';
-import { UserRegistered } from '../domain/UserRegistered';
 import { hashSync } from 'bcryptjs';
 import { ApplicationService } from '../../../Shared/domain/ApplicationService';
 import { UserAvatar } from '../domain/UserAvatar';
@@ -37,7 +36,6 @@ export class UserCreator extends ApplicationService {
       new UserIsActive(request.isActive),
       new UserRole(request.role),
       new UserAvatar(),
-      new UserRegistered(request.registered),
       UserCreatedAt.now(),
       UserUpdatedAt.now()
     );

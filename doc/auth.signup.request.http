@@ -7,9 +7,9 @@ POST http://localhost:3300/auth/signup
 Content-Type: application/json
 
 {
-  "email": "pepe@api.com",
+  "email": "pepo@api.com",
   "password": "123123",
-  "role": "ROLE_STUDENT"
+  "userRole": "ROLE_STUDENT"
 }
 
 ###

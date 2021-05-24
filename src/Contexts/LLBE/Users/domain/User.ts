@@ -6,7 +6,6 @@ import { UserIsActive } from './UserIsActive';
 import { UserCreatedAt } from './UserCreatedAt';
 import { UserId } from '../../Shared/domain/Users/UserId';
 import { UserRole } from './UserRole';
-import { UserRegistered } from './UserRegistered';
 import { UserAvatar } from './UserAvatar';
 
 export class User extends AggregateRoot {
@@ -16,7 +15,6 @@ export class User extends AggregateRoot {
   readonly isActive: UserIsActive;
   readonly role: UserRole;
   readonly avatar: UserAvatar;
-  readonly registered: UserRegistered;
   readonly createdAt: UserCreatedAt;
   readonly updatedAt: UserUpdatedAt;
 
@@ -27,7 +25,6 @@ export class User extends AggregateRoot {
     isActive: UserIsActive,
     role: UserRole,
     avatar: UserAvatar,
-    registered: UserRegistered,
     createdAt: UserCreatedAt,
     updatedAt: UserUpdatedAt
   ): User {
@@ -38,7 +35,6 @@ export class User extends AggregateRoot {
       isActive,
       role,
       avatar,
-      registered,
       createdAt,
       updatedAt
     );
@@ -51,7 +47,6 @@ export class User extends AggregateRoot {
     isActive: boolean;
     role: string;
     avatar: string;
-    registered: boolean;
     createdAt: string;
     updatedAt: string;
   }) {
@@ -62,7 +57,6 @@ export class User extends AggregateRoot {
       new UserIsActive(plaindata.isActive),
       new UserRole(plaindata.role),
       new UserAvatar(plaindata.avatar),
-      new UserRegistered(plaindata.registered),
       new UserCreatedAt(plaindata.createdAt),
       new UserUpdatedAt(plaindata.updatedAt)
     );
@@ -75,7 +69,6 @@ export class User extends AggregateRoot {
     isActive: UserIsActive,
     role: UserRole,
     avatar: UserAvatar,
-    registered: UserRegistered,
     createdAt: UserCreatedAt,
     updatedAt: UserUpdatedAt
   ) {
@@ -86,7 +79,6 @@ export class User extends AggregateRoot {
     this.isActive = isActive;
     this.role = role;
     this.avatar = avatar;
-    this.registered = registered;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
@@ -99,7 +91,6 @@ export class User extends AggregateRoot {
       isActive: this.isActive.value,
       role: this.role.value,
       avatar: this.avatar.value,
-      registered: this.registered.value,
       createdAt: this.createdAt.toISOString(),
       updatedAt: this.updatedAt.toISOString(),
     };
@@ -113,7 +104,6 @@ export class User extends AggregateRoot {
       new UserIsActive(true),
       this.role,
       this.avatar,
-      this.registered,
       this.createdAt,
       UserUpdatedAt.now()
     );
@@ -127,21 +117,6 @@ export class User extends AggregateRoot {
       this.isActive,
       this.role,
       this.avatar,
-      this.registered,
-      this.createdAt,
-      UserUpdatedAt.now()
-    );
-  }
-
-  register(): User {
-    return new User(
-      this.id,
-      this.email,
-      this.password,
-      this.isActive,
-      this.role,
-      this.avatar,
-      new UserRegistered(true),
       this.createdAt,
       UserUpdatedAt.now()
     );
@@ -155,7 +130,6 @@ export class User extends AggregateRoot {
       this.isActive,
       this.role,
       avatar,
-      this.registered,
       this.createdAt,
       UserUpdatedAt.now()
     );
@@ -169,7 +143,6 @@ export class User extends AggregateRoot {
       this.isActive,
       this.role,
       new UserAvatar(),
-      this.registered,
       this.createdAt,
       UserUpdatedAt.now()
     );

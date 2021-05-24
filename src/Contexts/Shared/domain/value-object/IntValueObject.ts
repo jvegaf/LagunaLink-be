@@ -1,8 +1,8 @@
 export abstract class NumberValueObject {
   readonly value: number;
 
-  constructor(value: number) {
-    this.value = value;
+  constructor(value?: number) {
+    this.value = value || 0;
   }
 
   equalsTo(other: NumberValueObject): boolean {

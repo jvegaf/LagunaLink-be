@@ -8,41 +8,30 @@ import { UserRepository } from '../../../../src/Contexts/LLBE/Users/domain/UserR
 import { StudentRepository } from '../../../../src/Contexts/LLBE/Students/domain/StudentRepository';
 import { CreateUserRequestMother } from '../../../Contexts/LLBE/Users/application/CreateUserRequestMother';
 import { UserMother } from '../../../Contexts/LLBE/Users/domain/UserMother';
-import { Student } from '../../../../src/Contexts/LLBE/Students/domain/Student';
-import { StudentSurnameMother } from '../../../Contexts/LLBE/Students/domain/StudentSurnameMother';
-import { StudentLastnameMother } from '../../../Contexts/LLBE/Students/domain/StudentLastnameMother';
 import { hashSync } from 'bcryptjs';
-import { StudentNameMother } from '../../../Contexts/LLBE/Students/domain/StudentNameMother';
-import { Company } from '../../../../src/Contexts/LLBE/Companies/domain/Company';
-import { CompanyNameMother } from '../../../Contexts/LLBE/Companies/domain/CompanyNameMother';
-import { CompanyDescriptionMother } from '../../../Contexts/LLBE/Companies/domain/CompanyDescriptionMother';
-import { CompanyAddressMother } from '../../../Contexts/LLBE/Companies/domain/CompanyAddressMother';
-import { CompanyPostalCodeMother } from '../../../Contexts/LLBE/Companies/domain/CompanyPostalCodeMother';
-import { CompanyRegionMother } from '../../../Contexts/LLBE/Companies/domain/CompanyRegionMother';
-import { CompanyCityMother } from '../../../Contexts/LLBE/Companies/domain/CompanyCityMother';
 import { CompanyRepository } from '../../../../src/Contexts/LLBE/Companies/domain/CompanyRepository';
 import { JobOpeningRepository } from '../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpeningRepository';
 import { UpgradeJobOpeningRequestMother } from '../../../Contexts/LLBE/JobOpenings/application/Update/UpgradeJobOpeningRequestMother';
 import { JobOpeningMother } from '../../../Contexts/LLBE/JobOpenings/domain/JobOpeningMother';
-import { StudentIdMother } from '../../../Contexts/LLBE/Shared/domain/Students/StudentIdMother';
-import { CompanyIdMother } from '../../../Contexts/LLBE/Shared/domain/Companies/CompanyIdMother';
 import { CreateJobOpeningRequestMother } from '../../../Contexts/LLBE/JobOpenings/application/Create/CreateJobOpeningRequestMother';
 import path from 'path';
-import { StudentLangsMother } from '../../../Contexts/LLBE/Students/domain/StudentLangsMother';
-import { QualificationMother } from '../../../Contexts/LLBE/Students/domain/QualificationMother';
-import { JobExperiencesMother } from '../../../Contexts/LLBE/Students/domain/JobExperiencesMother';
+import { StudentCreator } from '../../../../src/Contexts/LLBE/Students/application/Create/StudentCreator';
+import { CompanyCreator } from '../../../../src/Contexts/LLBE/Companies/application/Create/CompanyCreator';
 
 let _request: request.Test;
 let _response: request.Response;
 let accessToken: string;
 let authRequest: { id: string; email: string; password: string };
 
+const ROLE_COMPANY = 'ROLE_COMPANY';
+const ROLE_STUDENT = 'ROLE_STUDENT';
+
 const userRepository: UserRepository = container.get('App.users.UserRepository');
 
 const studentRepository: StudentRepository = container.get('App.students.StudentRepository');
-
+const studentCreator: StudentCreator = container.get('App.students.StudentCreator');
 const companyRepository: CompanyRepository = container.get('App.companies.CompanyRepository');
-
+const companyCreator: CompanyCreator = container.get('App.companies.CompanyCreator');
 const jobOpenRepository: JobOpeningRepository = container.get('App.jobOpenings.JobOpeningRepository');
 
 async function createAccountNotVerified() {
@@ -50,12 +39,11 @@ async function createAccountNotVerified() {
   userRequest.email = 'ramoncin@gmail.com';
   userRequest.password = hashSync('123123', 10);
   userRequest.isActive = false;
-  userRequest.registered = false;
   const user = UserMother.fromRequest(userRequest);
+
   await userRepository.save(user);
 }
-
-async function createUser(role: string, id = '', registered = true) {
+async function createUser(role: string, id = '') {
   const userRequest = CreateUserRequestMother.random();
   const passwordPlane = userRequest.password;
   if (id !== '') {
@@ -63,49 +51,17 @@ async function createUser(role: string, id = '', registered = true) {
   }
   userRequest.password = hashSync(userRequest.password, 10);
   userRequest.isActive = true;
-  userRequest.registered = registered;
   userRequest.role = role;
+  if (role === ROLE_STUDENT){ await studentCreator.run(userRequest.id);}
+  if (role === ROLE_COMPANY){ await companyCreator.run(userRequest.id);}
   const user = UserMother.fromRequest(userRequest);
   await userRepository.save(user);
-  if (registered) {
-    await register(userRequest.id, userRequest.role);
-  }
+
   return {
     id: userRequest.id,
     email: userRequest.email,
     password: passwordPlane,
   };
-}
-
-const ROLE_COMPANY = 'ROLE_COMPANY';
-
-async function register(id: string, role: string) {
-  if (role === 'ROLE_STUDENT') {
-    const student = Student.create({
-      id: StudentIdMother.create(id),
-      name: StudentNameMother.random(),
-      surname: StudentSurnameMother.random(),
-      lastname: StudentLastnameMother.random(),
-      languages: StudentLangsMother.random(),
-      qualification: QualificationMother.random(),
-      jobexperiences: JobExperiencesMother.random()
-    });
-
-    await studentRepository.save(student);
-  }
-
-  if (role === ROLE_COMPANY) {
-    const company = Company.create({
-      id: CompanyIdMother.create(id),
-      name: CompanyNameMother.random(),
-      description: CompanyDescriptionMother.random(),
-      address: CompanyAddressMother.random(),
-      postalCode: CompanyPostalCodeMother.random(),
-      region: CompanyRegionMother.random(),
-      city: CompanyCityMother.random()
-    });
-    await companyRepository.save(company);
-  }
 }
 
 async function loginUserAccount(authReq: object) {
@@ -135,7 +91,6 @@ async function registerSeveralJobOpenings() {
 async function registerSeveralCompanies() {
   for (let i = 0; i < 10; i++) {
     const user = await createUser(ROLE_COMPANY);
-    await register(user.id, ROLE_COMPANY);
   }
 }
 
@@ -149,7 +104,7 @@ async function registerSeveralJobOpeningsOfCompany(companyId: string, quantity?:
 }
 
 Given('I have a Student Role Account', async () => {
-  authRequest = await createUser('ROLE_STUDENT');
+  authRequest = await createUser(ROLE_STUDENT);
 });
 
 Given('I have a Company Role Account', async () => {
@@ -161,19 +116,11 @@ Given('Previously was registered a company with id {string}', async (id: string)
 });
 
 Given('I have a Student Role Account with id {string}', async (id: string) => {
-  authRequest = await createUser('ROLE_STUDENT', id);
+  authRequest = await createUser(ROLE_STUDENT, id);
 });
 
 Given('I have a Company Role Account with id {string}', async (id: string) => {
   authRequest = await createUser(ROLE_COMPANY, id);
-});
-
-Given('I have a Student Role Account without complete register', async () => {
-  authRequest = await createUser('ROLE_STUDENT', '', false);
-});
-
-Given('I have a Company Role Account without complete register', async () => {
-  authRequest = await createUser(ROLE_COMPANY, '', false);
 });
 
 Given('I am logged in the application', async () => {

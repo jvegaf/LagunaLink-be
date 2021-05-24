@@ -6,7 +6,7 @@ services:
 
   App.companies.CompanyCreator:
     class: ../../../../../Contexts/LLBE/Companies/application/Create/CompanyCreator
-    arguments: [ '@App.companies.CompanyRepository', '@App.users.UserUpdateRegistered' ]
+    arguments: [ '@App.companies.CompanyRepository' ]
 
   App.companies.CompanyUpgrader:
     class: ../../../../../Contexts/LLBE/Companies/application/Update/CompanyUpgrader
