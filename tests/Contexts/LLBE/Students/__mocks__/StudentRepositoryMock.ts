@@ -4,6 +4,7 @@ import {StudentId} from '../../../../../src/Contexts/LLBE/Shared/domain/Students
 import {Nullable} from '../../../../../src/Contexts/Shared/domain/Nullable';
 import {UpgradeStudentRequest} from '../../../../../src/Contexts/LLBE/Students/application/Update/UpgradeStudentRequest';
 import {StudentDTO} from '../../../../../src/Contexts/LLBE/Shared/domain/Students/StudentDTO';
+import { StudentProfileDTO } from '../../../../../src/Contexts/LLBE/Shared/domain/Students/StudentProfileDTO';
 
 export class StudentRepositoryMock implements StudentRepository {
   private mockSave = jest.fn();
@@ -35,7 +36,7 @@ export class StudentRepositoryMock implements StudentRepository {
     expect(this.mockSearch).toHaveBeenCalledWith(expected);
   }
 
-  searchProfile(id: StudentId): Promise<Student> {
+  searchProfile(id: StudentId): Promise<StudentProfileDTO> {
     return this.mockProfile();
   }
 

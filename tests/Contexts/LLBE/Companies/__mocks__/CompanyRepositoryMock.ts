@@ -2,6 +2,7 @@ import {CompanyRepository} from '../../../../../src/Contexts/LLBE/Companies/doma
 import {Nullable} from '../../../../../src/Contexts/Shared/domain/Nullable';
 import {Company} from '../../../../../src/Contexts/LLBE/Companies/domain/Company';
 import {CompanyId} from '../../../../../src/Contexts/LLBE/Shared/domain/Companies/CompanyId';
+import { CompanyProfileDTO } from '../../../../../src/Contexts/LLBE/Shared/domain/Companies/CompanyProfileDTO';
 
 export class CompanyRepositoryMock implements CompanyRepository {
   private mockSave = jest.fn();
@@ -38,7 +39,7 @@ export class CompanyRepositoryMock implements CompanyRepository {
     return this.mockFetch();
   }
 
-  searchProfile(id: CompanyId): Promise<Company> {
+  searchProfile(id: CompanyId): Promise<CompanyProfileDTO> {
     return this.mockProfile();
   }
 }
