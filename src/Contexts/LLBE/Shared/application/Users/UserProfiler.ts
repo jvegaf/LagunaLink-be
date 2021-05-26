@@ -2,7 +2,6 @@ import { ApplicationService } from '../../../../Shared/domain/ApplicationService
 import { CompanyRepository } from '../../../Companies/domain/CompanyRepository';
 import { StudentRepository } from '../../../Students/domain/StudentRepository';
 import { UserProfileRequest } from './UserProfileRequest';
-import { UserProfileDTO } from '../../domain/Users/UserProfileDTO';
 import { CompanyId } from '../../domain/Companies/CompanyId';
 import { StudentId } from '../../domain/Students/StudentId';
 
@@ -17,7 +16,7 @@ export class UserProfiler extends ApplicationService {
   }
 
   // @ts-ignore
-  async run(req: UserProfileRequest): Promise<UserProfileDTO> {
+  async run(req: UserProfileRequest): Promise<any> {
     switch (req.role) {
     case 'ROLE_STUDENT':
       return await this.studentRepository.searchProfile(new StudentId(req.userId));

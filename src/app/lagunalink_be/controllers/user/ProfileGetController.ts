@@ -1,7 +1,5 @@
 import { Request, Response } from 'express';
 import { Controller } from '../Controller';
-import { AvatarFinder } from '../../../../Contexts/LLBE/Users/application/AvatarFinder';
-import { UserId } from '../../../../Contexts/LLBE/Shared/domain/Users/UserId';
 import { UserProfiler } from '../../../../Contexts/LLBE/Shared/application/Users/UserProfiler';
 
 export class ProfileGetController implements Controller {
