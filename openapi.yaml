@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   description: This is the backend of the Lagunalink App.  You can find out more about this project at [https://github.com/jvegaf/LagunaLink-be](https://github.com/jvegaf/LagunaLink-be)
-  version: 2.1.0
+  version: 2.1.1
   title: LagunaLink Backend
   contact:
     email: josevega234@gmail.com
@@ -19,8 +19,6 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/AuthSuccess'
-        '230':
-          $ref: '#/components/responses/AuthSuccessRegister'
         '400':
           $ref: '#/components/responses/BadRequest'
         '450':
@@ -54,10 +52,9 @@ paths:
                 properties:
                   profile:
                     type: object
-                    oneOf:
-                      - $ref: '#/components/schemas/CompanyProfile'
-                      - $ref: '#/components/schemas/StudentProfile'
-
+                    $ref: '#/components/schemas/StudentProfile'
+                  
+                    
   /avatar/{userId}:
     get:
       summary: get avatar id from determinate user
@@ -545,27 +542,6 @@ components:
         - password
         - role
 
-    AuthRegisterResponse:
-      type: object
-      properties:
-        userId:
-          type: string
-          format: uuid
-        email:
-          type: string
-        accessToken:
-          type: string
-        role:
-          type: string
-          enum:
-            - ROLE_STUDENT
-            - ROLE_COMPANY
-      required:
-        - userId
-        - email
-        - accessToken
-        - role
-
     AuthResponse:
       type: object
       properties:
@@ -578,11 +554,6 @@ components:
           type: string
         avatar:
           type: string
-        profile:
-          type: object
-          oneOf:
-            - $ref: '#/components/schemas/CompanyProfile'
-            - $ref: '#/components/schemas/StudentProfile'
 
       required:
         - userId
@@ -620,6 +591,7 @@ components:
         - name
         - surname
         - lastname
+
     StudentRequest:
       type: object
       properties:
@@ -636,6 +608,7 @@ components:
         - name
         - surname
         - lastname
+
     StudentExtend:
       type: object
       properties:
@@ -655,16 +628,22 @@ components:
       properties:
         name:
           type: string
+          example: Charcuteria Pepi
         description:
           type: string
+          example: "La charcutería es aquella carnicería especializada en la comercialización de los productos de la carne de cerdo y sus subproductos: fiambres y embutidos.​ Se suelen vender en estos establecimientos: salchichas, salchichones, chorizos, salami, jamón en diferentes formatos, aspic, etcétera"
         address:
           type: string
+          example: Calle sal si puedes 40
         postalCode:
           type: integer
+          example: 08080
         region:
           type: string
+          example: Madrid
         city:
           type: string
+          example: Mostoles
       required:
         - name
         - description
@@ -907,12 +886,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/AuthResponse'
-    AuthSuccessRegister:
-      description: Authentication Success redirected to complete register process
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/AuthRegisterResponse'
+
     Success:
       description: Success
       content:

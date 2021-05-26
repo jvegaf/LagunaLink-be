@@ -42,8 +42,6 @@ export class UserAuth extends ApplicationService {
 
     const token = this.createToken(user);
 
-    const profile = await this.profiler.run({userId: user.id.value, role: user.role.value});
-
     this.logInfo(`user ${user.email.value} authenticated`);
 
     return {
@@ -51,8 +49,7 @@ export class UserAuth extends ApplicationService {
       accessToken: token.value,
       email: request.email,
       userRole: user.role.value,
-      avatar: user.avatar.value,
-      profile
+      avatar: user.avatar.value
     };
   }
 
