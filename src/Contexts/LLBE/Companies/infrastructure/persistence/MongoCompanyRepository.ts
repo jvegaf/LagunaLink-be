@@ -1,9 +1,9 @@
-import {Nullable} from '../../../../Shared/domain/Nullable';
-import {MongoRepository} from '../../../../Shared/infrastructure/persistence/mongo/MongoRepository';
-import {CompanyId} from '../../../Shared/domain/Companies/CompanyId';
-import {Company} from '../../domain/Company';
-import {CompanyRepository} from '../../domain/CompanyRepository';
-import {CompanyProfile} from '../../../Shared/domain/Companies/CompanyProfile';
+import { Nullable } from '../../../../Shared/domain/Nullable';
+import { MongoRepository } from '../../../../Shared/infrastructure/persistence/mongo/MongoRepository';
+import { CompanyId } from '../../../Shared/domain/Companies/CompanyId';
+import { Company } from '../../domain/Company';
+import { CompanyRepository } from '../../domain/CompanyRepository';
+import { CompanyProfileDTO } from '../../../Shared/domain/Companies/CompanyProfileDTO';
 
 export class MongoCompanyRepository extends MongoRepository<Company> implements CompanyRepository {
   public save(company: Company): Promise<void> {
@@ -19,7 +19,7 @@ export class MongoCompanyRepository extends MongoRepository<Company> implements 
     return document ? Company.fromPrimitives({...document, id: id.value}) : null;
   }
 
-  public async searchProfile(id: CompanyId): Promise<Company> {
+  public async searchProfile(id: CompanyId): Promise<CompanyProfileDTO> {
     const collection = await this.collection();
     const agg = [
       {
@@ -98,7 +98,7 @@ export class MongoCompanyRepository extends MongoRepository<Company> implements 
 
     const docArr = await collection.aggregate(agg).toArray();
     const document = docArr[0];
-    return CompanyProfile.fromPrimitives({...document, id: id.value});
+    return {...document, id: id.value};
   }
 
   public async fetch(): Promise<Array<Company>> {

@@ -1,10 +1,10 @@
-import {Nullable} from '../../../../Shared/domain/Nullable';
-import {MongoRepository} from '../../../../Shared/infrastructure/persistence/mongo/MongoRepository';
-import {StudentId} from '../../../Shared/domain/Students/StudentId';
-import {Student} from '../../domain/Student';
-import {StudentRepository} from '../../domain/StudentRepository';
-import {UpgradeStudentRequest} from '../../application/Update/UpgradeStudentRequest';
-import {StudentProfile} from '../../../Shared/domain/Students/StudentProfile';
+import { Nullable } from '../../../../Shared/domain/Nullable';
+import { MongoRepository } from '../../../../Shared/infrastructure/persistence/mongo/MongoRepository';
+import { StudentId } from '../../../Shared/domain/Students/StudentId';
+import { Student } from '../../domain/Student';
+import { StudentRepository } from '../../domain/StudentRepository';
+import { UpgradeStudentRequest } from '../../application/Update/UpgradeStudentRequest';
+import { StudentProfileDTO } from '../../../Shared/domain/Students/StudentProfileDTO';
 
 export class MongoStudentRepository extends MongoRepository<Student> implements StudentRepository {
   public save(student: Student): Promise<void> {
@@ -20,7 +20,7 @@ export class MongoStudentRepository extends MongoRepository<Student> implements 
     return document ? Student.fromPrimitives({...document, id: id.value}) : null;
   }
 
-  public async searchProfile(id: StudentId): Promise<Student> {
+  public async searchProfile(id: StudentId): Promise<StudentProfileDTO> {
     const collection = await this.collection();
 
     const agg = [
@@ -86,7 +86,7 @@ export class MongoStudentRepository extends MongoRepository<Student> implements 
     const docArr = await collection.aggregate(agg).toArray();
     const document = docArr[0];
 
-    return StudentProfile.fromPrimitives({...document, id: id.value});
+    return {...document, id: id.value};
   }
 
   public async update(values: UpgradeStudentRequest): Promise<void> {

@@ -1,12 +1,10 @@
-import {ApplicationService} from '../../../../Shared/domain/ApplicationService';
-import {CompanyRepository} from '../../../Companies/domain/CompanyRepository';
-import {StudentRepository} from '../../../Students/domain/StudentRepository';
-import {UserProfileRequest} from './UserProfileRequest';
-import {UserProfileDTO} from '../../domain/Users/UserProfileDTO';
-import {CompanyProfile} from '../../domain/Companies/CompanyProfile';
-import {CompanyId} from '../../domain/Companies/CompanyId';
-import {StudentId} from '../../domain/Students/StudentId';
-import {StudentProfile} from '../../domain/Students/StudentProfile';
+import { ApplicationService } from '../../../../Shared/domain/ApplicationService';
+import { CompanyRepository } from '../../../Companies/domain/CompanyRepository';
+import { StudentRepository } from '../../../Students/domain/StudentRepository';
+import { UserProfileRequest } from './UserProfileRequest';
+import { UserProfileDTO } from '../../domain/Users/UserProfileDTO';
+import { CompanyId } from '../../domain/Companies/CompanyId';
+import { StudentId } from '../../domain/Students/StudentId';
 
 export class UserProfiler extends ApplicationService {
   private studentRepository: StudentRepository;
@@ -22,12 +20,10 @@ export class UserProfiler extends ApplicationService {
   async run(req: UserProfileRequest): Promise<UserProfileDTO> {
     switch (req.role) {
     case 'ROLE_STUDENT':
-      const studentProfile = await this.studentRepository.searchProfile(new StudentId(req.userId)) as StudentProfile;
-      return studentProfile.toPrimitives();
+      return await this.studentRepository.searchProfile(new StudentId(req.userId));
 
     case 'ROLE_COMPANY':
-      const companyProfile = await this.companyRepository.searchProfile(new CompanyId(req.userId)) as CompanyProfile;
-      return companyProfile.toPrimitives();
+      return await this.companyRepository.searchProfile(new CompanyId(req.userId));
     }
   }
 }
