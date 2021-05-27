@@ -53,6 +53,19 @@ export class MongoStudentRepository extends MongoRepository<Student> implements 
           'preserveNullAndEmptyArrays': true
         }
       }, {
+        '$lookup': {
+          'from': 'companies',
+          'localField': 'jobOpenings.company',
+          'foreignField': '_id',
+          'as': 'companies'
+        }
+      }, {
+        '$unwind': {
+          'path': '$companies',
+          'preserveNullAndEmptyArrays': true
+        }
+      },
+      {
         '$group': {
           '_id': '$_id',
           'name': {
@@ -78,6 +91,9 @@ export class MongoStudentRepository extends MongoRepository<Student> implements 
           },
           'jobOpenings': {
             '$push': '$jobOpenings'
+          },
+          'companies': {
+            '$push': '$companies'
           }
         }
       }
