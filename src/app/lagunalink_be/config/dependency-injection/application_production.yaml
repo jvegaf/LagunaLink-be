@@ -1,7 +1,12 @@
 imports:
   - { resource: ./application.yaml }
 
+# services:
+#   App.Mailer:
+#     class: ../../../../../src/Contexts/Shared/infrastructure/mail/NodeMailer
+#     arguments: [ ]
+
 services:
   App.Mailer:
-    class: ../../../../../src/Contexts/Shared/infrastructure/mail/NodeMailer
-    arguments: [ ]
+    class: ../../../../../src/Contexts/Shared/infrastructure/mail/MockMailer
+    arguments: ['@App.users.UserRepository', '@App.users.UserEmailConfirmator']
