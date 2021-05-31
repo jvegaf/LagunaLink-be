@@ -28,7 +28,7 @@ export class CompanyCreator extends ApplicationService {
       address: new CompanyAddress(),
       postalCode: new CompanyPostalCode(),
       region: new CompanyRegion(),
-      city: new CompanyCity()
+      city: new CompanyCity(),
     });
 
     await this.repository.save(company);

@@ -6,16 +6,15 @@ import { JobOpeningId } from '../../../Shared/domain/JobOpenings/JobOpeningId';
 
 export class MongoJobOpeningRepository extends MongoRepository<JobOpening> implements JobOpeningRepository {
   public save(jobOpening: JobOpening): Promise<void> {
-    return this.persist(
-      jobOpening.id.value, jobOpening);
+    return this.persist(jobOpening.id.value, jobOpening);
   }
 
   public async search(id: JobOpeningId): Promise<Nullable<JobOpening>> {
     const collection = await this.collection();
 
-    const document = await collection.findOne({_id: id.value});
+    const document = await collection.findOne({ _id: id.value });
 
-    return document ? JobOpening.fromPrimitives({...document, id: id.value}) : null;
+    return document ? JobOpening.fromPrimitives({ ...document, id: id.value }) : null;
   }
 
   public async remove(id: JobOpeningId): Promise<void> {
@@ -31,7 +30,7 @@ export class MongoJobOpeningRepository extends MongoRepository<JobOpening> imple
     const resultSet: JobOpening[] = [];
     const cursor = collection.find();
     await cursor.forEach(document => {
-      resultSet.push(JobOpening.fromPrimitives({...document, id: document._id}));
+      resultSet.push(JobOpening.fromPrimitives({ ...document, id: document._id }));
     });
 
     return resultSet;
@@ -40,9 +39,9 @@ export class MongoJobOpeningRepository extends MongoRepository<JobOpening> imple
   public async fetchFromCompany(companyId: string): Promise<Array<JobOpening>> {
     const collection = await this.collection();
     const resultSet: JobOpening[] = [];
-    const cursor = collection.find({company: companyId});
+    const cursor = collection.find({ company: companyId });
     await cursor.forEach(document => {
-      resultSet.push(JobOpening.fromPrimitives({...document, id: document._id}));
+      resultSet.push(JobOpening.fromPrimitives({ ...document, id: document._id }));
     });
 
     return resultSet;

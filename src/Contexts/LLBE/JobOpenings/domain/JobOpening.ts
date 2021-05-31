@@ -11,6 +11,7 @@ import { JobOpenCreatedAt } from './JobOpenCreatedAt';
 import { JobOpenHiringDate } from './JobOpenHiringDate';
 import { JobOpeningDTO } from '../../Shared/domain/JobOpenings/JobOpeningDTO';
 import { JobOpeningType } from '../../Shared/domain/JobOpenings/JobOpeningType';
+import { JobOpenIsActive } from './JobOpenIsActive';
 
 export class JobOpening extends AggregateRoot {
   readonly id: JobOpeningId;
@@ -23,6 +24,7 @@ export class JobOpening extends AggregateRoot {
   readonly qualification: JobOpenQualification;
   readonly prevExperience: JobOpenPrevExperience;
   readonly hiringDate: JobOpenHiringDate;
+  readonly isActive: JobOpenIsActive;
 
   constructor(jobOpen: JobOpeningType) {
     super();
@@ -36,6 +38,7 @@ export class JobOpening extends AggregateRoot {
     this.qualification = jobOpen.qualification;
     this.prevExperience = jobOpen.prevExperience;
     this.hiringDate = jobOpen.hiringDate;
+    this.isActive = jobOpen.isActive;
   }
 
   static create(data: JobOpeningType): JobOpening {
@@ -43,20 +46,19 @@ export class JobOpening extends AggregateRoot {
   }
 
   static fromPrimitives(plaindata: JobOpeningDTO) {
-    return new JobOpening(
-      {
-        id: new JobOpeningId(plaindata.id),
-        createdAt: new JobOpenCreatedAt(plaindata.createdAt),
-        company: new CompanyId(plaindata.company),
-        description: new JobOpenDescription(plaindata.description),
-        position: new JobOpenPosition(plaindata.position),
-        conditions: new JobOpenConditions(plaindata.conditions),
-        responsibilities: new JobOpenResponsibilities(plaindata.responsibilities),
-        qualification: new JobOpenQualification(plaindata.qualification),
-        prevExperience: new JobOpenPrevExperience(plaindata.prevExperience),
-        hiringDate: new JobOpenHiringDate(plaindata.hiringDate)
-      }
-    );
+    return new JobOpening({
+      id: new JobOpeningId(plaindata.id),
+      createdAt: new JobOpenCreatedAt(plaindata.createdAt),
+      company: new CompanyId(plaindata.company),
+      description: new JobOpenDescription(plaindata.description),
+      position: new JobOpenPosition(plaindata.position),
+      conditions: new JobOpenConditions(plaindata.conditions),
+      responsibilities: new JobOpenResponsibilities(plaindata.responsibilities),
+      qualification: new JobOpenQualification(plaindata.qualification),
+      prevExperience: new JobOpenPrevExperience(plaindata.prevExperience),
+      hiringDate: new JobOpenHiringDate(plaindata.hiringDate),
+      isActive: new JobOpenIsActive(plaindata.isActive),
+    });
   }
 
   toPrimitives(): JobOpeningDTO {
@@ -70,8 +72,24 @@ export class JobOpening extends AggregateRoot {
       responsibilities: this.responsibilities.value,
       qualification: this.qualification.value,
       prevExperience: this.prevExperience.value,
-      hiringDate: this.hiringDate.toString()
+      hiringDate: this.hiringDate.toString(),
+      isActive: this.isActive.value,
     };
   }
 
+  deactivate(): JobOpening {
+    return new JobOpening({
+      id: this.id,
+      createdAt: this.createdAt,
+      company: this.company,
+      description: this.description,
+      position: this.position,
+      conditions: this.conditions,
+      responsibilities: this.responsibilities,
+      qualification: this.qualification,
+      prevExperience: this.prevExperience,
+      hiringDate: this.hiringDate,
+      isActive: new JobOpenIsActive(false),
+    });
+  }
 }

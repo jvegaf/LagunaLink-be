@@ -11,7 +11,13 @@ export class JobExperience {
   readonly startDate: StartDate;
   readonly endDate: EndDate;
 
-  constructor(company: JobOpenCompany, position: JobPosition, responsibilities: JobRespons, startDate: StartDate, endDate: EndDate) {
+  constructor(
+    company: JobOpenCompany,
+    position: JobPosition,
+    responsibilities: JobRespons,
+    startDate: StartDate,
+    endDate: EndDate
+  ) {
     this.company = company;
     this.position = position;
     this.responsibilities = responsibilities;

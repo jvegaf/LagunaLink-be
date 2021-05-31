@@ -12,6 +12,7 @@ import { JobOpeningId } from '../../../Shared/domain/JobOpenings/JobOpeningId';
 import { ApplicationService } from '../../../../Shared/domain/ApplicationService';
 import { JobOpenCreatedAt } from '../../domain/JobOpenCreatedAt';
 import { JobOpenHiringDate } from '../../domain/JobOpenHiringDate';
+import { JobOpenIsActive } from '../../domain/JobOpenIsActive';
 
 export class JobOpeningCreator extends ApplicationService {
   private repository: JobOpeningRepository;
@@ -34,12 +35,12 @@ export class JobOpeningCreator extends ApplicationService {
       responsibilities: new JobOpenResponsibilities(request.responsibilities),
       qualification: new JobOpenQualification(request.qualification),
       prevExperience: new JobOpenPrevExperience(request.prevExperience),
-      hiringDate: new JobOpenHiringDate(request.hiringDate)
-    }
-    );
+      hiringDate: new JobOpenHiringDate(request.hiringDate),
+      isActive: new JobOpenIsActive(true),
+    });
 
     await this.repository.save(jobOpening);
-    this.logInfo(`JobOpening ${jobOpenId.value !} created`);
+    this.logInfo(`JobOpening ${jobOpenId.value!} created`);
     return jobOpening;
   }
 }

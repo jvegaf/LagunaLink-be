@@ -23,3 +23,7 @@ services:
   App.jobOpenings.JobOpeningUpgrader:
     class: ../../../../../Contexts/LLBE/JobOpenings/application/Update/JobOpeningUpgrader
     arguments: [ '@App.jobOpenings.JobOpeningRepository' ]
+
+  App.jobOpenings.JobOpeningDeactivator:
+    class: ../../../../../Contexts/LLBE/JobOpenings/application/Update/JobOpeningDeactivator
+    arguments: [ '@App.jobOpenings.JobOpeningRepository' ]

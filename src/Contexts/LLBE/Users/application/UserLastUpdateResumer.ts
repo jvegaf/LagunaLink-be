@@ -13,10 +13,8 @@ export class UserLastUpdateResumer extends ApplicationService implements LastUpd
   }
 
   async run(userId: UserId): Promise<void> {
-
-    const user: User = await this.repository.search(userId) as User;
+    const user: User = (await this.repository.search(userId)) as User;
 
     await this.repository.save(user.resumeUpdatedAt());
-
   }
 }

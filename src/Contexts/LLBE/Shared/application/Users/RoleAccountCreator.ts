@@ -4,7 +4,7 @@ import { StudentCreator } from '../../../Students/application/Create/StudentCrea
 import { UserId } from '../../domain/Users/UserId';
 import { UserRole } from '../../../Users/domain/UserRole';
 
-export class RoleAccountCreator extends ApplicationService{
+export class RoleAccountCreator extends ApplicationService {
   private studentCreator: StudentCreator;
   private companyCreator: CompanyCreator;
 
@@ -15,7 +15,9 @@ export class RoleAccountCreator extends ApplicationService{
   }
 
   async run(userId: UserId, role: UserRole): Promise<void> {
-    if (role.value === 'ROLE_STUDENT'){ return await this.studentCreator.run(userId.value); }
+    if (role.value === 'ROLE_STUDENT') {
+      return await this.studentCreator.run(userId.value);
+    }
     await this.companyCreator.run(userId.value);
   }
 }

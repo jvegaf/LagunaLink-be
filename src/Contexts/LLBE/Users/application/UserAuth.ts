@@ -26,9 +26,7 @@ export class UserAuth extends ApplicationService {
   }
 
   async run(request: AuthUserRequest): Promise<AuthResponse> {
-    const user = await this.repository.searchByEmail(
-      new UserEmail(request.email)
-    );
+    const user = await this.repository.searchByEmail(new UserEmail(request.email));
     if (user === null) {
       this.logError('Incorrect Email');
       throw new UserAuthFail(BAD_EMAIL_PASS_MESSAGE);
@@ -49,21 +47,19 @@ export class UserAuth extends ApplicationService {
       accessToken: token.value,
       email: request.email,
       userRole: user.role.value,
-      avatar: user.avatar.value
+      avatar: user.avatar.value,
     };
   }
 
   private createToken(user: User): Token {
-    const payload = {userId: user.id.value, role: user.role.value};
+    const payload = { userId: user.id.value, role: user.role.value };
     return this.tokenGenerator.run(payload);
   }
 
   private checkUserIsActive(user: User) {
     if (!user.isActive.value) {
       this.logError(`the user ${user.email.value} is not active`);
-      throw new AccountNotConfirmed(
-        'You need activate your account before continuing'
-      );
+      throw new AccountNotConfirmed('You need activate your account before continuing');
     }
   }
 }

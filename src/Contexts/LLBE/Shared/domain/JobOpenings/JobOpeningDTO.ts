@@ -9,4 +9,5 @@ export type JobOpeningDTO = {
   qualification: string;
   prevExperience: string;
   hiringDate: string;
+  isActive: boolean;
 };

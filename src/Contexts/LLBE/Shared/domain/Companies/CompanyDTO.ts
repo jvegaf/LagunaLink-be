@@ -1,4 +1,4 @@
-import {UserProfileDTO} from '../Users/UserProfileDTO';
+import { UserProfileDTO } from '../Users/UserProfileDTO';
 
 export type CompanyDTO = UserProfileDTO & {
   name: string;

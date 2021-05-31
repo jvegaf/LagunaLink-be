@@ -29,25 +29,20 @@ export class Company extends AggregateRoot {
     this.city = company.city;
   }
 
-  static create(
-    company: CompanyType
-  ): Company {
+  static create(company: CompanyType): Company {
     return new Company(company);
   }
 
-  static fromPrimitives(
-    plaindata: CompanyDTO) {
-    return new Company(
-      {
-        id: new CompanyId(plaindata.id),
-        name: new CompanyName(plaindata.name),
-        description: new CompanyDescription(plaindata.description),
-        address: new CompanyAddress(plaindata.address),
-        postalCode: new CompanyPostalCode(plaindata.postalCode),
-        region: new CompanyRegion(plaindata.region),
-        city: new CompanyCity(plaindata.city)
-      }
-    );
+  static fromPrimitives(plaindata: CompanyDTO) {
+    return new Company({
+      id: new CompanyId(plaindata.id),
+      name: new CompanyName(plaindata.name),
+      description: new CompanyDescription(plaindata.description),
+      address: new CompanyAddress(plaindata.address),
+      postalCode: new CompanyPostalCode(plaindata.postalCode),
+      region: new CompanyRegion(plaindata.region),
+      city: new CompanyCity(plaindata.city),
+    });
   }
 
   toPrimitives(): CompanyDTO {
@@ -58,8 +53,7 @@ export class Company extends AggregateRoot {
       address: this.address.value,
       postalCode: this.postalCode.value,
       region: this.region.value,
-      city: this.city.value
+      city: this.city.value,
     };
   }
-
 }

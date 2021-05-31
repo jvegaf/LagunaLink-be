@@ -14,6 +14,7 @@ import { ApplicationService } from '../../../../Shared/domain/ApplicationService
 import { JobOpenCreatedAt } from '../../domain/JobOpenCreatedAt';
 import { JobOpenHiringDate } from '../../domain/JobOpenHiringDate';
 import { InvalidArgumentError } from '../../../../Shared/domain/value-object/InvalidArgumentError';
+import { JobOpenIsActive } from '../../domain/JobOpenIsActive';
 
 export class JobOpeningUpgrader extends ApplicationService {
   private repository: JobOpeningRepository;
@@ -38,6 +39,7 @@ export class JobOpeningUpgrader extends ApplicationService {
       qualification: new JobOpenQualification(request.qualification),
       prevExperience: new JobOpenPrevExperience(request.prevExperience),
       hiringDate: new JobOpenHiringDate(request.hiringDate),
+      isActive: new JobOpenIsActive(request.isActive),
     });
 
     await this.repository.save(jobOpening);
@@ -50,7 +52,7 @@ export class JobOpeningUpgrader extends ApplicationService {
   }
 
   private async ensureJobOpeningisOwn(jobOpeningId: JobOpeningId, companyId: CompanyId) {
-    const job = await this.repository.search(jobOpeningId) as JobOpening;
+    const job = (await this.repository.search(jobOpeningId)) as JobOpening;
     if (job.company.value !== companyId.value) {
       throw new InvalidArgumentError('the job is not own of this company');
     }

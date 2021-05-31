@@ -26,7 +26,7 @@ export class StudentCreator extends ApplicationService {
       lastname: new StudentLastname(),
       qualification: Qualification.emptyQualification(),
       jobexperiences: [],
-      languages: []
+      languages: [],
     });
 
     await this.repository.save(student);

@@ -14,11 +14,7 @@ export class Qualification {
   }
 
   static emptyQualification(): Qualification {
-    return new Qualification(
-      new TitleName(),
-      new StartDate(),
-      new EndDate()
-    );
+    return new Qualification(new TitleName(), new StartDate(), new EndDate());
   }
 
   static fromPrimitives(plaindata: { title: string; start_date: string; end_date: string }) {

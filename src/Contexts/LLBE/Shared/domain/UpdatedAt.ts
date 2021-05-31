@@ -1,8 +1,7 @@
 import { DateValueObject } from '../../../Shared/domain/value-object/DateValueObject';
 import { Timestamp } from './Timestamp';
 
-export class UpdatedAt extends DateValueObject{
-
+export class UpdatedAt extends DateValueObject {
   constructor(value: string) {
     super(value);
   }

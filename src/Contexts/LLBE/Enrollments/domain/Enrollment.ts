@@ -29,7 +29,7 @@ export class Enrollment extends AggregateRoot {
       id: new EnrollmentId(plaindata.id),
       student: new StudentId(plaindata.student),
       jobOpening: new JobOpeningId(plaindata.job_opening),
-      enrollmentDate: new EnrollmentDate(plaindata.enrollment_date)
+      enrollmentDate: new EnrollmentDate(plaindata.enrollment_date),
     });
   }
 

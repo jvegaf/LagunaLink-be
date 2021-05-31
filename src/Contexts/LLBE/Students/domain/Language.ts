@@ -24,7 +24,7 @@ export class Language {
     return {
       name: this.name.value,
       speak: this.speak.value,
-      write: this.write.value
+      write: this.write.value,
     };
   }
 }

@@ -2,7 +2,6 @@ import { StringValueObject } from '../../../Shared/domain/value-object/StringVal
 import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError';
 
 export class UserRole extends StringValueObject {
-
   private roles = ['ROLE_STUDENT', 'ROLE_COMPANY'];
 
   constructor(value: string) {

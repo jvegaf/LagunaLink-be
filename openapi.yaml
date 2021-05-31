@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   description: This is the backend of the Lagunalink App.  You can find out more about this project at [https://github.com/jvegaf/LagunaLink-be](https://github.com/jvegaf/LagunaLink-be)
-  version: 2.1.1
+  version: 2.2.1
   title: LagunaLink Backend
   contact:
     email: josevega234@gmail.com
@@ -51,10 +51,9 @@ paths:
                 type: object
                 properties:
                   profile:
-                    type: object
                     $ref: '#/components/schemas/StudentProfile'
-                  
-                    
+
+
   /avatar/{userId}:
     get:
       summary: get avatar id from determinate user
@@ -414,8 +413,28 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 
-  
-    
+    delete:
+      tags:
+        - Job Opening
+      security:
+        - BearerAuth: [ ]
+      summary: turn Job Opening inactive
+      parameters:
+        - name: jobOpeningId
+          in: path
+          description: JobOpening ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
 
   /enrollments/{enrollmentId}:
     get:
@@ -446,7 +465,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
-    
+
     delete:
       tags:
         - Enrollment

@@ -2,7 +2,6 @@ import { NumberValueObject } from '../../../Shared/domain/value-object/IntValueO
 import { InvalidArgumentError } from '../../../Shared/domain/value-object/InvalidArgumentError';
 
 export class LanguageLevel extends NumberValueObject {
-
   private readonly MIN_VAL = 1;
   private readonly MAX_VAL = 5;
 

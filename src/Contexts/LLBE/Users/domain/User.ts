@@ -28,16 +28,7 @@ export class User extends AggregateRoot {
     createdAt: UserCreatedAt,
     updatedAt: UserUpdatedAt
   ): User {
-    return new User(
-      id,
-      email,
-      password,
-      isActive,
-      role,
-      avatar,
-      createdAt,
-      updatedAt
-    );
+    return new User(id, email, password, isActive, role, avatar, createdAt, updatedAt);
   }
 
   static fromPrimitives(plaindata: {
@@ -147,5 +138,4 @@ export class User extends AggregateRoot {
       UserUpdatedAt.now()
     );
   }
-
 }

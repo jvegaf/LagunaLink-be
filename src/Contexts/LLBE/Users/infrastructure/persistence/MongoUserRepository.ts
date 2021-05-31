@@ -5,9 +5,7 @@ import { UserRepository } from '../../domain/UserRepository';
 import { UserId } from '../../../Shared/domain/Users/UserId';
 import { UserEmail } from '../../domain/UserEmail';
 
-export class MongoUserRepository
-  extends MongoRepository<User>
-  implements UserRepository {
+export class MongoUserRepository extends MongoRepository<User> implements UserRepository {
   public async save(user: User): Promise<void> {
     await this.ensureEmailIndex();
     await this.persist(user.id.value, user);
@@ -26,9 +24,7 @@ export class MongoUserRepository
 
     const document = await collection.findOne({ email: email.value });
 
-    return document
-      ? User.fromPrimitives({ ...document, id: document._id })
-      : null;
+    return document ? User.fromPrimitives({ ...document, id: document._id }) : null;
   }
 
   private async ensureEmailIndex() {

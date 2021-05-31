@@ -8,4 +8,6 @@ export type JobOpeningDocument = MongoDocument & {
   responsibilities: string;
   qualification: string;
   prevExperience: string;
+  hiringDate: string;
+  isActive: boolean;
 };

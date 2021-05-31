@@ -6,19 +6,18 @@ import { JobOpeningGetController } from '../controllers/jobOpenings/JobOpeningGe
 import { JobOpeningFetchController } from '../controllers/jobOpenings/JobOpeningFetchController';
 import { authChecker } from '../middlewares/authChecker';
 import { companyRoleChecker } from '../middlewares/companyRoleChecker';
+import { JobOpeningDeleteController } from '../controllers/jobOpenings/JobOpeningDeleteController';
 
 export const register = (router: Router) => {
   const jobOpeningGetController: JobOpeningGetController = container.get(
     'App.controllers.jobOpenings.JobOpeningGetController'
   );
-  router.get('/job_openings/:id', authChecker,
-    (req: Request, res: Response) => jobOpeningGetController.run(req, res));
+  router.get('/job_openings/:id', authChecker, (req: Request, res: Response) => jobOpeningGetController.run(req, res));
 
   const jobOpeningFetchController: JobOpeningFetchController = container.get(
     'App.controllers.jobOpenings.JobOpeningFetchController'
   );
-  router.get('/job_openings', authChecker, (req: Request, res: Response) =>
-    jobOpeningFetchController.run(req, res));
+  router.get('/job_openings', authChecker, (req: Request, res: Response) => jobOpeningFetchController.run(req, res));
 
   const jobOpeningPostController: JobOpeningPostController = container.get(
     'App.controllers.jobOpenings.JobOpeningPostController'
@@ -32,5 +31,12 @@ export const register = (router: Router) => {
   );
   router.put('/job_openings/:id', authChecker, companyRoleChecker, (req: Request, res: Response) =>
     jobOpeningPutController.run(req, res)
+  );
+
+  const jobOpeningDeleteController: JobOpeningDeleteController = container.get(
+    'App.controllers.jobOpenings.JobOpeningDeleteController'
+  );
+  router.delete('/job_openings/:id', authChecker, companyRoleChecker, (req: Request, res: Response) =>
+    jobOpeningDeleteController.run(req, res)
   );
 };

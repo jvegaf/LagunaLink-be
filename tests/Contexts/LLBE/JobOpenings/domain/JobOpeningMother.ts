@@ -21,6 +21,8 @@ import { JobOpenCreatedAt } from '../../../../../src/Contexts/LLBE/JobOpenings/d
 import { JobOpenHiringDate } from '../../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpenHiringDate';
 import { JobOpenHiringDateMother } from './JobOpenHiringDateMother';
 import { JobOpenPositionMother } from './JobOpenPositionMother';
+import { JobOpenIsActive } from '../../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpenIsActive';
+import { JobOpenIsActiveMother } from './JobOpenIsActiveMother';
 
 export class JobOpeningMother {
   static create(
@@ -33,7 +35,8 @@ export class JobOpeningMother {
     responsibilities: JobOpenResponsibilities,
     qualification: JobOpenQualification,
     prevExperience: JobOpenPrevExperience,
-    hiringDate: JobOpenHiringDate
+    hiringDate: JobOpenHiringDate,
+    isActive: JobOpenIsActive
   ): JobOpening {
     return new JobOpening({
       id,
@@ -45,7 +48,8 @@ export class JobOpeningMother {
       responsibilities,
       qualification,
       prevExperience,
-      hiringDate
+      hiringDate,
+      isActive,
     });
   }
 
@@ -60,7 +64,8 @@ export class JobOpeningMother {
       JobOpenResponsibilitiesMother.create(request.responsibilities),
       JobOpenQualificationMother.create(request.qualification),
       JobOpenPrevExperienceMother.create(request.prevExperience),
-      JobOpenHiringDateMother.create(request.hiringDate)
+      JobOpenHiringDateMother.create(request.hiringDate),
+      JobOpenIsActiveMother.create(true)
     );
   }
 
@@ -75,7 +80,8 @@ export class JobOpeningMother {
       JobOpenResponsibilitiesMother.create(request.responsibilities),
       JobOpenQualificationMother.create(request.qualification),
       JobOpenPrevExperienceMother.create(request.prevExperience),
-      JobOpenHiringDateMother.create(request.hiringDate)
+      JobOpenHiringDateMother.create(request.hiringDate),
+      JobOpenIsActiveMother.create(request.isActive)
     );
   }
 
@@ -90,7 +96,8 @@ export class JobOpeningMother {
       JobOpenResponsibilitiesMother.random(),
       JobOpenQualificationMother.random(),
       JobOpenPrevExperienceMother.random(),
-      JobOpenHiringDateMother.random()
+      JobOpenHiringDateMother.random(),
+      JobOpenIsActiveMother.random()
     );
   }
 }

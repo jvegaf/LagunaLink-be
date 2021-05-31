@@ -70,6 +70,10 @@ services:
     class: ../../../controllers/jobOpenings/JobOpeningPutController
     arguments: [ "@App.jobOpenings.JobOpeningUpgrader", "@App.jobOpenings.CompanyJobsFetcher" ]
 
+  App.controllers.jobOpenings.JobOpeningDeleteController:
+    class: ../../../controllers/jobOpenings/JobOpeningDeleteController
+    arguments: [ "@App.jobOpenings.JobOpeningDeactivator" ]
+
 
   # ENROLLMENTS
   App.controllers.enrollments.EnrollmentPostController:

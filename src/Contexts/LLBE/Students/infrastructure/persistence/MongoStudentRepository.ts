@@ -8,16 +8,15 @@ import { StudentProfileDTO } from '../../../Shared/domain/Students/StudentProfil
 
 export class MongoStudentRepository extends MongoRepository<Student> implements StudentRepository {
   public save(student: Student): Promise<void> {
-    return this.persist(
-      student.id.value, student);
+    return this.persist(student.id.value, student);
   }
 
   public async search(id: StudentId): Promise<Nullable<Student>> {
     const collection = await this.collection();
 
-    const document = await collection.findOne({_id: id.value});
+    const document = await collection.findOne({ _id: id.value });
 
-    return document ? Student.fromPrimitives({...document, id: id.value}) : null;
+    return document ? Student.fromPrimitives({ ...document, id: id.value }) : null;
   }
 
   public async searchProfile(id: StudentId): Promise<StudentProfileDTO> {
@@ -25,92 +24,95 @@ export class MongoStudentRepository extends MongoRepository<Student> implements 
 
     const agg = [
       {
-        '$match': {
-          '_id': id.value
-        }
-      }, {
-        '$lookup': {
-          'from': 'enrollments',
-          'localField': '_id',
-          'foreignField': 'student',
-          'as': 'enrolls'
-        }
-      }, {
-        '$unwind': {
-          'path': '$enrolls',
-          'preserveNullAndEmptyArrays': true
-        }
-      }, {
-        '$lookup': {
-          'from': 'jobOpenings',
-          'localField': 'enrolls.job_opening',
-          'foreignField': '_id',
-          'as': 'jobOpenings'
-        }
-      }, {
-        '$unwind': {
-          'path': '$jobOpenings',
-          'preserveNullAndEmptyArrays': true
-        }
-      }, {
-        '$lookup': {
-          'from': 'companies',
-          'localField': 'jobOpenings.company',
-          'foreignField': '_id',
-          'as': 'companies'
-        }
-      }, {
-        '$unwind': {
-          'path': '$companies',
-          'preserveNullAndEmptyArrays': true
-        }
+        $match: {
+          _id: id.value,
+        },
       },
       {
-        '$group': {
-          '_id': '$_id',
-          'name': {
-            '$first': '$name'
+        $lookup: {
+          from: 'enrollments',
+          localField: '_id',
+          foreignField: 'student',
+          as: 'enrolls',
+        },
+      },
+      {
+        $unwind: {
+          path: '$enrolls',
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $lookup: {
+          from: 'jobOpenings',
+          localField: 'enrolls.job_opening',
+          foreignField: '_id',
+          as: 'jobOpenings',
+        },
+      },
+      {
+        $unwind: {
+          path: '$jobOpenings',
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $lookup: {
+          from: 'companies',
+          localField: 'jobOpenings.company',
+          foreignField: '_id',
+          as: 'companies',
+        },
+      },
+      {
+        $unwind: {
+          path: '$companies',
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $group: {
+          _id: '$_id',
+          name: {
+            $first: '$name',
           },
-          'surname': {
-            '$first': '$surname'
+          surname: {
+            $first: '$surname',
           },
-          'lastname': {
-            '$first': '$lastname'
+          lastname: {
+            $first: '$lastname',
           },
-          'qualification': {
-            '$first': '$qualification'
+          qualification: {
+            $first: '$qualification',
           },
-          'languages': {
-            '$first': '$languages'
+          languages: {
+            $first: '$languages',
           },
-          'job_experiences': {
-            '$first': '$job_experiences'
+          job_experiences: {
+            $first: '$job_experiences',
           },
-          'enrolls': {
-            '$push': '$enrolls'
+          enrolls: {
+            $push: '$enrolls',
           },
-          'jobOpenings': {
-            '$push': '$jobOpenings'
+          jobOpenings: {
+            $push: '$jobOpenings',
           },
-          'companies': {
-            '$push': '$companies'
-          }
-        }
-      }
+          companies: {
+            $push: '$companies',
+          },
+        },
+      },
     ];
 
     const docArr = await collection.aggregate(agg).toArray();
     const document = docArr[0];
 
-    return {...document, id: id.value};
+    return { ...document, id: id.value };
   }
 
   public async update(values: UpgradeStudentRequest): Promise<void> {
     const collection = await this.collection();
-    collection.findOneAndUpdate(
-      {_id: values.id},
-      {$set: values}
-    );
+    collection.findOneAndUpdate({ _id: values.id }, { $set: values });
   }
 
   protected moduleName(): string {

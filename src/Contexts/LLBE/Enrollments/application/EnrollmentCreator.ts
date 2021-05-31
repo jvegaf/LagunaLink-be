@@ -22,7 +22,7 @@ export class EnrollmentCreator extends ApplicationService {
       enrollmentDate: EnrollmentDate.now(),
       id: enrollmentId,
       jobOpening: new JobOpeningId(request.job_opening),
-      student: new StudentId(request.student)
+      student: new StudentId(request.student),
     });
 
     await this.repository.save(enrollment);

@@ -26,7 +26,7 @@ export class CompanyUpgrader extends ApplicationService {
       address: new CompanyAddress(request.address),
       postalCode: new CompanyPostalCode(request.postalCode),
       region: new CompanyRegion(request.region),
-      city: new CompanyCity(request.city)
+      city: new CompanyCity(request.city),
     });
     await this.repository.save(company);
   }

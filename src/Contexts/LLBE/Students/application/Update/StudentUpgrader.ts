@@ -17,11 +17,10 @@ export class StudentUpgrader extends ApplicationService {
   }
 
   async run(request: UpgradeStudentRequest): Promise<Student> {
-
     await this.repository.update(request);
     await this.userUpdater.run(new UserId(request.id));
     this.logInfo(`student ${request.id} updated`);
 
-    return await this.repository.search(new StudentId(request.id)) as Student;
+    return (await this.repository.search(new StudentId(request.id))) as Student;
   }
 }

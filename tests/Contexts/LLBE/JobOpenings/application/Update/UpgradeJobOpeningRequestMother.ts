@@ -17,6 +17,8 @@ import { JobOpeningId } from '../../../../../../src/Contexts/LLBE/Shared/domain/
 import { JobOpeningIdMother } from '../../../Shared/domain/JobOpenings/JobOpeningIdMother';
 import { JobOpenHiringDate } from '../../../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpenHiringDate';
 import { JobOpenHiringDateMother } from '../../domain/JobOpenHiringDateMother';
+import { JobOpenIsActive } from '../../../../../../src/Contexts/LLBE/JobOpenings/domain/JobOpenIsActive';
+import { JobOpenIsActiveMother } from '../../domain/JobOpenIsActiveMother';
 
 export class UpgradeJobOpeningRequestMother {
   static create(
@@ -28,7 +30,8 @@ export class UpgradeJobOpeningRequestMother {
     responsibilities: JobOpenResponsibilities,
     qualification: JobOpenQualification,
     prevExperience: JobOpenPrevExperience,
-    hiringDate: JobOpenHiringDate
+    hiringDate: JobOpenHiringDate,
+    isActive: JobOpenIsActive
   ): UpgradeJobOpeningRequest {
     return {
       id: id.value,
@@ -39,7 +42,8 @@ export class UpgradeJobOpeningRequestMother {
       responsibilities: responsibilities.value,
       qualification: qualification.value,
       prevExperience: prevExperience.value,
-      hiringDate: hiringDate.toString()
+      hiringDate: hiringDate.toString(),
+      isActive: isActive.value,
     };
   }
 
@@ -53,7 +57,8 @@ export class UpgradeJobOpeningRequestMother {
       JobOpenResponsibilitiesMother.random(),
       JobOpenQualificationMother.random(),
       JobOpenPrevExperienceMother.random(),
-      JobOpenHiringDateMother.random()
+      JobOpenHiringDateMother.random(),
+      JobOpenIsActiveMother.random()
     );
   }
 }

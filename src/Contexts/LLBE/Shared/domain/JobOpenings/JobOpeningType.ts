@@ -8,6 +8,7 @@ import { JobOpenResponsibilities } from '../../../JobOpenings/domain/JobOpenResp
 import { JobOpenQualification } from '../../../JobOpenings/domain/JobOpenQualification';
 import { JobOpenPrevExperience } from '../../../JobOpenings/domain/JobOpenPrevExperience';
 import { JobOpenHiringDate } from '../../../JobOpenings/domain/JobOpenHiringDate';
+import { JobOpenIsActive } from '../../../JobOpenings/domain/JobOpenIsActive';
 
 export type JobOpeningType = {
   id: JobOpeningId;
@@ -20,4 +21,5 @@ export type JobOpeningType = {
   qualification: JobOpenQualification;
   prevExperience: JobOpenPrevExperience;
   hiringDate: JobOpenHiringDate;
+  isActive: JobOpenIsActive;
 };

@@ -1,13 +1,13 @@
-import {AggregateRoot} from '../../../Shared/domain/AggregateRoot';
-import {StudentId} from '../../Shared/domain/Students/StudentId';
-import {StudentName} from './StudentName';
-import {StudentSurname} from './StudentSurname';
-import {StudentLastname} from './StudentLastname';
-import {Qualification} from './Qualification';
-import {Language} from './Language';
-import {JobExperience} from './JobExperience';
-import {StudentType} from '../../Shared/domain/Students/StudentType';
-import {StudentDTO} from '../../Shared/domain/Students/StudentDTO';
+import { AggregateRoot } from '../../../Shared/domain/AggregateRoot';
+import { StudentId } from '../../Shared/domain/Students/StudentId';
+import { StudentName } from './StudentName';
+import { StudentSurname } from './StudentSurname';
+import { StudentLastname } from './StudentLastname';
+import { Qualification } from './Qualification';
+import { Language } from './Language';
+import { JobExperience } from './JobExperience';
+import { StudentType } from '../../Shared/domain/Students/StudentType';
+import { StudentDTO } from '../../Shared/domain/Students/StudentDTO';
 
 export class Student extends AggregateRoot {
   readonly id: StudentId;
@@ -33,8 +33,7 @@ export class Student extends AggregateRoot {
     return new Student(data);
   }
 
-  static fromPrimitives(
-    plainData: StudentDTO): Student {
+  static fromPrimitives(plainData: StudentDTO): Student {
     return new Student({
       id: new StudentId(plainData.id),
       name: new StudentName(plainData.name),
@@ -42,7 +41,7 @@ export class Student extends AggregateRoot {
       lastname: new StudentLastname(plainData.lastname),
       qualification: Qualification.fromPrimitives(plainData.qualification),
       languages: this.languagesFromPrimitives(plainData.languages),
-      jobexperiences: this.jobexperiencesFromPrimitives(plainData.job_experiences)
+      jobexperiences: this.jobexperiencesFromPrimitives(plainData.job_experiences),
     });
   }
 
@@ -50,13 +49,15 @@ export class Student extends AggregateRoot {
     return languages.map(language => Language.fromPrimitives(language));
   }
 
-  protected static jobexperiencesFromPrimitives(jobexperiences: {
-    company: string;
-    position: string;
-    responsibilities: string;
-    start_date: string;
-    end_date: string;
-  }[]) {
+  protected static jobexperiencesFromPrimitives(
+    jobexperiences: {
+      company: string;
+      position: string;
+      responsibilities: string;
+      start_date: string;
+      end_date: string;
+    }[]
+  ) {
     return jobexperiences.map(job => JobExperience.fromPrimitives(job));
   }
 
@@ -68,7 +69,7 @@ export class Student extends AggregateRoot {
       lastname: this.lastname.value,
       qualification: this.qualification.toPrimitives(),
       languages: this.languagesToPrimitives(),
-      job_experiences: this.jobexperiencesToPrimitives()
+      job_experiences: this.jobexperiencesToPrimitives(),
     };
   }
 

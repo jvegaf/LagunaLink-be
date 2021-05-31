@@ -20,9 +20,7 @@ export class EnrollmentRemover extends ApplicationService {
   }
 
   private async ensureEnrollmentStudentOwner(request: RemoveEnrollmentRequest) {
-    const enrollment = await this.repository.search(
-      new EnrollmentId(request.enrollment_id)
-    );
+    const enrollment = await this.repository.search(new EnrollmentId(request.enrollment_id));
     if (enrollment === null) {
       throw new EnrollmentNotFound('This enrollment not exists');
     }

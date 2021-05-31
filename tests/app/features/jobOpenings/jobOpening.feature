@@ -51,7 +51,8 @@ Feature: Job Opening
       "responsibilities": "Desarrollo de interfaz de apliacion web",
       "qualification": "Tecnico Superior en desarrollo de aplicaciones web",
       "prevExperience": "3 meses",
-      "hiringDate": "05-09-2022"
+      "hiringDate": "05-09-2022",
+      "isActive": true
     }
     """
     Then the response status code should be 200
@@ -69,7 +70,8 @@ Feature: Job Opening
       "responsibilities": "Desarrollo de interfaz de apliacion web",
       "qualification": "Tecnico Superior en desarrollo de aplicaciones web",
       "prevExperience": "3 meses",
-      "hiringDate": "05-07-2022"
+      "hiringDate": "05-07-2022",
+      "isActive": true
     }
     """
     Then the response status code should be 404
