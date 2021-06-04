@@ -1,6 +1,6 @@
 {
   "name": "lagunalink_be",
-  "version": "2.2.1",
+  "version": "2.2.3",
   "description": "API Backend del PFG LagunaLink",
   "repository": {
     "url": "https://github.com/jvegaf/LagunaLink-be"
